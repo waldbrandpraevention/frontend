@@ -5,7 +5,7 @@ import './assets/styles/index.css';
 import reportWebVitals from './reportWebVitals';
 import router from './routes';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/styles/bootstrap.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
