@@ -1,14 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import logo from '../assets/img/logo.svg'
+import Logo from '../assets/img/Logo';
 import "../assets/styles/App.css"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <Logo style={{width: "64px", height: "64px"}} />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -21,7 +21,7 @@ function App() {
           Learn React
         </a>
       </header>
-
+     
       <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
