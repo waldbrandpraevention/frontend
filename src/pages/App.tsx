@@ -12,9 +12,9 @@ function App() {
     <div className="App">
       <Container>
         <PanelLayout>
-          <Panel visible></Panel>
-          <Panel visible></Panel>
-          <Panel visible></Panel>
+          <Panel>foo</Panel>
+          <Panel visible={false}>unsichtbar</Panel>
+          <Panel visible>bar</Panel>
 
         </PanelLayout>
 
