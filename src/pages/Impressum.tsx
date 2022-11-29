@@ -121,8 +121,7 @@ const Haftung = () => {
   );
 };
 
-class Impressum extends React.PureComponent {
-  render() {
+const Impressum = () => {
     return (
       <div style={{ paddingTop: 50 }}>
         <h2>Impressum</h2>
@@ -130,6 +129,5 @@ class Impressum extends React.PureComponent {
       </div>
     );
   }
-}
 
 export default Impressum;
