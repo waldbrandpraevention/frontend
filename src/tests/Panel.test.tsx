@@ -10,7 +10,7 @@ test('renders visible panel', () => {
 
 test('renders visible panel explicit', () => {
   render(<Panel visible>foo</Panel>);
-  const linkElement = screen.getByText(/fooo/i);
+  const linkElement = screen.getByText(/foo/i);
   expect(linkElement).toBeInTheDocument();
 });
 

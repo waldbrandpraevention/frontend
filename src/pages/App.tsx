@@ -1,23 +1,27 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import logo from '../assets/img/logo.svg'
 import "../assets/styles/App.css"
 import Panel from '../components/Panel';
-import PanelLayout from '../components/PanelLayout';
 
 function App() {
   return (
     <div className="App">
       <Container>
-        <PanelLayout>
-          <Panel>foo</Panel>
-          <Panel visible={false}>unsichtbar</Panel>
-          <Panel visible>bar</Panel>
-
-        </PanelLayout>
-
+        <Row>
+          <Col sm={8}><Panel>foo</Panel></Col>
+          <Col sm={4}><Panel>foo</Panel></Col>
+        </Row>
+        <Row>
+          <Col sm><Panel>foo</Panel></Col>
+          <Col sm><Panel>foo</Panel></Col>
+          <Col sm><Panel>foo</Panel></Col>
+        </Row>
+       {/*  <Panel>foo</Panel>
+        <Panel visible={false}>unsichtbar</Panel>
+        <Panel visible>bar</Panel> */}
       </Container>
 
 
