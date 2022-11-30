@@ -1,5 +1,7 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import Header from "../components/header";
+import styled from "styled-components";
 
 const Haftung = () => {
   return (
@@ -122,6 +124,17 @@ const Haftung = () => {
   );
 };
 
+const StyledContainer = styled(Container)`
+ @media (min-width: 768px) { 
+    margin: auto;
+    width: 70%;
+  };
+  @media (min-width: 1200px) { 
+    margin: auto;
+    width: 55%;
+  }
+`;
+
 const Impressum = () => {
   return (
     <div className="App">
@@ -129,8 +142,10 @@ const Impressum = () => {
         <Header />
       </header>
       <div className="App-body">
-        <h2>Impressum</h2>
-        <Haftung />
+        <StyledContainer>
+          <h2>Impressum</h2>
+          <Haftung />
+        </StyledContainer>
       </div>
     </div>
   );
