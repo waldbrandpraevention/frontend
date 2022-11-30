@@ -10,7 +10,7 @@ const BellIcon = (props: BellIconProps) => {
     //console.log(visible)
     return <>
         <BiBell className='Icon Bell'> </BiBell>
-        {visible && <div className='Icon Notification'></div>}
+        {(props.visible ?? true) && <div className='Icon Notification'></div>}
     </>
 
 
