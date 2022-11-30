@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Nav } from "react-bootstrap";
 import '../assets/styles/sidebar.css'
-import Logo from "../assets/img/logo.svg"
+import Logo from "../assets/img/Logo"
 
 type SidebarProps = { visible?: boolean }
 
@@ -9,7 +9,7 @@ const Sidebar = (props: SidebarProps) => {
     const [visible, setVisible] = useState(props.visible ?? true);
     return <> {visible && <Nav className="col-md-12 d-none d-md-block bg-light sidebar "
         activeKey="/home">
-        <img src={Logo} alt="KiWI" className="image"></img>
+        <Logo className="image"/>
         <div className="sidebar-sticky"></div>
         <Nav.Item>
             <Nav.Link className="text-dark" href="/dashbord">Dashbord</Nav.Link>

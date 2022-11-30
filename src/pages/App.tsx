@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Logo from '../assets/img/Logo';
 import "../assets/styles/App.css"
 import Header from '../components/header'
 
