@@ -6,7 +6,7 @@ type BellIconProps = { visible?: boolean }
 
 
 const BellIcon = (props: BellIconProps) => {
-    const [visible, setVisible] = useState(props.visible ?? true);
+    const [visible] = useState(props.visible ?? true);
     //console.log(visible)
     return <>
         <BiBell className='Icon Bell'> </BiBell>
