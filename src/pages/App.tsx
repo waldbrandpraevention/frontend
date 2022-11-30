@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <Header />
       </header>
-      <body className="App-body">
+      <div className="App-body">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -32,7 +32,7 @@ function App() {
             Submit
           </Button>
         </Form>
-      </body>
+      </div>
     </div>
   );
 }
