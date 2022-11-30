@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/header";
 
 const Haftung = () => {
   return (
@@ -29,7 +30,7 @@ const Haftung = () => {
           Geschäftsführer Frank Neumann <br />
           <br />
           Amtsgericht Chemnitz, HRB: 29554 <br />
-          Ust-IdNr: DE 285697995 
+          Ust-IdNr: DE 285697995
         </p>
         <p>
           <b>Verantwortlich nach § 55 Abs.2 RStV:</b>
@@ -122,12 +123,17 @@ const Haftung = () => {
 };
 
 const Impressum = () => {
-    return (
-      <div style={{ paddingTop: 50 }}>
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Header />
+      </header>
+      <div className="App-body">
         <h2>Impressum</h2>
         <Haftung />
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default Impressum;

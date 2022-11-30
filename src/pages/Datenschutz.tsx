@@ -1,6 +1,7 @@
 import React from "react";
+import Header from "../components/header";
 
-const Datenschutz = () => {
+const DatenschutzText = () => {
   return (
     <div>
       <p>
@@ -247,13 +248,18 @@ const Datenschutz = () => {
   );
 };
 
-const Datenschutzerklärung = () => {
+const Datenschutz = () => {
   return (
-    <div style={{ paddingTop: 50 }}>
-      <h2>Datenschutzerklärung</h2>
-      <Datenschutz />
+    <div className="App">
+      <header className="App-header">
+        <Header />
+      </header>
+      <div className="App-body">
+        <h2>Datenschutzerklärung</h2>
+        <DatenschutzText />
+      </div>
     </div>
   );
 };
 
-export default Datenschutzerklärung;
+export default Datenschutz;

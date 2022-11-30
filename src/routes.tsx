@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./pages/App"
+import Datenschutz from "./pages/Datenschutz";
+import Impressum from "./pages/Impressum";
 
 const router = createBrowserRouter([
     {
@@ -32,11 +34,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/impressum",
-        element: "impressum"
+        element: <Impressum />
     },
     {
         path: "/datenschutz",
-        element: "datenschutz"
+        element: <Datenschutz />
     },
     {
         path: "/advanced", /* Admin */
