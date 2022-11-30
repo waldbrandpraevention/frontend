@@ -6,7 +6,7 @@ import Logo from "../assets/img/Logo"
 type SidebarProps = { visible?: boolean }
 
 const Sidebar = (props: SidebarProps) => {
-    const [visible, setVisible] = useState(props.visible ?? true);
+    const [visible] = useState(props.visible ?? true);
     return <> {visible && <Nav className="col-md-12 d-none d-md-block bg-light sidebar "
         activeKey="/home">
         <Logo className="image"/>
