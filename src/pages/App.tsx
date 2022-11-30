@@ -1,16 +1,12 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import logo from '../assets/img/logo.svg'
 import "../assets/styles/App.css"
-import Panel from '../components/Panel';
 
 function App() {
   return (
     <div className="App">
-
-
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -46,8 +42,6 @@ function App() {
         Submit
       </Button>
     </Form>
-
-
 
     </div>
   );
