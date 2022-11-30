@@ -12,7 +12,7 @@ const Header = () => {
                 <Sidebar />
             </span>
             <span className="navbar-icon ms-auto">
-                <BellIcon />
+                <BellIcon visible={true} />
             </span>
             <span className="navbar-icon ms-auto mr-3">
                 <ProfileIcon />

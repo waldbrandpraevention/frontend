@@ -7,6 +7,7 @@ import { GrMap } from 'react-icons/gr'
 import { BsGearFill, BsListUl } from 'react-icons/bs'
 import { DiGoogleAnalytics } from 'react-icons/di'
 import { MdOutlinePrivacyTip } from 'react-icons/md'
+import { ImSection } from 'react-icons/im'
 
 
 type SidebarProps = { visible?: boolean }
@@ -34,7 +35,7 @@ const Sidebar = (props: SidebarProps) => {
             <Nav.Link className="text-dark" eventKey="einstelungen"><BsGearFill className="svg" />Einstelungen</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link className="text-dark" eventKey="impressung"><BsGearFill className="svg" />Impressung</Nav.Link>
+            <Nav.Link className="text-dark" eventKey="impressung"><ImSection className="svg" />Impressung</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link className="text-dark" eventKey="datenschutz"><MdOutlinePrivacyTip className="svg" />Datenschutz</Nav.Link>

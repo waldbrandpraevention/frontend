@@ -18,3 +18,11 @@
 .Profile {
   background-color: lawngreen;
 }
+
+.Notification {
+  height: 5px;
+  width: 5px;
+  background-color: red;
+  margin-right: 4rem;
+  z-index: 100;
+}
