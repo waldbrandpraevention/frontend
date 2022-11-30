@@ -9,20 +9,6 @@ import Panel from '../components/Panel';
 function App() {
   return (
     <div className="App">
-      <Container>
-        <Row>
-          <Col sm={8}><Panel>foo</Panel></Col>
-          <Col sm={4}><Panel>foo</Panel></Col>
-        </Row>
-        <Row>
-          <Col sm><Panel>foo</Panel></Col>
-          <Col sm><Panel>foo</Panel></Col>
-          <Col sm><Panel>foo</Panel></Col>
-        </Row>
-       {/*  <Panel>foo</Panel>
-        <Panel visible={false}>unsichtbar</Panel>
-        <Panel visible>bar</Panel> */}
-      </Container>
 
 
       <header className="App-header">
