@@ -220,7 +220,7 @@ const DatenschutzText = () => {
         <a
           href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
           target="_blank"
-          rel="noopener nofollow"
+          rel="noreferrer nofollow"
         >
           https://wiki.osmfoundation.org/wiki/Privacy_Policy
         </a>
@@ -233,7 +233,7 @@ const DatenschutzText = () => {
         <a
           href="https://www.generator-datenschutzerklärung.de"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Muster-Datenschutzerklärung
         </a>{" "}
@@ -241,7 +241,7 @@ const DatenschutzText = () => {
         <a
           href="https://www.ratgeberrecht.eu/datenschutz/datenschutzerklaerung-generator-dsgvo.html"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Anwaltskanzlei Weiß &amp; Partner
         </a>
