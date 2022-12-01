@@ -1,6 +1,9 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import Header from "../components/header";
+import styled from "styled-components";
 
-const Datenschutz = () => {
+const DatenschutzText = () => {
   return (
     <div>
       <p>
@@ -217,7 +220,7 @@ const Datenschutz = () => {
         <a
           href="https://wiki.osmfoundation.org/wiki/Privacy_Policy"
           target="_blank"
-          rel="noopener nofollow"
+          rel="noreferrer nofollow"
         >
           https://wiki.osmfoundation.org/wiki/Privacy_Policy
         </a>
@@ -230,7 +233,7 @@ const Datenschutz = () => {
         <a
           href="https://www.generator-datenschutzerklärung.de"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Muster-Datenschutzerklärung
         </a>{" "}
@@ -238,7 +241,7 @@ const Datenschutz = () => {
         <a
           href="https://www.ratgeberrecht.eu/datenschutz/datenschutzerklaerung-generator-dsgvo.html"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Anwaltskanzlei Weiß &amp; Partner
         </a>
@@ -247,13 +250,31 @@ const Datenschutz = () => {
   );
 };
 
-const Datenschutzerklärung = () => {
+const StyledContainer = styled(Container)`
+ @media (min-width: 768px) { 
+    margin: auto;
+    width: 70%;
+  };
+  @media (min-width: 1200px) { 
+    margin: auto;
+    width: 55%;
+  }
+`;
+
+const Datenschutz = () => {
   return (
-    <div style={{ paddingTop: 50 }}>
-      <h2>Datenschutzerklärung</h2>
-      <Datenschutz />
+    <div className="App">
+      <header className="App-header">
+        <Header />
+      </header>
+      <div className="App-body">
+        <StyledContainer>
+          <h2>Datenschutzerklärung</h2>
+          <DatenschutzText />
+        </StyledContainer>
+      </div>
     </div>
   );
 };
 
-export default Datenschutzerklärung;
+export default Datenschutz;

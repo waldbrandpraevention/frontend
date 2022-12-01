@@ -1,4 +1,7 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import Header from "../components/header";
+import styled from "styled-components";
 
 const Haftung = () => {
   return (
@@ -29,7 +32,7 @@ const Haftung = () => {
           Geschäftsführer Frank Neumann <br />
           <br />
           Amtsgericht Chemnitz, HRB: 29554 <br />
-          Ust-IdNr: DE 285697995 
+          Ust-IdNr: DE 285697995
         </p>
         <p>
           <b>Verantwortlich nach § 55 Abs.2 RStV:</b>
@@ -121,13 +124,31 @@ const Haftung = () => {
   );
 };
 
-const Impressum = () => {
-    return (
-      <div style={{ paddingTop: 50 }}>
-        <h2>Impressum</h2>
-        <Haftung />
-      </div>
-    );
+const StyledContainer = styled(Container)`
+ @media (min-width: 768px) { 
+    margin: auto;
+    width: 70%;
+  };
+  @media (min-width: 1200px) { 
+    margin: auto;
+    width: 55%;
   }
+`;
+
+const Impressum = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Header />
+      </header>
+      <div className="App-body">
+        <StyledContainer>
+          <h2>Impressum</h2>
+          <Haftung />
+        </StyledContainer>
+      </div>
+    </div>
+  );
+}
 
 export default Impressum;
