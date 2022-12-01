@@ -7,15 +7,28 @@ import { GrMap } from 'react-icons/gr'
 import { BsGearFill, BsListUl } from 'react-icons/bs'
 import { DiGoogleAnalytics } from 'react-icons/di'
 import { MdOutlinePrivacyTip } from 'react-icons/md'
-import { ImSection } from 'react-icons/im'
+import { ImSection, ImCross } from 'react-icons/im'
+import { FaBars } from 'react-icons/fa'
 
 
-type SidebarProps = { visible?: boolean }
 
-const Sidebar = (props: SidebarProps) => {
-    const [visible] = useState(props.visible ?? true);
-    return <> {visible && <Nav className="col-md-12 d-none d-md-block bg-light sidebar "
+
+const Sidebar = () => {
+    const [openMenu, setOpenMenu] = useState(false);
+
+    const handleClick = () => {
+
+        console.log(document.querySelector('.sidebar')?.classList)
+        setOpenMenu(!openMenu);
+
+
+
+
+    };
+
+    return <> {openMenu ? true && <Nav className="col-md-12 d-none d-md-block bg-light sidebar "
         activeKey="/home">
+        <ImCross className="maximised" onClick={handleClick} />
         <Logo className="image" />
         <div className="sidebar-sticky"></div>
         <Nav.Item>
@@ -40,7 +53,9 @@ const Sidebar = (props: SidebarProps) => {
         <Nav.Item>
             <Nav.Link className="text-dark" eventKey="datenschutz"><MdOutlinePrivacyTip className="svg" />Datenschutz</Nav.Link>
         </Nav.Item>
-    </Nav>}</>
+    </Nav>
+        : <FaBars className="minimised" onClick={handleClick} />}
+    </>
 
 
 };
