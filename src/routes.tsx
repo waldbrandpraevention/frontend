@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./pages/App"
+import TileDemo from "./pages/TileDemo";
 
 const router = createBrowserRouter([
     {
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
     {
         path: "/test",
         element: "Hello World"
+    },
+    {
+        path: "/tiledemo", /* Nur fürs debuggen */
+        element: <TileDemo/>
     }
 ]);
 
