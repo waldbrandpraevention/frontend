@@ -1,0 +1,18 @@
+/* Bootstrap Variablen hier überschreiben */
+:root {
+  --background-color: #282c34;
+  --sidebar-hover-color: #7f7f80;
+}
+
+$primary: #f4511e;
+/* $secondary: ;
+$success: ;
+$info: ;
+$warning: ;
+$danger: ;
+$light: ; 
+$dark:;*/
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+/* Globale Styles hier */
