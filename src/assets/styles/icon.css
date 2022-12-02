@@ -1,0 +1,28 @@
+.Icon {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  align-items: center;
+  right: 0px;
+  display: inline-block;
+  justify-content: right;
+  position: absolute;
+  margin-right: 1rem;
+}
+
+.Bell {
+  margin-right: 4rem;
+  color: black;
+}
+
+.Profile {
+  background-color: lawngreen;
+}
+
+.Notification {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  margin-right: 4rem;
+  z-index: 100;
+}
