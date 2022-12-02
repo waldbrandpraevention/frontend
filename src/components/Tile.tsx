@@ -8,7 +8,7 @@ type PanelProps = {
 /* Kacheln */
 const Tile = (props: PanelProps) => {
     /* Kacheln sollen aktiviert/deaktivert werden können */
-    return <Card className="my-1 py-3" >
+    return <Card className="my-1 py-3 shadow-sm" >
         {props.children}
     </Card>
 }
