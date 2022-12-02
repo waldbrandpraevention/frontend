@@ -1,46 +1,111 @@
-# Getting Started with Create React App
+<h1 align="center">Waldbrandprävention Frontend</h1>
+<p align="center">   
+    <img width="460" height="300" src="src/assets/img/logo-v1.svg">
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+[![Node.js CI](https://img.shields.io/github/workflow/status/waldbrandpraevention/frontend/Node.js%20CI?style=for-the-badge)](https://github.com/waldbrandpraevention/frontend/actions/workflows/node.js.yml)
+![](https://img.shields.io/github/commit-activity/m/waldbrandpraevention/frontend?style=for-the-badge)
 
-In the project directory, you can run:
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Deployment mit Docker
 
-### `npm test`
+1. GitHub Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/frontend.git
+```
+2. Docker Image erstellen
+```
+cd frontend && docker build -t wb-frontend .
+```
+3. Docker Container starten
+```
+docker run --rm -it -p 8080:80 wb-frontend
+```
+4. Frontend läuft auf http://localhost:8080
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- ### Reverse proxy
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```apache
+<VirtualHost *:80>
+        ServerName <domain>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+        DocumentRoot /var/www/test
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        ProxyPass / http://127.0.0.1:6667/
+        ProxyPassReverse / http://127.0.0.1:6667/
 
-### `npm run eject`
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<VirtualHost *:443>
+    ServerName <domain>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    DocumentRoot /var/www/test
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    ProxyPass / http://127.0.0.1:6667/
+    ProxyPassReverse / http://127.0.0.1:6667/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-## Learn More
+    SSLEngine on
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    SSLCertificateFile /etc/letsencrypt/live/bp.adriansoftware.de/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/bp.adriansoftware.de/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost><VirtualHost *:80>
+        ServerName app.bp.adriansoftware.de
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/test
+
+        ProxyPass / http://127.0.0.1:6667/
+        ProxyPassReverse / http://127.0.0.1:6667/
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+#RewriteEngine on
+#RewriteCond %{SERVER_NAME} =app.bp.adriansoftware.de
+#RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName app.bp.adriansoftware.de
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/test
+
+    ProxyPass / http://127.0.0.1:6667/
+    ProxyPassReverse / http://127.0.0.1:6667/
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine on
+
+    SSLCertificateFile /etc/letsencrypt/live/bp.adriansoftware.de/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/bp.adriansoftware.de/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost>
+``` -->
+
+## Development
+
+`npm start` zum Starten.
+
+`npm test` zum Testen.
+
+`npm run build` zum Erstellen.
+
+
