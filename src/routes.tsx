@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./pages/App"
+import TileDemo from "./pages/TileDemo";
 import Datenschutz from "./pages/Datenschutz";
 import Impressum from "./pages/Impressum";
 
@@ -7,6 +8,14 @@ const router = createBrowserRouter([
     {
         path: "/", /* TODO: Falls angemeldet redirect zu /dashboard sonst zu /login */
         element: <App />,
+    },
+    {
+        path: "/test",
+        element: "Hello World"
+    },
+    {
+        path: "/tiledemo", /* Nur fürs debuggen */
+        element: <TileDemo/>
     },
     {
         path: "/login",
