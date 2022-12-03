@@ -15,25 +15,149 @@
 
 </div>
 
-## Deployment mit Docker
+## Deployment
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+### Option 1: All-in-One
+
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
+Anleitung zum lokalem builden der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
 
-1. GitHub Repo clonen
+1. Frontend Repo clonen
 ```
 git clone https://github.com/waldbrandpraevention/frontend.git
 ```
-2. Docker Image erstellen
+2. Backend Repo clonen
 ```
-cd frontend && docker build -t wb-frontend .
+git clone https://github.com/waldbrandpraevention/backend.git
 ```
-3. Docker Container starten
+3. Im Ordner `docker-compose.yaml` erstellen mit folgendem Inhalt
+```yaml
+version: '3'
+
+services:
+  # React
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - frontend-build:/app/build
+
+  # API
+  backend:
+    build:
+      context: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
+
+  # Reverse Proxy
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:8000
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - frontend-build:/usr/share/nginx/html
+
+volumes:
+  frontend-build:
+
 ```
-docker run --rm -it -p 8080:80 wb-frontend
+Der Ordner sollte jetzt so aussehen
 ```
-4. Frontend läuft auf http://localhost:8080
+.
+├── frontend/
+├── backend/
+└── docker-compose.yaml
+```
+
+4. 
+```
+docker compose up -d
+```
+5. Auf http://localhost:
+
+### Option 2: Reverse Proxy
+
+
+
+
+Anleitung zum lokalem builden der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
+
+1. Frontend Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/frontend.git
+```
+2. Backend Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/backend.git
+```
+3. Im Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
+```yaml
+version: '3'
+
+services:
+  # React
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - frontend-build:/app/build
+
+  # API
+  backend:
+    build:
+      context: ./backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
+
+volumes:
+  frontend-build:
+
+```
+4. 
+```
+docker compose up -d
+```
+5. Reverse Proxy konfigurieren
+
+Die Konfiguration ist abhängig von der verwendeten Software. Hier ein Beispiel für Apache  mit bereits vorhandenem [Let's Encrypt](https://letsencrypt.org/de/) SSL Zertifikat.
+```apache 
+<VirtualHost *:80>
+    ServerName domain.tld
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/test
+
+    ProxyPass / http://127.0.0.1:6667/
+    ProxyPassReverse / http://127.0.0.1:6667/
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName domain.tld
+
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/test
+
+    ProxyPass / http://127.0.0.1:6667/
+    ProxyPassReverse / http://127.0.0.1:6667/
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLEngine on
+
+    SSLCertificateFile /etc/letsencrypt/live/domain.tld/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/domain.tld/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+</VirtualHost>
+```
+6.
+Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
 
 <!-- ### Reverse proxy
 
