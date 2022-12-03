@@ -18,11 +18,13 @@
 ## Deployment
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
+Die Anwendung 
 ### Option 1: All-in-One
 
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Anleitung zum lokalem builden der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
+Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
 
 1. Frontend Repo clonen
 ```
@@ -65,6 +67,11 @@ volumes:
   frontend-build:
 
 ```
+*Alternativ:* Die vorhandene `docker-compose.yaml` aus `frontend/` kopieren
+```
+cp ./frontend/docker-compose.yaml ./docker-compose.yaml
+```
+
 Der Ordner sollte jetzt so aussehen
 ```
 .
@@ -84,7 +91,7 @@ docker compose up -d
 
 
 
-Anleitung zum lokalem builden der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
+Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
 
 1. Frontend Repo clonen
 ```
@@ -122,7 +129,12 @@ docker compose up -d
 ```
 5. Reverse Proxy konfigurieren
 
-Die Konfiguration ist abhängig von der verwendeten Software. Hier ein Beispiel für Apache  mit bereits vorhandenem [Let's Encrypt](https://letsencrypt.org/de/) SSL Zertifikat.
+Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispiel Konfigurationen für **Apache** (Debian) und nginx mit bereits vorhandenem [Let's Encrypt](https://letsencrypt.org/de/) SSL Zertifikat.
+
+#### ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white)
+
+<!--  - 5.1. vHost erstellen `touch /var/www/sites-available/wb.conf` mit folgender Config 
+ -->
 ```apache 
 <VirtualHost *:80>
     ServerName domain.tld
@@ -156,6 +168,32 @@ Die Konfiguration ist abhängig von der verwendeten Software. Hier ein Beispiel 
     Include /etc/letsencrypt/options-ssl-apache.conf
 </VirtualHost>
 ```
+
+![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+
+
+```nginx
+upstream {
+    server backend:8000;
+}
+
+server {
+    listen 80;
+    location / {
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html =404;
+    }
+
+    location /api/ {
+        proxy_pass http://api/;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+```
+
 6.
 Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
 
@@ -227,6 +265,23 @@ Include /etc/letsencrypt/options-ssl-apache.conf
 Include /etc/letsencrypt/options-ssl-apache.conf
 </VirtualHost>
 ``` -->
+
+
+### Option 3: Nur Frontend
+
+1. GitHub Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/frontend.git
+```
+2. Docker Image erstellen
+```
+cd frontend && docker build -t wb-frontend .
+```
+3. Docker Container starten
+```
+docker run --rm -it -p 8080:80 wb-frontend
+```
+4. Frontend läuft auf http://localhost:8080
 
 ## Development
 
