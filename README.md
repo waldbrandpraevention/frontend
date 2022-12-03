@@ -266,23 +266,6 @@ Include /etc/letsencrypt/options-ssl-apache.conf
 </VirtualHost>
 ``` -->
 
-
-### Option 3: Nur Frontend
-
-1. GitHub Repo clonen
-```
-git clone https://github.com/waldbrandpraevention/frontend.git
-```
-2. Docker Image erstellen
-```
-cd frontend && docker build -t wb-frontend .
-```
-3. Docker Container starten
-```
-docker run --rm -it -p 8080:80 wb-frontend
-```
-4. Frontend läuft auf http://localhost:8080
-
 ## Development
 
 `npm start` zum Starten.
