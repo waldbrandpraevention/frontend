@@ -94,7 +94,7 @@ git clone https://github.com/waldbrandpraevention/frontend.git
 ```
 git clone https://github.com/waldbrandpraevention/backend.git
 ```
-3. Im Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
+3. Im aktuellen Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
 ```yaml
 version: '3'
 
