@@ -19,7 +19,7 @@
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-Die Anwendung 
+Am einfachsten ist die Installation mit Docker. Nachfolgend zwei Möglichkeiten.
 ### Option 1: All-in-One
 
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
