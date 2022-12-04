@@ -30,11 +30,13 @@ Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung
 ```
 git clone https://github.com/waldbrandpraevention/frontend.git
 ```
-2. Backend Repo clonen
+2. *Optional:* Environment Variablen in `frontend/.env.production` bei Bedarf anpassen
+
+3. Backend Repo clonen
 ```
 git clone https://github.com/waldbrandpraevention/backend.git
 ```
-3. Im aktuellen Ordner `docker-compose.yaml` erstellen mit folgendem Inhalt
+4. Im aktuellen Ordner `docker-compose.yaml` erstellen mit folgendem Inhalt
 ```yaml
 version: '3'
 
@@ -80,11 +82,11 @@ Der Ordner sollte jetzt so aussehen
 └── docker-compose.yaml
 ```
 
-4. 
+5. 
 ```
 docker compose up -d
 ```
-5. Auf http://localhost:
+6. Auf http://localhost:
 
 ### Option 2: Reverse Proxy
 
