@@ -14,7 +14,7 @@ import { FaBars } from 'react-icons/fa'
 
 
 const Sidebar = () => {
-    const [openMenu, setOpenMenu] = useState(false);
+    const [openMenu, setOpenMenu] = useState(true);
 
     const handleClick = () => {
 
