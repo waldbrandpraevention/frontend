@@ -15,6 +15,7 @@
 
 </div>
 
+
 ## Installation
 > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker)
 
@@ -29,52 +30,22 @@ Am einfachsten ist die Installation mit Docker. Nachfolgend zwei Möglichkeiten.
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-grey?style=for-the-badge)
+![](https://img.shields.io/badge/-backend-blue?style=for-the-badge)
+![](https://img.shields.io/badge/-+-grey?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Die Images für Front- und Backend werden lokal erstellt und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
+Die Images für Front- und Backend werden lokal erstellt. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy deployed.
 
 
 ```
 curl -L https://github.com/waldbrandpraevention/frontend/docker-compose.yml && docker compose up -d
 ```
 
-Falls `docker compose` noch nicht installiert ist. Falls nicht
-```
-sudo apt install docker-compose-plugin
-```
+Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein.
 
 1. `docker-compose.yaml` erstellen mit folgendem Inhalt
 ```yaml
-version: '3'
-
-services:
-  # React
-  frontend:
-    build:
-      context: https://github.com/waldbrandpraevention/frontend.git
-    volumes:
-      - frontend-build:/app/build
-
-  # API
-  backend:
-    build:
-      context: https://github.com/waldbrandpraevention/backend.git
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
-
-  # Reverse Proxy
-  nginx:
-    image: nginx:latest
-    ports:
-      - 8080:8000
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - frontend-build:/usr/share/nginx/html
-
-volumes:
-  frontend-build:
-
+todo include
 ```
 
 Der Ordner sollte jetzt so aussehen
@@ -82,19 +53,43 @@ Der Ordner sollte jetzt so aussehen
 .
 └── docker-compose.yaml
 ```
+#### Config
+
+| Name | Beschreibung | Werte | Standard
+|---|---|---|---|
+| REACT_APP_API_URL | API Url | `string` | `/api/v1` |
+| MAIL_SMTP_HOST |  |  | |
+| MAIL_SMTP_ | todo |  | |
+#### E-Mail
+Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal testen zu können. Um einen externen Mail Server zu verwednen, die compose folgendermaßen anpassen:
+```diff
+...
++ ENV_MAIL
+...
+```
+```diff
+...
+services:
+- #Mail
+- mailtrap: 
+-
+...
+```
 
 5. 
 ```
 docker compose up -d
 ```
 6. Auf http://localhost:
+  
+  Mailhog UI läuft auf http://localhost:8025
 
 ### Option 2: Reverse Proxy
 > Frontend + Backend
 
 
 
-Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
+Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich, falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
 
 1. Frontend Repo clonen
 ```
@@ -106,25 +101,7 @@ git clone https://github.com/waldbrandpraevention/backend.git
 ```
 3. Im aktuellen Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
 ```yaml
-version: '3'
-
-services:
-  # React
-  frontend:
-    build:
-      context: ./frontend
-    volumes:
-      - frontend-build:/app/build
-
-  # API
-  backend:
-    build:
-      context: ./backend
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
-
-volumes:
-  frontend-build:
-
+TODO compose
 ```
 4. 
 ```
@@ -143,7 +120,7 @@ Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispi
     ServerName domain.tld
 
     ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/test
+    DocumentRoot /var/www/wb
 
     ProxyPass / http://127.0.0.1:6667/
     ProxyPassReverse / http://127.0.0.1:6667/
@@ -156,7 +133,7 @@ Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispi
     ServerName domain.tld
 
     ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/test
+    DocumentRoot /var/www/wb
 
     ProxyPass / http://127.0.0.1:6667/
     ProxyPassReverse / http://127.0.0.1:6667/
@@ -224,10 +201,18 @@ docker run --rm -it -p 8080:80 wb-frontend
 
 ## Development
 
-`npm start` zum Starten.
+1. GitHub Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/frontend.git
+```
 
-`npm test` zum Testen.
+2. Dependencies installieren
+```
+npm install
+```
 
+3. `npm start` zum Starten.<br>
+`npm test` zum Testen.<br>
 `npm run build` zum Erstellen.
 
 
