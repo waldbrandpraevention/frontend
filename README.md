@@ -15,8 +15,8 @@
 
 </div>
 
-## Deployment
-> Für das Deployen vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker)
+## Installation
+> Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker)
 
 
 
@@ -201,7 +201,7 @@ server {
 Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
 
 ### Option 3: Frontend mit Docker
-> Nur Frontend
+> Nur Frontend + nginx
 
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
