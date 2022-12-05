@@ -38,7 +38,7 @@ Die Images für Front- und Backend werden lokal erstellt. Die komplette Anwendun
 
 
 ```
-curl -L https://github.com/waldbrandpraevention/frontend/docker-compose.yaml && docker compose up -d
+curl https://raw.githubusercontent.com/waldbrandpraevention/frontend/docker-compose.yaml && docker compose up -d
 ```
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein.
