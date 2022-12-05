@@ -38,7 +38,7 @@ Die Images für Front- und Backend werden lokal erstellt. Die komplette Anwendun
 
 
 ```
-curl -L https://github.com/waldbrandpraevention/frontend/docker-compose.yml && docker compose up -d
+curl -L https://github.com/waldbrandpraevention/frontend/docker-compose.yaml && docker compose up -d
 ```
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein.
@@ -54,14 +54,14 @@ Der Ordner sollte jetzt so aussehen
 └── docker-compose.yaml
 ```
 #### Config
-
+ Einstellungen können in der `docker-compose.yaml` angepasst werden.
 | Name | Beschreibung | Werte | Standard
 |---|---|---|---|
 | REACT_APP_API_URL | API Url | `string` | `/api/v1` |
 | MAIL_SMTP_HOST |  |  | |
 | MAIL_SMTP_ | todo |  | |
 #### E-Mail
-Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal testen zu können. Um einen externen Mail Server zu verwednen, die compose folgendermaßen anpassen:
+Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen externen Mail Server zu verwenden, die `docker-compose.yaml` folgendermaßen anpassen:
 ```diff
 ...
 + ENV_MAIL
@@ -80,9 +80,8 @@ services:
 ```
 docker compose up -d
 ```
-6. Auf http://localhost:
-  
-  Mailhog UI läuft auf http://localhost:8025
+6. Auf http://localhost:<br> 
+Mailhog UI läuft auf http://localhost:8025
 
 ### Option 2: Reverse Proxy
 > Frontend + Backend
@@ -153,8 +152,8 @@ Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispi
 
 
 ```nginx
-upstream {
-    server backend:8000;
+upstream backend {
+    server localhost:8000;
 }
 
 server {
@@ -166,7 +165,7 @@ server {
     }
 
     location /api/ {
-        proxy_pass http://api/;
+        proxy_pass http://backend/;
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
     }
