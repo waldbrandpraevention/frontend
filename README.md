@@ -16,27 +16,31 @@
 </div>
 
 ## Deployment
+> Für das Deployen vom Frontend alleine [Option 3](#option-3:-frontend-mit-docker)
+
+
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 Am einfachsten ist die Installation mit Docker. Nachfolgend zwei Möglichkeiten.
 ### Option 1: All-in-One
+> Frontend + Backend + nginx
 
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
+Die Images für Front- und Backend werden lokal erstellt und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
 
-1. Frontend Repo clonen
-```
-git clone https://github.com/waldbrandpraevention/frontend.git
-```
-2. *Optional:* Environment Variablen in `frontend/.env.production` bei Bedarf anpassen
 
-3. Backend Repo clonen
 ```
-git clone https://github.com/waldbrandpraevention/backend.git
+curl -L https://github.com/waldbrandpraevention/frontend/docker-compose.yml && docker compose up -d
 ```
-4. Im aktuellen Ordner `docker-compose.yaml` erstellen mit folgendem Inhalt
+
+Falls `docker compose` noch nicht installiert ist. Falls nicht
+```
+sudo apt install docker-compose-plugin
+```
+
+1. `docker-compose.yaml` erstellen mit folgendem Inhalt
 ```yaml
 version: '3'
 
@@ -44,14 +48,14 @@ services:
   # React
   frontend:
     build:
-      context: ./frontend
+      context: https://github.com/waldbrandpraevention/frontend.git
     volumes:
       - frontend-build:/app/build
 
   # API
   backend:
     build:
-      context: ./backend
+      context: https://github.com/waldbrandpraevention/backend.git
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
 
   # Reverse Proxy
@@ -69,16 +73,10 @@ volumes:
   frontend-build:
 
 ```
-*Alternativ:* Die vorhandene `docker-compose.yaml` aus `frontend/` kopieren
-```
-cp ./frontend/docker-compose.yaml ./docker-compose.yaml
-```
 
 Der Ordner sollte jetzt so aussehen
 ```
 .
-├── frontend/
-├── backend/
 └── docker-compose.yaml
 ```
 
@@ -89,7 +87,7 @@ docker compose up -d
 6. Auf http://localhost:
 
 ### Option 2: Reverse Proxy
-
+> Frontend + Backend
 
 
 
@@ -199,74 +197,27 @@ server {
 6.
 Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
 
-<!-- ### Reverse proxy
+### Option 3: Frontend mit Docker
+> Nur Frontend
+
+![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
 
-```apache
-<VirtualHost *:80>
-        ServerName <domain>
 
-        DocumentRoot /var/www/test
+1. GitHub Repo clonen
+```
+git clone https://github.com/waldbrandpraevention/frontend.git
+```
+2. Docker Image erstellen
+```
+cd frontend && docker build -f Dockerfile.withNginx -t wb-frontend .
+```
+3. Docker Container starten
+```
+docker run --rm -it -p 8080:80 wb-frontend
+```
+4. Frontend läuft auf http://localhost:8080
 
-        ProxyPass / http://127.0.0.1:6667/
-        ProxyPassReverse / http://127.0.0.1:6667/
-
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-
-<VirtualHost *:443>
-    ServerName <domain>
-
-    DocumentRoot /var/www/test
-
-    ProxyPass / http://127.0.0.1:6667/
-    ProxyPassReverse / http://127.0.0.1:6667/
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    SSLEngine on
-
-    SSLCertificateFile /etc/letsencrypt/live/bp.adriansoftware.de/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/bp.adriansoftware.de/privkey.pem
-Include /etc/letsencrypt/options-ssl-apache.conf
-</VirtualHost><VirtualHost *:80>
-        ServerName app.bp.adriansoftware.de
-
-        ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/test
-
-        ProxyPass / http://127.0.0.1:6667/
-        ProxyPassReverse / http://127.0.0.1:6667/
-
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-#RewriteEngine on
-#RewriteCond %{SERVER_NAME} =app.bp.adriansoftware.de
-#RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-</VirtualHost>
-
-<VirtualHost *:443>
-    ServerName app.bp.adriansoftware.de
-
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/test
-
-    ProxyPass / http://127.0.0.1:6667/
-    ProxyPassReverse / http://127.0.0.1:6667/
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    SSLEngine on
-
-    SSLCertificateFile /etc/letsencrypt/live/bp.adriansoftware.de/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/bp.adriansoftware.de/privkey.pem
-Include /etc/letsencrypt/options-ssl-apache.conf
-</VirtualHost>
-``` -->
 
 ## Development
 
