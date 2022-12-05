@@ -32,7 +32,7 @@ const Sidebar = () => {
         <Logo className="image" />
         <div className="sidebar-sticky"></div>
         <Nav.Item>
-            <Nav.Link className="text-dark" href="/dashbord"><AiOutlinePieChart className="svg" /> Dashbord</Nav.Link>
+            <Nav.Link className="text-dark" href="/dashbord"><AiOutlinePieChart className="svg" />Dashboard</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link className="text-dark" eventKey="zonenliste"><BsListUl className="svg" />Zonen</Nav.Link>
@@ -45,10 +45,10 @@ const Sidebar = () => {
         </Nav.Item>
         <hr className="mt-5 mb-0"></hr>
         <Nav.Item>
-            <Nav.Link className="text-dark" eventKey="einstelungen"><BsGearFill className="svg" />Einstelungen</Nav.Link>
+            <Nav.Link className="text-dark" eventKey="einstelungen"><BsGearFill className="svg" />Einstellungen</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link className="text-dark" eventKey="impressung"><ImSection className="svg" />Impressung</Nav.Link>
+            <Nav.Link className="text-dark" eventKey="impressung"><ImSection className="svg" />Impressum</Nav.Link>
         </Nav.Item>
         <Nav.Item>
             <Nav.Link className="text-dark" eventKey="datenschutz"><MdOutlinePrivacyTip className="svg" />Datenschutz</Nav.Link>
