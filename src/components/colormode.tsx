@@ -4,9 +4,6 @@ import styled from "styled-components"
 import {
     enable as enableDarkMode,
     disable as disableDarkMode,
-    auto as followSystemColorScheme,
-    exportGeneratedCSS as collectCSS,
-    isEnabled as isDarkReaderEnabled
 } from 'darkreader';
 
 const DarkIcon = styled(MdDarkMode)`
