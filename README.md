@@ -16,7 +16,7 @@
 </div>
 
 ## Deployment
-> Für das Deployen vom Frontend alleine [Option 3](#option-3-frontend-mit-docker)
+> Für das Deployen vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker)
 
 
 
@@ -26,6 +26,9 @@ Am einfachsten ist die Installation mit Docker. Nachfolgend zwei Möglichkeiten.
 ### Option 1: All-in-One
 > Frontend + Backend + nginx
 
+
+![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
+![](https://img.shields.io/badge/-+-grey?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
 Die Images für Front- und Backend werden lokal erstellt und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy.
