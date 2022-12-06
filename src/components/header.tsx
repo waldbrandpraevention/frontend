@@ -7,6 +7,7 @@ import { TbUserCircle } from 'react-icons/tb';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
+    opacity: 0.9;
 `
 
 const Header = () => {
