@@ -7,8 +7,20 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
+      <Header />
+
+      <Sidebar>
+        <Menu>
+          <SubMenu label="Charts">
+            <MenuItem> Pie charts </MenuItem>
+            <MenuItem> Line charts </MenuItem>
+          </SubMenu>
+          <MenuItem> Documentation </MenuItem>
+          <MenuItem> Calendar </MenuItem>
+        </Menu>
+      </Sidebar>
       <header className="App-header">
-        <Header />
+
       </header>
       <div className="App-body">
       </div>
