@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import BackgroundImg from "../assets/img/loading/LoadingImage1.png";
-import styled from "styled-components";
 import { Card } from "react-bootstrap";
 
 function Login() {
