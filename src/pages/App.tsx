@@ -14,6 +14,7 @@ const FlexMain = styled.div`
 
 const StyledMain = styled.div`
 width: -webkit-fill-available;
+width: -moz-available;
 `
 
 const App = () => {
