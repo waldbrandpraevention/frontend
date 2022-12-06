@@ -4,26 +4,20 @@ import Header from '../components/header'
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
-import { Button } from 'react-bootstrap';
-import { FaBars, FaCogs } from 'react-icons/fa';
-import { AiOutlinePieChart } from 'react-icons/ai';
-import { TbAbacus, TbAlignJustified, TbBuilding, TbInfoCircle, TbInfoSquare, TbLayoutDashboard, TbMap, TbPolygon, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
+import { TbAbacus, TbAlignJustified, TbBuilding, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
 
 const FlexMain = styled.div`
   display: flex;
-/*   height: calc(100vh - 64px); */
   direction: ltr;
   justify-content: flex-start;
 `
 
 const StyledMain = styled.div`
-/*   max-height: 100vh; */
-/*   overflow-y: scroll; */
 width: -webkit-fill-available;
 `
 
 const App = () => {
-  const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } = useProSidebar();
+  const { collapseSidebar } = useProSidebar();
 
   return (<>
     <Header />

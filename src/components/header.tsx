@@ -1,11 +1,9 @@
 import '../assets/styles/header.css'
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import Sidebar from './sidebar'
-import ProfileIcon from './profileIcon'
+import { Container, Nav, Navbar } from "react-bootstrap";
 import BellIcon from './bellIcon'
 import Colormode from './colormode';
 import styled from 'styled-components';
-import { TbBell, TbUserCircle } from 'react-icons/tb';
+import { TbUserCircle } from 'react-icons/tb';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
