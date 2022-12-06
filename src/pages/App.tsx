@@ -15,6 +15,8 @@ const FlexMain = styled.div`
 const StyledMain = styled.div`
 width: -webkit-fill-available;
 width: -moz-available;
+overflow-y: scroll;
+height: calc(100vh - 32px); /* - Navbarheight */
 `
 
 const App = () => {
