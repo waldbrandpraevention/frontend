@@ -3,6 +3,7 @@ import App from "./pages/App"
 import TileDemo from "./pages/TileDemo";
 import Datenschutz from "./pages/Datenschutz";
 import Impressum from "./pages/Impressum";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
     {
@@ -15,11 +16,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/tiledemo", /* Nur fürs debuggen */
-        element: <TileDemo/>
+        element: <TileDemo />
     },
     {
         path: "/login",
-        element: "Login"
+        element: <Login />
     },
     {
         path: "/register",
