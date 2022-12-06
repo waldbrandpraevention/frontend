@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Routes } from "react-router-dom";
 import App from "./pages/App"
 import TileDemo from "./pages/TileDemo";
 import Datenschutz from "./pages/Datenschutz";

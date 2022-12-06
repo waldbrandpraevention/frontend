@@ -263,17 +263,12 @@ const StyledContainer = styled(Container)`
 
 const Datenschutz = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Header />
-      </header>
-      <div className="App-body">
-        <StyledContainer>
-          <h2>Datenschutzerklärung</h2>
-          <DatenschutzText />
-        </StyledContainer>
-      </div>
-    </div>
+
+    <StyledContainer className="pt-4">
+      <h2>Datenschutzerklärung</h2>
+      <DatenschutzText />
+    </StyledContainer>
+
   );
 };
 

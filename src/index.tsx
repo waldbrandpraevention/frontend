@@ -1,17 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import './assets/styles/index.css';
 import reportWebVitals from './reportWebVitals';
-import router from './routes';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 
 import './assets/styles/bootstrap.scss'
+import App from './pages/App';
+import Datenschutz from './pages/Datenschutz';
+import Impressum from './pages/Impressum';
+import TileDemo from './pages/TileDemo';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ProSidebarProvider>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="tiledemo" element={<TileDemo/>} />
+            <Route path="login" element={"todo"} />
+
+            <Route path="dashboard" element={<TileDemo/>} />
+            <Route path="zones" element={"zones"} />
+            <Route path="map" element={"test"} />
+            <Route path="advanced" element={<Impressum />} />
+            <Route path="datenschutz" element={<Datenschutz />} />
+            <Route path="impressum" element={<Impressum />} />
+            <Route path="settings">
+              <Route path="account" element={"account einstellungen"} />
+              <Route path="system" element={"system einstellungen"} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ProSidebarProvider>
   </React.StrictMode>
 );
