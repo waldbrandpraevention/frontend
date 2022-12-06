@@ -4,12 +4,15 @@ import { RouterProvider } from 'react-router-dom';
 import './assets/styles/index.css';
 import reportWebVitals from './reportWebVitals';
 import router from './routes';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 import './assets/styles/bootstrap.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ProSidebarProvider>
+      <RouterProvider router={router} />
+    </ProSidebarProvider>
   </React.StrictMode>
 );
 

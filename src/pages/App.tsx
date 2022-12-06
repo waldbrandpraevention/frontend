@@ -1,6 +1,8 @@
 import React from 'react';
 import "../assets/styles/App.css"
 import Header from '../components/header'
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
