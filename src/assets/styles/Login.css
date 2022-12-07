@@ -4,3 +4,25 @@
   margin: 0;
   margin-bottom: 1rem;
 }
+
+.card-style {
+  width: 22.5rem;
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+}
+
+.body-style {
+  text-align: center;
+}
+.text-style {
+  font-weight: 100;
+  font-size: 12px;
+}
+
+.header {
+  height: 10rem;
+}
+
+.label-style {
+  float: left;
+}
