@@ -32,13 +32,14 @@ Am Einfachsten ist die Installation mit Docker (compose). Nachfolgend mehrere M�
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Die Images für Front- und Backend werden lokal erstellt mit der jeweilig aktuellen Version des Front- bzw. Backend Repos. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+Die Images für Front- und Backend können lokal erstellt werden mit der jeweils aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
 #### Quickstart 🚀 
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein. Ist standardmäßig bei *Docker Desktop* der Fall.
 
-1. In einem leeren Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
+1. In einem leeren Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt:
+
 ```yaml
 version: '3'
 name: Waldbrandpraevention
@@ -86,6 +87,25 @@ volumes:
   frontend-server-conf:
 
 ```
+##### Docker Hub 
+Für fertige Images aus [Docker Hub](https://hub.docker.com/orgs/waldbrandpraevention/repositories) stattdessen `waldbrandpraevention/frontend` bzw. `waldbrandpraevention/backend` verwenden. Die Images sind möglicherweise nicht immer aktuell.
+
+```diff
+...
+services:  
+  frontend:
++    image: waldbrandpraevention/frontend
+-    build:
+-      context: https://github.com/waldbrandpraevention/frontend.git#main
+...
+  backend:
++    image: waldbrandpraevention/backend
+-    build:      
+-      context: https://github.com/waldbrandpraevention/backend.git#main
+...
+```
+
+
 2. Im gleichen Ordner folgenden Befehl ausführen
 ```
 docker compose up 
@@ -108,7 +128,7 @@ Falls die Anwendung im Hintergrund ausgeführt weden soll, kann `-d` an den Befe
 
 Um die Anwendung ohne explizite Angabe des Ports (http://127.0.0.1) zu verwenden, kann die Datei so geändert werden
 ```diff
-. . .
+...
 nginx:
   image: nginx:alpine
   ports:
@@ -120,12 +140,12 @@ nginx:
   volumes:
     - frontend-server-conf:/etc/nginx/conf.d
     - frontend-build:/usr/share/nginx/html
-. . .
+...
 ```
 #### E-Mail 📨
 Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen externen Mail Server zu verwenden, die `docker-compose.yaml` folgendermaßen anpassen:
 ```diff
-. . .
+...
  backend:
    build:      
      context: https://github.com/waldbrandpraevention/backend.git
@@ -135,9 +155,9 @@ Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal test
 +  environment:
 +    - MAIL_SMTP_HOST=
 +    todo 
-. . .
+...
 services:
-. . .
+...
 -mailhog:
 -  image: mailhog/mailhog
 -  logging:
@@ -145,7 +165,7 @@ services:
 -  ports:
 -    - 1025:1025 # smtp server
 -    - 8025:8025 # web ui
-. . .
+...
 ```
 
 
