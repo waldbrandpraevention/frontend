@@ -17,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ProSidebarProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<App />}>
             <Route path="tiledemo" element={<TileDemo />} />
 
