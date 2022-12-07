@@ -29,7 +29,7 @@ services:
       - frontend
       - backend
     volumes:
-      - frontend-server-conf:/etc/nginx/conf.d:ro
+      - frontend-server-conf:/etc/nginx/conf.d
       - frontend-build:/usr/share/nginx/html
 
   # Mail
