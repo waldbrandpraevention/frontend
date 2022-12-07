@@ -13,6 +13,7 @@ const FlexMain = styled.div`
 `
 
 const StyledMain = styled.div`
+width: 100%;
 width: -webkit-fill-available;
 width: -moz-available;
 overflow-y: scroll;
