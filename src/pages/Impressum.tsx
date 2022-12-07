@@ -1,6 +1,5 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Header from "../components/header";
 import styled from "styled-components";
 
 const Haftung = () => {
@@ -137,17 +136,10 @@ const StyledContainer = styled(Container)`
 
 const Impressum = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Header />
-      </header>
-      <div className="App-body">
-        <StyledContainer>
-          <h2>Impressum</h2>
-          <Haftung />
-        </StyledContainer>
-      </div>
-    </div>
+    <StyledContainer className="pt-4">
+      <h2>Impressum</h2>
+      <Haftung />
+    </StyledContainer>
   );
 }
 

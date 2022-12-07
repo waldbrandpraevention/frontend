@@ -1,27 +1,30 @@
 import '../assets/styles/header.css'
-import { Nav } from "react-bootstrap";
-import Sidebar from './sidebar'
-import ProfileIcon from './profileIcon'
+import { Container, Nav, Navbar } from "react-bootstrap";
 import BellIcon from './bellIcon'
 import Colormode from './colormode';
+import styled from 'styled-components';
+import { TbUserCircle } from 'react-icons/tb';
 
+const MyNavbar = styled(Navbar)`
+    height: 32px !important;
+    opacity: 0.9;
+`
 
 const Header = () => {
     return <>
-        <Nav className="navbar fixed-top ">
-            <span className="navbar-icon">
-                <Sidebar />
-            </span>
-            <span className="navbar-icon ms-auto">
-                <Colormode/>
-            </span>
-            <span className="navbar-icon ms-auto">
-                <BellIcon visible={true} />
-            </span>
-            <span className="navbar-icon ms-auto mr-3">
-                <ProfileIcon />
-            </span>
-        </Nav>
+        <MyNavbar bg="primary" variant="dark">
+            <Container>
+                <Navbar.Brand href="#home">WB</Navbar.Brand>
+                <Navbar.Toggle />
+                <Navbar.Collapse className="justify-content-end">
+                    <Nav>
+                        <Nav.Link><Colormode /></Nav.Link>
+                        <Nav.Link><BellIcon hasNotifications={true} /></Nav.Link>
+                        <Nav.Link><TbUserCircle size={"1.5em"} className="text-white" /></Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </MyNavbar>
     </>
 
 

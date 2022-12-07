@@ -19,7 +19,7 @@ function TileDemo() {
           <Col sm={4}><Tile>Wettervorhersage</Tile></Col>
         </Row>
         <Row>
-          <Col sm={2}><Tile>Zonenübersicht</Tile></Col>
+          <Col sm={6}><Tile>Zonenübersicht</Tile></Col>
           <Col sm><Tile>Einsatzkräfte alarmieren</Tile></Col>
         </Row>
       </Container>

@@ -7,18 +7,12 @@ import {
 } from 'darkreader';
 
 const DarkIcon = styled(MdDarkMode)`
-    position: absolute;
-    right: 0;
-    margin-right: 8rem;
     :hover {
         cursor: pointer
     }
 `
 
 const LightIcon = styled(MdLightMode)`
-    position: absolute;
-    right: 0;
-    margin-right: 8rem;
     :hover {
         cursor: pointer
     }
@@ -37,8 +31,8 @@ const Colormode = () => {
     }, [mode])
 
     return <>{mode === "dark" ?
-        <DarkIcon className="text-primary" onClick={updateColor} />
-        : <LightIcon className="text-primary" onClick={updateColor} />}</>
+        <DarkIcon size={"1.5em"} className="text-white" onClick={updateColor} />
+        : <LightIcon size={"1.5em"} className="text-white" onClick={updateColor} />}</>
 }
 
 export default Colormode;
