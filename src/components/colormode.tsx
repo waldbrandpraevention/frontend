@@ -7,18 +7,12 @@ import {
 } from 'darkreader';
 
 const DarkIcon = styled(MdDarkMode)`
-   /*  position: absolute;
-    right: 0;
-    margin-right: 8rem; */
     :hover {
         cursor: pointer
     }
 `
 
 const LightIcon = styled(MdLightMode)`
-   /*  position: absolute;
-    right: 0;
-    margin-right: 8rem; */
     :hover {
         cursor: pointer
     }
