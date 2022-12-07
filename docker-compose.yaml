@@ -24,7 +24,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - 1234:80
+      - 80:80
     depends_on:
       - frontend
       - backend
