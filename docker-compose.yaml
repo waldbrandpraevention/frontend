@@ -22,7 +22,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - 8080:80
+      - 1234:80
     depends_on:
       - frontend
       - backend
