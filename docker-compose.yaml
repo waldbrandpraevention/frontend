@@ -7,7 +7,8 @@ services:
       context: https://github.com/waldbrandpraevention/frontend.git#WB-87-docker-compose
       #context: https://github.com/waldbrandpraevention/frontend.git
     volumes:
-      - frontend-build:/app/build
+      - frontend-build:/app/server/conf
+      - frontend-server-conf:/app/server/conf
 
   # API
   backend:
@@ -20,13 +21,14 @@ services:
 
   # Reverse Proxy
   nginx:
-    image: nginx:latest
+    image: nginx:alpine
     ports:
       - 1234:80
     depends_on:
       - frontend
       - backend
     volumes:
+      - frontend-server-conf:/etc/nginx/conf.d
       - frontend-build:/usr/share/nginx/html
 
   # Mail
@@ -40,3 +42,4 @@ services:
 
 volumes:
   frontend-build:
+  frontend-server-conf:
