@@ -47,7 +47,7 @@ services:
   # React
   frontend:
     build:
-      context: https://github.com/waldbrandpraevention/frontend.git
+      context: https://github.com/waldbrandpraevention/frontend.git#main
     volumes:
       - frontend-build:/app/build
       - frontend-server-conf:/app/server/conf
@@ -55,7 +55,7 @@ services:
   # API
   backend:
     build:      
-      context: https://github.com/waldbrandpraevention/backend.git
+      context: https://github.com/waldbrandpraevention/backend.git#main
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     ports:
       - 8000:8000
