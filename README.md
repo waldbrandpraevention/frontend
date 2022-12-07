@@ -32,7 +32,7 @@ Am Einfachsten ist die Installation mit Docker (compose). Nachfolgend mehrere M�
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Die Images für Front- und Backend können lokal erstellt werden mit der jeweilig aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+Die Images für Front- und Backend können lokal erstellt werden mit der jeweils aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
 #### Quickstart 🚀 
 
