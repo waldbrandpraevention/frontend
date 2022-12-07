@@ -4,21 +4,25 @@ services:
   # React
   frontend:
     build:
-      context: https://github.com/waldbrandpraevention/frontend.git
+      context: https://github.com/waldbrandpraevention/frontend.git#WB-87-docker-compose
+      #context: https://github.com/waldbrandpraevention/frontend.git
     volumes:
       - frontend-build:/app/build
 
   # API
   backend:
     build:
-      context: https://github.com/waldbrandpraevention/backend.git
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --root-path /api
+      context: https://github.com/waldbrandpraevention/backend.git#WB-86-dockerfile-furs-backend
+      #context: https://github.com/waldbrandpraevention/backend.git
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    ports:
+      - 8000:8000
 
   # Reverse Proxy
   nginx:
     image: nginx:latest
     ports:
-      - 8080:8000
+      - 8080:80
     depends_on:
       - frontend
       - backend
