@@ -64,7 +64,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - 1234:80 
+      - 8080:80 
     depends_on:
       - frontend
       - backend
@@ -93,9 +93,9 @@ docker compose up
 Falls die Anwendung im Hintergrund ausgeführt weden soll, kann `-d` an den Befehl angehängt werden.
 | Komponente | URL |
 |---|---|
-| Frontend | http://localhost:1234 |
-| API | http://localhost:1234/api/ |
-| API Dokumentation | http://localhost:1234/api/docs |
+| Frontend | http://localhost:8080 |
+| API | http://localhost:8080/api/ |
+| API Dokumentation | http://localhost:8080/api/docs |
 | [Mail](#e-mail-📨) | http://localhost:8025 |
 
 #### Config 🛠️
@@ -112,7 +112,7 @@ Um die Anwendung ohne explizite Angabe des Ports (http://127.0.0.1) zu verwenden
 nginx:
   image: nginx:alpine
   ports:
--   - 1234:80 
+-   - 8080:80 
 +   - 80:80 
   depends_on:
     - frontend
