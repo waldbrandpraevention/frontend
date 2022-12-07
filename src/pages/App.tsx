@@ -4,7 +4,7 @@ import Header from '../components/header'
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAbacus, TbAlignJustified, TbBuilding, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
+import { TbAbacus, TbAlignJustified, TbBuilding, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
 
 const FlexMain = styled.div`
   display: flex;
@@ -37,7 +37,8 @@ const App = () => {
             <MenuItem routerLink={<Link to="/settings/account"/>} icon={<TbUser />}> Account </MenuItem>
             <MenuItem routerLink={<Link to="/settings/system"/>} icon={<TbServer />}> System </MenuItem>
           </SubMenu>
-          <SubMenu icon={<TbInfoCircle />} label="Info">
+          <SubMenu icon={<TbInfoCircle />} label="Hilfe">
+            <MenuItem routerLink={<Link to="/help"/>} icon={<TbQuestionMark />}> FAQ </MenuItem>
             <MenuItem routerLink={<Link to="/datenschutz"/>} icon={<TbShield />}> Datenschutz </MenuItem>
             <MenuItem routerLink={<Link to="/impressum"/>}icon={<TbBuilding />}> Impressum </MenuItem>
           </SubMenu>

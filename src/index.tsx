@@ -10,19 +10,21 @@ import App from './pages/App';
 import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
 import TileDemo from './pages/TileDemo';
+import Login from './pages/Login';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ProSidebarProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="login" element={<Login />} />
           <Route path="/" element={<App />}>
-            <Route path="tiledemo" element={<TileDemo/>} />
-            <Route path="login" element={"todo"} />
+            <Route path="tiledemo" element={<TileDemo />} />
 
-            <Route path="dashboard" element={<TileDemo/>} />
+            <Route path="dashboard" element={<TileDemo />} />
             <Route path="zones" element={"zones"} />
             <Route path="map" element={"test"} />
+            <Route path="help" element={"hilfeseite"} />
             <Route path="advanced" element={<Impressum />} />
             <Route path="datenschutz" element={<Datenschutz />} />
             <Route path="impressum" element={<Impressum />} />
