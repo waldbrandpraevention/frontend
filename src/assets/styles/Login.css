@@ -5,16 +5,16 @@
   margin-bottom: 1rem;
 }
 
-.card {
+.card-style {
   width: 22.5rem;
   margin: 0 auto; /* Added */
   float: none; /* Added */
 }
 
-.card-body {
+.body-style {
   text-align: center;
 }
-.card-text {
+.text-style {
   font-weight: 100;
   font-size: 12px;
 }
@@ -23,6 +23,6 @@
   height: 10rem;
 }
 
-.form-label {
+.label-style {
   float: left;
 }

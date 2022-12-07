@@ -12,35 +12,32 @@ function Registrieren() {
     return (
         <div className="App" style={{ backgroundImage: `url(${BackgroundImg})`, backgroundSize: 'cover' }}>
             <div className="header"></div>
-            <Card>
-                <Card.Body>
+            <Card className="card-style">
+                <Card.Body className="body-style">
                     <Logo className="image" />
                     <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
                     <Card.Title>Registrieren</Card.Title>
-                    <Card.Text>
+                    <Card.Text className="text-style">
                         Bitte geben Sie ihre Informationen an
                     </Card.Text>
                     <Form >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label className="label-style">Name</Form.Label>
                             <Form.Control className="mb-2" type="name" placeholder="Vorname" />
                             <Form.Control className="mb-2" type="name" placeholder="Zuname" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Benutzername</Form.Label>
+                            <Form.Label className="label-style">Benutzername</Form.Label>
                             <Form.Control type="name" placeholder="Benutzername" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email Addresse</Form.Label>
+                            <Form.Label className="label-style">Email Addresse</Form.Label>
                             <Form.Control type="email" placeholder="Email Adresse" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
                         </Form.Group>
 
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label className="label-style">Password</Form.Label>
                             <Form.Control className="mb-2" type="password" placeholder="Password" />
                             <Form.Control className="mb-2" type="password" placeholder="Password Bestätigen" />
                         </Form.Group>

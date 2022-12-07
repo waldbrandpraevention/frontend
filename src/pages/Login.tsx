@@ -12,25 +12,25 @@ function Login() {
   return (
     <div className="App" style={{ backgroundImage: `url(${BackgroundImg})`, backgroundSize: 'cover' }}>
       <div className="header"></div>
-      <Card>
-        <Card.Body>
+      <Card className="card-style">
+        <Card.Body className="body-style">
           <Logo className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Anmelden</Card.Title>
-          <Card.Text>
+          <Card.Text className="text-style">
             Enter your email and password below
-          </Card.Text>
+          </Card.Text >
           <Form >
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label className="label-style">Email address</Form.Label>
               <Form.Control type="email" placeholder="Email Adresse" />
-              <Form.Text className="text-muted">
+              <Form.Text className="text-muted text-style">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label className="label-style">Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
 
@@ -38,7 +38,7 @@ function Login() {
               Submit
             </Button>
           </Form>
-          <Card.Text>
+          <Card.Text className="text-style">
             Don’t have an account?
             <Card.Link href="#">Sign Up</Card.Link>
           </Card.Text>
