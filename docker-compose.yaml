@@ -7,7 +7,7 @@ services:
       context: https://github.com/waldbrandpraevention/frontend.git#WB-87-docker-compose
       #context: https://github.com/waldbrandpraevention/frontend.git
     volumes:
-      - frontend-build:/app/server/conf
+      - frontend-build:/app/build
       - frontend-server-conf:/app/server/conf
 
   # API
