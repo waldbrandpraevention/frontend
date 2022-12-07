@@ -11,6 +11,7 @@ import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
 import TileDemo from './pages/TileDemo';
 import Login from './pages/Login';
+import Registrieren from './pages/Registrieren';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/registrieren" element={<Registrieren />} />
           <Route path="/" element={<App />}>
             <Route path="tiledemo" element={<TileDemo />} />
 
