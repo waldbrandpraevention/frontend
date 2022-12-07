@@ -83,6 +83,27 @@ docker compose up -d
 6. Auf http://localhost:<br> 
 Mailhog UI läuft auf http://localhost:8025
 
+#### Updates
+
+So wird die Anwendung aktualisiert:
+
+1. Container stoppen und entfernen. 
+
+> **Achtung!** Alle Daten in der Datenbank werden dabei gelöscht.
+```
+docker compose down -v
+```
+*oder* falls die Datenbank erhalten bleiben soll:
+> <ins>***nicht***</ins> empfohlen weil Updates möglicherweise das Datenbankschema ändern und so unerwünschte Probleme auftreten können.
+```
+docker compose down
+```
+
+2. Container aktualisieren & starten
+```
+docker compose up -d
+```
+
 ### Option 2: Reverse Proxy
 > Frontend + Backend
 
