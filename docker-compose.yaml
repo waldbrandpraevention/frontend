@@ -1,0 +1,46 @@
+version: '3'
+name: Waldbrandpraevention
+
+services:
+  # React
+  frontend:
+    build:
+      context: https://github.com/waldbrandpraevention/frontend.git#WB-87-docker-compose
+      #context: https://github.com/waldbrandpraevention/frontend.git
+    volumes:
+      - frontend-build:/app/build
+      - frontend-server-conf:/app/server/conf
+
+  # API
+  backend:
+    build:
+      context: https://github.com/waldbrandpraevention/backend.git#WB-86-dockerfile-furs-backend
+      #context: https://github.com/waldbrandpraevention/backend.git
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    ports:
+      - 8000:8000
+
+  # Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 1234:80
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - frontend-server-conf:/etc/nginx/conf.d
+      - frontend-build:/usr/share/nginx/html
+
+  # Mail
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none' # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
+volumes:
+  frontend-build:
+  frontend-server-conf:
