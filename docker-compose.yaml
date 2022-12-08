@@ -15,8 +15,8 @@ services:
     build:
       context: https://github.com/waldbrandpraevention/backend.git#main
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
 
   # Reverse Proxy
   nginx:
