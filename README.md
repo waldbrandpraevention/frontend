@@ -20,18 +20,21 @@
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-Am Einfachsten ist die Installation mit Docker (compose). Nachfolgend mehrere Möglichkeiten.
+Am Einfachsten ist die Installation mit Docker (compose). 
 
 ---
-### Option 1: All-in-One 👑
+### All-in-One 👑
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![](https://img.shields.io/badge/-backend-blue?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
+![](https://img.shields.io/badge/-Mail*-yellow?style=for-the-badge)
+![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-Die Images für Front- und Backend können lokal erstellt werden mit der jeweils aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub. Die komplette Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+
+Die Images für Front- und Backend können lokal erstellt werden mit der jeweils aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub heruntergeladen werden. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
 #### Quickstart 🚀 
 
@@ -46,16 +49,14 @@ name: Waldbrandpraevention
 services:
   # React
   frontend:
-    build:
-      context: https://github.com/waldbrandpraevention/frontend.git#main
+    image: waldbrandpraevention/frontend
     volumes:
       - frontend-build:/app/build
       - frontend-server-conf:/app/server/conf
 
   # API
   backend:
-    build:      
-      context: https://github.com/waldbrandpraevention/backend.git#main
+    image: waldbrandpraevention/backend
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     expose:
       - 8000
@@ -86,21 +87,20 @@ volumes:
   frontend-server-conf:
 
 ```
-##### Docker Hub 
-Für fertige Images aus [Docker Hub](https://hub.docker.com/orgs/waldbrandpraevention/repositories) stattdessen `waldbrandpraevention/frontend` bzw. `waldbrandpraevention/backend` verwenden. Die Images sind möglicherweise nicht immer aktuell.
-
+##### Lokale Images
+Manchmal kann es nützlich sein, Images lokal zu erstellen, um etwa die neusten Änderungen schneller zu testen. Dann muss die `docker-compose.yaml` noch angepasst werden:
 ```diff
 ...
 services:  
   frontend:
-+    image: waldbrandpraevention/frontend
--    build:
--      context: https://github.com/waldbrandpraevention/frontend.git#main
+-    image: waldbrandpraevention/frontend
++    build:
++      context: https://github.com/waldbrandpraevention/frontend.git#main
 ...
   backend:
-+    image: waldbrandpraevention/backend
--    build:      
--      context: https://github.com/waldbrandpraevention/backend.git#main
+-    image: waldbrandpraevention/backend
++    build:      
++      context: https://github.com/waldbrandpraevention/backend.git#main
 ...
 ```
 
@@ -142,7 +142,7 @@ nginx:
 ...
 ```
 #### E-Mail 📨
-Standardmäßig wird [Mailhog]() mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen externen Mail Server zu verwenden, die `docker-compose.yaml` folgendermaßen anpassen:
+Standardmäßig wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen externen Mail Server zu verwenden, die `docker-compose.yaml` folgendermaßen anpassen:
 ```diff
 ...
  backend:
@@ -179,7 +179,7 @@ So wird die Anwendung aktualisiert:
 docker compose down -v
 ```
 *oder* falls die Datenbank erhalten bleiben soll:
-> <ins>***nicht***</ins> empfohlen, weil Updates möglicherweise das Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte Probleme auftreten können.
+> aktuell <ins>***nicht***</ins> empfohlen, weil Updates möglicherweise das Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte Probleme auftreten können.
 ```
 docker compose down
 ```
@@ -193,119 +193,11 @@ docker compose pull && docker compose up -d
   - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
 
 ---
-### Option 2: Reverse Proxy 🛡️
 
----
-// Work In Progress: folgendes ignorieren //
-
----
-
-Diese Version eignet sich, falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
+<details>
+  <summary>Frontend mit Docker (nicht empfohlen)</summary>
 
 
-1. Zunächst dem [Quickstart](#quickstart-) folgen und folgendermaßen anpassen
-<!-- ```diff
-...
-services:
-...
-  # API
-  backend:
-    build:      
-      context: https://github.com/waldbrandpraevention/backend.git#main
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
--   expose: 
--     - 8000
-+   ports:
-+     - 8090:8000
-...
-   # Reverse Proxy
--  nginx:
--    image: nginx:alpine
--    ports:
--      - 8080:80 
--    depends_on:
--      - frontend
--      - backend
--    volumes:
--      - frontend-server-conf:/etc/nginx/conf.d
--      - frontend-build:/usr/share/nginx/html
-... -->
-```
-2. Container starten
-```
-docker compose up -d
-```
-3. Reverse Proxy konfigurieren
-
-Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispiel Konfigurationen für **Apache** (Debian) und nginx mit bereits vorhandenem [Let's Encrypt](https://letsencrypt.org/de/) SSL Zertifikat.
-
-#### ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white)
-
-<!--  - 5.1. vHost erstellen `touch /var/www/sites-available/wb.conf` mit folgender Config 
- -->
-```apache 
-<VirtualHost *:80>
-    ServerName domain.tld
-
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/wb
-
-    ProxyPass / http://127.0.0.1:6667/
-    ProxyPassReverse / http://127.0.0.1:6667/
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-
-<VirtualHost *:443>
-    ServerName domain.tld
-
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/wb
-
-    ProxyPass / http://127.0.0.1:6667/
-    ProxyPassReverse / http://127.0.0.1:6667/
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    SSLEngine on
-
-    SSLCertificateFile /etc/letsencrypt/live/domain.tld/fullchain.pem
-    SSLCertificateKeyFile /etc/letsencrypt/live/domain.tld/privkey.pem
-    Include /etc/letsencrypt/options-ssl-apache.conf
-</VirtualHost>
-```
-
-![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
-
-
-```nginx
-upstream backend {
-    server localhost:8000;
-}
-
-server {
-    listen 80;
-    location / {
-        root /usr/share/nginx/html;
-        index index.html index.htm;
-        try_files $uri $uri/ /index.html =404;
-    }
-
-    location /api/ {
-        proxy_pass http://backend/;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-```
-
-6.
-Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
-
-### Option 3: Frontend mit Docker
 > Nur Frontend + nginx
 
 
@@ -323,6 +215,7 @@ docker run --rm -it -p 8080:80 wb-frontend
 ```
 4. Frontend läuft auf http://localhost:8080
 
+</details>
 
 ## Development
 
