@@ -205,7 +205,7 @@ Diese Version eignet sich, falls die Anwendung in einen vorhandenen Web Server o
 
 
 1. Zunächst dem [Quickstart](#quickstart-) folgen und folgendermaßen anpassen
-```diff
+<!-- ```diff
 ...
 services:
 ...
@@ -230,7 +230,7 @@ services:
 -    volumes:
 -      - frontend-server-conf:/etc/nginx/conf.d
 -      - frontend-build:/usr/share/nginx/html
-...
+... -->
 ```
 2. Container starten
 ```
