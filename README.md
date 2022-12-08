@@ -36,7 +36,7 @@ Am Einfachsten ist die Installation mit Docker (compose).
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
 
-Die Images für Front- und Backend können lokal erstellt werden mit der jeweils aktuellen Version des Front- bzw. Backend Repos oder auch aus Docker Hub heruntergeladen werden. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
 #### Quickstart 🚀 
 
@@ -89,23 +89,6 @@ volumes:
   frontend-server-conf:
 
 ```
-##### Lokale Images
-Manchmal kann es nützlich sein, Images lokal zu erstellen, um etwa die neusten Änderungen schneller zu testen. Dann muss die `docker-compose.yaml` noch angepasst werden:
-```diff
-...
-services:  
-  frontend:
--    image: waldbrandpraevention/frontend
-+    build:
-+      context: https://github.com/waldbrandpraevention/frontend.git#main
-...
-  backend:
--    image: waldbrandpraevention/backend
-+    build:      
-+      context: https://github.com/waldbrandpraevention/backend.git#main
-...
-```
-
 
 2. Im gleichen Ordner folgenden Befehl ausführen
 ```
