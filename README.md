@@ -194,28 +194,6 @@ docker compose pull && docker compose up -d
 
 ---
 
-<details>
-  <summary>Frontend mit Docker (nicht empfohlen)</summary>
-
-
-> Nur Frontend + nginx
-
-
-1. GitHub Repo clonen
-```
-git clone https://github.com/waldbrandpraevention/frontend.git
-```
-2. Docker Image erstellen
-```
-cd frontend && docker build -f Dockerfile.withNginx -t wb-frontend .
-```
-3. Docker Container starten
-```
-docker run --rm -it -p 8080:80 wb-frontend
-```
-4. Frontend läuft auf http://localhost:8080
-
-</details>
 
 ## Development
 
