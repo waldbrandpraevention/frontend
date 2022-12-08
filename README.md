@@ -58,8 +58,8 @@ services:
     build:      
       context: https://github.com/waldbrandpraevention/backend.git#main
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
 
   # Reverse Proxy
   nginx:
@@ -110,13 +110,13 @@ services:
 ```
 docker compose up 
 ```
-Falls die Anwendung im Hintergrund ausgeführt weden soll, kann `-d` an den Befehl angehängt werden.
+Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Befehl angehängt werden.
 | Komponente | URL |
 |---|---|
 | Frontend | http://localhost:8080 |
 | API | http://localhost:8080/api/ |
 | API Dokumentation | http://localhost:8080/api/docs |
-| [Mail](#e-mail-📨) | http://localhost:8025 |
+| [Mail](#e-mail-) | http://localhost:8025 |
 
 #### Config 🛠️
  Einstellungen können als Environmentvariablen in der `docker-compose.yaml` angepasst werden.
@@ -126,7 +126,7 @@ Falls die Anwendung im Hintergrund ausgeführt weden soll, kann `-d` an den Befe
 | MAIL_SMTP_HOST |  |  | |
 | MAIL_SMTP_ | todo |  | |
 
-Um die Anwendung ohne explizite Angabe des Ports (http://127.0.0.1) zu verwenden, kann die Datei so geändert werden
+Um die Anwendung ohne explizite Angabe des Ports (http://127.0.0.1) zu verwenden oder generell den Port ändern, kann die Datei so geändert werden
 ```diff
 ...
 nginx:
@@ -169,7 +169,6 @@ services:
 ```
 
 
-
 #### Updates 🪄
 
 So wird die Anwendung aktualisiert:
@@ -181,7 +180,7 @@ So wird die Anwendung aktualisiert:
 docker compose down -v
 ```
 *oder* falls die Datenbank erhalten bleiben soll:
-> <ins>***nicht***</ins> empfohlen weil Updates möglicherweise das Datenbankschema ändern und so unerwünschte Probleme auftreten können.
+> <ins>***nicht***</ins> empfohlen, weil Updates möglicherweise das Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte Probleme auftreten können.
 ```
 docker compose down
 ```
@@ -190,23 +189,54 @@ docker compose down
 ```
 docker compose pull && docker compose up -d
 ```
+#### FAQ ❓
+- > `waldbrandpraevention-frontend-1 exited with code 0`?
+  - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
+
 ---
 ### Option 2: Reverse Proxy 🛡️
 
->// Work in Progress : Bitte noch nicht beachten //
+---
+// Work In Progress: folgendes ignorieren //
 
-Anleitung zum lokalem Erstellen der Images und deployen der kompletten Anwendung mit [docker compose](https://docs.docker.com/compose/). Diese Version eignet sich, falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
+---
+
+Diese Version eignet sich, falls die Anwendung in einen vorhandenen Web Server oder eine Reverse Proxy wie z.B. [nginx](https://www.nginx.org/), [Apache](https://httpd.apache.org/) oder [traefik](https://traefik.io/traefik/) eingebunden werden soll. 
 
 
-1. Im aktuellen Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt
-```yaml
-TODO compose
+1. Zunächst dem [Quickstart](#quickstart-) folgen und folgendermaßen anpassen
+```diff
+...
+services:
+...
+  # API
+  backend:
+    build:      
+      context: https://github.com/waldbrandpraevention/backend.git#main
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+-   expose: 
+-     - 8000
++   ports:
++     - 8090:8000
+...
+   # Reverse Proxy
+-  nginx:
+-    image: nginx:alpine
+-    ports:
+-      - 8080:80 
+-    depends_on:
+-      - frontend
+-      - backend
+-    volumes:
+-      - frontend-server-conf:/etc/nginx/conf.d
+-      - frontend-build:/usr/share/nginx/html
+...
 ```
-4. 
+2. Container starten
 ```
 docker compose up -d
 ```
-5. Reverse Proxy konfigurieren
+3. Reverse Proxy konfigurieren
 
 Die Konfiguration ist abhängig von der verwendeten Software. Nachfolgend Beispiel Konfigurationen für **Apache** (Debian) und nginx mit bereits vorhandenem [Let's Encrypt](https://letsencrypt.org/de/) SSL Zertifikat.
 
@@ -278,9 +308,6 @@ Im Browser https://domain.tld (mit SSL) oder http://domain.tld öffnen.
 
 ### Option 3: Frontend mit Docker
 > Nur Frontend + nginx
-
-![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
-
 
 
 1. GitHub Repo clonen
