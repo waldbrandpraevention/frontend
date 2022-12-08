@@ -5,6 +5,9 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
+
 
 function Login() {
   const [currentImageIndex, setCurrentImageIndex] = useState(Math.floor(Math.random() * loadingImages.length))
@@ -45,7 +48,7 @@ function Login() {
           </Form>
           <Card.Text className="text-style">
             Don’t have an account?
-            <Card.Link href="#">Sign Up</Card.Link>
+            <Card.Link as={Link} to="/registrieren" >Sign Up</Card.Link>
           </Card.Text>
 
         </Card.Body>
