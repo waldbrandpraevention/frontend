@@ -1,15 +1,21 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Logo from "../assets/img/Logo"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
-import BackgroundImg from "../assets/img/loading/LoadingImage1.png";
+import { loadingImages } from "../components/loadingImages.model"
 import { Card } from "react-bootstrap";
 
 
 function Registrieren() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(Math.floor(Math.random() * loadingImages.length))
+    const changeImage = () => {
+        const randomNumber = Math.floor(Math.random() * (loadingImages.length));
+        setCurrentImageIndex(randomNumber);
+    }
+    useEffect(() => changeImage(), [])
     return (
-        <div className="App" style={{ backgroundImage: `url(${BackgroundImg})`, backgroundSize: 'cover' }}>
+        <div className="App" style={{ backgroundImage: `url(${loadingImages[currentImageIndex]})`, backgroundSize: 'cover' }}>
             <div className="header"></div>
             <Card className="card-style">
                 <Card.Body className="body-style">

@@ -18,12 +18,7 @@ const Sidebar = () => {
     const [openMenu, setOpenMenu] = useState(true);
 
     const handleClick = () => {
-
-        console.log(document.querySelector('.sidebar')?.classList)
         setOpenMenu(!openMenu);
-
-
-
 
     };
 
