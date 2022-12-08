@@ -6,7 +6,6 @@ import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
 
 
 function Login() {
