@@ -10,4 +10,6 @@ FROM node:18-alpine AS final
 
 WORKDIR /app
 
-COPY --from=builder /app/build .
+COPY --from=builder /app/build ./build
+
+COPY --from=builder /app/server ./server
