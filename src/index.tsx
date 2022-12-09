@@ -12,6 +12,12 @@ import Impressum from './pages/Impressum';
 import TileDemo from './pages/TileDemo';
 import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
+import Zones from './pages/Zonen';
+import AdminAnalyse from './pages/AdminAnalyse';
+import Analyse from './pages/Analyse';
+import Dashboard from './pages/Dashboard';
+import Map from './pages/Map';
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -23,11 +29,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route path="/" element={<App />}>
             <Route path="tiledemo" element={<TileDemo />} />
 
-            <Route path="dashboard" element={<TileDemo />} />
-            <Route path="zones" element={"zones"} />
-            <Route path="map" element={"test"} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="zones" element={<Zones />} />
+            <Route path="map" element={<Map />} />
             <Route path="help" element={"hilfeseite"} />
-            <Route path="advanced" element={<Impressum />} />
+            <Route path="user" element={<Analyse />} />
+            <Route path="advanced" element={<AdminAnalyse />} />
             <Route path="datenschutz" element={<Datenschutz />} />
             <Route path="impressum" element={<Impressum />} />
             <Route path="settings">
