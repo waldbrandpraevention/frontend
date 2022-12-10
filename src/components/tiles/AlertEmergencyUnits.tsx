@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-function Einsatzkräfte_alarmieren() {
+const AlertEmergencyUnits = () => {
   return (
     <>
       <Card>
@@ -66,4 +66,4 @@ function Einsatzkräfte_alarmieren() {
   );
 }
 
-export default Einsatzkräfte_alarmieren;
+export default AlertEmergencyUnits;
