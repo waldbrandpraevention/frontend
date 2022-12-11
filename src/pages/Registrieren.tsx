@@ -1,21 +1,19 @@
-import { useEffect, useState } from "react";
 import Logo from "../assets/img/Logo"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card } from "react-bootstrap";
+import styled from "styled-components";
 
+const BgApp = styled.div`
+  background: url(${loadingImages[Math.floor(Math.random() * (loadingImages.length))]}) no-repeat center center fixed;
+  background-size: cover !important;
+`
 
-function Registrieren() {
-    const [currentImageIndex, setCurrentImageIndex] = useState(Math.floor(Math.random() * loadingImages.length))
-    const changeImage = () => {
-        const randomNumber = Math.floor(Math.random() * (loadingImages.length));
-        setCurrentImageIndex(randomNumber);
-    }
-    useEffect(() => changeImage(), [])
+const Registrieren = () => {
     return (
-        <div className="App" style={{ backgroundImage: `url(${loadingImages[currentImageIndex]})`, backgroundSize: 'cover' }}>
+        <BgApp className="App">
             <div className="header"></div>
             <Card className="card-style">
                 <Card.Body className="body-style">
@@ -29,7 +27,7 @@ function Registrieren() {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="label-style">Name</Form.Label>
                             <Form.Control className="mb-2" type="name" placeholder="Vorname" />
-                            <Form.Control className="mb-2" type="name" placeholder="Zuname" />
+                            <Form.Control className="mb-2" type="name" placeholder="Nachname" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="label-style">Benutzername</Form.Label>
@@ -42,17 +40,17 @@ function Registrieren() {
 
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label className="label-style">Password</Form.Label>
-                            <Form.Control className="mb-2" type="password" placeholder="Password" />
-                            <Form.Control className="mb-2" type="password" placeholder="Password Bestätigen" />
+                            <Form.Label className="label-style">Passwort</Form.Label>
+                            <Form.Control className="mb-2" type="password" placeholder="Passwort" />
+                            <Form.Control className="mb-2" type="password" placeholder="Passwort bestätigen" />
                         </Form.Group>
                         <Button variant="primary" type="submit">
-                            Submit
+                            Registrieren
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
-        </div >
+        </BgApp >
     );
 }
 
