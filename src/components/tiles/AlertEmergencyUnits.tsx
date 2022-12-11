@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 const AlertEmergencyUnits = () => {
   return (
     <>
-      <Card>
+      <Card className="border-0">
         <Card.Body>
           <Card.Title>Einsatzkräfte alarmieren</Card.Title>
           <Form>
