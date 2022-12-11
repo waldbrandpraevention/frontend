@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import "../assets/styles/App.css"
 import Tile from '../components/Tile';
+import AlertEmergencyUnits from '../components/tiles/AlertEmergencyUnits';
 import DroneCount from '../components/tiles/DroneCount';
 
 /* Fürs Debuggen */
@@ -20,7 +21,7 @@ function TileDemo() {
         </Row>
         <Row>
           <Col sm={6}><Tile>Zonenübersicht</Tile></Col>
-          <Col sm><Tile>Einsatzkräfte alarmieren</Tile></Col>
+          <Col sm><Tile><AlertEmergencyUnits /></Tile></Col>
         </Row>
       </Container>
 
