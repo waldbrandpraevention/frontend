@@ -12,46 +12,46 @@ const AlertEmergencyUnits = () => {
           <Card.Title>Einsatzkräfte alarmieren</Card.Title>
           <Form>
             <Form.Group as={Row} className="mb-3" controlId="Drohne">
-              <Form.Label column sm={2}>
+              <Form.Label column md={4}>
                 Drohne:
               </Form.Label>
-              <Col sm={10}>
-                <Form.Control type="text" placeholder="Drohne-A123" />
+              <Col md={8}>
+                <Form.Control className="col-lg-*" type="text" placeholder="Drohne-A123" />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Einsatzort">
-              <Form.Label column sm={2}>
+              <Form.Label column md={4}>
                 Einsatzort:
               </Form.Label>
-              <Col sm={10}>
+              <Col md={8}>
                 <Form.Control type="text" placeholder="Zone-123" />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Brandtyp">
-              <Form.Label column sm={2}>
+              <Form.Label column md={4}>
                 Brandtyp:
               </Form.Label>
-              <Col sm={10}>
+              <Col md={8}>
                 <Form.Control type="text" placeholder="Brandgefahr 123" />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Notizen">
-              <Form.Label column sm={2}>
+              <Form.Label column md={4}>
                 Notizen:
               </Form.Label>
-              <Col sm={10}>
+              <Col md={8}>
                 <Form.Control
                   as="textarea"
-                  rows={3}
+                  rows={4}
                   placeholder="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua"
                 />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="formFileMultiple">
-              <Form.Label column sm={2}>
-                Anhänge hinzufügen (optional):{" "}
+              <Form.Label column md={4}>
+                Anhänge hinzufügen: {" "}
               </Form.Label>
-              <Col sm={10}>
+              <Col md={8}>
                 <Form.Control type="file" multiple />
               </Col>
             </Form.Group>
