@@ -17,7 +17,7 @@ import Registrieren from './pages/Registrieren';
 
 
 async function index() {
-  render(<Loading />)
+  render(<Registrieren />)
 
   await apiClientService.configureClient()
 
