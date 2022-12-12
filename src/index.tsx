@@ -9,10 +9,9 @@ import './assets/styles/bootstrap.scss'
 import App from './pages/App';
 import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
-import TileDemo from './pages/TileDemo';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
-
 
 async function index() {
 
