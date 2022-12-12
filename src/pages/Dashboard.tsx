@@ -5,8 +5,7 @@ import Tile from '../components/Tile';
 import AlertEmergencyUnits from '../components/tiles/AlertEmergencyUnits';
 import DroneCount from '../components/tiles/DroneCount';
 
-/* Fürs Debuggen */
-function TileDemo() {
+const Dashboard = () => {
   return (
     <div className="App">
       <Container>
@@ -29,4 +28,4 @@ function TileDemo() {
   );
 }
 
-export default TileDemo;
+export default Dashboard;

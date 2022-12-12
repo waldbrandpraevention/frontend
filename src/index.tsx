@@ -9,7 +9,7 @@ import './assets/styles/bootstrap.scss'
 import App from './pages/App';
 import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
-import TileDemo from './pages/TileDemo';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
 
@@ -21,9 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route path="/login" element={<Login />} />
           <Route path="/registrieren" element={<Registrieren />} />
           <Route path="/" element={<App />}>
-            <Route path="tiledemo" element={<TileDemo />} />
-
-            <Route path="dashboard" element={<TileDemo />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="zones" element={"zones"} />
             <Route path="map" element={"test"} />
             <Route path="help" element={"hilfeseite"} />
