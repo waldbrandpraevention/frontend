@@ -27,7 +27,7 @@ const AlertDrone = () => {
   } as AlertFormData);
 
   const { isLoading, isError, isSuccess, mutate } = useMutation(
-    ["alertemergencyunits"],
+    ["alertdrone"],
     (data: AlertFormData) => {
       return axios
         .post("https://httpbin.org/post", data)
