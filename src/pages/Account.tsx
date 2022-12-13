@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
@@ -7,6 +6,7 @@ import WarnAlert from "../components/alerts/WarnAlert";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Tile from "../components/Tile";
 import AccountInfo from "../components/tiles/account/AccountInfo";
+import ChangeMail from "../components/tiles/account/ChangeMail";
 import ChangePassword from "../components/tiles/account/ChangePassword";
 
 export type AccountType = {
@@ -35,7 +35,7 @@ export const getAccountType = (perm: number): string => { /* todo move somewhere
 }
 
 const Account = () => {
-    const userQuery = useQuery(["accountinfo"], (): Promise<AccountType> => {
+    const userQuery = useQuery(["account", "info"], (): Promise<AccountType> => {
         return (new Promise<AccountType>((resolve) => resolve(__testdata))); /* nur debug !! */
         // return axios.get("/users/me").then(e => e.data);
     });
@@ -49,32 +49,15 @@ const Account = () => {
                     <AccountInfo userQuery={userQuery} />
                 </Col>
                 <Col lg={8}>
-                    <Container className="mt-2" fluid /* style={{ overflowY: "scroll", height: "calc(100vh - 32px)" }} */>
-                        {isLoading && <Tile className="py-3" style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
-                            || !isLoading && isError && <ErrorAlert>Einstellungen konnten nicht geladen werden.</ErrorAlert>}
+                    <Container className="mt-2" fluid>
+                        {(isLoading && <Tile className="py-3" style={{ alignItems: "center" }}><LoadingSpinner /></Tile>)
+                            || (!isLoading && isError && <ErrorAlert>Einstellungen konnten nicht geladen werden.</ErrorAlert>)}
                         {!isLoading && !isError && <>
                             {data.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}
                             {!data.mail_verified && <WarnAlert>Die E-Mail ({data.mail}) wurde noch nicht verifiziert. <Link to={""}>E-Mail erneut senden.</Link></WarnAlert>}
                             {!data.disabled && <>
                                 <ChangePassword />
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
-                                <Tile>Tst</Tile>
+                                <ChangeMail />
                             </>}
                         </>
                         }
