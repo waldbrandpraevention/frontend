@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Alert, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Tile from "../Tile";
@@ -8,6 +8,8 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import OkAlert from "../alerts/OkAlert";
+import ErrorAlert from "../alerts/ErrorAlert";
 
 type AlertFormData = {
   drone: string,
@@ -97,8 +99,8 @@ const AlertEmergencyUnits = () => {
               {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
             </Button>
 
-            {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
-            {isSuccess && <Alert className="mt-2" variant="success">Einsatzkräfte wurden alarmiert.</Alert>}
+            {isError && <ErrorAlert>Fehler :/.</ErrorAlert>}
+            {isSuccess && <OkAlert>Einsatzkräfte wurden alarmiert.</OkAlert>}
           </Form>
         </Card.Body>
       </Card>

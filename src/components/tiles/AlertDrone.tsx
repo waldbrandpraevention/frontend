@@ -8,6 +8,8 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import OkAlert from "../alerts/OkAlert";
+import ErrorAlert from "../alerts/ErrorAlert";
 
 type AlertFormData = {
   drone: string;
@@ -127,15 +129,15 @@ const AlertDrone = () => {
             </Button>
 
             {isError && (
-              <Alert className="mt-2" variant="danger">
+              <ErrorAlert>
                 Fehler :/.
-              </Alert>
+              </ErrorAlert>
             )}
             {isSuccess && (
-              <Alert className="mt-2" variant="success">
+              <OkAlert>
                 Drohne wurde alarmiert und fliegt nun erneut über den gewählten
                 Einsatzort.
-              </Alert>
+              </OkAlert>
             )}
           </Form>
         </Card.Body>

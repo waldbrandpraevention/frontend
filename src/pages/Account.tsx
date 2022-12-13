@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { Alert, Col, Container, Row } from "react-bootstrap";
-import { TbAlertTriangle } from "react-icons/tb";
+import axios from "axios";
+import { Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
 import WarnAlert from "../components/alerts/WarnAlert";
+import LoadingSpinner from "../components/LoadingSpinner";
 import Tile from "../components/Tile";
 import AccountInfo from "../components/tiles/account/AccountInfo";
+import ChangePassword from "../components/tiles/account/ChangePassword";
 
 export type AccountType = {
     firstname: string;
@@ -21,10 +24,10 @@ const __testdata: AccountType = {
     firstname: "Max",
     lastname: "Mustermann",
     mail: "foo@bar.de",
-    permission: 0,
-    disabled: true,
+    permission: 2,
+    disabled: false,
     mail_verified: false,
-    organization: "Waldbrandprävention Orga"
+    organization: "WB"
 }
 
 export const getAccountType = (perm: number): string => { /* todo move somewhere else */
@@ -41,33 +44,40 @@ const Account = () => {
 
     return (<div className="App">
         <Container>
-            <Row>
-                <Col md={3}>
+            <Row className="mx-lg-5">
+                <Col lg={4}>
                     <AccountInfo userQuery={userQuery} />
                 </Col>
-                <Col md={6}>
+                <Col lg={8}>
                     <Container className="mt-2" fluid /* style={{ overflowY: "scroll", height: "calc(100vh - 32px)" }} */>
-                        {!isLoading && !isError && data.disabled && <ErrorAlert>Dieser Account ist deaktiviert.</ErrorAlert>}
-                        {!isLoading && !isError && !data.mail_verified && <WarnAlert>Die E-Mail wurde noch nicht verifiziert.</WarnAlert>}
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
-                        <Tile>Tst</Tile>
+                        {isLoading && <Tile className="py-3" style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
+                            || !isLoading && isError && <ErrorAlert>Einstellungen konnten nicht geladen werden.</ErrorAlert>}
+                        {!isLoading && !isError && <>
+                            {data.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}
+                            {!data.mail_verified && <WarnAlert>Die E-Mail ({data.mail}) wurde noch nicht verifiziert. <Link to={""}>E-Mail erneut senden.</Link></WarnAlert>}
+                            {!data.disabled && <>
+                                <ChangePassword />
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                                <Tile>Tst</Tile>
+                            </>}
+                        </>
+                        }
                     </Container>
                 </Col>
             </Row>
