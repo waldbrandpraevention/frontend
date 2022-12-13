@@ -5,7 +5,7 @@ import Colormode from './colormode';
 import styled from 'styled-components';
 import { TbUserCircle } from 'react-icons/tb';
 import Logo from '../assets/img/Logo';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
@@ -24,11 +24,13 @@ const MyNavLink = styled(Nav.Link)`
 `
 
 const Header = () => {
+    const navigate = useNavigate();
+
     return <>
         <MyNavbar bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand>
-                    <Nav.Link style={{display:"flex"}}>
+                    <Nav.Link style={{ display: "flex" }}>
                         <MyLogo />
                     </Nav.Link>
                 </Navbar.Brand>
@@ -37,13 +39,11 @@ const Header = () => {
                     <Nav>
                         <MyNavLink><Colormode /></MyNavLink>
                         <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
-                        <MyNavLink onClick={() => alert("X")}><TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </MyNavbar>
+                        <MyNavLink onClick={() => navigate("/settings/account")}> <TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink>
+                </Nav>
+            </Navbar.Collapse>
+        </Container>
+    </MyNavbar>
     </>
-
-
 };
 export default Header
