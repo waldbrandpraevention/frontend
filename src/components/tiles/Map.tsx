@@ -5,18 +5,18 @@ import { TbAlertTriangle } from "react-icons/tb";
 import LoadingSpinner from "../LoadingSpinner";
 import Tile from "../Tile";
 
-const DroneCount = () => {
-    const { data, isLoading, isError } = useQuery(["dronecount"], () => {
-        return axios.get("/test?input=69").then(e => e.data);
+const Map = () => {
+    const { data, isLoading, isError } = useQuery(["map"], () => {
+        return axios.get("/map").then(e => e.data);
     });
 
     if (isLoading) return <Tile style={{alignItems: "center"}}><LoadingSpinner/></Tile>
 
-    if (isError) return <Alert key="danger" variant="danger"><TbAlertTriangle/> Drohnen konnten nicht geladen werden.</Alert>;
+    if (isError) return <Alert key="danger" variant="danger"><TbAlertTriangle/> Karte konnte nicht geladen werden.</Alert>;
 
     return <Tile>
-        Anzahl Drohnen {data.message}
+        Karte {data.message}
     </Tile>
 }
 
-export default DroneCount;
+export default Map;
