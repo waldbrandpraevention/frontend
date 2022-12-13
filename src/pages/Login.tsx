@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -40,6 +40,7 @@ const Login = () => {
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
+    mutate(form);
   }
 
 
@@ -79,7 +80,7 @@ const Login = () => {
 
 
             {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
-            {isSuccess}
+            {isSuccess && <Navigate to="/dashboard" replace={true} />}
           </Form>
 
           <Card.Text className="text-style">
