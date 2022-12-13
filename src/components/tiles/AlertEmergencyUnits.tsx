@@ -3,10 +3,11 @@ import Form from "react-bootstrap/Form";
 import { Card } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Tile from "../Tile";
 
 const AlertEmergencyUnits = () => {
   return (
-    <>
+    <Tile>
       <Card className="border-0">
         <Card.Body>
           <Card.Title>Einsatzkräfte alarmieren</Card.Title>
@@ -62,7 +63,7 @@ const AlertEmergencyUnits = () => {
           </Form>
         </Card.Body>
       </Card>
-    </>
+    </Tile>
   );
 }
 

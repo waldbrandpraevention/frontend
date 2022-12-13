@@ -1,0 +1,28 @@
+.loading {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  left: 0;
+  background: linear-gradient(315deg, #f4511e 0%, rgb(27, 179, 14) 100%);
+}
+
+.loading .loader {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  width: 50px;
+  height: 25px;
+  border-radius: 50px;
+  background-color: red;
+  position: absolute;
+  transform: rotate(30deg);
+  animation: mainload 1.5s ease-in-out infinite;
+}
+
+.Logo {
+  height: 6rem;
+  width: 6rem;
+}
