@@ -5,6 +5,7 @@ class ApiClientService {
   async configureClient() {
     axios.defaults.baseURL = config.apiRoot;
     axios.defaults.timeout = config.timeout;
+    axios.defaults.withCredentials = true;
 
     axios.interceptors.request.use(this.onRequest);
     axios.interceptors.response.use(this.onResponse, this.onResponseError);

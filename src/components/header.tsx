@@ -5,6 +5,7 @@ import Colormode from './colormode';
 import styled from 'styled-components';
 import { TbUserCircle } from 'react-icons/tb';
 import Logo from '../assets/img/Logo';
+import { redirect } from 'react-router-dom';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
@@ -14,6 +15,12 @@ const MyNavbar = styled(Navbar)`
 const MyLogo = styled(Logo)`
     width: 24px;
     height: 24px;
+`
+
+const MyNavLink = styled(Nav.Link)`
+    :hover {
+        background-color: var(--bs-primary)
+    }
 `
 
 const Header = () => {
@@ -28,9 +35,9 @@ const Header = () => {
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <Nav.Link><Colormode /></Nav.Link>
-                        <Nav.Link><BellIcon hasNotifications={true} /></Nav.Link>
-                        <Nav.Link><TbUserCircle size={"1.5em"} className="text-white" /></Nav.Link>
+                        <MyNavLink><Colormode /></MyNavLink>
+                        <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
+                        <MyNavLink onClick={() => alert("X")}><TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
