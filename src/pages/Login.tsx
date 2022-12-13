@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -21,6 +21,8 @@ const BackgroundImage = styled.div`{
   filter: blur(2px);
 }`;
 
+
+
 type LoginFormData = {
   email: string,
   password: string
@@ -32,19 +34,20 @@ const Login = () => {
     password: ""
   } as LoginFormData);
 
-  const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: LoginFormData) => {
+  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], (data: LoginFormData) => {
     return axios.post("https://httpbin.org/post", data).then(e => e.data); /* demo url */
   });
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    mutate(form);
   }
+
 
   const handleFormChange = (e: any) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   }
+
   return (
     <div className="App">
       <BackgroundImage></BackgroundImage>
@@ -57,7 +60,7 @@ const Login = () => {
           <Card.Text className="text-style">
 
           </Card.Text >
-          <Form >
+          <Form onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="label-style">Email Adresse</Form.Label>
               <Form.Control type="email" placeholder="Email Adresse" name="email" value={form.email} onChange={handleFormChange} disabled={isLoading} />
@@ -74,8 +77,9 @@ const Login = () => {
               {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
             </Button>
 
+
             {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
-            {isSuccess && <Alert className="mt-2" variant="success" >Weiterleiten zu Dashbord</Alert>}
+            {isSuccess}
           </Form>
 
           <Card.Text className="text-style">

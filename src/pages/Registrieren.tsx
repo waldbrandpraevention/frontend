@@ -21,8 +21,8 @@ const BackgroundImage = styled.div`
 `
 
 type RegistrierenFormData = {
-    vorname: string,
-    zuname: string,
+    firstname: string,
+    lastname: string,
     username: string,
     email: string,
     password: string
@@ -30,8 +30,8 @@ type RegistrierenFormData = {
 
 const Registrieren = () => {
     const [form, setForm] = useState({
-        vorname: "",
-        zuname: "",
+        firstname: "",
+        lastname: "",
         username: "",
         email: "",
         password: ""
@@ -66,8 +66,8 @@ const Registrieren = () => {
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="label-style">Name</Form.Label>
-                            <Form.Control className="mb-2" type="text" placeholder="Vorname" name="vorname" value={form.vorname} onChange={handleFormChange} disabled={isLoading} />
-                            <Form.Control className="mb-2" type="text" placeholder="Nachname" name="zuname" value={form.zuname} onChange={handleFormChange} disabled={isLoading} />
+                            <Form.Control className="mb-2" type="text" placeholder="Vorname" name="firstname" value={form.firstname} onChange={handleFormChange} disabled={isLoading} />
+                            <Form.Control className="mb-2" type="text" placeholder="Nachname" name="lastname" value={form.lastname} onChange={handleFormChange} disabled={isLoading} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label className="label-style">Benutzername</Form.Label>
