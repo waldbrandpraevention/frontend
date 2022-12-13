@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Account from './pages/Account';
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -34,7 +35,7 @@ const queryClient = new QueryClient(); // react-query config
               <Route path="datenschutz" element={<Datenschutz />} />
               <Route path="impressum" element={<Impressum />} />
               <Route path="settings">
-                <Route path="account" element={"account einstellungen"} />
+                <Route path="account" element={<Account />} />
                 <Route path="system" element={"system einstellungen"} />
               </Route>
             </Route>

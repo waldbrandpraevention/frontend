@@ -10,11 +10,11 @@ const DroneCount = () => {
         return axios.get("/test?input=69").then(e => e.data);
     });
 
-    if (isLoading) return <Tile style={{alignItems: "center"}}><LoadingSpinner/></Tile>
+    if (isLoading) return <Tile className="py-3" style={{alignItems: "center"}}><LoadingSpinner/></Tile>
 
     if (isError) return <Alert key="danger" variant="danger"><TbAlertTriangle/> Drohnen konnten nicht geladen werden.</Alert>;
 
-    return <Tile>
+    return <Tile className="py-3">
         Anzahl Drohnen {data.message}
     </Tile>
 }
