@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model"
 import { Card, Alert } from "react-bootstrap";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
