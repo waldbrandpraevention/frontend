@@ -1,23 +1,57 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Card } from "react-bootstrap";
+import { Alert, Card } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Tile from "../Tile";
+import LoadingSpinner from "../LoadingSpinner";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
+
+type AlertFormData = {
+  drone: string,
+  zone: string,
+  firetype: string,
+  notes: string,
+  attachments: string
+}
 
 const AlertEmergencyUnits = () => {
+  const [form, setForm] = useState({
+    drone: "",
+    zone: "",
+    firetype: "",
+    notes: "",
+    attachments: ""
+  } as AlertFormData);
+
+  const { isLoading, isError, isSuccess, mutate } = useMutation(["alertemergencyunits"], (data: AlertFormData) => {
+    return axios.post("https://httpbin.org/post", data).then(e => e.data); /* demo url */
+  });
+
+  const handleFormSubmit = (e: any) => {
+    e.preventDefault();
+    mutate(form);
+  }
+
+  const handleFormChange = (e: any) => {
+    e.preventDefault();
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
   return (
     <Tile>
       <Card className="border-0">
         <Card.Body>
           <Card.Title>Einsatzkräfte alarmieren</Card.Title>
-          <Form>
+          <Form onSubmit={handleFormSubmit}>
             <Form.Group as={Row} className="mb-3" controlId="Drohne">
               <Form.Label column md={4}>
                 Drohne:
               </Form.Label>
               <Col md={8}>
-                <Form.Control className="col-lg-*" type="text" placeholder="Drohne-A123" />
+                <Form.Control className="col-lg-*" type="text" placeholder="Drohne-A123" name="drone" value={form.drone} onChange={handleFormChange} disabled={isLoading} />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Einsatzort">
@@ -25,7 +59,7 @@ const AlertEmergencyUnits = () => {
                 Einsatzort:
               </Form.Label>
               <Col md={8}>
-                <Form.Control type="text" placeholder="Zone-123" />
+                <Form.Control type="text" placeholder="Zone-123" name="zone" value={form.zone} onChange={handleFormChange} disabled={isLoading} />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Brandtyp">
@@ -33,7 +67,7 @@ const AlertEmergencyUnits = () => {
                 Brandtyp:
               </Form.Label>
               <Col md={8}>
-                <Form.Control type="text" placeholder="Brandgefahr 123" />
+                <Form.Control type="text" placeholder="Brandgefahr 123" name="firetype" value={form.firetype} onChange={handleFormChange} disabled={isLoading} />
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3" controlId="Notizen">
@@ -45,6 +79,8 @@ const AlertEmergencyUnits = () => {
                   as="textarea"
                   rows={4}
                   placeholder="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua"
+                  name="notes" value={form.notes} onChange={handleFormChange}
+                  disabled={isLoading}
                 />
               </Col>
             </Form.Group>
@@ -53,13 +89,16 @@ const AlertEmergencyUnits = () => {
                 Anhänge hinzufügen: {" "}
               </Form.Label>
               <Col md={8}>
-                <Form.Control type="file" multiple />
+                <Form.Control type="file" multiple disabled={true} />
               </Col>
             </Form.Group>
 
-            <Button variant="danger" type="submit">
-              Alarmieren
+            <Button variant="danger" type="submit" disabled={isLoading}>
+              {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
             </Button>
+
+            {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
+            {isSuccess && <Alert className="mt-2" variant="success">Einsatzkräfte wurden alarmiert.</Alert>}
           </Form>
         </Card.Body>
       </Card>
