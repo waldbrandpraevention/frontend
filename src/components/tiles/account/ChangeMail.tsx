@@ -50,9 +50,9 @@ const ChangeMail = () => {
                             <Col md={8}>
                                 <Form.Control
                                     className="col-lg-*"
-                                    type="Mail"
+                                    type="email"
                                     placeholder=""
-                                    name="oldMail"
+                                    name="newMail"
                                     value={form.newMail}
                                     onChange={handleFormChange}
                                     disabled={isLoading}
