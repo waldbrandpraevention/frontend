@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
 import WarnAlert from "../components/alerts/WarnAlert";
 import AccountInfo from "../components/tiles/account/AccountInfo";
