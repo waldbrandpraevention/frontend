@@ -38,7 +38,7 @@ const Registrieren = () => {
     } as RegistrierenFormData);
 
     const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
-        return axios.post("https://httpbin.org/post", data).then(e => e.data); /* demo url */
+        return axios.post("/users/signup/", data).then(e => e.data); /* demo url */
     });
 
     const handleFormSubmit = (e: any) => {
