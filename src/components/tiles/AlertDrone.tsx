@@ -37,12 +37,12 @@ const AlertDrone = () => {
     }
   );
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(form);
   };
 
-  const handleFormChange = (e: any) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
   };
