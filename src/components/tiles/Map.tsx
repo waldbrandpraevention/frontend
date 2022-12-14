@@ -9,11 +9,11 @@ const Map = () => {
         return axios.get("/map").then(e => e.data);
     });
 
-    if (isLoading) return <Tile className="py-3" style={{alignItems: "center"}}><LoadingSpinner/></Tile>
+    if (isLoading) return <Tile style={{alignItems: "center"}}><LoadingSpinner/></Tile>
 
     if (isError) return <ErrorAlert> Karte konnte nicht geladen werden.</ErrorAlert>;
 
-    return <Tile className="py-3">
+    return <Tile>
         Karte {data.message}
     </Tile>
 }

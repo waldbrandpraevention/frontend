@@ -8,7 +8,7 @@ import axios from "axios";
 import { useState } from "react";
 import OkAlert from "../../alerts/OkAlert";
 import LoadingSpinner from "../../LoadingSpinner";
-import Tile from "../../Tile";
+import CTile from "../../CTile";
 import ErrorAlert from "../../alerts/ErrorAlert";
 
 type ChangeFormData = {
@@ -38,7 +38,7 @@ const ChangeMail = () => {
     };
 
     return (
-        <Tile className="my-3">
+        <CTile className="my-3">
             <Card className="border-0">
                 <Card.Body>
                     <Card.Title>E-Mail ändern</Card.Title>
@@ -78,7 +78,7 @@ const ChangeMail = () => {
                     </Form>
                 </Card.Body>
             </Card>
-        </Tile>
+        </CTile>
     );
 };
 

@@ -9,11 +9,11 @@ const WeatherForecast = () => {
         return axios.get("/test?input=Alles%20sonnig").then(e => e.data);
     });
 
-    if (isLoading) return <Tile className="py-3" style={{alignItems: "center"}}><LoadingSpinner/></Tile>
+    if (isLoading) return <Tile style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
 
     if (isError) return <ErrorAlert> Wettervorhersage konnte nicht geladen werden.</ErrorAlert>;
 
-    return <Tile className="py-3">
+    return <Tile >
         Wettervorhersage {data.message}
     </Tile>
 }

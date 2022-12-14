@@ -9,11 +9,11 @@ const Area = () => {
         return axios.get("/test?input=Südliches%20Brandenburg").then(e => e.data);
     });
 
-    if (isLoading) return <Tile className="py-3" style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
+    if (isLoading) return <Tile style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
 
     if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
 
-    return <Tile className="py-3">
+    return <Tile>
         {data.message}
     </Tile>
 }

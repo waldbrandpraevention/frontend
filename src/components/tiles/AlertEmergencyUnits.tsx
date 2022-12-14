@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { Card } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Tile from "../Tile";
+import CTile from "../CTile";
 import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -43,7 +43,7 @@ const AlertEmergencyUnits = () => {
   }
 
   return (
-    <Tile>
+    <CTile>
       <Card className="border-0">
         <Card.Body>
           <Card.Title>Einsatzkräfte alarmieren</Card.Title>
@@ -104,7 +104,7 @@ const AlertEmergencyUnits = () => {
           </Form>
         </Card.Body>
       </Card>
-    </Tile>
+    </CTile>
   );
 }
 
