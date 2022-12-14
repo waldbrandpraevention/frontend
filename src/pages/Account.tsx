@@ -53,7 +53,7 @@ const Account = () => {
                             || (!isLoading && isError && <ErrorAlert>Einstellungen konnten nicht geladen werden.</ErrorAlert>)}
                         {!isLoading && !isError && <>
                             {data.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}
-                            {!data.mail_verified && <WarnAlert>Die E-Mail ({data.mail}) wurde noch nicht verifiziert. <Link to={""}>E-Mail erneut senden.</Link></WarnAlert>}
+                            {!data.mail_verified && <WarnAlert>Die E-Mail Adresse ({data.mail}) wurde noch nicht verifiziert.</WarnAlert>}
                             {!data.disabled && <>
                                 <ChangePassword />
                                 <ChangeMail />
