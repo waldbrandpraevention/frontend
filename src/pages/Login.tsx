@@ -11,7 +11,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const BackgroundImage = styled.div`{
+const BackgroundImage = styled.div`
   background: url(${loadingImages[Math.floor(Math.random() * (loadingImages.length))]}) no-repeat center center fixed;
   background-size: cover !important;
   width: 100%;
@@ -19,7 +19,7 @@ const BackgroundImage = styled.div`{
   z-index: -999999;
   position: absolute;
   filter: blur(2px);
-}`;
+`;
 
 
 
@@ -35,7 +35,7 @@ const Login = () => {
   } as LoginFormData);
 
   const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], (data: LoginFormData) => {
-    return axios.post("https://httpbin.org/post", data).then(e => e.data); /* demo url */
+    return axios.post("/users/login/", data).then(e => e.data); /* demo url */
   });
 
   const handleFormSubmit = (e: any) => {
