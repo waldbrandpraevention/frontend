@@ -8,8 +8,8 @@ import axios from "axios";
 import { useState } from "react";
 import OkAlert from "../../alerts/OkAlert";
 import LoadingSpinner from "../../LoadingSpinner";
-import CTile from "../../CTile";
 import ErrorAlert from "../../alerts/ErrorAlert";
+import Tile from "../../Tile";
 
 type ChangeFormData = {
     newMail: string;
@@ -38,47 +38,43 @@ const ChangeMail = () => {
     };
 
     return (
-        <CTile className="my-3">
-            <Card className="border-0">
-                <Card.Body>
-                    <Card.Title>E-Mail ändern</Card.Title>
-                    <Form onSubmit={handleFormSubmit}>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column md={4}>
-                                Neue E-Mail
-                            </Form.Label>
-                            <Col md={8}>
-                                <Form.Control
-                                    className="col-lg-*"
-                                    type="email"
-                                    placeholder=""
-                                    name="newMail"
-                                    value={form.newMail}
-                                    onChange={handleFormChange}
-                                    disabled={isLoading}
-                                />
-                            </Col>
-                        </Form.Group>
+        <Tile>
+            <Card.Title>E-Mail ändern</Card.Title>
+            <Form onSubmit={handleFormSubmit}>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column md={4}>
+                        Neue E-Mail
+                    </Form.Label>
+                    <Col md={8}>
+                        <Form.Control
+                            className="col-lg-*"
+                            type="email"
+                            placeholder=""
+                            name="newMail"
+                            value={form.newMail}
+                            onChange={handleFormChange}
+                            disabled={isLoading}
+                        />
+                    </Col>
+                </Form.Group>
 
 
-                        <Button variant="primary" type="submit" disabled={isLoading}>
-                            {isLoading ? <LoadingSpinner></LoadingSpinner> : <>E-Mail ändern</>}
-                        </Button>
+                <Button variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>E-Mail ändern</>}
+                </Button>
 
-                        {isError && (
-                            <ErrorAlert>
-                                Fehler :/.
-                            </ErrorAlert>
-                        )}
-                        {isSuccess && (
-                            <OkAlert>
-                                Eine Bestätigungs E-Mail wurde an die neue Adresse gesendet.
-                            </OkAlert>
-                        )}
-                    </Form>
-                </Card.Body>
-            </Card>
-        </CTile>
+                {isError && (
+                    <ErrorAlert>
+                        Fehler :/.
+                    </ErrorAlert>
+                )}
+                {isSuccess && (
+                    <OkAlert>
+                        Eine Bestätigungs E-Mail wurde an die neue Adresse gesendet.
+                    </OkAlert>
+                )}
+            </Form>
+        </Tile>
     );
 };
 

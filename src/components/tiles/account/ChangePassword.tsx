@@ -8,8 +8,8 @@ import axios from "axios";
 import { useState } from "react";
 import OkAlert from "../../alerts/OkAlert";
 import LoadingSpinner from "../../LoadingSpinner";
-import CTile from "../../CTile";
 import ErrorAlert from "../../alerts/ErrorAlert";
+import Tile from "../../Tile";
 
 type ChangeFormData = {
     oldpassword: string;
@@ -41,78 +41,74 @@ const ChangePassword = () => {
     };
 
     return (
-        <CTile className="my-3">
-            <Card className="border-0">
-                <Card.Body>
-                    <Card.Title>Passwort ändern</Card.Title>
-                    <Form onSubmit={handleFormSubmit}>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column md={4}>
-                                Altes Passwort
-                            </Form.Label>
-                            <Col md={8}>
-                                <Form.Control
-                                    className="col-lg-*"
-                                    type="password"
-                                    placeholder=""
-                                    name="oldpassword"
-                                    value={form.oldpassword}
-                                    onChange={handleFormChange}
-                                    disabled={isLoading}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column md={4}>
-                                Neues Passwort
-                            </Form.Label>
-                            <Col md={8}>
-                                <Form.Control
-                                    className="col-lg-*"
-                                    type="password"
-                                    placeholder=""
-                                    name="newpassword1"
-                                    value={form.newpassword1}
-                                    onChange={handleFormChange}
-                                    disabled={isLoading}
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column md={4}>
-                                Neues Passwort wiederholen
-                            </Form.Label>
-                            <Col md={8}>
-                                <Form.Control
-                                    className="col-lg-*"
-                                    type="password"
-                                    placeholder=""
-                                    name="newpassword2"
-                                    value={form.newpassword2}
-                                    onChange={handleFormChange}
-                                    disabled={isLoading}
-                                />
-                            </Col>
-                        </Form.Group>
+        <Tile>
+            <Card.Title>Passwort ändern</Card.Title>
+            <Form onSubmit={handleFormSubmit}>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column md={4}>
+                        Altes Passwort
+                    </Form.Label>
+                    <Col md={8}>
+                        <Form.Control
+                            className="col-lg-*"
+                            type="password"
+                            placeholder=""
+                            name="oldpassword"
+                            value={form.oldpassword}
+                            onChange={handleFormChange}
+                            disabled={isLoading}
+                        />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column md={4}>
+                        Neues Passwort
+                    </Form.Label>
+                    <Col md={8}>
+                        <Form.Control
+                            className="col-lg-*"
+                            type="password"
+                            placeholder=""
+                            name="newpassword1"
+                            value={form.newpassword1}
+                            onChange={handleFormChange}
+                            disabled={isLoading}
+                        />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column md={4}>
+                        Neues Passwort wiederholen
+                    </Form.Label>
+                    <Col md={8}>
+                        <Form.Control
+                            className="col-lg-*"
+                            type="password"
+                            placeholder=""
+                            name="newpassword2"
+                            value={form.newpassword2}
+                            onChange={handleFormChange}
+                            disabled={isLoading}
+                        />
+                    </Col>
+                </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isLoading}>
-                            {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Passwort ändern</>}
-                        </Button>
+                <Button variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Passwort ändern</>}
+                </Button>
 
-                        {isError && (
-                            <ErrorAlert>
-                                Fehler :/.
-                            </ErrorAlert>
-                        )}
-                        {isSuccess && (
-                            <OkAlert>
-                                Passwort wurde erfolgreich geändert.
-                            </OkAlert>
-                        )}
-                    </Form>
-                </Card.Body>
-            </Card>
-        </CTile>
+                {isError && (
+                    <ErrorAlert>
+                        Fehler :/.
+                    </ErrorAlert>
+                )}
+                {isSuccess && (
+                    <OkAlert>
+                        Passwort wurde erfolgreich geändert.
+                    </OkAlert>
+                )}
+            </Form>
+        </Tile>
     );
 };
 
