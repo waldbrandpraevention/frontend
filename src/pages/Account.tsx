@@ -3,11 +3,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
 import WarnAlert from "../components/alerts/WarnAlert";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Tile from "../components/Tile";
 import AccountInfo from "../components/tiles/account/AccountInfo";
 import ChangeMail from "../components/tiles/account/ChangeMail";
 import ChangePassword from "../components/tiles/account/ChangePassword";
+import LoadingTile from "../components/tiles/LoadingTile";
 
 export type AccountType = {
     firstname: string;
@@ -50,7 +49,7 @@ const Account = () => {
                 </Col>
                 <Col lg={8}>
                     <Container className="mt-2" fluid>
-                        {(isLoading && <Tile className="py-3" style={{ alignItems: "center" }}><LoadingSpinner /></Tile>)
+                        {(isLoading && <LoadingTile/>)
                             || (!isLoading && isError && <ErrorAlert>Einstellungen konnten nicht geladen werden.</ErrorAlert>)}
                         {!isLoading && !isError && <>
                             {data.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}

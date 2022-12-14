@@ -3,8 +3,8 @@ import { Card } from "react-bootstrap";
 import { TbUserCircle } from "react-icons/tb";
 import { AccountType, getAccountType } from "../../../pages/Account";
 import ErrorAlert from "../../alerts/ErrorAlert";
-import LoadingSpinner from "../../LoadingSpinner";
 import Tile from "../../Tile";
+import LoadingTile from "../LoadingTile";
 
 type AccountInfoProps = {
     userQuery: UseQueryResult<AccountType>
@@ -15,7 +15,7 @@ const AccountInfo = ({ userQuery }: AccountInfoProps) => {
 
     return <Tile>
         <Card.Title><TbUserCircle size={"1.3em"} /> Account</Card.Title>
-        {isLoading ? <Tile className="py-3 shadow-none" style={{ alignItems: "center" }}><LoadingSpinner /></Tile> :
+        {isLoading ? <LoadingTile className="shadow-none" /> :
             isError ? <ErrorAlert> Daten konnten nicht geladen werden.</ErrorAlert> :
                 <>
                     <div className="d-flex justify-content-between">
