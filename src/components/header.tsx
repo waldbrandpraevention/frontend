@@ -5,6 +5,7 @@ import Colormode from './colormode';
 import styled from 'styled-components';
 import { TbUserCircle } from 'react-icons/tb';
 import Logo from '../assets/img/Logo';
+import { useNavigate } from 'react-router-dom';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
@@ -16,27 +17,33 @@ const MyLogo = styled(Logo)`
     height: 24px;
 `
 
+const MyNavLink = styled(Nav.Link)`
+    :hover {
+        background-color: var(--bs-primary)
+    }
+`
+
 const Header = () => {
+    const navigate = useNavigate();
+
     return <>
         <MyNavbar bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand>
-                    <Nav.Link style={{display:"flex"}}>
+                    <Nav.Link style={{ display: "flex" }}>
                         <MyLogo />
                     </Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <Nav.Link><Colormode /></Nav.Link>
-                        <Nav.Link><BellIcon hasNotifications={true} /></Nav.Link>
-                        <Nav.Link><TbUserCircle size={"1.5em"} className="text-white" /></Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </MyNavbar>
+                        <MyNavLink><Colormode /></MyNavLink>
+                        <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
+                        <MyNavLink onClick={() => navigate("/settings/account")}> <TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink>
+                </Nav>
+            </Navbar.Collapse>
+        </Container>
+    </MyNavbar>
     </>
-
-
 };
 export default Header

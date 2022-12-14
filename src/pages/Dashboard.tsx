@@ -1,6 +1,5 @@
-import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import "../assets/styles/App.css"
+import "../assets/styles/App.css";
 import AlertEmergencyUnits from '../components/tiles/AlertEmergencyUnits';
 import Area from '../components/tiles/Area';
 import DroneCount from '../components/tiles/DroneCount';

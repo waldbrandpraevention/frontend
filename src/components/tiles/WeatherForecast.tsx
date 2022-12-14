@@ -1,20 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Alert } from "react-bootstrap";
-import { TbAlertTriangle } from "react-icons/tb";
-import LoadingSpinner from "../LoadingSpinner";
+import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
+import LoadingTile from "./LoadingTile";
 
 const WeatherForecast = () => {
     const { data, isLoading, isError } = useQuery(["weatherforecast"], () => {
         return axios.get("/test?input=Alles%20sonnig").then(e => e.data);
     });
 
-    if (isLoading) return <Tile style={{alignItems: "center"}}><LoadingSpinner/></Tile>
+    if (isLoading) return <LoadingTile/>
 
-    if (isError) return <Alert key="danger" variant="danger"><TbAlertTriangle/> Wettervorhersage konnte nicht geladen werden.</Alert>;
+    if (isError) return <ErrorAlert> Wettervorhersage konnte nicht geladen werden.</ErrorAlert>;
 
-    return <Tile>
+    return <Tile >
         Wettervorhersage {data.message}
     </Tile>
 }
