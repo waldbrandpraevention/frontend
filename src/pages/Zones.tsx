@@ -1,9 +1,25 @@
-import { Table, Container } from "react-bootstrap";
-import styled from "styled-components";
+import { useState } from "react";
+import { Table } from "react-bootstrap";
 
+
+type ZonesFormData = {
+    zone: string,
+    drones: string,
+    lastUpadte: string,
+    DWDAssessment: string,
+    AIAssessment: string
+}
 
 
 const Dashboard = () => {
+    const [form, setForm] = useState({
+        zone: "",
+        drones: "",
+        lastUpadte: "",
+        DWDAssessment: "",
+        AIAssessment: ""
+    } as ZonesFormData);
+
     return (
         <div className="app">
             <Table className="table mx-lg-5">
