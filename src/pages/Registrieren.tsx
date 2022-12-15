@@ -11,13 +11,20 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 const BackgroundImage = styled.div`
+ ::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+  }
+
   background: url(${loadingImages[Math.floor(Math.random() * (loadingImages.length))]}) no-repeat center center fixed;
   background-size: cover !important;
   width: 100%;
   height: 100%;
   z-index: -999999;
   position: absolute;
-  filter: blur(2px);
 `
 
 type RegistrierenFormData = {
@@ -37,8 +44,14 @@ const Registrieren = () => {
         password: ""
     } as RegistrierenFormData);
 
-    const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
-        return axios.post("/users/signup/", data).then(e => e.data); /* demo url */
+    const { isLoading, isError, isSuccess, mutate, data } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
+        const obj = new URLSearchParams();
+        obj.append("first_name", data.firstname);
+        obj.append("last_name", data.lastname);
+        obj.append("email", data.email);
+        obj.append("password", data.password);
+        obj.append("organization", "TODO");
+        return axios.post("/users/signup/", obj).then(e => e.data); 
     });
 
     const handleFormSubmit = (e: any) => {
@@ -74,7 +87,7 @@ const Registrieren = () => {
                             <Form.Control type="text" placeholder="Benutzername" name="username" value={form.username} onChange={handleFormChange} disabled={isLoading} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label className="label-style">Email Addresse</Form.Label>
+                            <Form.Label className="label-style">Email Adresse</Form.Label>
                             <Form.Control type="email" placeholder="Email Adresse" name="email" value={form.email} onChange={handleFormChange} disabled={isLoading} />
                         </Form.Group>
 
@@ -87,9 +100,9 @@ const Registrieren = () => {
                         <Button variant="primary" type="submit" disabled={isLoading}>
                             {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Registrieren</>}
                         </Button>
-
-                        {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
-                        {isSuccess && <Alert className="mt-2" variant="success">Sie wurden Erfolgreich Registriert bitte bestätigen Sie ihre E-Mail um Fortzufahren</Alert>}
+                        
+                        {isError && <Alert className="mt-2" variant="danger">Fehler F12 für mehr Infos</Alert>}
+                        {isSuccess && <Alert className="mt-2" variant="success">Sie wurden erfolgreich registriert. Bitte bestätigen Sie ihre E-Mail um fortzufahren</Alert>}
                     </Form>
                 </Card.Body>
             </Card>

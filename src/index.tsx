@@ -13,36 +13,41 @@ import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Account from './pages/Account';
+import { AuthProvider } from './service/auth';
+import GuardRoute from './components/GuardRoute';
+import AuthRoute from './components/AuthRoute';
 
 const queryClient = new QueryClient(); // react-query config
 
 (async function index() {
-
+  
   await apiClientService.configureClient()
 
   render(
     <QueryClientProvider client={queryClient}>
-      <ProSidebarProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/registrieren" element={<Registrieren />} />
-            <Route path="/" element={<App />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="zones" element={"zones"} />
-              <Route path="map" element={"test"} />
-              <Route path="help" element={"hilfeseite"} />
-              <Route path="advanced" element={<Impressum />} />
-              <Route path="datenschutz" element={<Datenschutz />} />
-              <Route path="impressum" element={<Impressum />} />
-              <Route path="settings">
-                <Route path="account" element={<Account />} />
-                <Route path="system" element={"system einstellungen"} />
+      <AuthProvider>
+        <ProSidebarProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Registrieren />} />
+              <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="zones" element={"zones"} />
+                <Route path="map" element={"test"} />
+                <Route path="help" element={"hilfeseite"} />
+                <Route path="advanced" element={<Impressum />} />
+                <Route path="datenschutz" element={<Datenschutz />} />
+                <Route path="impressum" element={<Impressum />} />
+                <Route path="settings">
+                  <Route path="account" element={<Account />} />
+                  <Route path="system" element={"system einstellungen"} />
+                </Route>
               </Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </ProSidebarProvider>
+            </Routes>
+          </BrowserRouter>
+        </ProSidebarProvider>
+      </AuthProvider>
     </QueryClientProvider>
   )
 })()
