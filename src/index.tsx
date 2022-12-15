@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Registrieren from './pages/Registrieren';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Account from './pages/Account';
+import Zones from './pages/Zones';
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -29,7 +30,7 @@ const queryClient = new QueryClient(); // react-query config
             <Route path="/registrieren" element={<Registrieren />} />
             <Route path="/" element={<App />}>
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="zones" element={"zones"} />
+              <Route path="zones" element={<Zones />} />
               <Route path="map" element={"test"} />
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<Impressum />} />
