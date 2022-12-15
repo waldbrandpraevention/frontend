@@ -1,4 +1,4 @@
-<h1 align="center">Waldbrandprävention Frontend</h1>
+<h1 align="center">Waldbrandprävention</h1>
 <p align="center">   
     <img width="460" height="300" src="src/assets/img/logo-v1.svg">
 </p>
