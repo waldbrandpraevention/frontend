@@ -22,6 +22,8 @@
 
 </div>
 
+![](/src/assets/img/arch.png)
+
 
 ## Installation
 <!-- > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker) (nicht empfohlen) -->
