@@ -27,7 +27,7 @@ const App = () => {
     <Header />
 
     <FlexMain>
-      <Sidebar >
+      <Sidebar>
         <Menu closeOnClick={true}>
           <MenuItem icon={<TbAlignJustified />} onClick={() => collapseSidebar()}></MenuItem>
           <MenuItem routerLink={<Link to="/dashboard"/>} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>

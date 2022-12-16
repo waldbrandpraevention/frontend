@@ -15,11 +15,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Account from './pages/Account';
 import { AuthProvider } from './service/auth';
 import AuthRoute from './components/AuthRoute';
+import GuestRoute from './components/GuestRoute';
 
 const queryClient = new QueryClient(); // react-query config
 
 (async function index() {
-  
   await apiClientService.configureClient()
 
   render(
@@ -28,8 +28,8 @@ const queryClient = new QueryClient(); // react-query config
         <ProSidebarProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Registrieren />} />
+              <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+              <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="zones" element={"zones"} />
