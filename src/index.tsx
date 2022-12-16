@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ProSidebarProvider } from 'react-pro-sidebar';
-import apiClientService from './service/api-client.service'
+import apiClientService from './service/api-client.service';
 
-import './assets/styles/bootstrap.scss'
+import './assets/styles/bootstrap.scss';
 import App from './pages/App';
 import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
@@ -14,7 +14,6 @@ import Registrieren from './pages/Registrieren';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Account from './pages/Account';
 import { AuthProvider } from './service/auth';
-import GuardRoute from './components/GuardRoute';
 import AuthRoute from './components/AuthRoute';
 
 const queryClient = new QueryClient(); // react-query config

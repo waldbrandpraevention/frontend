@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 export enum AccountType {
     Benutzer = 1,
@@ -26,11 +25,11 @@ export const getAccountRole = (perm: AccountPerm): AccountRole => {
 }
 
 const setToken = (token: string) => {
-    localStorage.setItem("wb_access_token", token);   /* unsicher ! */
+    sessionStorage.setItem("wb_access_token", token); 
 }
 
 const getToken = (): string | null => {
-    return localStorage.getItem("wb_access_token");
+    return sessionStorage.getItem("wb_access_token");
 }
 
 type AuthContextType = {

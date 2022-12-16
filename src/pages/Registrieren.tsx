@@ -1,4 +1,4 @@
-import Logo from "../assets/img/Logo"
+import Logo from "../assets/img/Logo";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
@@ -44,7 +44,7 @@ const Registrieren = () => {
         password: ""
     } as RegistrierenFormData);
 
-    const { isLoading, isError, isSuccess, mutate, data } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
+    const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
         const obj = new URLSearchParams();
         obj.append("first_name", data.firstname);
         obj.append("last_name", data.lastname);

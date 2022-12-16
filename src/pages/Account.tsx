@@ -16,17 +16,6 @@ export type AccountType = {
     organization: string;
 }
 
-const __testuser: AccountType = {
-    /* debug only!! */
-    firstname: "Max",
-    lastname: "Mustermann",
-    mail: "foo@bar.de",
-    permission: 2,
-    disabled: false,
-    mail_verified: false,
-    organization: "WB"
-}
-
 const Account = () => {
     const { user } = useAuth();
 
