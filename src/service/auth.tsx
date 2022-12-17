@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import LoadingTile from "../components/tiles/LoadingTile";
 import config from "../config/config";
 import { d } from "../utils/util";
 import ApiClientService from "./api-client.service";
@@ -11,24 +10,16 @@ import ApiClientService from "./api-client.service";
 export enum AccountType {
     Benutzer = 1,
     Administrator = 2,
-}
-
-type AccountRole = "Benutzer" | "Administrator";
-type AccountPerm = 1 | 2;
+} 
 
 export type Account = {
     firstname: string;
     lastname: string;
     mail: string;
-    permission: AccountPerm;
-    role: AccountRole;
+    permission: AccountType;
     disabled: boolean;
     mail_verified: boolean;
     organization: string;
-}
-
-const getAccountRole = (perm: AccountPerm): AccountRole => {
-    return perm === 1 ? "Benutzer" : "Administrator";
 }
 
 const fromApiCall = (user: any): Account => {
@@ -38,9 +29,8 @@ const fromApiCall = (user: any): Account => {
         mail: user.email,
         permission: user.permission ?? 1, /* TODO: API fehlt */
         mail_verified: false,  /* TODO: API fehlt */
-        organization: user.organization,  /* TODO: API fehlt */
+        organization: user.organization,  
         disabled: false,  /* TODO: API fehlt */
-        role: getAccountRole(user.permission ?? 1)
     } as Account
 }
 
