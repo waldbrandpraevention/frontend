@@ -35,10 +35,10 @@ const fromApiCall = (user: any): Account => {
         firstname: user.first_name,
         lastname: user.last_name,
         mail: user.email,
-        permission: user.permission ?? 1,
-        mail_verified: false,
-        organization: user.organization,
-        disabled: false,
+        permission: user.permission ?? 1, /* TODO: API fehlt */
+        mail_verified: false,  /* TODO: API fehlt */
+        organization: user.organization,  /* TODO: API fehlt */
+        disabled: false,  /* TODO: API fehlt */
         role: getAccountRole(user.permission ?? 1)
     } as Account
 }
@@ -87,11 +87,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, {
         onSuccess: (data) => {
             setUser(fromApiCall(data));
-            d("Auth","OK: User set!");
+            d("Auth", "OK: User set!");
             setQueryIsReady(true);
         },
         onError: () => {
-            d("Auth","ERR: Logging out");
+            d("Auth", "ERR: Logging out");
             logout();
             setQueryIsReady(true);
         },
@@ -135,6 +135,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const value = { user, token, login, logout };
     return <AuthContext.Provider value={value}>
         {isFetched && queryIsReady ? children : <LoadingTile></LoadingTile>} {/* wait for user to be fetched */}
-    </AuthContext.Provider> 
+    </AuthContext.Provider>
 }
 

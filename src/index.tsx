@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import apiClientService from './service/api-client.service';
 
@@ -31,6 +31,7 @@ const queryClient = new QueryClient(); // react-query config
               <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
               <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
+                <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="zones" element={"zones"} />
                 <Route path="map" element={"test"} />
