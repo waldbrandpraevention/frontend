@@ -48,7 +48,7 @@ const Registrieren = () => {
 
     const [errors, setErrors] = useState({});
 
-    const { isLoading, isError, isSuccess, mutate, data } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
+    const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
         const obj = new URLSearchParams();
         obj.append("first_name", data.firstname);
         obj.append("last_name", data.lastname);
@@ -57,7 +57,7 @@ const Registrieren = () => {
         obj.append("organization", "TODO");
         return axios.post("/users/signup/", obj).then(e => e.data);
     }, {
-        onError(error: any, variables, context) {
+        onError(error: any) {
             setErrors(error.response.data)
         },
     });

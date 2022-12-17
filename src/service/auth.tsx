@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [queryIsReady, setQueryIsReady] = useState(false);
 
-    const { isFetched } = useQuery(["account"], () => { /* Refresh user */
+    const { isFetched } = useQuery(["account"], async () => { /* Refresh user */
         return axios.get("/users/me/", { headers: { Authorization: "Bearer " + token } }).then(e => e.data);
     }, {
         onSuccess: (data) => {
