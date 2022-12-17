@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingTile from "../components/tiles/LoadingTile";
 import config from "../config/config";
-import { d } from "../utils/debug";
+import { d } from "../utils/util";
 import ApiClientService from "./api-client.service";
 
 export enum AccountType {

@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../service/auth";
-import { d } from "../../utils/debug";
+import { d } from "../../utils/util";
 
 type AuthRouteType = {
     redirectTo?: string,

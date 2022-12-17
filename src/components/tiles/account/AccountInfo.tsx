@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { TbUserCircle } from "react-icons/tb";
 import { useAuth } from "../../../service/auth";
+import { limit } from "../../../utils/util";
 import Tile from "../../Tile";
 
 const AccountInfo = () => {
@@ -21,7 +22,7 @@ const AccountInfo = () => {
             <span className="fw-light">Rolle </span> {user.role}
         </div>
         <div className="d-flex justify-content-between">
-            <span className="fw-light">Organisation </span> {user.organization.substring(0, 15) + (user.organization.length > 15 ? "..." : "")}
+            <span className="fw-light">Organisation </span> {limit(user.organization, 15)}
         </div>
     </Tile>
 }
