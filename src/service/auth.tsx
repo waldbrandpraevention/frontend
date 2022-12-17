@@ -12,7 +12,7 @@ export enum AccountType {
     Administrator = 2,
 } 
 
-export type Account = {
+export type Account = Readonly<{
     firstname: string;
     lastname: string;
     mail: string;
@@ -20,7 +20,7 @@ export type Account = {
     disabled: boolean;
     mail_verified: boolean;
     organization: string;
-}
+}>
 
 const fromApiCall = (user: any): Account => {
     return {
