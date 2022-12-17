@@ -1,16 +1,18 @@
-import Logo from "../assets/img/Logo"
+import Logo from "../assets/img/Logo";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
-import { loadingImages } from "../components/loadingImages.model"
-import { Card, Alert } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
+import { loadingImages } from "../components/loadingImages.model";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../service/auth";
+import OkAlert from "../components/alerts/OkAlert";
+import ErrorAlert from "../components/alerts/ErrorAlert";
 
 const BackgroundImage = styled.div`
   ::before{
@@ -44,17 +46,15 @@ const Login = () => {
     password: ""
   } as LoginFormData);
 
-  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], (data: LoginFormData) => {
+  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], async (data: LoginFormData) => {
     const obj = new URLSearchParams();
     obj.append("username", data.email);
     obj.append("password", data.password);
-    return axios.post("/users/login/", obj).then(e => e.data);
+    const resp = await axios.post("/users/login/", obj).then(e => e.data);
+    await login(resp.access_token);
   }, {
-    onSuccess: e => {
-      console.log("OK " + e.access_token);
-      login(e.access_token);
-    },
-    onError: e => console.log("FAIL " + e)
+    onSuccess: e => { },
+    onError: e => { }
   });
 
   const handleFormSubmit = (e: any) => {
@@ -92,18 +92,15 @@ const Login = () => {
               <Form.Label className="text-secondary" as={Link} to="/forgot-password" >Passwort vergessen</Form.Label>
             </Form.Group>
 
-
-            <Button variant="primary" type="submit" disabled={isLoading}>
+            <Button className="mb-2" variant="primary" type="submit" disabled={isLoading}>
               {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
             </Button>
 
-
-            {isError && <Alert className="mt-2" variant="danger">Fehler F12 für mehr Infos :/.</Alert>}
-            {isSuccess && <Navigate to="/dashboard" replace={true} />}
+            {isError && <ErrorAlert>Fehler (F12 für mehr Infos) :/.</ErrorAlert>}
+            {isSuccess && <OkAlert>Anmeldung erfolgreich. Weiterleiten...</OkAlert>}
           </Form>
 
           <Card.Text className="text-style">
-
             <Card.Link as={Link} to="/register" >Registrieren</Card.Link>
           </Card.Text>
 

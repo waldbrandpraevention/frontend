@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../service/auth";
+import { useAuth } from "../../service/auth";
+import { d } from "../../utils/debug";
 
 type AuthRouteType = {
     redirectTo?: string,
@@ -11,7 +12,10 @@ const AuthRoute = ({ redirectTo = "/login", children }: AuthRouteType): JSX.Elem
     const { token } = useAuth();
     const location = useLocation(); /* remember old location */
 
-    if (token === null) return <Navigate to={redirectTo} replace state={{ from: location }} />
+    if (token === null) {
+        d("AuthRoute", `Not authorized -> ${redirectTo}`);
+        return <Navigate to={redirectTo} replace state={{ from: location }} />
+    }
 
     return children ? children as JSX.Element : <Outlet />;
 }

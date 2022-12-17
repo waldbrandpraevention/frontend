@@ -42,8 +42,7 @@ const Header = () => {
                     <Nav>
                         <MyNavLink><Colormode /></MyNavLink>
                         <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
-                        {/* <MyNavLink onClick={() => navigate("/settings/account")}> <TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink> */}
-                        <NavDropdown title={user.firstname + " " + user.lastname} id="basic-nav-dropdown" align={'end'}>
+                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={'end'}>
                             <NavDropdown.Item onClick={() => navigate("/settings/account")}>
                                 <TbUserCircle /> Mein Account
                             </NavDropdown.Item>

@@ -14,8 +14,8 @@ import Registrieren from './pages/Registrieren';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Account from './pages/Account';
 import { AuthProvider } from './service/auth';
-import AuthRoute from './components/AuthRoute';
-import GuestRoute from './components/GuestRoute';
+import AuthRoute from './components/routes/AuthRoute';
+import GuestRoute from './components/routes/GuestRoute';
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -24,9 +24,9 @@ const queryClient = new QueryClient(); // react-query config
 
   render(
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ProSidebarProvider>
-          <BrowserRouter>
+      <ProSidebarProvider>
+        <BrowserRouter>
+          <AuthProvider>
             <Routes>
               <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
               <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
@@ -41,12 +41,13 @@ const queryClient = new QueryClient(); // react-query config
                 <Route path="settings">
                   <Route path="account" element={<Account />} />
                   <Route path="system" element={"system einstellungen"} />
+                  <Route path="notifications" element={"benachrichtigungen"} />
                 </Route>
               </Route>
             </Routes>
-          </BrowserRouter>
-        </ProSidebarProvider>
-      </AuthProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </ProSidebarProvider>
     </QueryClientProvider>
   )
 })()
