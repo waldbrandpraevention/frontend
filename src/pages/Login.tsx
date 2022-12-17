@@ -46,6 +46,8 @@ const Login = () => {
     password: ""
   } as LoginFormData);
 
+  const [errors, setErrors] = useState({});
+
   const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], async (data: LoginFormData) => {
     const obj = new URLSearchParams();
     obj.append("username", data.email);
@@ -53,8 +55,9 @@ const Login = () => {
     const resp = await axios.post("/users/login/", obj).then(e => e.data);
     await login(resp.access_token);
   }, {
-    onSuccess: e => { },
-    onError: e => { }
+    onError: (e: any) => {
+      setErrors(e.response.data.detail)
+    }
   });
 
   const handleFormSubmit = (e: any) => {
@@ -96,7 +99,7 @@ const Login = () => {
               {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
             </Button>
 
-            {isError && <ErrorAlert>Fehler (F12 für mehr Infos) :/.</ErrorAlert>}
+            {isError && <ErrorAlert>{JSON.stringify(errors)}</ErrorAlert>}
             {isSuccess && <OkAlert>Anmeldung erfolgreich. Weiterleiten...</OkAlert>}
           </Form>
 
