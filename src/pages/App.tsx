@@ -4,7 +4,6 @@ import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sideb
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import { TbAbacus, TbAlignJustified, TbBuilding, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
-import { useAuth } from '../service/auth';
 
 const FlexMain = styled.div`
   display: flex;

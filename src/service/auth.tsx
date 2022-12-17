@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 import LoadingTile from "../components/tiles/LoadingTile";
 import config from "../config/config";
 import { d } from "../utils/util";
@@ -97,7 +98,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         },
         retry: false,
         refetchOnMount: "always",
-        refetchInterval: 15000,
+        refetchInterval: 60000, /* 1 min */
         refetchOnReconnect: "always",
         refetchOnWindowFocus: "always",
     })
@@ -134,7 +135,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const value = { user, token, login, logout };
     return <AuthContext.Provider value={value}>
-        {isFetched && queryIsReady ? children : <LoadingTile></LoadingTile>} {/* wait for user to be fetched */}
+        {isFetched && queryIsReady ? children : <Loading />} {/* wait for user to be fetched */}
     </AuthContext.Provider>
 }
 
