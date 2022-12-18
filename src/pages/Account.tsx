@@ -6,16 +6,6 @@ import ChangeMail from "../components/tiles/account/ChangeMail";
 import ChangePassword from "../components/tiles/account/ChangePassword";
 import { useAuth } from "../service/auth";
 
-export type AccountType = {
-    firstname: string;
-    lastname: string;
-    mail: string;
-    permission: number;
-    disabled: boolean;
-    mail_verified: boolean;
-    organization: string;
-}
-
 const Account = () => {
     const { user } = useAuth();
 
