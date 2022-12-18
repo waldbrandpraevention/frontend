@@ -10,8 +10,7 @@ import { useAuth } from '../service/auth';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
-    opacity: 0.9;
-    background-color: var();
+    background-color: var(--bs-dark);
     z-index: 1;
 `
 const MyLogo = styled(Logo)`
@@ -30,7 +29,7 @@ const Header = () => {
     const { user, logout } = useAuth();
 
     return <>
-        <MyNavbar bg="primary" variant="dark">
+        <MyNavbar variant="dark">
             <Container>
                 <Navbar.Brand>
                     <Nav.Link style={{ display: "flex" }}>
@@ -44,10 +43,10 @@ const Header = () => {
                         <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
                         <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={'end'}>
                             <NavDropdown.Item onClick={() => navigate("/settings/account")}>
-                                <TbUserCircle /> Mein Account
+                                <TbUserCircle /> Account
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => { logout(); navigate("/login") }}>
+                            <NavDropdown.Item className='text-danger' onClick={() => { logout(); navigate("/login") }}>
                                 <TbLogout /> Abmelden
                             </NavDropdown.Item>
                         </NavDropdown>
