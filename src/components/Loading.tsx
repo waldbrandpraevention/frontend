@@ -3,6 +3,7 @@ import { ImSpinner2 } from "react-icons/im";
 import styled from "styled-components";
 import Logo from "../assets/img/Logo";
 import config from "../config/config";
+import ErrorAlert from "./alerts/ErrorAlert";
 import WarnAlert from "./alerts/WarnAlert";
 
 const Main = styled.div`
@@ -35,21 +36,23 @@ const StyledSpinner = styled(ImSpinner2)`
 `;
 
 const Loading = () => {
-    const [slow, setSlow] = useState(false);
+    const [state, setState] = useState(0);
 
     useEffect(() => {
         let ctr = 0;
         const interval = setInterval(() => {
             ctr++;
-            if (ctr > 2) { setSlow(true); return }
+            if (ctr > 2) { setState(1); }
+            if (ctr > 8) { setState(2); return }
         }, 1000);
         return () => clearInterval(interval);
     }, []);
 
     return <Main>
         <StyledLogo />
-        <StyledSpinner />
-        {slow && <div className="mt-4"><WarnAlert>Verbindung zum Server dauert ungewöhnlich lange.</WarnAlert></div>}
+        {state !== 2 && <StyledSpinner />}
+        {state === 1 && <div className="mt-4"><WarnAlert>Verbindung zum Server dauert ungewöhnlich lange.</WarnAlert></div>}
+        {state === 2 && <div className="mt-4"><ErrorAlert>Verbindung zum Server fehlgeschlagen.</ErrorAlert></div>}
         <span style={{ position: "fixed", bottom: "2em", fontSize: "12px" }}>Verbinde mit {config.apiRoot?.includes("http") ? config.apiRoot : (window.location.host + config.apiRoot)}</span>
     </Main>
 }

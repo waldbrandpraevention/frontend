@@ -10,7 +10,7 @@ import ApiClientService from "./api-client.service";
 export enum AccountType {
     Benutzer = 1,
     Administrator = 2,
-} 
+}
 
 export type Account = Readonly<{
     firstname: string;
@@ -29,7 +29,7 @@ const fromApiCall = (user: any): Account => {
         mail: user.email,
         permission: user.permission ?? 1, /* TODO: API fehlt */
         mail_verified: false,  /* TODO: API fehlt */
-        organization: user.organization,  
+        organization: user.organization,
         disabled: false,  /* TODO: API fehlt */
     } as Account
 }
@@ -81,14 +81,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             d("Auth", "OK: User set!");
             setQueryIsReady(true);
         },
-        onError: () => {
-            d("Auth", "ERR: Logging out");
-            logout();
-            setQueryIsReady(true);
+        onError: (err: any) => {
+            /* If user token expired/not authorized, else server is probably down */
+            if (err?.response?.status === 401) {
+                d("Auth", "ERR: Logging out");
+                logout();
+                setQueryIsReady(true);
+            }
         },
         retry: false,
         refetchOnMount: "always",
-        refetchInterval: 60000, /* 1 min */
         refetchOnReconnect: "always",
         refetchOnWindowFocus: "always",
     })
