@@ -213,7 +213,7 @@ Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgen
     Header always set X-Frame-Options "deny"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set X-Content-Type-Options "nosniff"
-    Header always set Content-Security-Policy "connect-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </VirtualHost>
 ```
