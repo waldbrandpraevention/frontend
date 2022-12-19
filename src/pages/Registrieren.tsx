@@ -16,7 +16,7 @@ import ErrorAlert from "../components/alerts/ErrorAlert";
 const BackgroundImage = styled.div`
  ::before{
     content: "";
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100vh;
     backdrop-filter: blur(5px);
@@ -27,7 +27,7 @@ const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   z-index: -999999;
-  position: absolute;
+  position: fixed;
 `
 
 type RegistrierenFormData = {
