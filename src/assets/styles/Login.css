@@ -9,6 +9,7 @@
   width: 22.5rem;
   margin: 0 auto; /* Added */
   float: none; /* Added */
+  opacity: 0.9; /* NEW */
 }
 
 .body-style {

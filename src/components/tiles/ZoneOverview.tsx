@@ -6,7 +6,7 @@ import LoadingTile from "./LoadingTile";
 
 const ZoneOverview = () => {
     const { data, isLoading, isError } = useQuery(["zoneoverview"], () => {
-        return axios.get("/zones").then(e => e.data);
+        return axios.get("/zones/").then(e => e.data);
     });
 
     if (isLoading) return <LoadingTile />

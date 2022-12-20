@@ -7,6 +7,9 @@ const config = {
   apiRoot: process.env.REACT_APP_API_ROOT,
 
   timeout: 10000,
+
+  localStorageName: process.env.REACT_APP_LOCALSTORAGE_NAME ?? "wb_access_token",
+  enableDebug: process.env.REACT_APP_DEBUG ?? true
 };
 
 export default config;
