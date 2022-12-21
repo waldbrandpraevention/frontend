@@ -10,19 +10,14 @@ import DangerLevel from "../DangerLevel";
 
 
 const ZoneOverview = () => {
-    //    const { data, isLoading, isError } = useQuery(["zones"], () => {
-    //         return axios.get("/zones").then(e => e.data);
-    //     });
+    const { data, isLoading, isError } = useQuery(["zones"], () => {
+        return axios.get("/zones").then(e => e.data);
+    });
 
-    //     if (isLoading) return <LoadingTile />
+    if (isLoading) return <LoadingTile />
 
-    //     if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
+    if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
 
-    const data = [{ zone: "string", drohne: "string", lastUpdate: "string", DangerLevel: 0, ai: 1 },
-    { zone: "string", drohne: "string", lastUpdate: "string", DangerLevel: 1, ai: 1 },
-    { zone: "string", drohne: "string", lastUpdate: "string", DangerLevel: 2, ai: 1 },
-    { zone: "string", drohne: "string", lastUpdate: "string", DangerLevel: 3, ai: 1 },
-    { zone: "string", drohne: "string", lastUpdate: "string", DangerLevel: 4, ai: 1 }]
     return (
         <Container className="mt-4">
             <Tile >
