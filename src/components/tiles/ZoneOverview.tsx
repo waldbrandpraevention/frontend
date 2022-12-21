@@ -27,7 +27,7 @@ const ZoneOverview = () => {
                         <tr>
                             <th scope="col">Zonen</th>
                             <th scope="col">Drohnen</th>
-                            <th scope="col">Lestes Update</th>
+                            <th scope="col">Letztes Update</th>
                             <th scope="col">Brandgefahr</th>
                             <th scope="col">KI Einschatzung</th>
                         </tr>
