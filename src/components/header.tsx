@@ -1,16 +1,17 @@
 import '../assets/styles/header.css'
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import BellIcon from './bellIcon'
 import Colormode from './colormode';
 import styled from 'styled-components';
-import { TbUserCircle } from 'react-icons/tb';
+import { TbLogout, TbUserCircle } from 'react-icons/tb';
 import Logo from '../assets/img/Logo';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../service/auth';
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
-    opacity: 0.9;
-    background-color: var();
+    background-color: var(--bs-dark);
+    z-index: 1;
 `
 const MyLogo = styled(Logo)`
     width: 24px;
@@ -25,9 +26,10 @@ const MyNavLink = styled(Nav.Link)`
 
 const Header = () => {
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
 
     return <>
-        <MyNavbar bg="primary" variant="dark">
+        <MyNavbar variant="dark">
             <Container>
                 <Navbar.Brand>
                     <Nav.Link style={{ display: "flex" }}>
@@ -39,11 +41,19 @@ const Header = () => {
                     <Nav>
                         <MyNavLink><Colormode /></MyNavLink>
                         <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
-                        <MyNavLink onClick={() => navigate("/settings/account")}> <TbUserCircle size={"1.5em"} className="text-white" /></MyNavLink>
-                </Nav>
-            </Navbar.Collapse>
-        </Container>
-    </MyNavbar>
+                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={'end'}>
+                            <NavDropdown.Item onClick={() => navigate("/settings/account")}>
+                                <TbUserCircle /> Account
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item className='text-danger' onClick={() => { logout(); navigate("/login") }}>
+                                <TbLogout /> Abmelden
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </MyNavbar>
     </>
 };
 export default Header

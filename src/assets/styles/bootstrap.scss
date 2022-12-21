@@ -21,3 +21,7 @@ $dark:;*/
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
 /* Globale Styles hier */
+.dropdown-menu.show.dropdown-menu-end {
+  @extend .shadow;
+  @extend .border-0;
+}

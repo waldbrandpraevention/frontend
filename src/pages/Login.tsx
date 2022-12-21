@@ -1,24 +1,34 @@
-import Logo from "../assets/img/Logo"
+import Logo from "../assets/img/Logo";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
-import { loadingImages } from "../components/loadingImages.model"
-import { Card, Alert } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
+import { loadingImages } from "../components/loadingImages.model";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useAuth } from "../service/auth";
+import OkAlert from "../components/alerts/OkAlert";
+import ErrorAlert from "../components/alerts/ErrorAlert";
 
 const BackgroundImage = styled.div`
+  ::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+  }
+
   background: url(${loadingImages[Math.floor(Math.random() * (loadingImages.length))]}) no-repeat center center fixed;
   background-size: cover !important;
   width: 100%;
   height: 100%;
   z-index: -999999;
   position: absolute;
-  filter: blur(2px);
 `;
 
 
@@ -29,13 +39,25 @@ type LoginFormData = {
 }
 
 const Login = () => {
+  const { login } = useAuth();
+
   const [form, setForm] = useState({
     email: "",
     password: ""
   } as LoginFormData);
 
-  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], (data: LoginFormData) => {
-    return axios.post("/users/login/", data).then(e => e.data); /* demo url */
+  const [errors, setErrors] = useState({});
+
+  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], async (data: LoginFormData) => {
+    const obj = new URLSearchParams();
+    obj.append("username", data.email);
+    obj.append("password", data.password);
+    const resp = await axios.post("/users/login/", obj).then(e => e.data);
+    await login(resp.access_token);
+  }, {
+    onError: (e: any) => {
+      setErrors(e.response.data.detail)
+    }
   });
 
   const handleFormSubmit = (e: any) => {
@@ -73,19 +95,16 @@ const Login = () => {
               <Form.Label className="text-secondary" as={Link} to="/forgot-password" >Passwort vergessen</Form.Label>
             </Form.Group>
 
-
-            <Button variant="primary" type="submit" disabled={isLoading}>
+            <Button className="mb-2" variant="primary" type="submit" disabled={isLoading}>
               {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
             </Button>
 
-
-            {isError && <Alert className="mt-2" variant="danger">Fehler :/.</Alert>}
-            {isSuccess && <Navigate to="/dashboard" replace={true} />}
+            {isError && <ErrorAlert>{JSON.stringify(errors)}</ErrorAlert>}
+            {isSuccess && <OkAlert>Anmeldung erfolgreich. Weiterleiten...</OkAlert>}
           </Form>
 
           <Card.Text className="text-style">
-
-            <Card.Link as={Link} to="/registrieren" >Registrieren</Card.Link>
+            <Card.Link as={Link} to="/register" >Registrieren</Card.Link>
           </Card.Text>
 
         </Card.Body>
