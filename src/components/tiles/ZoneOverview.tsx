@@ -11,7 +11,7 @@ import DangerLevel from "../DangerLevel";
 
 const ZoneOverview = () => {
     const { data, isLoading, isError } = useQuery(["zones"], () => {
-        return axios.get("/zones").then(e => e.data);
+        return axios.get("/zones/").then(e => e.data);
     });
 
     if (isLoading) return <LoadingTile />

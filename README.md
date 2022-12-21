@@ -5,8 +5,8 @@
 
 <div align="center">
 
-[![Node.js CI](https://img.shields.io/github/workflow/status/waldbrandpraevention/frontend/Node.js%20CI?style=for-the-badge&label=ci)](https://github.com/waldbrandpraevention/frontend/actions/workflows/node.js.yml)
-![](https://img.shields.io/github/workflow/status/waldbrandpraevention/frontend/Docker?style=for-the-badge&label=docker)
+[![Node.js CI](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/node.js.yml?branch=main&style=for-the-badge&label=ci)](https://github.com/waldbrandpraevention/frontend/actions/workflows/node.js.yml)
+![](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/docker-image.yml?branch=main&style=for-the-badge&label=docker)
 ![](https://img.shields.io/github/commit-activity/m/waldbrandpraevention/frontend?style=for-the-badge&label=commits)
 ![](https://img.shields.io/docker/image-size/waldbrandpraevention/frontend?style=for-the-badge&label=image&color=orange)
 
@@ -181,6 +181,43 @@ docker compose down
 ```
 docker compose pull && docker compose up -d
 ```
+#### Reverse Proxy 🛡️
+Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgende vHost Konfiguration verwendet werden:
+```apache
+<VirtualHost *:80>
+    ServerName domain.tld
+
+    # Alle HTTP Anfragen zu HTTPS weiterleiten
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =domain.tld
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName domain.tld
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / http://127.0.0.1:8080/
+
+    ProxyPreserveHost on
+
+    ErrorLog ${APACHE_LOG_DIR}/wb-error.log
+    CustomLog ${APACHE_LOG_DIR}/wb-access.log combined
+
+    # Für Let's Encrypt Zertifikate
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/domain.tld/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/domain.tld/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+
+    Header always set Strict-Transport-Security "max-age=31536000"
+    Header always set X-Frame-Options "deny"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</VirtualHost>
+```
+
 #### FAQ ❓
 - > `waldbrandpraevention-frontend-1 exited with code 0`?
   - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
