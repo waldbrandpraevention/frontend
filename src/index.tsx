@@ -34,7 +34,7 @@ const queryClient = new QueryClient(); // react-query config
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
                 <Route path="dashboard" element={<Dashboard />} />
-                <Route path="zones" element={"zones"} />
+                <Route path="zones" element={<Zones />} />
                 <Route path="map" element={"test"} />
                 <Route path="help" element={"hilfeseite"} />
                 <Route path="advanced" element={<Impressum />} />
