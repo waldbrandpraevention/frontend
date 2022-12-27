@@ -52,6 +52,7 @@ const PotentialFiresite = () => {
           </tr>
         </tbody>
       </Table>
+      {data.message}
     </Tile>
   );
 };
