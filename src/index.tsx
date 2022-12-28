@@ -17,6 +17,7 @@ import Zones from './pages/Zones';
 import { AuthProvider } from './service/auth';
 import AuthRoute from './components/routes/AuthRoute';
 import GuestRoute from './components/routes/GuestRoute';
+import Maps from './pages/Maps';
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -35,7 +36,7 @@ const queryClient = new QueryClient(); // react-query config
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="zones" element={<Zones />} />
-                <Route path="map" element={"test"} />
+                <Route path="map" element={<Maps />} />
                 <Route path="help" element={"hilfeseite"} />
                 <Route path="advanced" element={<Impressum />} />
                 <Route path="datenschutz" element={<Datenschutz />} />

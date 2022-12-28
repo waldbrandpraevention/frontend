@@ -6,7 +6,9 @@ import DroneCount from '../components/tiles/DroneCount';
 import Firerisk from '../components/tiles/Firerisk';
 import WeatherForecast from '../components/tiles/WeatherForecast';
 import ZoneOverview from '../components/tiles/ZoneOverview';
-import Map from '../components/tiles/Map';
+import Map from '../components/tiles/Maps/NormalMap';
+
+
 
 const Dashboard = () => {
   return (
@@ -18,7 +20,9 @@ const Dashboard = () => {
           <Col sm><Firerisk /></Col>
         </Row>
         <Row>
-          <Col sm={8}><Map /></Col>
+          <Col sm={8}>
+            <Map />
+          </Col>
           <Col sm={4}><WeatherForecast /></Col>
         </Row>
         <Row>
