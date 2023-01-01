@@ -6,7 +6,8 @@ COPY . .
 
 RUN npm ci && npm run build
 
-FROM scratch AS final
+# TODO: merge nginx here and remove busybox workaround
+FROM busybox AS final
 
 WORKDIR /app
 
