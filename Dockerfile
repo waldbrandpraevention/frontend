@@ -6,7 +6,7 @@ COPY . .
 
 RUN npm ci && npm run build
 
-FROM node:18-alpine AS final
+FROM scratch AS final
 
 WORKDIR /app
 
