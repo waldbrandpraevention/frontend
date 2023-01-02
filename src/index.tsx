@@ -18,6 +18,7 @@ import { AuthProvider } from "./service/auth";
 import AuthRoute from "./components/routes/AuthRoute";
 import GuestRoute from "./components/routes/GuestRoute";
 import Advanced from "./pages/Advanced";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -30,34 +31,11 @@ const queryClient = new QueryClient(); // react-query config
         <BrowserRouter>
           <AuthProvider>
             <Routes>
-              <Route
-                path="/login"
-                element={
-                  <GuestRoute>
-                    <Login />
-                  </GuestRoute>
-                }
-              />
-              <Route
-                path="/register"
-                element={
-                  <GuestRoute>
-                    <Registrieren />
-                  </GuestRoute>
-                }
-              />
-              <Route
-                path="/"
-                element={
-                  <AuthRoute>
-                    <App />
-                  </AuthRoute>
-                }
-              >
-                <Route
-                  index
-                  element={<Navigate to={"/dashboard"} replace />}
-                ></Route>
+              <Route path="*" element={<NotFound />}></Route>
+              <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+              <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
+              <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
+                <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="zones" element={<Zones />} />
                 <Route path="map" element={"test"} />
