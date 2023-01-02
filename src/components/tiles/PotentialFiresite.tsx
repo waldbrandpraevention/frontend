@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Button, Card, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
@@ -25,7 +25,7 @@ const PotentialFiresite = () => {
   return (
     <Tile>
       <OverlayTrigger
-        placement="right"
+        placement="left"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id="icontooltip">
@@ -37,9 +37,9 @@ const PotentialFiresite = () => {
           </Tooltip>
         }
       >
-        <Button variant="light">
+        <div style={{ float: "right" }}>
           <TbInfoSquare></TbInfoSquare>
-        </Button>
+        </div>
       </OverlayTrigger>
       <Table>
         <thead>
