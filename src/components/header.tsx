@@ -1,12 +1,12 @@
-import '../assets/styles/header.css'
+import "../assets/styles/header.css"
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import BellIcon from './bellIcon'
-import Colormode from './colormode';
-import styled from 'styled-components';
-import { TbLogout, TbUserCircle } from 'react-icons/tb';
-import Logo from '../assets/img/Logo';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../service/auth';
+import BellIcon from "./bellIcon"
+import Colormode from "./colormode";
+import styled from "styled-components";
+import { TbLogout, TbUserCircle } from "react-icons/tb";
+import Logo from "../assets/img/Logo";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../service/auth";
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
@@ -41,12 +41,12 @@ const Header = () => {
                     <Nav>
                         <MyNavLink><Colormode /></MyNavLink>
                         <MyNavLink><BellIcon hasNotifications={true} /></MyNavLink>
-                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={'end'}>
-                            <NavDropdown.Item onClick={() => navigate("/settings/account")}>
+                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={"end"}>
+                            <NavDropdown.Item className="d-flex align-items-center" onClick={() => navigate("/settings/account")}>
                                 <TbUserCircle /> Account
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item className='text-danger' onClick={() => { logout(); navigate("/login") }}>
+                            <NavDropdown.Item className="d-flex align-items-center text-danger" onClick={() => { logout(); navigate("/login") }}>
                                 <TbLogout /> Abmelden
                             </NavDropdown.Item>
                         </NavDropdown>

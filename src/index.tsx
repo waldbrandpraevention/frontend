@@ -19,6 +19,7 @@ import AuthRoute from "./components/routes/AuthRoute";
 import GuestRoute from "./components/routes/GuestRoute";
 import Advanced from "./pages/Advanced";
 import NotFound from "./pages/NotFound";
+import RoleRoute from "./components/routes/RoleRoute";
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -40,13 +41,13 @@ const queryClient = new QueryClient(); // react-query config
                 <Route path="zones" element={<Zones />} />
                 <Route path="map" element={"test"} />
                 <Route path="help" element={"hilfeseite"} />
-                <Route path="advanced" element={<Advanced />} />
+                <Route path="advanced" element={<RoleRoute><Advanced /></RoleRoute>} />
                 <Route path="datenschutz" element={<Datenschutz />} />
                 <Route path="impressum" element={<Impressum />} />
                 <Route path="settings">
                   <Route path="account" element={<Account />} />
-                  <Route path="system" element={"system einstellungen"} />
-                  <Route path="notifications" element={"benachrichtigungen"} />
+                  <Route path="system" element={<RoleRoute>"system einstellungen"</RoleRoute>} />
+                  <Route path="alerts" element={"benachrichtigungen"} />
                 </Route>
               </Route>
             </Routes>
