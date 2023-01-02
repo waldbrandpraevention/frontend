@@ -3,9 +3,8 @@ import Header from '../components/header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbCode, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
+import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
-import config from "../config/config";
 
 const FlexMain = styled.div`
   display: flex;
