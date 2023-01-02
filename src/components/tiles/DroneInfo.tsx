@@ -12,7 +12,7 @@ import {
 } from "react-icons/tb";
 
 const DroneInfo = () => {
-  const { data, isLoading, isError } = useQuery(["dronecount"], () => {
+  const { data, isLoading, isError } = useQuery(["droneinfo"], () => {
     return axios.get("/test?input=69").then((e) => e.data);
   });
 
