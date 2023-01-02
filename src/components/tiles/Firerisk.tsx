@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Card } from "react-bootstrap";
+import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
+import { TbInfoSquare } from "react-icons/tb";
 
 const Firerisk = () => {
   const { data, isLoading, isError } = useQuery(["firerisk"], () => {
@@ -17,6 +18,20 @@ const Firerisk = () => {
 
   return (
     <Tile>
+      <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id="icontooltip">
+            Zeigt die Waldbrandgefahr des betrachteten Überwachungsgebietes in 5
+            Gefahrenstufen an: 1 = sehr geringe Gefahr bis 5 = sehr hohe Gefahr.
+          </Tooltip>
+        }
+      >
+        <Button variant="light">
+          <TbInfoSquare></TbInfoSquare>
+        </Button>
+      </OverlayTrigger>
       <Card.Title className="text-center">Brandrisiko</Card.Title>
       <Card.Subtitle className="text-center">gemäß DWD Stufen</Card.Subtitle>
       <div
