@@ -50,7 +50,7 @@ const AlertEmergencyUnits = () => {
   return (
     <Tile>
       <OverlayTrigger
-        placement="right"
+        placement="left"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id="icontooltip">
@@ -75,9 +75,9 @@ const AlertEmergencyUnits = () => {
           </Tooltip>
         }
       >
-        <Button variant="light">
+        <div style={{float: "right"}}>
           <TbInfoSquare></TbInfoSquare>
-        </Button>
+        </div>
       </OverlayTrigger>
       <Card.Title>Einsatzkräfte alarmieren</Card.Title>
       <Form onSubmit={handleFormSubmit}>

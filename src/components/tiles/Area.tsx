@@ -21,7 +21,7 @@ const Area = () => {
   return (
     <Tile>
       <OverlayTrigger
-        placement="right"
+        placement="left"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id="icontooltip">
@@ -31,9 +31,9 @@ const Area = () => {
           </Tooltip>
         }
       >
-        <Button variant="light">
+        <div style={{ float: "right" }}>
           <TbInfoSquare></TbInfoSquare>
-        </Button>
+        </div>
       </OverlayTrigger>
       <Card.Title className="text-center">Überwachungsgebiet</Card.Title>
       <Card.Subtitle className="text-center">6 Zonen</Card.Subtitle>

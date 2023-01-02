@@ -19,7 +19,7 @@ const Firerisk = () => {
   return (
     <Tile>
       <OverlayTrigger
-        placement="right"
+        placement="left"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id="icontooltip">
@@ -28,9 +28,9 @@ const Firerisk = () => {
           </Tooltip>
         }
       >
-        <Button variant="light">
+         <div style={{ float: "right" }}>
           <TbInfoSquare></TbInfoSquare>
-        </Button>
+        </div>
       </OverlayTrigger>
       <Card.Title className="text-center">Brandrisiko</Card.Title>
       <Card.Subtitle className="text-center">gemäß DWD Stufen</Card.Subtitle>
