@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Card } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
+import { TbInfoSquare } from "react-icons/tb";
 
 const Area = () => {
   const { data, isLoading, isError } = useQuery(["area"], () => {
@@ -19,6 +20,21 @@ const Area = () => {
 
   return (
     <Tile>
+      <OverlayTrigger
+        placement="left"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id="icontooltip">
+            Zeigt das (gemäß Kartenausschnitt) momentan betrachtete Gebiet.
+            Bewegen Sie die Karte, um das angezeigte Überwachungsgebiet zu
+            wechseln.
+          </Tooltip>
+        }
+      >
+        <div style={{ float: "right" }}>
+          <TbInfoSquare></TbInfoSquare>
+        </div>
+      </OverlayTrigger>
       <Card.Title className="text-center">Überwachungsgebiet</Card.Title>
       <Card.Subtitle className="text-center">6 Zonen</Card.Subtitle>
       <div
