@@ -20,17 +20,24 @@ export type Account = Readonly<{
     disabled: boolean;
     mail_verified: boolean;
     organization: string;
+
+    isUser: boolean;
+    isAdmin: boolean;
 }>
 
 const fromApiCall = (user: any): Account => {
+    /* DEBUG ONLY */ user.permission ??= 2;
     return {
         firstname: user.first_name,
         lastname: user.last_name,
         mail: user.email,
-        permission: user.permission ?? 1, /* TODO: API fehlt */
-        mail_verified: false,  /* TODO: API fehlt */
+        permission: user.permission,
+        mail_verified: user.mail_verified ?? false,
         organization: user.organization,
-        disabled: false,  /* TODO: API fehlt */
+        disabled: user.disabled ?? false,
+
+        isUser: user.permission === AccountType.Benutzer,
+        isAdmin: user.permission === AccountType.Administrator,
     } as Account
 }
 
