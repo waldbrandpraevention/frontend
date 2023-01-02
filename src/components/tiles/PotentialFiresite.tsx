@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Card, Table } from "react-bootstrap";
+import { Button, Card, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import DangerLevel from "../DangerLevel";
+import { TbInfoSquare } from "react-icons/tb";
 
 const PotentialFiresite = () => {
   const { data, isLoading, isError } = useQuery(["firerisk"], () => {
@@ -23,6 +24,23 @@ const PotentialFiresite = () => {
 
   return (
     <Tile>
+      <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id="icontooltip">
+            Zeigt die Koordinaten der potentiellen Brandstelle. Angezeigt werden
+            die nördliche Breite, östliche Länge, die Höhenmeter und das
+            Brandrisiko laut KI-Einschätzung (farblich hinterlegt). Diese Kachel
+            wird nur angezeigt, wenn tatsächlich eine potentielle Brandstelle
+            erkannt worden ist.
+          </Tooltip>
+        }
+      >
+        <Button variant="light">
+          <TbInfoSquare></TbInfoSquare>
+        </Button>
+      </OverlayTrigger>
       <Table>
         <thead>
           <tr>

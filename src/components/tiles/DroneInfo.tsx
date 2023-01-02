@@ -1,10 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Card } from "react-bootstrap";
+import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
-import { TbDrone, TbBatteryCharging, TbArrowBigRight } from "react-icons/tb";
+import {
+  TbDrone,
+  TbBatteryCharging,
+  TbArrowBigRight,
+  TbInfoSquare,
+} from "react-icons/tb";
 
 const DroneInfo = () => {
   const { data, isLoading, isError } = useQuery(["dronecount"], () => {
@@ -18,10 +23,24 @@ const DroneInfo = () => {
 
   return (
     <Tile>
+      {" "}
+      <OverlayTrigger
+        placement="right"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id="icontooltip">
+            Hier können Sie den Akkustand und die Geschwindigkeit der für dieses
+            Gebiet zuständigen Drohne einsehen.
+          </Tooltip>
+        }
+      >
+        <Button variant="light">
+          <TbInfoSquare></TbInfoSquare>
+        </Button>
+      </OverlayTrigger>
       <Card.Title className="text-center">
         <TbDrone></TbDrone> Drohne
       </Card.Title>
-
       <div
         style={{
           fontSize: "large",
