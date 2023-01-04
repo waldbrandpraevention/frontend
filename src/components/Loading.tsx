@@ -42,8 +42,8 @@ const Loading = () => {
         let ctr = 0;
         const interval = setInterval(() => {
             ctr++;
-            if (ctr > 2) { setState(1); }
-            if (ctr > 8) { setState(2); return }
+            if (ctr > 3) { setState(1); }
+            if (ctr > 10) { setState(2); return }
         }, 1000);
         return () => clearInterval(interval);
     }, []);
@@ -51,8 +51,8 @@ const Loading = () => {
     return <Main>
         <StyledLogo />
         {state !== 2 && <StyledSpinner />}
-        {state === 1 && <div className="mt-4"><WarnAlert>Verbindung zum Server dauert ungewöhnlich lange.</WarnAlert></div>}
-        {state === 2 && <div className="mt-4"><ErrorAlert>Verbindung zum Server fehlgeschlagen.</ErrorAlert></div>}
+        {state === 1 && <div className="mt-4"><WarnAlert>Verbindung zur API dauert ungewöhnlich lange</WarnAlert></div>}
+        {state === 2 && <div className="mt-4"><ErrorAlert>Verbindung zur API fehlgeschlagen</ErrorAlert></div>}
         <span style={{ position: "fixed", bottom: "2em", fontSize: "12px" }}>Verbinde mit {config.apiRoot?.includes("http") ? config.apiRoot : (window.location.host + config.apiRoot)}</span>
     </Main>
 }
