@@ -68,10 +68,14 @@ const Map = () => {
     const plotRef = useRef<Plotly.Plot>(null);
 
     const updatePlot = () => {
+        var center = plotRef.current.props.layout.mapbox.center
+        var zoom = plotRef.current.props.layout.mapbox.zoom
         if (!plotRef.current || !plotRef.current.props || !plotRef.current.props.layout) {
             return;
         }
         setVisible(!visible);
+
+
 
         // Create a new layout object with updated layers array
         const newLayout: Partial<Layout> = {
@@ -87,15 +91,17 @@ const Map = () => {
                         ...plotRef.current.props.layout.mapbox.layers[1],
                         visible: visible
                     }
-                ]
+                ],
+                center: center, zoom: zoom
             }
+
         };
 
         // Use the new layout object to update the plot
-        console.log(newLayout)
         Plotly.newPlot('MapPlot', data, newLayout)
 
     };
+
 
     return (<Tile>
         <div id='MapPlot'>
