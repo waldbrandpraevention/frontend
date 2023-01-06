@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ErrorAlert from "../alerts/ErrorAlert";
@@ -22,15 +23,21 @@ const Map = () => {
     const layout: Partial<Layout> = {
         dragmode: "zoom",
         mapbox: {
-            style: "open-street-map",
-            center: { lat: 38, lon: -90 }, zoom: 3
+            style: 'white-bg',
+            layers: [
+                {
+                    "below": 'traces',
+                    "sourcetype": "raster",
+                    "source": [
+                        "https://tile.opentopomap.org/{z}/{x}/{y}.png"
+                    ]
+                }],
+            below: 'traces',
+            center: { lat: 38, lon: -90 }, zoom: 4
         },
         margin: { r: 0, t: 0, b: 0, l: 0 },
-
+        showlegend: false
     };
-
-
-
 
     //const { data, isLoading, isError } = useQuery(["map"], () => {
     //    return axios.get("/map").then(e => e.data);
