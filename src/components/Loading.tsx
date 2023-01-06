@@ -8,6 +8,9 @@ import WarnAlert from "./alerts/WarnAlert";
 
 const Main = styled.div`
     background: var(--bs-gray-200);
+    @media (prefers-color-scheme: dark) {
+        background: var(--bs-gray-900);
+    }
     height: 100vh;
     width: 100%;
     align-items: center;
@@ -28,6 +31,9 @@ const StyledSpinner = styled(ImSpinner2)`
     width: 32px;
     rotate: 0deg;
     animation: spinnerspin 1s infinite linear;
+    @media (prefers-color-scheme: dark) {
+        color: var(--bs-gray-100);
+    }
 
     @keyframes spinnerspin {
         from {transform:rotate(0deg);}
