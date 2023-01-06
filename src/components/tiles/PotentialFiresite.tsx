@@ -65,7 +65,11 @@ const PotentialFiresite = () => {
           <tr>
             <td>Berechnetes Brandrisiko:</td>
             <td>
+              <DangerLevel level={0}></DangerLevel>
+              <DangerLevel level={1}></DangerLevel>
+              <DangerLevel level={2}></DangerLevel>
               <DangerLevel level={3}></DangerLevel>
+              <DangerLevel level={4}></DangerLevel>
             </td>
           </tr>
         </tbody>
