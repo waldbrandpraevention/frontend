@@ -22,10 +22,10 @@ const Map = () => {
     const data: Data[] = [
         {
             type: "scattermapbox",
-            text: ["Value 1", "Value 2", "Value 3"],
-            lon: [-77.0323, -73.935242, -78.928],
-            lat: [38.913, 40.7128, 37.775],
-            marker: { color: "fuchsia", size: 4 }
+            text: ["Drohne-1", "Drohne-2", "Drohne-69"],
+            lon: [50.7, 49.88, -78.928],
+            lat: [8.63, 5.5, 37.775],
+            marker: { color: "fuchsia", size: 1 }
         }
     ];
 
@@ -50,7 +50,7 @@ const Map = () => {
                     ]
                 }],
             below: 'traces',
-            center: { lat: 38, lon: -90 }, zoom: 4
+            center: { lat: 50.06, lon: 8.64 }, zoom: 8
         },
         margin: { r: 0, t: 0, b: 0, l: 0 },
         showlegend: false
