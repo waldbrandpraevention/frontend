@@ -9,6 +9,7 @@ import App from "./pages/App";
 import Datenschutz from "./pages/Datenschutz";
 import Impressum from "./pages/Impressum";
 import Dashboard from "./pages/Dashboard";
+import Maps from "./pages/Maps";
 import Login from "./pages/Login";
 import Registrieren from "./pages/Registrieren";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -39,7 +40,7 @@ const queryClient = new QueryClient(); // react-query config
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="zones" element={<Zones />} />
-                <Route path="map" element={"test"} />
+                <Route path="map" element={<Maps />} />
                 <Route path="help" element={"hilfeseite"} />
                 <Route path="advanced" element={<RoleRoute><Advanced /></RoleRoute>} />
                 <Route path="datenschutz" element={<Datenschutz />} />
