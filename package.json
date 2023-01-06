@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "analyze": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "webpack-bundle-analyzer": "^4.7.0"
   }
 }

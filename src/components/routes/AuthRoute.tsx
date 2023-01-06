@@ -13,7 +13,7 @@ const AuthRoute = ({ redirectTo = "/login", children }: AuthRouteType): JSX.Elem
     const location = useLocation(); /* remember old location */
 
     if (token === null) {
-        d("AuthRoute", `Not authorized -> ${redirectTo}`);
+        d("AuthRoute", `Not authenticated -> ${redirectTo}`);
         return <Navigate to={redirectTo} replace state={{ from: location }} />
     }
 

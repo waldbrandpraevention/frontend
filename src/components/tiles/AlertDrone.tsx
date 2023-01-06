@@ -1,6 +1,5 @@
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Card } from "react-bootstrap";
+import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import LoadingSpinner from "../LoadingSpinner";
@@ -10,6 +9,7 @@ import { useState } from "react";
 import OkAlert from "../alerts/OkAlert";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
+import { TbInfoSquare } from "react-icons/tb";
 
 type AlertFormData = {
   drone: string;
@@ -49,6 +49,38 @@ const AlertDrone = () => {
 
   return (
     <Tile>
+      <OverlayTrigger
+        placement="left"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id="icontooltip">
+            <p style={{ textAlign: "start" }}>
+              Alarmieren Sie die Drohne für die entsprechende Region durch
+              Ausfüllen des Formulars. <br />
+              Die Drohne wird dann noch einmal über die potentielle Brandstelle
+              fliegen, um die KI-Einschätzung zu überprüfen. <br />
+              <br />
+              Folgende Informationen sind verpflichtend: <br />
+              1. Name der Drohne, die für das Gebiet zuständig ist <br />
+              2. Einsatzort bzw. Zone innerhalb des Überwachungsgebiets <br />
+              3. Brandtyp/Brandgefahr <br />
+              <br />
+              Nutzen Sie das Freitextfeld, um zusätzliche relevante
+              Informationen anzugeben und fügen sie ggf. Anhänge (z. B. als jpg
+              oder png) hinzu.
+              <br />
+              <br />
+              Mit dem abschließenden Klick auf den Button “Alarmieren” werden
+              Ihre Daten übermittelt und die im Formular angegebene Drohne
+              alarmiert.
+            </p>
+          </Tooltip>
+        }
+      >
+         <div style={{ float: "right" }}>
+          <TbInfoSquare></TbInfoSquare>
+        </div>
+      </OverlayTrigger>
       <Card.Title>Drohne alarmieren</Card.Title>
       <Form onSubmit={handleFormSubmit}>
         <Form.Group as={Row} className="mb-3" controlId="Drohne">
@@ -126,11 +158,7 @@ const AlertDrone = () => {
           {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
         </Button>
 
-        {isError && (
-          <ErrorAlert>
-            Fehler :/.
-          </ErrorAlert>
-        )}
+        {isError && <ErrorAlert>Fehler :/.</ErrorAlert>}
         {isSuccess && (
           <OkAlert>
             Drohne wurde alarmiert und fliegt nun erneut über den gewählten
