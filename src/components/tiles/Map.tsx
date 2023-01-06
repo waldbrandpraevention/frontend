@@ -6,7 +6,7 @@ import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import React, { useEffect, useRef, useState } from 'react';
 import Plot from 'react-plotly.js';
-import Plotly, { Data, Layout, useResizeHandler } from "plotly.js";
+import Plotly, { Data, Layout } from "plotly.js";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -68,11 +68,33 @@ const Map = () => {
 
     const updatePlot = () => {
         setVisible(!visible);
-        plotRef.current.props.layout.mapbox.layers[0].visible = !plotRef.current.props.layout.mapbox.layers[0].visible;
-        plotRef.current.props.layout.mapbox.layers[1].visible = !plotRef.current.props.layout.mapbox.layers[1].visible;
-        // Update geht nicht 
-        plotRef.current.update_layout();
+
+        // Create a new layout object with updated layers array
+        const newLayout = {
+            ...plotRef.current.props.layout,
+            mapbox: {
+                ...plotRef.current.props.layout.mapbox,
+                layers: [
+                    {
+                        ...plotRef.current.props.layout.mapbox.layers[0],
+                        visible: !visible
+                    },
+                    {
+                        ...plotRef.current.props.layout.mapbox.layers[1],
+                        visible: visible
+                    }
+                ]
+            }
+        };
+
+        // Use the new layout object to update the plot
+        Plotly.relayout('myDiv', newLayout);
     };
+
+    //plotRef.current.props.layout.mapbox.layers[0].visible = false;
+    //plotRef.current.props.layout.mapbox.layers[1].visible = true;
+    // Update geht nicht 
+
 
 
     return (<Tile>
