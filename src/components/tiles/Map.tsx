@@ -4,12 +4,20 @@ import axios from "axios";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Plot from 'react-plotly.js';
-import Plotly, { Data, Layout } from "plotly.js";
+import Plotly, { Data, Layout, useResizeHandler } from "plotly.js";
+import { Button } from "react-bootstrap";
+import styled from "styled-components";
 
+
+const MyPlot = styled(Plot)`
+    height: 100%;
+    width: 100%;
+`
 
 const Map = () => {
+    const [visible, setVisible] = useState(true);
     const data: Data[] = [
         {
             type: "scattermapbox",
@@ -26,6 +34,14 @@ const Map = () => {
             style: 'white-bg',
             layers: [
                 {
+                    "visible": true,
+                    "below": 'traces',
+                    "sourcetype": "raster",
+                    "source": [
+                        "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    ]
+                }, {
+                    "visible": false,
                     "below": 'traces',
                     "sourcetype": "raster",
                     "source": [
@@ -39,6 +55,7 @@ const Map = () => {
         showlegend: false
     };
 
+
     //const { data, isLoading, isError } = useQuery(["map"], () => {
     //    return axios.get("/map").then(e => e.data);
     //});
@@ -47,8 +64,20 @@ const Map = () => {
 
     //if (isError) return <ErrorAlert> Karte konnte nicht geladen werden.</ErrorAlert>;
 
+    const plotRef = useRef<Plotly.Plot>(null);
+
+    const updatePlot = () => {
+        setVisible(!visible);
+        plotRef.current.props.layout.mapbox.layers[0].visible = !plotRef.current.props.layout.mapbox.layers[0].visible;
+        plotRef.current.props.layout.mapbox.layers[1].visible = !plotRef.current.props.layout.mapbox.layers[1].visible;
+        // Update geht nicht 
+        plotRef.current.update_layout();
+    };
+
+
     return (<Tile>
-        <Plot data={data} layout={layout} />
+        <MyPlot data={data} layout={layout} ref={(el) => { plotRef.current = el; }} useResizeHandler={true} />
+        <Button onClick={updatePlot}>Toggle layers</Button>
     </Tile>);
 
 }
