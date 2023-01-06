@@ -1,4 +1,3 @@
-import { TbAntennaBars1, TbAntennaBars1 as TbAntennaBars2, TbAntennaBars3, TbAntennaBars4, TbAntennaBars5 } from "react-icons/tb";
 import styled from 'styled-components';
 
 
