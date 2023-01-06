@@ -7,16 +7,21 @@ import Tile from "../Tile";
 import LoadingTile from "../tiles/LoadingTile";
 import DangerLevel from "../DangerLevel";
 
-
+const dummydata = [{ zone: "Helm's Deep", drohne: "45", lastUpdate: "1.1.23", DangerLevel: 2, ai: 0 },
+{ zone: "Minas Tirih", drohne: "67", lastUpdate: "3.1.23", DangerLevel: 1, ai: 1 },
+{ zone: "Moria", drohne: "43", lastUpdate: "31.12.22", DangerLevel: 2, ai: 1 },
+{ zone: "Edoras", drohne: "12", lastUpdate: "1.1.23", DangerLevel: 3, ai: 2 },
+{ zone: "Rivendell", drohne: "54", lastUpdate: "2.1.23", DangerLevel: 4, ai: 4 }]
 
 const ZoneOverview = () => {
-    const { data, isLoading, isError } = useQuery(["zoneoverview"], () => {
-        return axios.get("/zones/").then(e => e.data);
-    });
+    //const { data, isLoading, isError } = useQuery(["zoneoverview"], () => {
+    //return axios.get("/zones/").then(e => e.data);
+    //});
 
-    if (isLoading) return <LoadingTile />
+    //if (isLoading) return <LoadingTile />
 
-    if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
+    //if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
+
 
     return (
         <Container className="mt-4">
@@ -33,7 +38,7 @@ const ZoneOverview = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item: { zone: string; drohne: string; lastUpdate: string; DangerLevel: number; ai: number; }) => (
+                        {dummydata.map((item: { zone: string; drohne: string; lastUpdate: string; DangerLevel: number; ai: number; }) => (
                             <tr >
                                 <td >{item.zone}</td>
                                 <td >{item.drohne}</td>
