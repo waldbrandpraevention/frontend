@@ -3,7 +3,7 @@ import Header from '../components/header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser } from 'react-icons/tb';
+import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
 
 const FlexMain = styled.div`
@@ -34,11 +34,16 @@ const App = () => {
           <MenuItem routerLink={<Link to="/dashboard" />} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>
           <MenuItem routerLink={<Link to="/zones" />} icon={<TbPolygon />}> Zonen </MenuItem>
           <MenuItem routerLink={<Link to="/map" />} icon={<TbMap />}> Karte </MenuItem>
-          {user.isAdmin && <MenuItem routerLink={<Link to="/advanced" />} icon={<TbChartAreaLine />}> Analyse </MenuItem>}
+          <MenuItem routerLink={<Link to="/incidents" />} icon={<TbFlame />}> Einsätze </MenuItem>
+          <MenuItem routerLink={<Link to="/alerts" />} icon={<TbAlertTriangle />}> Alerts </MenuItem>
+          {user.isAdmin && <>
+            <MenuItem routerLink={<Link to="/advanced" />} icon={<TbChartAreaLine />}> Analyse </MenuItem>
+          </>
+          }
           <SubMenu icon={<TbSettings />} label="Einstellungen">
             <MenuItem routerLink={<Link to="/settings/account" />} icon={<TbUser />}> Account </MenuItem>
+            {user.isAdmin && <MenuItem routerLink={<Link to="/settings/users" />} icon={<TbUsers />}> Benutzer </MenuItem>}
             {user.isAdmin && <MenuItem routerLink={<Link to="/settings/system" />} icon={<TbServer />}> System </MenuItem>}
-            <MenuItem routerLink={<Link to="/settings/alerts" />} icon={<TbAlertTriangle />}> Alerts </MenuItem>
           </SubMenu>
           <SubMenu icon={<TbInfoCircle />} label="Hilfe">
             <MenuItem routerLink={<Link to="/help" />} icon={<TbQuestionMark />}> FAQ </MenuItem>
