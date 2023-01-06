@@ -5,8 +5,9 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import React, { useEffect, useRef, useState } from 'react';
+import { Data, Layout } from 'react-plotly.js';
 import Plot from 'react-plotly.js';
-import Plotly, { Data, Layout } from "plotly.js";
+import Plotly from 'plotly.js/dist/plotly'
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -67,10 +68,13 @@ const Map = () => {
     const plotRef = useRef<Plotly.Plot>(null);
 
     const updatePlot = () => {
+        if (!plotRef.current || !plotRef.current.props || !plotRef.current.props.layout) {
+            return;
+        }
         setVisible(!visible);
 
         // Create a new layout object with updated layers array
-        const newLayout = {
+        const newLayout: Partial<Layout> = {
             ...plotRef.current.props.layout,
             mapbox: {
                 ...plotRef.current.props.layout.mapbox,
@@ -88,17 +92,15 @@ const Map = () => {
         };
 
         // Use the new layout object to update the plot
-        Plotly.relayout('myDiv', newLayout);
+        console.log(newLayout)
+        Plotly.newPlot('MapPlot', data, newLayout)
+
     };
 
-    //plotRef.current.props.layout.mapbox.layers[0].visible = false;
-    //plotRef.current.props.layout.mapbox.layers[1].visible = true;
-    // Update geht nicht 
-
-
-
     return (<Tile>
-        <MyPlot data={data} layout={layout} ref={(el) => { plotRef.current = el; }} useResizeHandler={true} />
+        <div id='MapPlot'>
+            <MyPlot data={data} layout={layout} ref={plotRef} useResizeHandler={true} />
+        </div>
         <Button onClick={updatePlot}>Toggle layers</Button>
     </Tile>);
 
