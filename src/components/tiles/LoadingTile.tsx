@@ -6,6 +6,6 @@ type LoadingTileProps = {
 }
 
 const LoadingTile = (props: LoadingTileProps) => {
-    return <Tile className={props.className} style={{ alignItems: "center" }}><LoadingSpinner /></Tile>
+    return <Tile classes={props.className + "  align-items-center d-flex justify-content-center"}><LoadingSpinner size={32} /></Tile>
 }
 export default LoadingTile;

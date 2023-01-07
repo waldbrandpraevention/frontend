@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import apiClientService from "./service/api-client.service";
-
+import 'react-toastify/dist/ReactToastify.css';
 import "./assets/styles/bootstrap.scss";
 import App from "./pages/App";
 import Datenschutz from "./pages/Datenschutz";
@@ -20,6 +20,8 @@ import GuestRoute from "./components/routes/GuestRoute";
 import Advanced from "./pages/Advanced";
 import NotFound from "./pages/NotFound";
 import RoleRoute from "./components/routes/RoleRoute";
+import { ToastContainer } from 'react-toastify';
+
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -51,6 +53,18 @@ const queryClient = new QueryClient(); // react-query config
                 </Route>
               </Route>
             </Routes>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
           </AuthProvider>
         </BrowserRouter>
       </ProSidebarProvider>
