@@ -8,6 +8,11 @@ export type TileElement = {
     enabled: boolean
 }
 
+export type TileLayouts = {
+    main: ReactGridLayout.Layout[],
+    mobile: ReactGridLayout.Layout[],
+}
+
 export const makeTile = (tile: ReactElement, id: string, name: string, enabled: boolean = true): TileElement => {
     return { el: tile, id, name, enabled }
 }
@@ -25,10 +30,10 @@ export const enabledTiles = (allTiles: TileElement[], tileIds: string[] | undefi
 }
 
 /**
- * Return entry for current breakpoint (or for 'lg') from current active layout, else from default layout
+ * Return entry for current breakpoint (or for 'main') from current active layout, else from default layout
  */
-export const getLayoutForTile = (layouts: ReactGridLayout.Layouts, id: string, breakpoint: string = "lg", defaultLayouts: ReactGridLayout.Layouts) => {
-    if (!layouts[breakpoint]) breakpoint = "lg";
+export const getLayoutForTile = (layouts: ReactGridLayout.Layouts, id: string, breakpoint: string = "main", defaultLayouts: ReactGridLayout.Layouts) => {
+    if (!layouts[breakpoint]) breakpoint = "main";
     let entry = layouts[breakpoint].find(e => e.i === id)
     if (entry === undefined) entry = defaultLayouts[breakpoint].find(e => e.i === id)
     return entry

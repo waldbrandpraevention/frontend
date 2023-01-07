@@ -16,7 +16,7 @@ const ZoneOverview = () => {
 
     if (isLoading) return <LoadingTile />
 
-    if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
+    if (isError) return <ErrorAlert> Zonenübersicht konnte nicht geladen werden.</ErrorAlert>;
 
     return (
         <Container className="mt-4">
