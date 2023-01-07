@@ -24,6 +24,8 @@ const Advanced = () => {
 
       <Container>
         <ResponsiveGridLayout
+          isDraggable={false}/* TEMP */
+          isResizable={false}/* TEMP */
           className="layout"
           rowHeight={30}
           layouts={{
