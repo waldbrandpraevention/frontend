@@ -43,7 +43,8 @@ export type LayoutConfig = {
     tileIds: string[],
     layout: ReactGridLayout.Layouts,
     wide: boolean,
-    collision: boolean
+    collision: boolean,
+    scale: number
 }
 
 export const saveLayout = (config: LayoutConfig, page: string) => {

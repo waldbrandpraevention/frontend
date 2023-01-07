@@ -10,8 +10,6 @@ import { lazy, Suspense, useEffect } from "react";
 import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
 import { toast } from 'react-toastify';
 import { useAuth } from "../service/auth";
-import { once } from "../utils/util";
-// import TilesLayout from "../components/TilesLayout";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
@@ -20,10 +18,7 @@ const Dashboard = () => {
     if (!user.mail_verified) toast.warn("Ihre E-Mail Adresse wurde noch nicht verifiziert", { toastId: "mail_unverified" })
   }, [user.mail_verified])
 
-  useEffect(() => once("show_editmode_info",
-    () => toast.info("TIPP: Sie können das Layout frei anpassen, indem Sie unten auf der Seite auf 'Layout anpassen' klicken", { autoClose: 15000 }), true), [])
-
-  const defaultTiles = sortTiles([
+  const defaultTiles: TileElement[] = sortTiles([
     makeTile(<DroneCount />, "a", "Drohnenanzahl"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
     makeTile(<Area />, "b", "Überwachungsgebiet"),
     makeTile(<Firerisk />, "c", "Feuerrisiko"),
@@ -31,7 +26,7 @@ const Dashboard = () => {
     makeTile(<WeatherForecast />, "d", "Wettervorhersage"),
     makeTile(<ZoneOverview />, "e", "Zonenübersicht"),
     makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
-  ]) as TileElement[]
+  ])
 
   const defaultLayout: TileLayouts = {
     main: [ /* tablet + desktop */
@@ -57,7 +52,7 @@ const Dashboard = () => {
   return (
     <div className="App">
       <Suspense fallback="Lade...">
-        <TilesLayout defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
+        <TilesLayout layoutId="dashboard" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
       </Suspense>
     </div >
   );

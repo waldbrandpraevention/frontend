@@ -2,11 +2,11 @@ import ReactGridLayout, { Responsive } from "react-grid-layout";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import styled from "styled-components";
-import { Button, ButtonGroup, Container, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Dropdown, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import TileToggler from "../components/TileToggler";
 import { useState } from "react";
 import { loadLayout, getLayoutForTile, saveLayout, sortTiles, TileElement, enabledTiles, clearSavedlayout, TileLayouts } from "../utils/tile";
-import { TbArrowBackUp, TbDragDrop, TbDragDrop2, TbLock, TbLockOpen, TbViewportNarrow, TbViewportWide } from "react-icons/tb";
+import { TbArrowBackUp, TbDragDrop, TbDragDrop2, TbLock, TbLockOpen, TbResize, TbViewportNarrow, TbViewportWide } from "react-icons/tb";
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
 
@@ -19,11 +19,12 @@ const MyDiv = styled.div`
 const ResponsiveGridLayout = (Responsive);
 
 type TilesLayoutProps = Readonly<{
+  layoutId: string,
   defaultTiles: TileElement[],
   defaultLayout: TileLayouts
 }>
 
-const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
+const TilesLayout = ({ layoutId, defaultLayout, defaultTiles }: TilesLayoutProps) => {
 
   /* Tiles dropdown handler: set changed item enabled tile status */
   const onTilesToggle = (id: string, checked: boolean) => {
@@ -44,7 +45,7 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
     setEditmode(wasEdit => {
       const tileIds = tiles.filter(e => e.enabled).map(e => e.id) /* activated tiles */
       if (wasEdit) {
-        saveLayout({ tileIds, layout, collision, wide }, "dashboard")
+        saveLayout({ tileIds, layout, collision, wide, scale }, layoutId)
         toast.success("Layout gespeichert")
       }
       return !wasEdit
@@ -55,25 +56,28 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
     setLayout(defaultLayout)
     setPreventcollision(false)
     setWidemode(true)
-    clearSavedlayout("dashboard")
+    setScale(1)
+    clearSavedlayout(layoutId)
     toast.success("Layout wurde zurückgesetzt")
   }
 
-  const [tiles, setTiles] = useState(enabledTiles(defaultTiles, loadLayout("dashboard")?.tileIds));
+  const [tiles, setTiles] = useState(enabledTiles(defaultTiles, loadLayout(layoutId)?.tileIds));
   const [breakpoint, setBreakpoint] = useState("main")
-  const [layout, setLayout] = useState(loadLayout("dashboard")?.layout ?? defaultLayout)
+  const [layout, setLayout] = useState(loadLayout(layoutId)?.layout ?? defaultLayout)
   const [editmode, setEditmode] = useState(false);
-  const [wide, setWidemode] = useState(loadLayout("dashboard")?.wide ?? true);
-  const [collision, setPreventcollision] = useState(loadLayout("dashboard")?.collision ?? false);
+  const [wide, setWidemode] = useState(loadLayout(layoutId)?.wide ?? true);
+  const [collision, setPreventcollision] = useState(loadLayout(layoutId)?.collision ?? false);
+  const [scale, setScale] = useState(loadLayout(layoutId)?.scale ?? 1)
 
-  return (
-    <Container fluid={wide}>
-      <ReactResizeDetector handleWidth>
-        {({ width, targetRef }) =>
-          // @ts-ignore
+  return (<>
+    <ReactResizeDetector handleWidth>
+      {({ width, targetRef }) =>
+        <Container fluid={wide} style={{ transformOrigin: "top left", transform: `scale(${scale}) /* translate(-${scale}%, -${scale}%) */` }}>
+          {/* @ts-ignore */}
           <div ref={targetRef}>
             <ResponsiveGridLayout
-              width={width ?? 0}
+              transformScale={scale}
+              width={(width ?? 0) * (1 / scale)}
               className="layout"
               rowHeight={30}
               layouts={layout}
@@ -92,19 +96,23 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
               )}
             </ResponsiveGridLayout>
           </div>
-        }</ReactResizeDetector>
-
+        </Container>
+      }</ReactResizeDetector>
+    <div className="mb-0 bg-dark d-static" style={{ position: "fixed", top: 0, zIndex: 5 }}>
       <ButtonGroup vertical={breakpoint === "mobile"}>
         <OverlayTrigger
-          placement="top"
+          placement="bottom"
           delay={{ show: 30, hide: 300 }}
           overlay={
-            <Tooltip>
-              Aktiviere den Bearbeiten-Modus um Kacheln zu (de)aktivieren, skalieren, verschieben und weitere Optionen anzupassen. Einstellungen werden lokal gespeichert.
-            </Tooltip>
+            editmode ? <Tooltip>
+              Vergessen Sie nicht Ihre Änderungen hier zu speichern.
+            </Tooltip> :
+              <Tooltip>
+                Aktiviere den Bearbeiten-Modus um Kacheln zu (de)aktivieren, skalieren, verschieben und weitere Optionen anzupassen. Einstellungen werden lokal gespeichert.
+              </Tooltip>
           }
         >
-          <Button variant={editmode ? "primary" : "outline-primary"} size="sm" onClick={onEditToggle} className={`d-flex align-items-center ${editmode ? "rounded-start-2" : ""}`}>
+          <Button variant={editmode ? "success" : "outline-secondary"} size="sm" onClick={onEditToggle} className={`d-flex align-items-center rounded-0`}> {/* ${editmode ? "rounded-start-2" : ""} */}
             {editmode ? <TbLockOpen /> : <TbLock />} {editmode ? "Layout speichern" : "Layout anpassen"}
           </Button>
         </OverlayTrigger>
@@ -114,7 +122,7 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
             {wide ? <TbViewportNarrow /> : <TbViewportWide />} {wide ? "Breites Layout deaktiveren" : "Breites Layout aktivieren"}
           </Button>
           <OverlayTrigger
-            placement="top"
+            placement="bottom"
             delay={{ show: 30, hide: 300 }}
             overlay={
               <Tooltip>
@@ -126,8 +134,27 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
               {collision ? <TbDragDrop2 /> : <TbDragDrop />} {collision ? "Kollision deaktiveren" : "Kollision aktivieren"}
             </Button>
           </OverlayTrigger>
+          <Dropdown>
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ show: 30, hide: 0 }}
+              overlay={
+                <Tooltip>
+                  Ermöglicht das Skalieren des Layouts um z.B. mehr Kacheln zu nutzen.
+                </Tooltip>
+              }
+            >
+              <Dropdown.Toggle variant="outline-secondary" size="sm" id="dropdown-badawddsic" className="d-flex align-items-center rounded-0">
+                <TbResize /> Skalieren
+              </Dropdown.Toggle>
+            </OverlayTrigger>
+            <Dropdown.Menu className="p-1">
+              <Form.Label>Skalierung: {Math.round(scale * 100)}%</Form.Label>
+              <Form.Range step={0.05} min={0.05} max={2} value={scale} onChange={(e) => setScale(parseFloat(e.target.value))} />
+            </Dropdown.Menu>
+          </Dropdown>
           <OverlayTrigger
-            placement="top"
+            placement="bottom"
             delay={{ show: 30, hide: 300 }}
             overlay={
               <Tooltip>
@@ -136,12 +163,14 @@ const TilesLayout = ({ defaultLayout, defaultTiles }: TilesLayoutProps) => {
             }
           >
             <Button variant="outline-danger" size="sm" onClick={resetLayout} className="d-flex align-items-center">
-              <TbArrowBackUp />  Zurücksetzen
+              <TbArrowBackUp />  Standard
             </Button>
           </OverlayTrigger>
+
         </>}
       </ButtonGroup>
-    </Container>
+    </div>
+  </>
   );
 }
 export default TilesLayout;

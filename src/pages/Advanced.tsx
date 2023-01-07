@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import "../assets/styles/App.css";
 import AlertEmergencyUnits from "../components/tiles/AlertEmergencyUnits";
 import Area from "../components/tiles/Area";
@@ -7,73 +6,44 @@ import AlertDrone from "../components/tiles/AlertDrone";
 import DroneInfo from "../components/tiles/DroneInfo";
 import FireDetection from "../components/tiles/FireDetection";
 import PotentialFiresite from "../components/tiles/PotentialFiresite";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import styled from "styled-components";
-
-const MyDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-`
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
+import TilesLayout from "../components/TilesLayout";
 
 const Advanced = () => {
+  const defaultTiles: TileElement[] = sortTiles([
+    makeTile(<DroneInfo />, "a", "Drohneninfo"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
+    makeTile(<Area />, "b", "Überwachungsgebiet"),
+    makeTile(<FireDetection />, "c", "Feuerdetektion"),
+    makeTile(<Map />, "g", "Karte"),
+    makeTile(<PotentialFiresite />, "d", "Vermutete Brandstelle"),
+    makeTile(<AlertDrone />, "e", "Drohne alarmieren"),
+    makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
+  ])
+
+  const defaultLayout: TileLayouts = {
+    main: [
+      { i: "a", x: 0, y: 0, w: 8, h: 5 },
+      { i: "b", x: 8, y: 0, w: 8, h: 5 },
+      { i: "c", x: 16, y: 0, w: 8, h: 5 },
+      { i: "g", x: 0, y: 5, w: 16, h: 10 },
+      { i: "d", x: 18, y: 5, w: 8, h: 10 },
+      { i: "e", x: 0, y: 15, w: 12, h: 12 },
+      { i: "f", x: 12, y: 15, w: 12, h: 12 },
+    ],
+    mobile: [
+      { i: "a", x: 0, y: 0, w: 8, h: 5 },
+      { i: "b", x: 8, y: 0, w: 8, h: 5 },
+      { i: "c", x: 16, y: 0, w: 8, h: 5 },
+      { i: "g", x: 0, y: 5, w: 16, h: 10 },
+      { i: "d", x: 18, y: 5, w: 8, h: 10 },
+      { i: "e", x: 0, y: 15, w: 12, h: 12 },
+      { i: "f", x: 12, y: 15, w: 12, h: 12 },
+    ],
+  }
+
   return (
     <div className="App">
-
-      <Container>
-        <ResponsiveGridLayout
-          isDraggable={false}/* TEMP */
-          isResizable={false}/* TEMP */
-          className="layout"
-          rowHeight={30}
-          layouts={{
-            lg: [
-              { i: "a", x: 0, y: 0, w: 8, h: 5 },
-              { i: "b", x: 8, y: 0, w: 8, h: 5 },
-              { i: "c", x: 16, y: 0, w: 8, h: 5 },
-              { i: "g", x: 0, y: 4, w: 16, h: 10 },
-              { i: "d", x: 18, y: 4, w: 8, h: 10 },
-              { i: "e", x: 0, y: 15, w: 12, h: 12 },
-              { i: "f", x: 12, y: 12, w: 12, h: 12 },
-            ],
-            xs: [
-              // { i: "a", x: 0, y: 0, w: 8, h: 5 },
-              // { i: "b", x: 8, y: 0, w: 8, h: 5 },
-              // { i: "c", x: 16, y: 0, w: 8, h: 5 },
-              // { i: "g", x: 0, y: 4, w: 18, h: 10 },
-              // { i: "d", x: 18, y: 4, w: 6, h: 10 },
-              // { i: "e", x: 0, y: 15, w: 12, h: 12 },
-              // { i: "f", x: 12, y: 12, w: 12, h: 12 },
-            ],
-          }}
-          breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-          cols={{ lg: 24, md: 24, sm: 24, xs: 16, xxs: 8 }}
-        >
-          <MyDiv key="a">
-            <DroneInfo />
-          </MyDiv>
-          <MyDiv key="b" >
-            <Area />
-          </MyDiv>
-          <MyDiv key="c" >
-            <FireDetection />
-          </MyDiv>
-          <MyDiv key="g" >
-            <Map />
-          </MyDiv>
-          <MyDiv key="d" >
-            <PotentialFiresite />
-          </MyDiv>
-          <MyDiv key="e">
-            <AlertDrone />
-          </MyDiv>
-          <MyDiv key="f">
-            <AlertEmergencyUnits />
-          </MyDiv>
-        </ResponsiveGridLayout>
-      </Container>
+      <TilesLayout layoutId="advanced" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
     </div>
   );
 };
