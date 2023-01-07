@@ -39,7 +39,7 @@ const Area = () => {
       <Card.Subtitle className="text-center">6 Zonen</Card.Subtitle>
       <div
         style={{
-          fontSize: "x-large",
+          // fontSize: "x-large",
           fontWeight: "bold",
           display: "flex",
           justifyContent: "center",
