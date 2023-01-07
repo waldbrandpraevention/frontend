@@ -10,12 +10,13 @@ import { lazy, Suspense, useEffect } from "react";
 import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
 import { toast } from 'react-toastify';
 import { useAuth } from "../service/auth";
+import Loading from "../components/Loading";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
   const { user } = useAuth();
   useEffect(() => {
-    if (!user.mail_verified) toast.warn("Ihre E-Mail Adresse wurde noch nicht verifiziert", { toastId: "mail_unverified" })
+    if (!user.mail_verified) toast.warn("Sie haben Ihre E-Mail Adresse noch nicht verifiziert", { toastId: "mail_unverified" })
   }, [user.mail_verified])
 
   const defaultTiles: TileElement[] = sortTiles([
@@ -51,7 +52,7 @@ const Dashboard = () => {
 
   return (
     <div className="App">
-      <Suspense fallback="Lade...">
+      <Suspense fallback={<Loading />}>
         <TilesLayout layoutId="dashboard" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
       </Suspense>
     </div >

@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Container, Dropdown, Form, OverlayTrigger, Tooltip
 import TileToggler from "../components/TileToggler";
 import { useState } from "react";
 import { loadLayout, getLayoutForTile, saveLayout, sortTiles, TileElement, enabledTiles, clearSavedlayout, TileLayouts } from "../utils/tile";
-import { TbArrowBackUp, TbDragDrop, TbDragDrop2, TbLock, TbLockOpen, TbResize, TbViewportNarrow, TbViewportWide } from "react-icons/tb";
+import { TbArrowBackUp, TbCheckbox, TbDragDrop, TbDragDrop2, TbEdit, TbResize, TbViewportNarrow, TbViewportWide } from "react-icons/tb";
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
 
@@ -21,10 +21,11 @@ const ResponsiveGridLayout = (Responsive);
 type TilesLayoutProps = Readonly<{
   layoutId: string,
   defaultTiles: TileElement[],
-  defaultLayout: TileLayouts
+  defaultLayout: TileLayouts,
+  defaultEnabledTiles?: string[]
 }>
 
-const TilesLayout = ({ layoutId, defaultLayout, defaultTiles }: TilesLayoutProps) => {
+const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTiles }: TilesLayoutProps) => {
 
   /* Tiles dropdown handler: set changed item enabled tile status */
   const onTilesToggle = (id: string, checked: boolean) => {
@@ -58,10 +59,10 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles }: TilesLayoutProps
     setWidemode(true)
     setScale(1)
     clearSavedlayout(layoutId)
-    toast.success("Layout wurde zurückgesetzt")
+    toast.info("Layout zurückgesetzt")
   }
 
-  const [tiles, setTiles] = useState(enabledTiles(defaultTiles, loadLayout(layoutId)?.tileIds));
+  const [tiles, setTiles] = useState(enabledTiles(defaultTiles, loadLayout(layoutId)?.tileIds ?? defaultEnabledTiles));
   const [breakpoint, setBreakpoint] = useState("main")
   const [layout, setLayout] = useState(loadLayout(layoutId)?.layout ?? defaultLayout)
   const [editmode, setEditmode] = useState(false);
@@ -113,7 +114,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles }: TilesLayoutProps
           }
         >
           <Button variant={editmode ? "success" : "outline-secondary"} size="sm" onClick={onEditToggle} className={`d-flex align-items-center rounded-0`}> {/* ${editmode ? "rounded-start-2" : ""} */}
-            {editmode ? <TbLockOpen /> : <TbLock />} {editmode ? "Layout speichern" : "Layout anpassen"}
+            {editmode ? <TbCheckbox /> : <TbEdit />} {editmode ? "Layout speichern" : "Layout anpassen"}
           </Button>
         </OverlayTrigger>
         {editmode && <>

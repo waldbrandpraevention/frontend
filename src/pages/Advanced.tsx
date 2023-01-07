@@ -7,7 +7,10 @@ import DroneInfo from "../components/tiles/DroneInfo";
 import FireDetection from "../components/tiles/FireDetection";
 import PotentialFiresite from "../components/tiles/PotentialFiresite";
 import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
-import TilesLayout from "../components/TilesLayout";
+import { lazy, Suspense } from "react";
+import Loading from "../components/Loading";
+
+const TilesLayout = lazy(() => import("../components/TilesLayout"));
 
 const Advanced = () => {
   const defaultTiles: TileElement[] = sortTiles([
@@ -43,7 +46,9 @@ const Advanced = () => {
 
   return (
     <div className="App">
-      <TilesLayout layoutId="advanced" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
+      <Suspense fallback={<Loading />}>
+        <TilesLayout layoutId="advanced" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
+      </Suspense>
     </div>
   );
 };

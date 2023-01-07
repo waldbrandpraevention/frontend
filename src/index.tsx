@@ -21,6 +21,7 @@ import GuestRoute from "./components/routes/GuestRoute";
 import NotFound from "./pages/NotFound";
 import RoleRoute from "./components/routes/RoleRoute";
 import { ToastContainer } from 'react-toastify';
+import Loading from "./components/Loading";
 
 const Advanced = lazy(() => import("./pages/Advanced"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
@@ -36,16 +37,16 @@ const queryClient = new QueryClient(); // react-query config
         <BrowserRouter>
           <AuthProvider>
             <Routes>
-              <Route path="*" element={<NotFound />}></Route>
               <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
               <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
+                <Route path="*" element={<NotFound />}></Route>
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
-                <Route path="dashboard" element={<Suspense fallback=""><Dashboard /></Suspense>} />
+                <Route path="dashboard" element={<Suspense fallback={<Loading/>}><Dashboard /></Suspense>} />
                 <Route path="zones" element={<Zones />} />
                 <Route path="map" element={"test"} />
                 <Route path="help" element={"hilfeseite"} />
-                <Route path="advanced" element={<RoleRoute><Suspense fallback=""><Advanced /></Suspense></RoleRoute>} />
+                <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading/>}><Advanced /></Suspense></RoleRoute>} />
                 <Route path="datenschutz" element={<Datenschutz />} />
                 <Route path="impressum" element={<Impressum />} />
                 <Route path="settings">
