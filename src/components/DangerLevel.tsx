@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { isEnabled } from "darkreader";
 
 
 const Mydiv = styled.div`
@@ -9,7 +9,6 @@ const Mydiv = styled.div`
     text-align: center;
     font-weight: 700;
     /* filter: drop-shadow(1px 1px 1px white); */
-   
 `
 
 type DangerLevelProps = {
@@ -50,9 +49,9 @@ const DangerLevel = (props: DangerLevelProps) => {
         default:
             background = 'gray';
             color = 'white';
-            text = 'no data';
+            text = 'N/A';
     }
 
-    return <Mydiv style={{ backgroundColor: background, color, filter: `drop-shadow(1px 1px 3px ${background})` }}>{text}</Mydiv>
+    return <Mydiv style={{ backgroundColor: background, color, /* filter: `drop-shadow(0px 0px 1px ${background})` */ }}>{text}</Mydiv>
 }
-        export default DangerLevel;
+export default DangerLevel;
