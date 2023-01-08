@@ -9,6 +9,7 @@ import { loadLayout, getLayoutForTile, saveLayout, sortTiles, TileElement, enabl
 import { TbArrowBackUp, TbCheckbox, TbDragDrop, TbDragDrop2, TbEdit, TbResize, TbViewportNarrow, TbViewportWide } from "react-icons/tb";
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
+import PlaceholderEditMode from "./tiles/PlaceholderEditMode";
 
 const MyDiv = styled.div`
   display: flex;
@@ -22,16 +23,17 @@ type TilesLayoutProps = Readonly<{
   layoutId: string,
   defaultTiles: TileElement[],
   defaultLayout: TileLayouts,
-  defaultEnabledTiles?: string[]
+  defaultEnabledTiles?: string[],
+  onEditModeChange?: (wasEdit: boolean) => void,
 }>
 
-const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTiles }: TilesLayoutProps) => {
+const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTiles, onEditModeChange = undefined }: TilesLayoutProps) => {
 
   /* Tiles dropdown handler: set changed item enabled tile status */
   const onTilesToggle = (id: string, checked: boolean) => {
     const changedObj = tiles.find(e => e.id === id)
     if (changedObj)
-      setTiles(sortTiles([...tiles.filter(e => e.id !== id), { el: changedObj?.el, enabled: !checked, id, name: changedObj.name }]))
+      setTiles(sortTiles([...tiles.filter(e => e.id !== id), { el: changedObj?.el, enabled: !checked, id, name: changedObj.name, noEditmode: changedObj.noEditmode }]))
   }
 
   const onBreakpointChange = (current: any) => {
@@ -49,6 +51,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
         saveLayout({ tileIds, layout, collision, wide, scale }, layoutId)
         toast.success("Layout gespeichert")
       }
+      if (onEditModeChange) onEditModeChange(wasEdit)
       return !wasEdit
     })
   }
@@ -73,7 +76,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
   return (<>
     <ReactResizeDetector handleWidth>
       {({ width, targetRef }) =>
-        <Container fluid={wide} style={{ transformOrigin: "top left", transform: `scale(${scale}) /* translate(-${scale}%, -${scale}%) */` }}>
+        <Container fluid={wide} style={{ userSelect: !editmode ? "auto" : "none", transformOrigin: "top left", transform: `scale(${scale}) /* translate(-${scale}%, -${scale}%) */` }}>
           {/* @ts-ignore */}
           <div ref={targetRef}>
             <ResponsiveGridLayout
@@ -92,7 +95,9 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
               isBounded={true}
             >
               {tiles.map(e => {
-                return e.enabled && <MyDiv key={e.id} data-grid={getLayoutForTile(layout, e.id, breakpoint, defaultLayout)}>{e.el}</MyDiv>;
+                return e.enabled && <MyDiv key={e.id} data-grid={getLayoutForTile(layout, e.id, breakpoint, defaultLayout)}>
+                  {e.noEditmode && editmode ? <PlaceholderEditMode name={e.name} /> : e.el}
+                </MyDiv>;
               }
               )}
             </ResponsiveGridLayout>

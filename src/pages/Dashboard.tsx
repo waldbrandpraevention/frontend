@@ -23,7 +23,7 @@ const Dashboard = () => {
     makeTile(<DroneCount />, "a", "Drohnenanzahl"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
     makeTile(<Area />, "b", "Überwachungsgebiet"),
     makeTile(<Firerisk />, "c", "Feuerrisiko"),
-    makeTile(<Map />, "g", "Karte"),
+    makeTile(<Map/>, "g", "Karte", true, true),
     makeTile(<WeatherForecast />, "d", "Wettervorhersage"),
     makeTile(<ZoneOverview />, "e", "Zonenübersicht"),
     makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),

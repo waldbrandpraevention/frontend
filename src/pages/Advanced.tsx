@@ -17,7 +17,7 @@ const Advanced = () => {
     makeTile(<DroneInfo />, "a", "Drohneninfo"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
     makeTile(<Area />, "b", "Überwachungsgebiet"),
     makeTile(<FireDetection />, "c", "Feuerdetektion"),
-    makeTile(<Map />, "g", "Karte"),
+    makeTile(<Map />, "g", "Karte", true, true),
     makeTile(<PotentialFiresite />, "d", "Vermutete Brandstelle"),
     makeTile(<AlertDrone />, "e", "Drohne alarmieren"),
     makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),

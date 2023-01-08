@@ -1,16 +1,14 @@
-//@ts-nocheck
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
-import LoadingTile from "./LoadingTile";
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+/* @ts-ignore */
 import { Data, Layout } from 'react-plotly.js';
 import Plot from 'react-plotly.js';
-import Plotly from 'plotly.js/dist/plotly'
+/* @ts-ignore */
+import Plotly from 'plotly.js/dist/plotly';
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
+import ReactResizeDetector from 'react-resize-detector';
 
 const MyPlot = styled(Plot)`
     height: 100%;
@@ -56,15 +54,6 @@ const Map = () => {
         showlegend: false
     };
 
-
-    //const { data, isLoading, isError } = useQuery(["map"], () => {
-    //    return axios.get("/map").then(e => e.data);
-    //});
-
-    //if (isLoading) return <LoadingTile />
-
-    //if (isError) return <ErrorAlert> Karte konnte nicht geladen werden.</ErrorAlert>;
-
     const plotRef = useRef<Plotly.Plot>(null);
 
     const updatePlot = () => {
@@ -74,8 +63,6 @@ const Map = () => {
             return;
         }
         setVisible(!visible);
-
-
 
         // Create a new layout object with updated layers array
         const newLayout: Partial<Layout> = {
@@ -93,23 +80,28 @@ const Map = () => {
                     }
                 ],
                 center: center, zoom: zoom
-            }
-
+            },
         };
 
         // Use the new layout object to update the plot
         Plotly.newPlot('MapPlot', data, newLayout)
-
     };
 
+    /* TODO maybe https://github.com/plotly/react-plotly.js#customizing-the-plotlyjs-bundle */
 
-    return (<Tile>
-        <div id='MapPlot'>
-            <MyPlot data={data} layout={layout} ref={plotRef} useResizeHandler={true} />
-        </div>
-        <Button onClick={updatePlot}>Toggle layers</Button>
-    </Tile>);
-
+    return (
+        <ReactResizeDetector handleWidth handleHeight>
+            {({ height, width, targetRef }) =>
+                /* @ts-ignore */
+                <Tile classes="p-0" ref={targetRef}>
+                    <div id='MapPlot'>
+                        <MyPlot data={data} layout={{ ...layout, width, height }} ref={plotRef} /* useResizeHandler={true} */ />
+                        <Button style={{ position: "absolute", bottom: 0, left: 0 }} onClick={updatePlot} >Toggle layers</Button>
+                    </div>
+                </Tile>
+            }
+        </ReactResizeDetector>
+    );
 }
 
 export default Map;

@@ -5,7 +5,8 @@ export type TileElement = {
     el: ReactElement,
     id: string /* internal id */,
     name: string /* display name */,
-    enabled: boolean
+    enabled: boolean,
+    noEditmode: boolean, /* display placeholder instead of actual element in edit mode to improve perfromance/reduce visual glitches */
 }
 
 export type TileLayouts = {
@@ -13,8 +14,8 @@ export type TileLayouts = {
     mobile: ReactGridLayout.Layout[],
 }
 
-export const makeTile = (tile: ReactElement, id: string, name: string, enabled: boolean = true): TileElement => {
-    return { el: tile, id, name, enabled }
+export const makeTile = (tile: ReactElement, id: string, name: string, enabled: boolean = true, noEditmode = false): TileElement => {
+    return { el: tile, id, name, enabled, noEditmode }
 }
 
 export const sortTiles = (tiles: TileElement[]): TileElement[] => {
