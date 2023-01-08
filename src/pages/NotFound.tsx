@@ -26,7 +26,7 @@ const NotFound = () => {
 
     return <Main>
         <StyledLogo />
-        <h1><b>404</b> | Seite nicht gefunden</h1>
+        <h1>Seite nicht gefunden</h1>
         <Button onClick={() => navigate("/")} className="mt-2 d-flex align-items-center" variant="outline-primary"><TbHome></TbHome> Zur Startseite</Button>
     </Main>
 }
