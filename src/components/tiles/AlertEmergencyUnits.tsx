@@ -6,7 +6,6 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import { TbInfoSquare } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -28,7 +27,7 @@ const AlertEmergencyUnits = () => {
     attachments: "",
   } as AlertFormData);
 
-  const { isLoading, isError, mutate } = useMutation(
+  const { isLoading, mutate } = useMutation(
     ["alertemergencyunits"],
     (data: AlertFormData) => {
       return axios
@@ -37,8 +36,11 @@ const AlertEmergencyUnits = () => {
     },
     {
       onSuccess() {
-          toast.success("Einsatzkräfte wurden alarmiert.")
+        toast.success("Einsatzkräfte wurden alarmiert.")
       },
+      onError() {
+        toast.error("Einsatzkräfte konnten nicht alarmiert werden.")
+      }
     }
   );
 
@@ -160,8 +162,6 @@ const AlertEmergencyUnits = () => {
         <Button variant="danger" type="submit" disabled={isLoading}>
           {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
         </Button>
-
-        {isError && <ErrorAlert>Fehler :/.</ErrorAlert>}
       </Form>
     </Tile>
   );

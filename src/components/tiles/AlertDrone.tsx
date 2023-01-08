@@ -6,7 +6,6 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import { TbInfoSquare } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -28,7 +27,7 @@ const AlertDrone = () => {
     attachments: "",
   } as AlertFormData);
 
-  const { isLoading, isError, mutate } = useMutation(
+  const { isLoading, mutate } = useMutation(
     ["alertdrone"],
     (data: AlertFormData) => {
       return axios
@@ -39,6 +38,9 @@ const AlertDrone = () => {
       onSuccess() {
         toast.success("Drohne wurde alarmiert und fliegt nun erneut über den gewählten Einsatzort.")
       },
+      onError() {
+        toast.error("Drohne konnte nicht alarmiert werden.")
+      }
     }
   );
 
@@ -162,8 +164,6 @@ const AlertDrone = () => {
         <Button variant="danger" type="submit" disabled={isLoading}>
           {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
         </Button>
-
-        {isError && <ErrorAlert>Fehler :/.</ErrorAlert>}
       </Form>
     </Tile>
   );

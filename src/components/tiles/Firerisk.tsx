@@ -5,7 +5,6 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import { TbInfoSquare } from "react-icons/tb";
-import DangerLevel from "../DangerLevel";
 
 const Firerisk = () => {
   const { data, isLoading, isError } = useQuery(["firerisk"], () => {
