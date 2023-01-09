@@ -8,7 +8,7 @@ import { TbInfoSquare } from "react-icons/tb";
 import DangerLevel from "../DangerLevel";
 
 const Firerisk = () => {
-  const { data, isLoading, isError } = useQuery(["firerisk"], () => {
+  const { /* data ,*/ isLoading, isError } = useQuery(["firerisk"], () => {
     return axios.get("/test?input=420").then((e) => e.data);
   });
 

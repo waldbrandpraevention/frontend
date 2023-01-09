@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { isEnabled } from "darkreader";
-
 
 const Mydiv = styled.div`
     /* min-width: 4rem; */
