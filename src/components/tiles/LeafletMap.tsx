@@ -97,7 +97,7 @@ const LeafletMap = () => {
   return <ReactResizeDetector handleWidth handleHeight >
     {({ height, width, targetRef }) =>
       /* @ts-ignore */
-      <Tile  /* style={{ width: width ?? "100%", height: height ?? "100%" }} */>
+      <Tile classes="p-0"  /* style={{ width: width ?? "100%", height: height ?? "100%" }} */>
         {/* @ts-ignore */}
         <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={8} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
           <LeafletMapContainer center={center} zoom={8}></LeafletMapContainer>
