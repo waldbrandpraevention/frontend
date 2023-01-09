@@ -6,10 +6,9 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import OkAlert from "../alerts/OkAlert";
-import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import { TbInfoSquare } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 type AlertFormData = {
   drone: string;
@@ -28,12 +27,20 @@ const AlertEmergencyUnits = () => {
     attachments: "",
   } as AlertFormData);
 
-  const { isLoading, isError, isSuccess, mutate } = useMutation(
+  const { isLoading, mutate } = useMutation(
     ["alertemergencyunits"],
     (data: AlertFormData) => {
       return axios
         .post("https://httpbin.org/post", data)
         .then((e) => e.data); /* demo url */
+    },
+    {
+      onSuccess() {
+        toast.success("Einsatzkräfte wurden alarmiert.")
+      },
+      onError() {
+        toast.error("Einsatzkräfte konnten nicht alarmiert werden.")
+      }
     }
   );
 
@@ -75,7 +82,7 @@ const AlertEmergencyUnits = () => {
           </Tooltip>
         }
       >
-        <div style={{float: "right"}}>
+        <div style={{ float: "right" }}>
           <TbInfoSquare></TbInfoSquare>
         </div>
       </OverlayTrigger>
@@ -155,9 +162,6 @@ const AlertEmergencyUnits = () => {
         <Button variant="danger" type="submit" disabled={isLoading}>
           {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Alarmieren</>}
         </Button>
-
-        {isError && <ErrorAlert>Fehler :/.</ErrorAlert>}
-        {isSuccess && <OkAlert>Einsatzkräfte wurden alarmiert.</OkAlert>}
       </Form>
     </Tile>
   );

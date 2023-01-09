@@ -5,10 +5,11 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import { TbInfoSquare } from "react-icons/tb";
+import DangerLevel from "../DangerLevel";
 
 const Firerisk = () => {
-  const { data, isLoading, isError } = useQuery(["firerisk"], () => {
-    return axios.get("/firerisk").then((e) => e.data);
+  const { /* data ,*/ isLoading, isError } = useQuery(["firerisk"], () => {
+    return axios.get("/test?input=420").then((e) => e.data);
   });
 
   if (isLoading) return <LoadingTile />;
@@ -28,22 +29,20 @@ const Firerisk = () => {
           </Tooltip>
         }
       >
-         <div style={{ float: "right" }}>
+        <div style={{ float: "right" }}>
           <TbInfoSquare></TbInfoSquare>
         </div>
       </OverlayTrigger>
       <Card.Title className="text-center">Brandrisiko</Card.Title>
       <Card.Subtitle className="text-center">gemäß DWD Stufen</Card.Subtitle>
       <div
+        className="mt-1"
         style={{
-          fontSize: "x-large",
-          fontWeight: "bold",
-          display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {data.message}
+        <DangerLevel level={/* parseInt(data.message) */1} />
       </div>
     </Tile>
   );

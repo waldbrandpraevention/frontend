@@ -11,6 +11,10 @@ const AnimatedSpinner = styled(ImSpinner2)`
     }
 `;
 
-const LoadingSpinner = () => <AnimatedSpinner />
+type LoadingSpinnerPropType = {
+    size?: number
+}
+
+const LoadingSpinner = ({ size = 16 }: LoadingSpinnerPropType) => <AnimatedSpinner size={size} />
 
 export default LoadingSpinner;

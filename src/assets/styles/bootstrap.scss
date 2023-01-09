@@ -2,6 +2,13 @@
 :root {
   --background-color: #282c34;
   --sidebar-hover-color: #7f7f80;
+
+  --toastify-color-light: #fff;
+  --toastify-color-dark: #121212;
+  --toastify-color-info: #3498db;
+  --toastify-color-success: #07bc0c;
+  --toastify-color-warning: #EF6C00;
+  --toastify-color-error: #e74c3c;
 }
 
 body {
@@ -25,3 +32,4 @@ $dark:;*/
   @extend .shadow;
   @extend .border-0;
 }
+
