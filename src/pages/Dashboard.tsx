@@ -5,12 +5,12 @@ import DroneCount from '../components/tiles/DroneCount';
 import Firerisk from '../components/tiles/Firerisk';
 import WeatherForecast from '../components/tiles/WeatherForecast';
 import ZoneOverview from '../components/tiles/ZoneOverview';
-import Map from '../components/tiles/Map';
 import { lazy, Suspense, useEffect } from "react";
 import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
 import { toast } from 'react-toastify';
 import { useAuth } from "../service/auth";
 import Loading from "../components/Loading";
+import Map from "../components/tiles/Map";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
