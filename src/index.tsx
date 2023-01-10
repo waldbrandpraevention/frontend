@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import RoleRoute from "./components/routes/RoleRoute";
 import { ToastContainer } from 'react-toastify';
 import Loading from "./components/Loading";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const Advanced = lazy(() => import("./pages/Advanced"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
@@ -40,6 +41,7 @@ const queryClient = new QueryClient(); // react-query config
             <Routes>
               <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
               <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
+              <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
                 <Route path="*" element={<NotFound />}></Route>
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>

@@ -3,16 +3,15 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model";
-import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Card, Col, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../service/auth";
-import OkAlert from "../components/alerts/OkAlert";
-import ErrorAlert from "../components/alerts/ErrorAlert";
+import { toast } from "react-toastify";
 
 const BackgroundImage = styled.div`
   ::before{
@@ -40,15 +39,14 @@ type LoginFormData = {
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     email: "",
     password: ""
   } as LoginFormData);
 
-  const [errors, setErrors] = useState({});
-
-  const { isLoading, isError, isSuccess, mutate } = useMutation(["login"], async (data: LoginFormData) => {
+  const { isLoading, mutate } = useMutation(["login"], async (data: LoginFormData) => {
     const obj = new URLSearchParams();
     obj.append("username", data.email);
     obj.append("password", data.password);
@@ -56,7 +54,7 @@ const Login = () => {
     await login(resp.access_token);
   }, {
     onError: (e: any) => {
-      setErrors(e.response.data.detail)
+      toast.error("Anmeldung fehlgeschlagen. " + JSON.stringify(e.response.data.detail), { position: "bottom-center" })
     }
   });
 
@@ -91,22 +89,26 @@ const Login = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="label-style">Passwort</Form.Label>
+              <Form.Label className="text-secondary float-end" as={Link} to="/forgot-password" >vergessen?</Form.Label>
               <Form.Control className="mb-2" type="password" placeholder="Passwort bestätigen" name="password" value={form.password} onChange={handleFormChange} disabled={isLoading} />
-              <Form.Label className="text-secondary" as={Link} to="/forgot-password" >Passwort vergessen</Form.Label>
             </Form.Group>
-
-            <Button className="mb-2" variant="primary" type="submit" disabled={isLoading}>
-              {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
-            </Button>
-
-            {isError && <ErrorAlert>{JSON.stringify(errors)}</ErrorAlert>}
-            {isSuccess && <OkAlert>Anmeldung erfolgreich. Weiterleiten...</OkAlert>}
           </Form>
-
-          <Card.Text className="text-style">
-            <Card.Link as={Link} to="/register" >Registrieren</Card.Link>
-          </Card.Text>
-
+          <Row className="mt-2">
+            <Col>
+              <div className="d-grid">
+                <Button variant="light" onClick={() => navigate("/register")}>
+                  Registrieren
+                </Button>
+              </div>
+            </Col>
+            <Col>
+              <div className="d-grid">
+                <Button variant="primary" onClick={() => mutate(form)} disabled={isLoading}>
+                  {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
+                </Button>
+              </div>
+            </Col>
+          </Row>
         </Card.Body>
       </Card>
     </div >
