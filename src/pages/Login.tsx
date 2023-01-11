@@ -63,7 +63,6 @@ const Login = () => {
     mutate(form);
   }
 
-
   const handleFormChange = (e: any) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -92,23 +91,23 @@ const Login = () => {
               <Form.Label className="text-secondary float-end" as={Link} to="/forgot-password" >vergessen?</Form.Label>
               <Form.Control className="mb-2" type="password" placeholder="Passwort bestätigen" name="password" value={form.password} onChange={handleFormChange} disabled={isLoading} />
             </Form.Group>
+            <Row className="mt-2">
+              <Col>
+                <div className="d-grid">
+                  <Button variant="light" onClick={() => navigate("/register")}>
+                    Registrieren
+                  </Button>
+                </div>
+              </Col>
+              <Col>
+                <div className="d-grid">
+                  <Button variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Form>
-          <Row className="mt-2">
-            <Col>
-              <div className="d-grid">
-                <Button variant="light" onClick={() => navigate("/register")}>
-                  Registrieren
-                </Button>
-              </div>
-            </Col>
-            <Col>
-              <div className="d-grid">
-                <Button variant="primary" onClick={() => mutate(form)} disabled={isLoading}>
-                  {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
-                </Button>
-              </div>
-            </Col>
-          </Row>
         </Card.Body>
       </Card>
     </div >
