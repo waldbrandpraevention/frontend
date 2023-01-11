@@ -3,15 +3,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/loadingImages.model";
-import { Card } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import OkAlert from "../components/alerts/OkAlert";
-import ErrorAlert from "../components/alerts/ErrorAlert";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BackgroundImage = styled.div`
  ::before{
@@ -39,6 +38,7 @@ type RegistrierenFormData = {
 }
 
 const Registrieren = () => {
+    const navigate = useNavigate()
     const [form, setForm] = useState({
         firstname: "",
         lastname: "",
@@ -46,9 +46,7 @@ const Registrieren = () => {
         password: ""
     } as RegistrierenFormData);
 
-    const [errors, setErrors] = useState({});
-
-    const { isLoading, isError, isSuccess, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
+    const { isLoading, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
         const obj = new URLSearchParams();
         obj.append("first_name", data.firstname);
         obj.append("last_name", data.lastname);
@@ -58,8 +56,11 @@ const Registrieren = () => {
         return axios.post("/users/signup/", obj).then(e => e.data);
     }, {
         onError(error: any) {
-            setErrors(error.response.data)
+            toast.error("Registrierung fehlgeschlagen. " + JSON.stringify(error.response.data.detail), { position: "bottom-center" })
         },
+        onSuccess() {
+            toast.success("Registrierung erfolgreich. Bitte bestätigen Sie Ihre E-Mail Adresse.", { position: "bottom-center" })
+        }
     });
 
     const handleFormSubmit = (e: any) => {
@@ -82,7 +83,7 @@ const Registrieren = () => {
                     <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
                     <Card.Title>Registrieren</Card.Title>
                     <Card.Text className="text-style">
-                        Bitte geben Sie ihre Informationen an
+                        Bitte geben Sie Ihre Informationen an
                     </Card.Text>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -101,18 +102,24 @@ const Registrieren = () => {
                             <Form.Control className="mb-2" type="password" placeholder="Passwort" />
                             <Form.Control className="mb-2" type="password" placeholder="Passwort bestätigen" name="password" value={form.password} onChange={handleFormChange} disabled={isLoading} />
                         </Form.Group>
-
-                        <Button className="mb-2" variant="primary" type="submit" disabled={isLoading}>
-                            {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Registrieren</>}
-                        </Button>
-
-                        {isError && <ErrorAlert>{JSON.stringify(errors)}</ErrorAlert>}
-                        {isSuccess && <OkAlert>Sie wurden erfolgreich registriert. Bitte bestätigen Sie ihre E-Mail um fortzufahren</OkAlert>}
                     </Form>
 
-                    <Card.Text className="text-style">
-                        <Card.Link as={Link} to="/login">Anmelden</Card.Link>
-                    </Card.Text>
+                    <Row className="mt-2">
+                        <Col>
+                            <div className="d-grid">
+                                <Button variant="light" onClick={() => navigate("/login")}>
+                                    Anmelden
+                                </Button>
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="d-grid">
+                                <Button variant="primary" onClick={() => mutate(form)} disabled={isLoading}>
+                                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Registrieren</>}
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
         </div >

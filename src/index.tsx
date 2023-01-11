@@ -25,6 +25,10 @@ import { ToastContainer } from 'react-toastify';
 import Loading from "./components/Loading";
 import Weather from "./pages/Weather";
 
+import Users from "./pages/Users";
+import ForgotPassword from "./pages/ForgotPassword";
+
+
 const Advanced = lazy(() => import("./pages/Advanced"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
 
@@ -41,19 +45,21 @@ const queryClient = new QueryClient(); // react-query config
             <Routes>
               <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
               <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
+              <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
               <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
                 <Route path="*" element={<NotFound />}></Route>
                 <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
-                <Route path="dashboard" element={<Suspense fallback={<Loading/>}><Dashboard /></Suspense>} />
+                <Route path="dashboard" element={<Suspense fallback={<Loading />}><Dashboard /></Suspense>} />
                 <Route path="zones" element={<Zones />} />
                 <Route path="map" element={<Maps />} />
                 <Route path="weather" element={<Weather />} />
                 <Route path="help" element={"hilfeseite"} />
-                <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading/>}><Advanced /></Suspense></RoleRoute>} />
+                <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
                 <Route path="datenschutz" element={<Datenschutz />} />
                 <Route path="impressum" element={<Impressum />} />
                 <Route path="settings">
                   <Route path="account" element={<Account />} />
+                  <Route path="users" element={<RoleRoute><Users /></RoleRoute>} />
                   <Route path="system" element={<RoleRoute>"system einstellungen"</RoleRoute>} />
                   <Route path="alerts" element={"benachrichtigungen"} />
                 </Route>

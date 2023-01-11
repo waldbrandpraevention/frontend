@@ -12,28 +12,30 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../../service/auth";
 
 type ChangeFormData = {
-    newMail: string;
+    surName: string;
+    lastName: string;
 };
 
 
-const ChangeMail = () => {
+const ChangeName = () => {
     const { user } = useAuth()
 
     const [form, setForm] = useState({
-        newMail: "",
+        surName: "",
+        lastName: ""
     } as ChangeFormData);
 
     const queryClient = useQueryClient();
 
-    const { isLoading, mutate } = useMutation(["account", "changemail"], (data: ChangeFormData) => {
+    const { isLoading, mutate } = useMutation(["account", "changename"], (data: ChangeFormData) => {
         return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
     }, {
         onSuccess() {
             queryClient.invalidateQueries(["account"])
-            toast.success("Bitte bestätige die neue E-Mail Adresse.")
+            toast.success("Name wurde erfolgreich geändert.")
         },
         onError() {
-            toast.error("E-Mail konnte nicht geändert werden.")
+            toast.error("Name konnte nicht geändert werden.")
         }
     });
 
@@ -49,32 +51,47 @@ const ChangeMail = () => {
 
     return (
         <Tile>
-            <Card.Title>E-Mail ändern</Card.Title>
+            <Card.Title>Name ändern</Card.Title>
             <Form onSubmit={handleFormSubmit}>
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column md={4}>
-                        Neue E-Mail
+                        Vorname
                     </Form.Label>
                     <Col md={8}>
                         <Form.Control
                             className="col-lg-*"
-                            type="email"
-                            placeholder={user.mail}
-                            name="newMail"
-                            value={form.newMail}
+                            type="text"
+                            placeholder={user.firstname}
+                            name="surName"
+                            value={form.surName}
+                            onChange={handleFormChange}
+                            disabled={isLoading}
+                        />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3">
+                    <Form.Label column md={4}>
+                        Nachname
+                    </Form.Label>
+                    <Col md={8}>
+                        <Form.Control
+                            className="col-lg-*"
+                            type="text"
+                            placeholder={user.lastname}
+                            name="lastName"
+                            value={form.lastName}
                             onChange={handleFormChange}
                             disabled={isLoading}
                         />
                     </Col>
                 </Form.Group>
 
-
                 <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>E-Mail ändern</>}
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Name ändern</>}
                 </Button>
             </Form>
         </Tile>
     );
 };
 
-export default ChangeMail;
+export default ChangeName;
