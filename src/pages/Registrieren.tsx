@@ -9,7 +9,7 @@ import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BackgroundImage = styled.div`
@@ -39,6 +39,7 @@ type RegistrierenFormData = {
 
 const Registrieren = () => {
   const navigate = useNavigate()
+  const { token } = useParams()
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -53,6 +54,7 @@ const Registrieren = () => {
     obj.append("email", data.email);
     obj.append("password", data.password);
     obj.append("organization", "TODO");
+    obj.append("token", token as string)
     return axios.post("/users/signup/", obj).then(e => e.data);
   }, {
     onError(error: any) {

@@ -94,13 +94,6 @@ const Login = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/register")}>
-                    Registrieren
-                  </Button>
-                </div>
-              </Col>
-              <Col>
-                <div className="d-grid">
                   <Button variant="primary" type="submit" disabled={isLoading}>
                     {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
                   </Button>
