@@ -64,25 +64,23 @@ const ForgotPassword = () => {
                 Sollten Sie Ihre E-Mail Adresse vergessen haben, kontaktieren Sie stattdessen Ihren Administrator.
               </Form.Text>
             </Form.Group>
-
-
+            <Row className="mt-2">
+              <Col>
+                <div className="d-grid">
+                  <Button variant="light" onClick={() => navigate("/login")}>
+                    Anmelden
+                  </Button>
+                </div>
+              </Col>
+              <Col md="auto">
+                <div className="d-grid">
+                  <Button variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Passwort zurücksetzen</>}
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Form>
-          <Row className="mt-2">
-            <Col>
-              <div className="d-grid">
-                <Button variant="light" onClick={() => navigate("/login")}>
-                  Anmelden
-                </Button>
-              </div>
-            </Col>
-            <Col md="auto">
-              <div className="d-grid">
-                <Button variant="primary" type="submit" disabled={isLoading}>
-                  {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Passwort zurücksetzen</>}
-                </Button>
-              </div>
-            </Col>
-          </Row>
         </Card.Body>
       </Card>
     </div >
