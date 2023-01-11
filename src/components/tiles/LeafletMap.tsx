@@ -1,13 +1,14 @@
 import { LatLngTuple } from "leaflet";
-import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { AttributionControl, LayerGroup, LayersControl, MapContainer, Pane, TileLayer, useMap } from 'react-leaflet';
 import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import ReactToPrint from 'react-to-print';
+import styled from "styled-components";
+
 
 const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: number }) => {
-
-
   const m = useMap()
   useEffect(() => {
     // window.addEventListener("resize", () => {
@@ -57,7 +58,7 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
         </LayerGroup> */}
       </LayerGroup>
     </LayersControl.Overlay>
-    
+
     <LayersControl.Overlay name="<b>Satellit</b>">
       <TileLayer
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.jpg"
@@ -93,17 +94,24 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
 
 const LeafletMap = () => {
   const center = [50.06, 8.64] as LatLngTuple
+  const targetRef = useRef();
+
 
   return <ReactResizeDetector handleWidth handleHeight >
     {({ height, width, targetRef }) =>
       /* @ts-ignore */
       <Tile classes="p-0"  /* style={{ width: width ?? "100%", height: height ?? "100%" }} */>
+
         {/* @ts-ignore */}
         <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={8} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
+          {/* @ts-ignore */}
+          {targetRef.current && <ReactToPrint trigger={() => <button>Print Map</button>} content={() => targetRef.current} />}
           <LeafletMapContainer center={center} zoom={8}></LeafletMapContainer>
         </MapContainer>
       </Tile>
     }
   </ReactResizeDetector>
 }
+
+
 export default LeafletMap
