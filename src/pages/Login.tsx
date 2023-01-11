@@ -59,7 +59,6 @@ const Login = () => {
   });
 
   const handleFormSubmit = (e: any) => {
-    console.log("XX");
     e.preventDefault();
     mutate(form);
   }
