@@ -3,7 +3,7 @@ import Header from '../components/header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers } from 'react-icons/tb';
+import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbSun, TbUser, TbUsers } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
 
 const FlexMain = styled.div`
@@ -34,6 +34,7 @@ const App = () => {
           <MenuItem routerLink={<Link to="/dashboard" />} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>
           <MenuItem routerLink={<Link to="/zones" />} icon={<TbPolygon />}> Zonen </MenuItem>
           <MenuItem routerLink={<Link to="/map" />} icon={<TbMap />}> Karte </MenuItem>
+          <MenuItem routerLink={<Link to="/weather" />} icon={<TbSun />}> Wetter </MenuItem>
           <MenuItem routerLink={<Link to="/incidents" />} icon={<TbFlame />}> Einsätze </MenuItem>
           <MenuItem routerLink={<Link to="/alerts" />} icon={<TbAlertTriangle />}> Alerts </MenuItem>
           {user.isAdmin && <>
