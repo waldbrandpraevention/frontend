@@ -3,6 +3,7 @@ import ErrorAlert from "../components/alerts/ErrorAlert";
 import WarnAlert from "../components/alerts/WarnAlert";
 import AccountInfo from "../components/tiles/account/AccountInfo";
 import ChangeMail from "../components/tiles/account/ChangeMail";
+import ChangeName from "../components/tiles/account/ChangeName";
 import ChangePassword from "../components/tiles/account/ChangePassword";
 import { useAuth } from "../service/auth";
 
@@ -22,6 +23,7 @@ const Account = () => {
                         {!user.disabled && <>
                             <ChangePassword />
                             <ChangeMail />
+                            <ChangeName/>
                         </>}
                     </Container>
                 </Col>

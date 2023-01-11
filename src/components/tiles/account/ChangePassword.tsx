@@ -6,10 +6,9 @@ import Row from "react-bootstrap/Row";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import OkAlert from "../../alerts/OkAlert";
 import LoadingSpinner from "../../LoadingSpinner";
-import ErrorAlert from "../../alerts/ErrorAlert";
 import Tile from "../../Tile";
+import { toast } from "react-toastify";
 
 type ChangeFormData = {
     oldpassword: string;
@@ -26,9 +25,17 @@ const ChangePassword = () => {
 
     const queryClient = useQueryClient();
 
-    const { isLoading, isError, isSuccess, mutate } = useMutation(["account", "changepassword"], (data: ChangeFormData) => {
+    const { isLoading, mutate } = useMutation(["account", "changepassword"], (data: ChangeFormData) => {
         return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
-    }, { onSuccess: () => queryClient.invalidateQueries(["account"]) });
+    }, {
+        onSuccess() {
+            queryClient.invalidateQueries(["account"])
+            toast.success("Passwort wurde erfolgreich geändert.")
+        },
+        onError() {
+            toast.error("Passwort konnte nicht geändert werden.")
+        }
+    });
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -96,17 +103,6 @@ const ChangePassword = () => {
                 <Button variant="primary" type="submit" disabled={isLoading}>
                     {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Passwort ändern</>}
                 </Button>
-
-                {isError && (
-                    <ErrorAlert>
-                        Fehler :/.
-                    </ErrorAlert>
-                )}
-                {isSuccess && (
-                    <OkAlert>
-                        Passwort wurde erfolgreich geändert.
-                    </OkAlert>
-                )}
             </Form>
         </Tile>
     );
