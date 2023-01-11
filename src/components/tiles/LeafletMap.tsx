@@ -4,9 +4,10 @@ import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
 import { useEffect } from "react";
+import { useMapStore } from "../../service/stores";
 
 const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: number }) => {
-
+  const updateCenterStore = useMapStore(state => state.setCenter)
 
   const m = useMap()
   useEffect(() => {
@@ -18,6 +19,11 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
     }, 300)
     return () => clearInterval(t)
   }, [m])
+
+  m.on("moveend", (e) => {
+    const moved = m.getCenter()
+    updateCenterStore([moved.lat, moved.lng])
+  })
 
   return <LayersControl position="topright">
     <LayersControl.Overlay checked name="<b>Standard</b>">
@@ -57,7 +63,7 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
         </LayerGroup> */}
       </LayerGroup>
     </LayersControl.Overlay>
-    
+
     <LayersControl.Overlay name="<b>Satellit</b>">
       <TileLayer
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.jpg"
@@ -92,7 +98,8 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
 }
 
 const LeafletMap = () => {
-  const center = [50.06, 8.64] as LatLngTuple
+  const center = useMapStore(state => state.center)
+  // const center = [50.06, 8.64] as LatLngTuple
 
   return <ReactResizeDetector handleWidth handleHeight >
     {({ height, width, targetRef }) =>
