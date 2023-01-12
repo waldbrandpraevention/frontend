@@ -5,6 +5,7 @@ import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
 import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const FlexMain = styled.div`
   display: flex;
@@ -54,7 +55,9 @@ const App = () => {
       </Sidebar>
 
       <StyledMain>
-        <Outlet />
+        <ErrorBoundary key={Math.random() /* to reset boundary */}> 
+          <Outlet />
+        </ErrorBoundary>
       </StyledMain>
     </FlexMain>
   </>);
