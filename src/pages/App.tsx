@@ -34,8 +34,8 @@ const App = () => {
         <Menu closeOnClick={true} menuItemStyles={{
           button: ({ level, active, disabled }) => {
             return {
-              color: disabled ? '#f5d9ff' : undefined/* '#d359ff' */,
-              backgroundColor: active ? '#FFCCBC' : undefined,
+              color: active ? 'white' : undefined/* '#d359ff' */,
+              backgroundColor: active ? '#FF7043' : undefined,
             };
           },
         }} rootStyles={{
