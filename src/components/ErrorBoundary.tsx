@@ -32,8 +32,6 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
   }
 
   render() {
-    console.log("RERENDER");
-
     if (this.state.hasError) {
       return <UnexpectedError err={this.state.error}></UnexpectedError>;
     }
