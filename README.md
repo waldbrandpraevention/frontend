@@ -50,7 +50,7 @@ Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen 
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein. Ist standardmäßig bei *Docker Desktop* der Fall.
 
-1. In einem leeren Ordner eine `docker-compose.yaml` Datei erstellen mit folgendem Inhalt:
+1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit folgendem Inhalt:
 
 ```yaml
 version: '3'
@@ -68,6 +68,10 @@ services:
   backend:
     image: waldbrandpraevention/backend
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
     expose:
       - 8000
 
@@ -83,11 +87,11 @@ services:
       - frontend-server-conf:/etc/nginx/conf.d
       - frontend-build:/usr/share/nginx/html
 
-  # Mail
+  # Mail (optional)
   mailhog:
     image: mailhog/mailhog
     logging:
-      driver: 'none' # disable saving logs
+      driver: 'none' 
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
@@ -110,6 +114,9 @@ Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Bef
 | API Dokumentation | http://localhost:8080/api/docs |
 | [Mail](#e-mail-) | http://localhost:8025 |
 
+Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zugangsdaten anmelden.
+Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
+
 #### Config 🛠️
  Einstellungen können als Environmentvariablen in der `docker-compose.yaml` angepasst werden.
 | Name | Beschreibung | Werte | Standard
@@ -118,14 +125,14 @@ Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Bef
 | MAIL_SMTP_HOST |  |  | |
 | MAIL_SMTP_ | todo |  | |
 
-Um die Anwendung ohne explizite Angabe des Ports (http://127.0.0.1) zu verwenden oder generell den Port ändern, kann die Datei so geändert werden
+Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
 ```diff
 ...
 nginx:
   image: nginx:alpine
   ports:
 -   - 8080:80 
-+   - 80:80 
++   - 80:80
   depends_on:
     - frontend
     - backend
@@ -135,21 +142,22 @@ nginx:
 ...
 ```
 #### E-Mail 📨
-Standardmäßig wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen externen Mail Server zu verwenden, die `docker-compose.yaml` folgendermaßen anpassen:
+Standardmäßig wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen vorhandenen Mailserver zu verwenden, die `docker-compose.yml` folgendermaßen anpassen:
 ```diff
-...
+services:
  backend:
-   build:      
-     context: https://github.com/waldbrandpraevention/backend.git
-   command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
-   ports:
-     - 8000:8000
+    image: waldbrandpraevention/backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
+    expose:
+      - 8000
 +  environment:
 +    - MAIL_SMTP_HOST=
 +    todo 
-...
-services:
-...
+
 -mailhog:
 -  image: mailhog/mailhog
 -  logging:
@@ -157,7 +165,6 @@ services:
 -  ports:
 -    - 1025:1025 # smtp server
 -    - 8025:8025 # web ui
-...
 ```
 
 
