@@ -34,14 +34,12 @@ const App = () => {
         <Menu closeOnClick={true} menuItemStyles={{
           button: ({ level, active, disabled }) => {
             return {
-              color: active ? 'white' : undefined/* '#d359ff' */,
+              color: active ? 'white' : undefined,
               backgroundColor: active ? '#FF7043' : undefined,
             };
           },
         }} rootStyles={{
           [`.${menuClasses.button}`]: {
-            /* backgroundColor: '#e1e1e1',
-            color: '#344cff', */
             '&:hover': {
               backgroundColor: '#FBE9E7',
             },
