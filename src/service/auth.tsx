@@ -12,33 +12,43 @@ export enum AccountType {
     Administrator = 2,
 }
 
+export type Organization = Readonly<{
+    id: number,
+    name: string,
+    abbreviation: string
+}>
+
 export type Account = Readonly<{
+    id: number,
     firstname: string;
     lastname: string;
     mail: string;
     permission: AccountType;
     disabled: boolean;
     mail_verified: boolean;
-    organization: string;
-
+    organization: Organization;
     isUser: boolean;
     isAdmin: boolean;
 }>
 
 const fromApiCall = (user: any): Account => {
-    /* DEBUG ONLY */ user.permission ??= 2;
     return {
+        id: user.id,
         firstname: user.first_name,
         lastname: user.last_name,
         mail: user.email,
         permission: user.permission,
-        mail_verified: user.mail_verified ?? false,
-        organization: user.organization,
-        disabled: user.disabled ?? false,
+        mail_verified: user.mail_verified,
+        organization: {
+            id: user.organization.id,
+            name: user.organization.name,
+            abbreviation: user.organization.organization,
+        },
+        disabled: user.disabled,
 
         isUser: user.permission === AccountType.Benutzer,
         isAdmin: user.permission === AccountType.Administrator,
-    } as Account
+    }
 }
 
 export const saveLocalToken = (token: string) => {
