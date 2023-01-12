@@ -52,7 +52,7 @@ Zunächst muss [docker compose](https://docs.docker.com/compose/install/) instal
 
 1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit folgendem Inhalt:
 
-```yaml
+```yml
 version: '3'
 name: Waldbrandpraevention
 
@@ -118,7 +118,7 @@ Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zuga
 Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 
 #### Config 🛠️
- Einstellungen können als Environmentvariablen in der `docker-compose.yaml` angepasst werden.
+ Einstellungen können als Environmentvariablen in der `docker-compose.yml` angepasst werden.
 | Name | Beschreibung | Werte | Standard
 |---|---|---|---|
 | REACT_APP_API_URL | API URL | `string` | `/api/` |
