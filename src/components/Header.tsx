@@ -1,7 +1,7 @@
 import "../assets/styles/header.css"
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import BellIcon from "./bellIcon"
-import Colormode from "./colormode";
+import BellIcon from "./BellIcon"
+import Colormode from "./Colormode";
 import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
 import Logo from "../assets/img/Logo";

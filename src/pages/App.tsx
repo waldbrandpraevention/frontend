@@ -1,5 +1,5 @@
 import "../assets/styles/App.css";
-import Header from '../components/header';
+import Header from '../components/Header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar, menuClasses } from 'react-pro-sidebar';
 import { Link, Outlet } from 'react-router-dom';
 import styled from "styled-components";
