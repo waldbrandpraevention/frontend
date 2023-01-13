@@ -21,6 +21,7 @@ import RoleRoute from "./components/routes/RoleRoute";
 import { ToastContainer } from 'react-toastify';
 import Loading from "./components/Loading";
 import ForgotPassword from "./pages/ForgotPassword";
+import Incidents from "./pages/Incidents";
 
 const Advanced = lazy(() => import("./pages/Advanced"))
 const Dashboard = lazy(() => import("./pages/Dashboard"))
@@ -48,6 +49,7 @@ render(
               <Route path="map" element={<Suspense fallback={<Loading />}><Maps /></Suspense>} />
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
+              <Route path="incidents" element={<RoleRoute><Incidents/></RoleRoute>} />
               <Route path="datenschutz" element={<Datenschutz />} />
               <Route path="impressum" element={<Impressum />} />
               <Route path="settings">
