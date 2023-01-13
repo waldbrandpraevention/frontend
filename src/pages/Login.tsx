@@ -2,7 +2,7 @@ import Logo from "../assets/img/Logo";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
-import { loadingImages } from "../components/loadingImages.model";
+import { loadingImages } from "../components/LoadingImages.model";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";

@@ -3,7 +3,7 @@ import config from "../config/config";
 import { hasLocalToken, loadLocalToken } from "./auth";
 
 class ApiClientService { /* only one instance -> static */
-  static async configureClient() {
+  static configureClient() {
     axios.defaults.baseURL = config.apiRoot;
     axios.defaults.timeout = config.timeout;
 
