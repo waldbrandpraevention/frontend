@@ -30,7 +30,29 @@ const BackgroundImage = styled.div`
   position: absolute;
 `;
 
+const StyledDemoBox = styled(Card)`
+  @keyframes backInUp {
+    0% {
+        -webkit-transform: translateY(12px) scale(.0001);
+        transform: translateY(12px) scale(.0001);
+        opacity: 0
+    }
 
+    /* 60% {
+        -webkit-transform: translateY(0) scale(.7);
+        transform: translateY(0) scale(.7);
+        opacity: .3
+    } */
+
+    to {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: .65
+    }
+  }
+  animation-name: backInUp;
+  animation-duration: .7s;
+`
 
 type LoginFormData = {
   email: string,
@@ -110,6 +132,10 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
+      <StyledDemoBox body className="card-style mt-2" style={{ opacity: 0.55 }}>
+        E-Mail: <b style={{ userSelect: "all" }}>admin@kiwa.tech</b><br></br>
+        Passwort: <b style={{ userSelect: "all" }}>adminkiwa</b>
+      </StyledDemoBox>
     </div >
   );
 }
