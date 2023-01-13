@@ -6,29 +6,27 @@ import { useDebounce } from "../../utils/util";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
-
 import "../../assets/styles/weather-icons.min.css"
 import "../../assets/styles/weather-icons-wind.min.css"
-
-/* date = 2023-01-10 format */
-const getWeatherAPI = (center: [number, number], date: string) => {
-  return `https://api.brightsky.dev/weather?lat=${center[0]}&lon=${center[1]}&date=${date}&tz=Europe/Berlin` /* using DWD API */
-}
-
-/* cloudy-night -> night-cloudy */
-const fixCssClass = (name: string) => {
-  let n = name;
-  n = n.includes("-night") ? "night-" + n.substring(0, n.indexOf("-night")) : n
-  n = n.includes("-day") ? "day-" + n.substring(0, n.indexOf("-day")) : n
-  n = n.includes("-partly") ? n.replace("-partly", "") : n
-  return n;
-}
+import { getWeatherAPI, fixCssClass } from "../../utils/weather";
 
 const WeatherTable = () => {
   const center = useDebounce(useMapStore(state => state.center), 500) /* rate limit API call to every 500ms */
 
-  const { data, isLoading, isError } = useQuery([center /* "WeatherTable" */], () => {
-    return axios.get(getWeatherAPI(center, new Date().toISOString().split('T')[0])).then((e) => e.data);
+  const { data, isLoading, isError } = useQuery([center /* "WeatherTable" */], async () => {
+    const d = new Date();
+    const today = await axios
+      .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+      .then((e) => e.data);
+    d.setDate(d.getDate() + 1);
+    const tomorrow = await axios
+      .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+      .then((e) => e.data);
+    d.setDate(d.getDate() + 1);
+    const overmorrow = await axios
+      .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+      .then((e) => e.data);
+    return { today, tomorrow, overmorrow };
   },);
 
   if (isLoading) return <LoadingTile />;
@@ -41,7 +39,7 @@ const WeatherTable = () => {
       <Row>
         <Col md={2}>Lat: <b className="fw-semibold">{center[0]}</b></Col>
         <Col md={2}>Lon: <b className="fw-semibold">{center[1]}</b></Col>
-        <Col>Wetterstationen <span className="fw-light">(Distanz)</span>: {data.sources.map((s: any) => <>
+        <Col>Wetterstationen <span className="fw-light">(Distanz)</span>: {data.today.sources.map((s: any) => <>
           <b className="fw-semibold">{s.station_name}</b> ({s.distance > 1000 ? (s.distance / 1000).toFixed(2) + "k" : s.distance}m), {" "}
         </>)}</Col>
       </Row>
@@ -64,7 +62,7 @@ const WeatherTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.weather.map((v: any) => {
+          {data.today.weather.map((v: any) => {
             return <tr key={v.timestamp}>
               <td>{new Date(v.timestamp).toLocaleString("de")}</td>
               <td><i style={{ fontSize: "24px" }} className={`wi wi-${fixCssClass(v.icon)}`}></i>{v.icon}</td>
