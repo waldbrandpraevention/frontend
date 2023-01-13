@@ -20,6 +20,10 @@ export const once = (id: string, f: () => void, /* expiresMinutes: number = -1, 
     sessionOnly ? sessionStorage.setItem(id, dateNow) : localStorage.setItem(id, dateNow)
 }
 
+export const isActiveRoute = (route: string): boolean => {
+    return window.location.pathname === route
+}
+
 /**
  * Debounce / rate limit. delay in ms
  */

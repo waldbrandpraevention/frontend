@@ -22,7 +22,7 @@ const AccountInfo = () => {
             <span className="fw-light">Rolle </span> {AccountType[user.permission]}
         </div>
         <div className="d-flex justify-content-between">
-            <span className="fw-light">Organisation </span> {limit(user.organization, 15)}
+            <span className="fw-light">Organisation </span> {limit(user.organization.name, 15)}
         </div>
     </Tile>
 }
