@@ -5,17 +5,22 @@ import { Badge, Button, Card, Col, Collapse, Container, Form, InputGroup, Modal,
 import { TbAlertTriangle, TbArrowBack, TbCheck, TbCopy, TbLink, TbMailFast, TbTrashX, TbUserPlus } from "react-icons/tb"
 import { toast } from "react-toastify"
 import LoadingSpinner from "../components/LoadingSpinner"
-import { Account, AccountType } from "../service/auth"
+import { Account, AccountType, Organization } from "../service/auth"
 
 const dummyData: Account[] = [
-  { firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: "KIWA", mail_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
-  { firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: "KIWA", mail_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
-  { firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: "KIWA", mail_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
+  { id: 1, firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
+  { id: 2, firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
+  { id: 3, firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
+]
+
+const dummyOrgas: Organization[] = [ /* todo: data from api call */
+  { id: 1, name: "KIWA", abbreviation: "KIWA" },
+  { id: 2, name: "TU Darmstadt", abbreviation: "TUDA" },
 ]
 
 type CreateUserFormData = {
   email?: string,
-  organization: string,
+  organization_id: number,
   permission: AccountType,
   activateNow: boolean
 }
@@ -23,7 +28,7 @@ type CreateUserFormData = {
 const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: () => void }) => {
   const [form, setForm] = useState({
     email: "",
-    organization: "",
+    organization_id: 1,
     permission: 1,
     activateNow: true
   } as CreateUserFormData);
@@ -79,7 +84,10 @@ const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: ()
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Organisation</Form.Label>
-          <Form.Control disabled={isLoadingEmail || isLoadingLink} type="text" placeholder="" name="organization" value={form.organization} onChange={handleFormChange} />
+          <Form.Select disabled={isLoadingEmail || isLoadingLink} aria-label="Default select example" name="organization_id" value={form.organization_id} onChange={handleFormChange}>
+            {(dummyOrgas).map((o) =>
+              <option key={o.id} value={o.id}>{o.name} ({o.abbreviation})</option>)}
+          </Form.Select>
           <Form.Text className="text-muted">
             Der Benutzer wird dieser Organisaton beitreten.
           </Form.Text>
@@ -131,15 +139,7 @@ const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: ()
 const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Account, handleClose: () => void }) => {
   const [open, setOpen] = useState(false);
 
-  const [form, setForm] = useState(/* {
-    firstname: "",
-    lastname: "",
-    username: "",
-    email: "",
-    password: "",
-    disabled: false,
-    permission: 1,
-  } */ user as Partial<Account>);
+  const [form, setForm] = useState(user as Account);
 
   const { isLoading: isLoadingEdit, mutate: mutateEdit } = useMutation(["users", "edit"], async (data: Partial<Account>) => {
     return axios.post("/users/edit/", data).then((e) => e.data);
@@ -169,7 +169,6 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
     return axios.post("/users/reset-password/", data).then((e) => e.data);
   }, {
     onError(e: any) {
-      // setErrors(e.response.data.detail)
       toast.error("Passwort konnte nicht zurückgesetzt werden.")
     },
     onSuccess() {
@@ -179,6 +178,11 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
 
   const handleFormChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  const handleOrgaChange = (e: any) => {
+    const organization = { [e.target.name]: e.target.value } as Organization
+    setForm({ ...form, organization })
   }
 
   const isLoading = isLoadingDelete || isLoadingEdit || isLoadingResetPw
@@ -198,27 +202,30 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>Vorname</Form.Label>
-          <Form.Control disabled={isLoading} type="text" name="firstname" value={user.firstname} onChange={handleFormChange}/>
+          <Form.Control disabled={isLoading} type="text" name="firstname" value={user.firstname} onChange={handleFormChange} />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Nachname</Form.Label>
-          <Form.Control disabled={isLoading} type="text" name="lastname" value={user.lastname} onChange={handleFormChange}/>
+          <Form.Control disabled={isLoading} type="text" name="lastname" value={user.lastname} onChange={handleFormChange} />
         </Form.Group>
         <Form.Label>E-Mail Adresse</Form.Label>
         <InputGroup className="mb-3">
-          <Form.Control disabled={isLoading} type="email" name="mail" value={user.mail} onChange={handleFormChange}/>
+          <Form.Control disabled={isLoading} type="email" name="mail" value={user.mail} onChange={handleFormChange} />
           {!user.mail_verified ? <Badge className="d-flex align-items-center" bg="warning">unverifiziert</Badge> :
             <Badge className="d-flex align-items-center" bg="success">verifiziert</Badge>}
         </InputGroup>
         <Form.Group className="mb-3">
           <Form.Label>Organisation</Form.Label>
-          <Form.Control disabled={isLoading} type="text" name="organization" value={user.organization} onChange={handleFormChange}/>
+          <Form.Select disabled={isLoading} aria-label="Default select example" name="id" value={form.organization.id} onChange={handleOrgaChange}>
+            {(dummyOrgas).map((o) =>
+              <option key={o.id} value={o.id}>{o.name} ({o.abbreviation})</option>)}
+          </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Rolle</Form.Label>
-          <Form.Select disabled={isLoading} aria-label="Default select example"  name="permission" value={form.permission} onChange={handleFormChange}>
+          <Form.Select disabled={isLoading} aria-label="Default select example" name="permission" value={form.permission} onChange={handleFormChange}>
             {(Object.keys(AccountType) as Array<keyof typeof AccountType>).filter(v => isNaN(v as unknown as number)).map((key) =>
-              <option key={key} selected={AccountType[key] === user.permission} value={AccountType[key]}>{key}</option>)}
+              <option key={key} value={AccountType[key]}>{key}</option>)}
           </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3">
@@ -268,21 +275,19 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
 }
 
 const Users = () => {
-  const [user, setUser] = useState({} as Account)
+  const [user, setUser] = useState<Account>({} as Account)
   const [newUser, setNewUser] = useState(false);
   const [editUser, setEditUser] = useState(false);
 
   return <Container>
     <CreateUserModal show={newUser} handleClose={() => setNewUser(false)}></CreateUserModal>
-    <EditUserModal user={user} show={editUser} handleClose={() => { setUser({} as Account); setEditUser(false) }}></EditUserModal>
+    {editUser && <EditUserModal user={user} show={editUser} handleClose={() => { setUser({} as Account); setEditUser(false) }}></EditUserModal>}
 
-    {/* <Card body className="mt-2 my-1 shadow-sm border-0"> */}
     <Row className="mt-2 my-1">
       <div>
         <Button className="d-flex align-items-center float-start" variant="success" onClick={() => { setNewUser(true) }}><TbUserPlus /> Benutzer einladen</Button>
       </div>
     </Row>
-    {/* </Card> */}
     <Row>
       <Col /* md={8} */>
         <Card body className="my-1 shadow-sm border-0">
@@ -300,20 +305,15 @@ const Users = () => {
             </thead>
             <tbody>
               {dummyData.map(u => <tr key={u.mail} style={{ cursor: "pointer" }} onClick={() => { setUser(u); setEditUser(true) }}>
-                <td>1</td>
+                <td>{u.id}</td>
                 <td>{u.firstname}</td>
                 <td>{u.lastname}</td>
                 <td>{u.mail} {!u.mail_verified && <OverlayTrigger
                   placement={"top"}
-                  overlay={
-                    <Tooltip>
-                      E-Mail Adresse wurde (noch) nicht bestätigt.
-                    </Tooltip>
-                  }
-                >
+                  overlay={<Tooltip>E-Mail Adresse wurde (noch) nicht bestätigt.</Tooltip>}>
                   <span><TbAlertTriangle color="orange"></TbAlertTriangle></span>
                 </OverlayTrigger>}</td>
-                <td>{u.organization}</td>
+                <td>{u.organization.name}</td>
                 <td>{AccountType[u.permission]}</td>
                 <td>{u.disabled ? <Badge bg="danger">Gesperrt</Badge> : <Badge bg="success">Aktiv</Badge>}</td>
               </tr>)}
@@ -321,14 +321,7 @@ const Users = () => {
           </Table>
         </Card>
       </Col>
-      {/* <Col md={4}>
-                <Card body className="my-1 shadow-sm border-0">
-
-                </Card>
-            </Col> */}
     </Row>
-
-
   </Container>
 }
 export default Users
