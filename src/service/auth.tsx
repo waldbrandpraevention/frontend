@@ -38,7 +38,7 @@ const fromApiCall = (user: any): Account => {
         lastname: user.last_name,
         mail: user.email,
         permission: user.permission,
-        mail_verified: user.mail_verified,
+        mail_verified: user.email_verified,
         organization: {
             id: user.organization.id,
             name: user.organization.name,
