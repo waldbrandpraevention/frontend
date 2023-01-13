@@ -100,7 +100,7 @@ const Login = () => {
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Anmelden</Card.Title>
           <Card.Text className="text-style">
-
+            Bitte melden Sie sich mit Ihren Zugangsdaten an.
           </Card.Text >
           <Form onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -125,10 +125,12 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
+      {/* ======== DEMO only ======== */}
       <StyledDemoBox body className="card-style mt-2" style={{ opacity: 0.55 }}>
         E-Mail: <b style={{ userSelect: "all" }}>admin@kiwa.tech</b><br></br>
         Passwort: <b style={{ userSelect: "all" }}>adminkiwa</b>
       </StyledDemoBox>
+      {/* ======== DEMO only ======== */}
     </div >
   );
 }
