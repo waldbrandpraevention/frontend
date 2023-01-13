@@ -1,8 +1,6 @@
 import { Button } from "react-bootstrap";
-import { TbHome } from "react-icons/tb";
-import { useNavigate } from "react-router";
+import { TbBug, TbHome } from "react-icons/tb";
 import styled from "styled-components";
-import Logo from "../assets/img/Logo";
 
 const Main = styled.div`
     background: var(--bs-gray-200);
@@ -13,23 +11,35 @@ const Main = styled.div`
     align-content: center;
     justify-content: center;
     flex-direction: column;
-`
 
-const StyledLogo = styled(Logo)`
-    height: 64px;
-    width: 64px;
-    margin-bottom: 2em;
+    .anim {
+      animation-name: a;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+
+      @keyframes a {
+        0% {
+          color: #D32F2F;
+        }
+
+        50% {
+          color: black;
+        }
+
+        100% {
+          color: #D32F2F;
+        }
+      }
+    }
 `
 
 const UnexpectedError = ({ err }: { err?: Error }) => {
-  const navigate = useNavigate();
-
   return <Main>
-    <StyledLogo />
-    <h1>Fehler</h1>
+    <TbBug size={64} className="anim"></TbBug>
     <h5>Beim Laden dieser Seite ist ein unerwartetes Problem aufgetreten.</h5>
-    <code>{err && err.toString()}</code>
-    <Button onClick={() => navigate("/")} className="mt-2 d-flex align-items-center" variant="outline-primary"><TbHome></TbHome> Zur Startseite</Button>
+    <p>Sollte dieses Problem weiterhin auftreten, melden Sie dies Ihrem Administrator.</p>
+    <code>{err && err.toString()} @ {window.location.pathname}</code>
+    <Button onClick={() => window.location.href = "/"} className="mt-2 d-flex align-items-center" variant="outline-primary"><TbHome></TbHome> Zur Startseite</Button>
   </Main>
 }
 export default UnexpectedError;
