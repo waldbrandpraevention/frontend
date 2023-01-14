@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from "../service/auth";
 import Loading from "../components/Loading";
 import Map from "../components/tiles/Map";
+import WeatherTable from "../components/tiles/WeatherTable";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
@@ -23,8 +24,9 @@ const Dashboard = () => {
     makeTile(<DroneCount />, "a", "Drohnenanzahl"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
     makeTile(<Area />, "b", "Überwachungsgebiet"),
     makeTile(<Firerisk />, "c", "Feuerrisiko"),
-    makeTile(<Map/>, "g", "Karte", true, true),
-    makeTile(<WeatherForecast />, "d", "Wettervorhersage"),
+    makeTile(<Map />, "g", "Karte", true, true),
+    makeTile(<WeatherForecast />, "d", "Wettervorhersage", true, true),
+    makeTile(<WeatherTable />, "dd", "Wetter Tabelle", false, true),
     makeTile(<ZoneOverview />, "e", "Zonenübersicht"),
     makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
   ])
@@ -36,6 +38,7 @@ const Dashboard = () => {
       { i: "c", x: 16, y: 0, w: 8, h: 3 },
       { i: "g", x: 0, y: 4, w: 18, h: 10 },
       { i: "d", x: 18, y: 4, w: 6, h: 10 },
+      { i: "dd", x: 0, y: 4, w: 24, h: 10 },
       { i: "e", x: 0, y: 15, w: 16, h: 12 },
       { i: "f", x: 16, y: 15, w: 8, h: 12 },
     ],
@@ -45,6 +48,7 @@ const Dashboard = () => {
       { i: "c", x: 0, y: 6, w: 24, h: 3 },
       { i: "g", x: 0, y: 9, w: 24, h: 10 },
       { i: "d", x: 0, y: 19, w: 24, h: 10 },
+      { i: "dd", x: 0, y: 29, w: 24, h: 10 },
       { i: "e", x: 0, y: 29, w: 24, h: 12 },
       { i: "f", x: 0, y: 33, w: 24, h: 17 },
     ]

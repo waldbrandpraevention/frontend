@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import config from "../config/config";
 
 export const d = (service: string, msg: string) => {
@@ -21,4 +22,18 @@ export const once = (id: string, f: () => void, /* expiresMinutes: number = -1, 
 
 export const isActiveRoute = (route: string): boolean => {
     return window.location.pathname === route
+}
+
+/**
+ * Debounce / rate limit. delay in ms
+ */
+export const useDebounce = <T>(value: T, delay: number) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+        return () => clearTimeout(handler);
+    }, [value, delay]);
+    return debouncedValue;
 }

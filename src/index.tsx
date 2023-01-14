@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import RoleRoute from "./components/routes/RoleRoute";
 import { ToastContainer } from 'react-toastify';
 import Loading from "./components/Loading";
+import Weather from "./pages/Weather";
 import ForgotPassword from "./pages/ForgotPassword";
 import Incidents from "./pages/Incidents";
 
@@ -47,6 +48,7 @@ render(
               <Route path="dashboard" element={<Suspense fallback={<Loading />}><Dashboard /></Suspense>} />
               <Route path="zones" element={<Zones />} />
               <Route path="map" element={<Suspense fallback={<Loading />}><Maps /></Suspense>} />
+              <Route path="weather" element={<Weather />} />
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
               <Route path="incidents" element={<RoleRoute><Incidents/></RoleRoute>} />

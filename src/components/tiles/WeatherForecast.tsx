@@ -1,21 +1,236 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useMapStore } from "../../service/stores";
+import { useDebounce } from "../../utils/util";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
+import "../../assets/styles/weather-icons.min.css";
+import "../../assets/styles/weather-icons-wind.min.css";
+import { Card } from "react-bootstrap";
+import { getWeatherAPI, fixCssClass } from "../../utils/weather";
 
 const WeatherForecast = () => {
-    const { data, isLoading, isError } = useQuery(["weatherforecast"], () => {
-        return axios.get("/test?input=Alles%20sonnig").then(e => e.data);
-    });
+  const center = useDebounce(
+    useMapStore((state) => state.center),
+    500
+  ); /* rate limit API call to every 500ms */
 
-    if (isLoading) return <LoadingTile/>
+  const { data, isLoading, isError } = useQuery(
+    [center /* "weatherforecast" */],
+    async () => {
+      const d = new Date();
+      const today = await axios
+        .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+        .then((e) => e.data);
+      d.setDate(d.getDate() + 1);
+      const tomorrow = await axios
+        .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+        .then((e) => e.data);
+      d.setDate(d.getDate() + 1);
+      const overmorrow = await axios
+        .get(getWeatherAPI(center, d.toISOString().split("T")[0]))
+        .then((e) => e.data);
+      return { today, tomorrow, overmorrow };
+    }
+  );
 
-    if (isError) return <ErrorAlert> Wettervorhersage konnte nicht geladen werden.</ErrorAlert>;
+  if (isLoading) return <LoadingTile />;
 
-    return <Tile >
-        Wettervorhersage {data.message}
+  if (isError)
+    return (
+      <ErrorAlert> Wettervorhersage konnte nicht geladen werden.</ErrorAlert>
+    );
+
+  return (
+    <Tile>
+      <Card.Title className="text-center">Wettervorhersage</Card.Title>
+      <div className="d-flex justify-content-center">
+        <b>
+          Heute -
+          {new Date(data.today.weather[0]?.timestamp).toLocaleDateString("de")}
+        </b>
+      </div>
+      <div className="d-flex justify-content-evenly">
+        <div className="d-flex-column">
+          <div className="fontSize: small">8:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.today.weather[8]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.today.weather[8]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">11:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.today.weather[11]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.today.weather[11]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">14:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.today.weather[14]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.today.weather[14]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">18:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.today.weather[18]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.today.weather[18]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+      </div>
+      <br />
+      <div className="d-flex justify-content-center">
+        <b>
+          Morgen -
+          {new Date(data.tomorrow.weather[0]?.timestamp).toLocaleDateString(
+            "de"
+          )}
+        </b>
+      </div>
+      <div className="d-flex justify-content-evenly">
+        <div className="d-flex-column">
+          <div className="fontSize: small">8:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.tomorrow.weather[8]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.tomorrow.weather[8]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">11:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.tomorrow.weather[11]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.tomorrow.weather[11]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">14:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.tomorrow.weather[14]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.tomorrow.weather[14]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">18:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(data.tomorrow.weather[18]?.icon)}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.tomorrow.weather[18]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+      </div>
+      <br />
+      <div className="d-flex justify-content-center">
+        <b>
+          Übermorgen -
+          {new Date(data.overmorrow.weather[0]?.timestamp).toLocaleDateString(
+            "de"
+          )}
+        </b>
+      </div>
+      <div className="d-flex justify-content-evenly">
+        <div className="d-flex-column">
+          <div>
+            <div className="fontSize: small">8:00</div>
+          </div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(
+                data.overmorrow.weather[8]?.icon
+              )}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.overmorrow.weather[8]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">11:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(
+                data.overmorrow.weather[11]?.icon
+              )}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.overmorrow.weather[11]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">14:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(
+                data.overmorrow.weather[14]?.icon
+              )}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.overmorrow.weather[14]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+        <div className="d-flex-column">
+          <div className="fontSize: small">18:00</div>
+          <div>
+            <i
+              style={{ fontSize: "24px" }}
+              className={`wi wi-${fixCssClass(
+                data.overmorrow.weather[18]?.icon
+              )}`}
+            ></i>
+          </div>
+          <div className="fontSize: small">
+            {data.overmorrow.weather[18]?.temperature?.toFixed(0)}°C
+          </div>
+        </div>
+      </div>
     </Tile>
-}
+  );
+};
 
 export default WeatherForecast;
