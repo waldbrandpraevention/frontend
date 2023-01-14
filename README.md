@@ -233,7 +233,7 @@ Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgen
 
 
 ## Development
-
+#### Projekt Setup
 1. GitHub Repo clonen
 ```
 git clone https://github.com/waldbrandpraevention/frontend.git
@@ -248,4 +248,38 @@ npm install
 `npm test` zum Testen.<br>
 `npm run build` zum Erstellen.
 
+#### Themes 🎨
+Um ein Theme zu erstellen folgendermaßen vorgehen:
 
+1. `src/service/stores.ts`
+```ts
+export const themes: { black: Theme, /* ... */, custom: Theme } = {
+  black: {
+    background: "#FAFAFA",
+    headerBackground: "#FAFAFA",
+    sidebarBackground: "#000000",
+    sidebarActive: "#383838",
+    sidebarHover: "#5c5c5c",
+    sidebarText: "#FFFFFF",
+  }
+  /* ... */
+  custom: {
+    background: "#ecf8f0",
+    headerBackground: "#ecf8f0",
+    sidebarBackground: "#009688",
+    sidebarActive: "#4DB6AC",
+    sidebarHover: "#80CBC4",
+    sidebarText: "#FFFFFF",
+  }
+}
+```
+2. `src/components/tiles/account/ColorCustomizer.tsx`
+```tsx
+// fast am Ende der Datei:
+<InputGroup>
+  <Button style={{ border: "none", color: "white", background: "#000000" }} onClick={() => colors.setColor({ ...themes.black })}><TbColorSwatch /> Schwarz</Button>
+  /* ... */
+  <Button style={{ border: "none", color: "white", background: "#ecf8f0" }} onClick={() => colors.setColor({ ...themes.custom })}><TbColorSwatch /> Mein Custom Theme</Button>
+</InputGroup>
+
+```
