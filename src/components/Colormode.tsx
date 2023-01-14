@@ -18,7 +18,7 @@ const LightIcon = styled(MdLightMode)`
     }
 `
 
-const Colormode = () => {
+const Colormode = ({ iconDark = true }: { iconDark: boolean }) => {
     const [mode, setMode] = useState(localStorage.getItem("mode") ?? "light");
 
     const updateColor = () => {
@@ -31,8 +31,8 @@ const Colormode = () => {
     }, [mode])
 
     return <>{mode === "dark" ?
-        <DarkIcon size={"1.5em"} className="text-white" onClick={updateColor} />
-        : <LightIcon size={"1.5em"} className="text-white" onClick={updateColor} />}</>
+        <DarkIcon size={"1.5em"} className={iconDark ? "text-dark" : "text-white"} onClick={updateColor} />
+        : <LightIcon size={"1.5em"} className={iconDark ? "text-dark" : "text-white"} onClick={updateColor} />}</>
 }
 
 export default Colormode;

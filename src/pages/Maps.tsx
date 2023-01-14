@@ -2,7 +2,10 @@ import Map from "../components/tiles/Map";
 
 const Maps = () => {
     return (
-        <Map />
+        <div style={{height: "calc(100vh - 32px)"}}>
+            <Map />
+
+        </div>
     );
 }
 
