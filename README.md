@@ -1,6 +1,6 @@
 <h1 align="center">Waldbrandprävention</h1>
 <p align="center">   
-    <img width="460" height="300" src="src/assets/img/logo-v1.svg">
+    <img width="320" height="160" src="src/assets/img/logo-v1.svg">
 </p>
 
 <div align="center">
@@ -21,6 +21,8 @@
 
 
 </div>
+
+![](https://bp.adriansoftware.de/media/x3.png)
 
 ![](/src/assets/img/arch.png)
 
