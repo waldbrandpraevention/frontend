@@ -2,7 +2,7 @@ import '../assets/styles/icon.css'
 import { TbBell, TbBellRinging } from 'react-icons/tb';
 import styled from 'styled-components';
 
-type BellIconProps = { hasNotifications: boolean }
+type BellIconProps = { hasNotifications: boolean, iconDark: boolean }
 
 const AnimatedBell = styled(TbBellRinging)`
     animation: pulse 2s infinite;
@@ -26,11 +26,11 @@ const AnimatedBell = styled(TbBellRinging)`
 }
 `;
 
-const BellIcon = ({ hasNotifications }: BellIconProps) => {
-    return <>
-        {hasNotifications ? <AnimatedBell size={"1.5em"} className="text-white" /> :
-            <TbBell size={"1.5em"} className="text-white" />}
-    </>
+const BellIcon = ({ hasNotifications, iconDark = true }: BellIconProps) => {
+	return <>
+		{hasNotifications ? <AnimatedBell size={"1.5em"} className={iconDark ? "text-dark" : "text-white"} /> :
+			<TbBell size={"1.5em"} className={iconDark ? "text-dark" : "text-white"} />}
+	</>
 
 
 };

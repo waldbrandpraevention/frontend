@@ -10,6 +10,7 @@ import { TbArrowBackUp, TbCheckbox, TbDragDrop, TbDragDrop2, TbEdit, TbResize, T
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
 import PlaceholderEditMode from "./tiles/PlaceholderEditMode";
+import { useColorStore } from "../service/stores";
 
 const MyDiv = styled.div`
   display: flex;
@@ -73,6 +74,8 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
   const [collision, setPreventcollision] = useState(loadLayout(layoutId)?.collision ?? false);
   const [scale, setScale] = useState(loadLayout(layoutId)?.scale ?? 1)
 
+  const headerBackground = useColorStore(state => state.headerBackground);
+
   return (<>
     <ReactResizeDetector handleWidth>
       {({ width, targetRef }) =>
@@ -104,7 +107,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
           </div>
         </Container>
       }</ReactResizeDetector>
-    <div className="mb-0 bg-dark d-static" style={{ position: "fixed", top: 0, zIndex: 5 }}>
+    <div className="mb-0 d-static" style={{ position: "fixed", top: 0, zIndex: 15, background: headerBackground }}>
       <ButtonGroup vertical={breakpoint === "mobile"}>
         <OverlayTrigger
           placement="bottom"
@@ -118,7 +121,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
               </Tooltip>
           }
         >
-          <Button variant={editmode ? "success" : "outline-secondary"} size="sm" onClick={onEditToggle} className={`d-flex align-items-center rounded-0`}> {/* ${editmode ? "rounded-start-2" : ""} */}
+          <Button variant={editmode ? "success" : "text-secondary"} size="sm" onClick={onEditToggle} className={`d-flex align-items-center rounded-0`}> {/* ${editmode ? "rounded-start-2" : ""} */}
             {editmode ? <TbCheckbox /> : <TbEdit />} {editmode ? "Layout speichern" : "Layout anpassen"}
           </Button>
         </OverlayTrigger>
