@@ -12,6 +12,7 @@ import { useAuth } from "../service/auth";
 import Loading from "../components/Loading";
 import Map from "../components/tiles/Map";
 import WeatherTable from "../components/tiles/WeatherTable";
+import AlertsList from "../components/tiles/AlertsList";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
@@ -29,6 +30,7 @@ const Dashboard = () => {
     makeTile(<WeatherTable />, "dd", "Wetter Tabelle", false, true),
     makeTile(<ZoneOverview />, "e", "Zonenübersicht"),
     makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
+    makeTile(<AlertsList />, "alerts", "Alerts", false, false),
   ])
 
   const defaultLayout: TileLayouts = {
