@@ -9,8 +9,9 @@ import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { TbUserPlus } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
  ::before{
@@ -39,6 +40,7 @@ type RegistrierenFormData = {
 
 const Registrieren = () => {
   const navigate = useNavigate()
+  const { token } = useParams()
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -53,6 +55,7 @@ const Registrieren = () => {
     obj.append("email", data.email);
     obj.append("password", data.password);
     obj.append("organization", "TODO");
+    obj.append("token", token as string)
     return axios.post("/users/signup/", obj).then(e => e.data);
   }, {
     onError(error: any) {
@@ -104,15 +107,8 @@ const Registrieren = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/login")}>
-                    Anmelden
-                  </Button>
-                </div>
-              </Col>
-              <Col>
-                <div className="d-grid">
-                  <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Registrieren</>}
+                  <Button className="d-flex align-items-center justify-content-center" variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <><TbUserPlus></TbUserPlus> Registrieren</>}
                   </Button>
                 </div>
               </Col>

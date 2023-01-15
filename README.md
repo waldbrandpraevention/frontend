@@ -25,6 +25,19 @@
 ![](https://bp.adriansoftware.de/media/x3.png)
 ![](https://bp.adriansoftware.de/media/x4a.png)
 
+<div align="center">
+
+---
+
+## Demo
+[kiwa.tech](https://kiwa.tech)
+
+E-Mail: `admin@kiwa.tech`
+Passwort: `adminkiwa`
+
+---
+
+</div>
 
 ![](/src/assets/img/arch.png)
 
@@ -36,7 +49,6 @@
 
 Am Einfachsten ist die Installation mit Docker (compose). 
 
----
 ### All-in-One 👑
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
