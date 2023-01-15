@@ -4,14 +4,15 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/LoadingImages.model";
 import { Card, Col, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../service/auth";
 import { toast } from "react-toastify";
+import { TbLogin } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
   ::before{
@@ -30,30 +31,6 @@ const BackgroundImage = styled.div`
   position: absolute;
 `;
 
-const StyledDemoBox = styled(Card)`
-  @keyframes backInUp {
-    0% {
-        -webkit-transform: translateY(12px) scale(.0001);
-        transform: translateY(12px) scale(.0001);
-        opacity: 0
-    }
-
-    /* 60% {
-        -webkit-transform: translateY(0) scale(.7);
-        transform: translateY(0) scale(.7);
-        opacity: .3
-    } */
-
-    to {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: .65
-    }
-  }
-  animation-name: backInUp;
-  animation-duration: .7s;
-`
-
 type LoginFormData = {
   email: string,
   password: string
@@ -61,7 +38,6 @@ type LoginFormData = {
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     email: "",
@@ -116,8 +92,8 @@ const Login = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
+                  <Button className="d-flex align-items-center justify-content-center" variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <><TbLogin></TbLogin> Anmelden</>}
                   </Button>
                 </div>
               </Col>
@@ -125,12 +101,6 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
-      {/* ======== DEMO only ======== */}
-      <StyledDemoBox body className="card-style mt-2" style={{ opacity: 0.55 }}>
-        E-Mail: <b style={{ userSelect: "all" }}>admin@kiwa.tech</b><br></br>
-        Passwort: <b style={{ userSelect: "all" }}>adminkiwa</b>
-      </StyledDemoBox>
-      {/* ======== DEMO only ======== */}
     </div >
   );
 }

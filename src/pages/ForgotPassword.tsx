@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { TbChevronLeft } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
  ::before{
@@ -67,8 +68,8 @@ const ForgotPassword = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/login")}>
-                    Anmelden
+                  <Button className="d-flex align-items-center justify-content-center" variant="light" onClick={() => navigate("/login")}>
+                   <TbChevronLeft></TbChevronLeft>  Zurück
                   </Button>
                 </div>
               </Col>
