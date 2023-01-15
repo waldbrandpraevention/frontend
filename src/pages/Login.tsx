@@ -30,7 +30,29 @@ const BackgroundImage = styled.div`
   position: absolute;
 `;
 
+const StyledDemoBox = styled(Card)`
+  @keyframes backInUp {
+    0% {
+        -webkit-transform: translateY(12px) scale(.0001);
+        transform: translateY(12px) scale(.0001);
+        opacity: 0
+    }
 
+    /* 60% {
+        -webkit-transform: translateY(0) scale(.7);
+        transform: translateY(0) scale(.7);
+        opacity: .3
+    } */
+
+    to {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: .65
+    }
+  }
+  animation-name: backInUp;
+  animation-duration: .7s;
+`
 
 type LoginFormData = {
   email: string,
@@ -78,7 +100,7 @@ const Login = () => {
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Anmelden</Card.Title>
           <Card.Text className="text-style">
-
+            Bitte melden Sie sich mit Ihren Zugangsdaten an.
           </Card.Text >
           <Form onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -94,13 +116,6 @@ const Login = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/register")}>
-                    Registrieren
-                  </Button>
-                </div>
-              </Col>
-              <Col>
-                <div className="d-grid">
                   <Button variant="primary" type="submit" disabled={isLoading}>
                     {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
                   </Button>
@@ -110,6 +125,12 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
+      {/* ======== DEMO only ======== */}
+      <StyledDemoBox body className="card-style mt-2" style={{ opacity: 0.55 }}>
+        E-Mail: <b style={{ userSelect: "all" }}>admin@kiwa.tech</b><br></br>
+        Passwort: <b style={{ userSelect: "all" }}>adminkiwa</b>
+      </StyledDemoBox>
+      {/* ======== DEMO only ======== */}
     </div >
   );
 }
