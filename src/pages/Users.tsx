@@ -58,7 +58,7 @@ const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: ()
     }
   });
 
-  const handleFormChange = (e: any) => {
+  const handleFormChange = (e: any) => { /* ... valueAsNumber     usereducer */
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
