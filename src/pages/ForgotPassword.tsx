@@ -1,4 +1,4 @@
-import Logo from "../assets/img/Logo";
+import Logo from "../assets/img/logo.webp";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
       <div className="header"></div>
       <Card className="card-style">
         <Card.Body className="body-style">
-          <Logo className="image" />
+          <img src={Logo} alt="Logo"  className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Passwort vergessen</Card.Title>
           <Card.Text className="text-style">
