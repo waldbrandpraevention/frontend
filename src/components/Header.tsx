@@ -4,7 +4,7 @@ import BellIcon from "./BellIcon"
 import Colormode from "./Colormode";
 import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
-import Logo from "../assets/img/Logo";
+import Logo from "../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../service/auth";
 import { useColorStore } from "../service/stores";
@@ -17,10 +17,6 @@ const MyNavbar = styled(Navbar)`
     width: 100%;
     width: -webkit-fill-available;
     width: -moz-available;
-`
-const MyLogo = styled(Logo)`
-    width: 24px;
-    height: 24px;
 `
 
 const MyNavLink = styled(Nav.Link)`
@@ -47,7 +43,7 @@ const Header = () => {
             <Container>
                 <Navbar.Brand>
                     <Nav.Link style={{ display: "flex" }}>
-                        <MyLogo />
+                        <img height="24px" width="24px" src={Logo} alt="Logo"></img>
                     </Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
