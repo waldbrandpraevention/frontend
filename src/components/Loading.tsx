@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import styled from "styled-components";
-import Logo from "../assets/img/Logo";
+import Logo from "../assets/img/logo.webp";
 import config from "../config/config";
 import ErrorAlert from "./alerts/ErrorAlert";
 import WarnAlert from "./alerts/WarnAlert";
@@ -18,12 +18,6 @@ const Main = styled.div`
     align-content: center;
     justify-content: center;
     flex-direction: column;
-`
-
-const StyledLogo = styled(Logo)`
-    height: 64px;
-    width: 64px;
-    margin-bottom: 2em;
 `
 
 const StyledSpinner = styled(ImSpinner2)`
@@ -55,7 +49,7 @@ const Loading = () => {
     }, []);
 
     return <Main>
-        <StyledLogo />
+        <img src={Logo} alt="Logo"  className="image mb-2" width="64px" height="64px" />
         {state !== 2 && <StyledSpinner />}
         {state === 1 && <div className="mt-4"><WarnAlert>Verbindung zur API dauert ungewöhnlich lange</WarnAlert></div>}
         {state === 2 && <div className="mt-4"><ErrorAlert>Verbindung zur API fehlgeschlagen</ErrorAlert></div>}
