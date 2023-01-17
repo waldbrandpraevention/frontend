@@ -4,7 +4,7 @@ import BellIcon from "./BellIcon"
 import Colormode from "./Colormode";
 import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
-import Logo from "../assets/img/logo.png";
+import Logo from "../assets/img/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../service/auth";
 import { useColorStore } from "../service/stores";
