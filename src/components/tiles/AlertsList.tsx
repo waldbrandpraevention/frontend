@@ -39,16 +39,18 @@ const LiveDot = styled(RxDotFilled)`
     0% {
       transform: scale(0.95);
       color: #F44336;
+      opacity: 1;
     }
 
     50% {
       transform: scale(1);
-      color: #f5f5f5;
+      opacity: 0.1;
     }
 
     100% {
       transform: scale(0.95);
       color: #F44336;
+      opacity: 1;
     }
   }
 `
