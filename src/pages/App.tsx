@@ -22,6 +22,7 @@ width: -moz-available;
 overflow-y: scroll;
 /*height: calc(100vh - 32px); */
 height: 100vh; /* - Navbarheight */
+-webkit-transform: translateZ(0); /* fixes https://stackoverflow.com/a/15885486 */
 `
 
 const App = () => {
