@@ -4,17 +4,20 @@ import { useState } from 'react';
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { TbCheck } from "react-icons/tb";
 import { toast } from "react-toastify";
+import { useAlertStore } from "../../service/stores";
 import LoadingSpinner from "../LoadingSpinner";
 
 const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: () => void }) => {
+  const interval = useAlertStore(state => state.interval)
+  const update = useAlertStore(state => state.update)
+
   const [form, setForm] = useState({
-    interval: 10,
+    interval,
     alertWeb: true,
     alertMail: true,
   });
 
   const { isLoading, mutate } = useMutation(["account", "alerts"], async (data: any) => {
-    console.log(data);
     return axios.post("/users/alerts/edit/", data).then((e) => e.data);
   }, {
     onError(e: any) {
@@ -25,8 +28,13 @@ const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: (
     }
   });
 
-  const handleFormChange = (e: any) => {
+/*   const handleFormChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  } */
+
+  const save = () => {
+    mutate(form);
+    update(form);
   }
 
   return <Modal
@@ -46,9 +54,10 @@ const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: (
         <Card.Subtitle>Aktualisierung</Card.Subtitle>
         <Form.Group className="mb-3" >
           <Form.Label>Interval</Form.Label>
-          <Form.Control disabled={/* isLoading */true} type="number" placeholder="" name="interval" value={form.interval} onChange={handleFormChange} />
+          {/* @ts-ignore */}
+          <Form.Control disabled={isLoading} type="number" min={1000} placeholder="" name="interval" value={form.interval} onChange={(e) => e.target.value >= 1000 && setForm(old => ({...old, interval: e.target.valueAsNumber}))} />
           <Form.Text className="text-muted">
-            Automatisches Aktualisierungsinterval in Sekunden.
+            Alle {form.interval}ms ({form.interval / 1000}s) wird auf neue Alerts überprüft.
           </Form.Text>
         </Form.Group>
         <Card.Subtitle>Benachrichtigungen</Card.Subtitle>
@@ -84,7 +93,7 @@ const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: (
       <Button disabled={isLoading} variant="light" className="d-flex align-items-center" onClick={() => handleClose()}>
         Abbrechen
       </Button>
-      <Button disabled={isLoading} variant="success" className="d-flex align-items-center" onClick={() => mutate(form)}>
+      <Button disabled={isLoading} variant="success" className="d-flex align-items-center" onClick={() => save()}>
         {!isLoading ? <> <TbCheck /> Speichern </> : <LoadingSpinner />}
       </Button>
     </Modal.Footer>

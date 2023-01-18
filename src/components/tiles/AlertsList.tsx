@@ -7,6 +7,7 @@ import LoadingTile from "./LoadingTile";
 import { RxCounterClockwiseClock, RxDotFilled } from "react-icons/rx";
 import styled from "styled-components";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { useAlertStore } from "../../service/stores";
 
 const getSeverity = (type: number): JSX.Element => {
   switch (type) {
@@ -25,8 +26,6 @@ const getSeverity = (type: number): JSX.Element => {
       </Badge>
   }
 }
-
-const AUTO_REFRESH_INTERVAL = 10000;
 
 const LiveDot = styled(RxDotFilled)`
   margin-left: -6px;
@@ -57,10 +56,11 @@ const LiveDot = styled(RxDotFilled)`
 
 const AlertsList = () => {
   const [animationParent] = useAutoAnimate()
-
+  const interval = useAlertStore(state => state.interval)
+  
   const { data, isLoading, isError, isSuccess } = useQuery(["alerts"], () => {
     return axios.get("/users/me/allerts/").then((e) => e.data); /* FIXME: alert typo in backend! */
-  }, { refetchInterval: AUTO_REFRESH_INTERVAL });
+  }, { refetchInterval: interval });
 
   return (
     <Tile>
