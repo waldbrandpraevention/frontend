@@ -1,10 +1,10 @@
-import Logo from "../assets/img/Logo";
+import Logo from "../assets/img/logo.webp";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/LoadingImages.model";
 import { Card, Col, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../service/auth";
 import { toast } from "react-toastify";
+import { TbLogin } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
   ::before{
@@ -30,8 +31,6 @@ const BackgroundImage = styled.div`
   position: absolute;
 `;
 
-
-
 type LoginFormData = {
   email: string,
   password: string
@@ -39,7 +38,6 @@ type LoginFormData = {
 
 const Login = () => {
   const { login } = useAuth();
-  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     email: "",
@@ -74,11 +72,11 @@ const Login = () => {
       <div className="header"></div>
       <Card className="card-style">
         <Card.Body className="body-style">
-          <Logo className="image" />
+          <img src={Logo} alt="Logo"  className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Anmelden</Card.Title>
           <Card.Text className="text-style">
-
+            Bitte melden Sie sich mit Ihren Zugangsdaten an.
           </Card.Text >
           <Form onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -94,15 +92,8 @@ const Login = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/register")}>
-                    Registrieren
-                  </Button>
-                </div>
-              </Col>
-              <Col>
-                <div className="d-grid">
-                  <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <>Anmelden</>}
+                  <Button className="d-flex align-items-center justify-content-center" variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? <LoadingSpinner></LoadingSpinner> : <><TbLogin></TbLogin> Anmelden</>}
                   </Button>
                 </div>
               </Col>

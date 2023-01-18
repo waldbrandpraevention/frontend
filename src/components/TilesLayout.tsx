@@ -58,6 +58,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
   }
 
   const resetLayout = () => {
+    setTiles(enabledTiles(defaultTiles, defaultEnabledTiles))
     setLayout(defaultLayout)
     setPreventcollision(false)
     setWidemode(true)

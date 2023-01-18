@@ -11,5 +11,6 @@ export const fixCssClass = (name: string): string => {
   n = n.includes("-night") ? "night-" + n.substring(0, n.indexOf("-night")) : n;
   n = n.includes("-day") ? "day-" + n.substring(0, n.indexOf("-day")) : n;
   n = n.includes("-partly") ? n.replace("-partly", "") : n;
+  n = n.includes("wind") ? n.replace("wind", "windy") : n;
   return n;
 };

@@ -1,4 +1,4 @@
-import Logo from "../assets/img/Logo";
+import Logo from "../assets/img/logo.webp";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { TbChevronLeft } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
  ::before{
@@ -50,7 +51,7 @@ const ForgotPassword = () => {
       <div className="header"></div>
       <Card className="card-style">
         <Card.Body className="body-style">
-          <Logo className="image" />
+          <img src={Logo} alt="Logo"  className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Passwort vergessen</Card.Title>
           <Card.Text className="text-style">
@@ -67,8 +68,8 @@ const ForgotPassword = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button variant="light" onClick={() => navigate("/login")}>
-                    Anmelden
+                  <Button className="d-flex align-items-center justify-content-center" variant="light" onClick={() => navigate("/login")}>
+                   <TbChevronLeft></TbChevronLeft>  Zurück
                   </Button>
                 </div>
               </Col>
