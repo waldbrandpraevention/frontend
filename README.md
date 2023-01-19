@@ -261,8 +261,22 @@ npm install
 ```
 
 3. `npm start` zum Starten.<br>
-`npm test` zum Testen.<br>
+`npm run cypress` zum Testen.<br>
 `npm run build` zum Erstellen.
+
+### E2E Testing
+1. `npm run cypress`
+
+2. `E2E Testing` auswählen
+
+3. Browser auswählen. Empfohlen: Chrome.
+
+4. Ein Spec auswählen zum Testen.
+
+Mehr Infos: https://cypress.io
+
+#### Code Coverage
+Report in `coverage/lcov-report/index.html`
 
 #### Themes 🎨
 Um ein Theme zu erstellen folgendermaßen vorgehen:
