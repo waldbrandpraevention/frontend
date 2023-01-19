@@ -1,0 +1,46 @@
+version: '3'
+name: Waldbrandpraevention
+
+services:
+  # React
+  frontend:
+    image: waldbrandpraevention/frontend
+    volumes:
+      - frontend-build:/app/build
+      - frontend-server-conf:/app/server/conf
+
+  # API
+  backend:
+    image: waldbrandpraevention/backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
+    expose:
+      - 8000
+
+  # Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 8080:80 
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - frontend-server-conf:/etc/nginx/conf.d
+      - frontend-build:/usr/share/nginx/html
+
+  # Mail (optional)
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none' 
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
+volumes:
+  frontend-build:
+  frontend-server-conf:
