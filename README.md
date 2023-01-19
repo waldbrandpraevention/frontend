@@ -265,13 +265,16 @@ npm install
 `npm run build` zum Erstellen.
 
 ### E2E Testing
-1. `npm run cypress`
 
-2. `E2E Testing` auswählen
+1. `npm start` (Wichtig!)
 
-3. Browser auswählen. Empfohlen: Chrome.
+2. `npm run cypress`
 
-4. Ein Spec auswählen zum Testen.
+3. `E2E Testing` auswählen
+
+4. Browser auswählen. Empfohlen: Chrome.
+
+5. Ein Spec auswählen zum Testen.
 
 Mehr Infos: https://cypress.io
 
