@@ -31,6 +31,7 @@ const Zone = lazy(() => import("./pages/Zone"));
 const Weather = lazy(() => import("./pages/Weather"));
 const Account = lazy(() => import("./pages/Account"));
 const Design = lazy(() => import("./pages/Design"));
+const Alerts = lazy(() => import("./pages/Alerts"));
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -55,6 +56,7 @@ render(
               <Route path="weather" element={<Suspense fallback={<Loading />}><Weather /></Suspense>} />
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
+              <Route path="alerts" element={<Suspense fallback={<Loading />}><Alerts /></Suspense>} />
               <Route path="incidents" element={<RoleRoute><Incidents /></RoleRoute>} />
               <Route path="datenschutz" element={<Suspense fallback={<Loading />}><Datenschutz /></Suspense>} />
               <Route path="impressum" element={<Suspense fallback={<Loading />}><Impressum /></Suspense>} />
