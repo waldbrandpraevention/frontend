@@ -5,7 +5,6 @@ import AccountInfo from "../components/tiles/account/AccountInfo";
 import ChangeMail from "../components/tiles/account/ChangeMail";
 import ChangeName from "../components/tiles/account/ChangeName";
 import ChangePassword from "../components/tiles/account/ChangePassword";
-import ColorCustomizer from "../components/tiles/account/ColorCustomizer";
 import { useAuth } from "../service/auth";
 
 const Account = () => {
@@ -21,7 +20,6 @@ const Account = () => {
                     <Container className="mt-2" fluid>
                         {user.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}
                         {!user.mail_verified && <WarnAlert>Die E-Mail Adresse ({user.mail}) wurde noch nicht verifiziert.</WarnAlert>}
-                        <ColorCustomizer />
                         {!user.disabled && <>
                             <ChangePassword />
                             <ChangeMail />

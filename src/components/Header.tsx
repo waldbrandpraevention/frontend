@@ -4,7 +4,6 @@ import BellIcon from "./BellIcon"
 import Colormode from "./Colormode";
 import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
-import Logo from "../assets/img/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../service/auth";
 import { useColorStore } from "../service/stores";
@@ -41,11 +40,6 @@ const Header = () => {
     return <>
         <MyNavbar variant="light" style={{ background: headerBg }}>
             <Container>
-                <Navbar.Brand>
-                    <Nav.Link style={{ display: "flex" }}>
-                        <img height="24px" width="24px" src={Logo} alt="Logo"></img>
-                    </Nav.Link>
-                </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
