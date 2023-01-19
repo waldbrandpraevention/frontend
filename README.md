@@ -280,7 +280,10 @@ npm install
 Mehr Infos: https://cypress.io
 
 #### Code Coverage
-Report in `coverage/lcov-report/index.html`
+
+1. `npm run cypress:run`
+
+2. Report in `coverage/lcov-report/index.html`
 
 #### Themes 🎨
 Um ein Theme zu erstellen folgendermaßen vorgehen:

@@ -45,6 +45,7 @@
     "analyze": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json",
     "test": "react-scripts test",
     "cypress": "cypress open",
+    "cypress:run": "cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
