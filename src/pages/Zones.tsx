@@ -1,10 +1,7 @@
-
 import { Container } from "react-bootstrap";
 import ZoneOverview from "../components/tiles/ZoneOverview";
 
-
-
-const Zonen = () => {
+const Zones = () => {
     return (
         <Container className="mt-4">
             <ZoneOverview></ZoneOverview>
@@ -12,4 +9,4 @@ const Zonen = () => {
     );
 }
 
-export default Zonen;
+export default Zones;

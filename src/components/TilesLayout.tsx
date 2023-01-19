@@ -146,7 +146,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
           </OverlayTrigger>
           <Dropdown>
             <OverlayTrigger
-              placement="bottom"
+              placement="right"
               delay={{ show: 30, hide: 0 }}
               overlay={
                 <Tooltip>
