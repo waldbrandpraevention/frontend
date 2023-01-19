@@ -9,24 +9,6 @@ import styled from "styled-components";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useAlertStore } from "../../service/stores";
 
-const getSeverity = (type: number): JSX.Element => {
-  switch (type) {
-    case 2:
-      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#D32F2F", color: "white" }}>
-        Kritisch
-      </Badge>
-    case 1:
-      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#FFB300", color: "black" }}>
-        Warnung
-      </Badge>
-    case 0:
-    default:
-      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#1E88E5", color: "white" }} >
-        Info
-      </Badge>
-  }
-}
-
 const LiveDot = styled(RxDotFilled)`
   margin-left: -6px;
   margin-right: -12px;
@@ -53,6 +35,24 @@ const LiveDot = styled(RxDotFilled)`
     }
   }
 `
+
+const getSeverity = (type: number): JSX.Element => {
+  switch (type) {
+    case 2:
+      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#D32F2F", color: "white" }}>
+        Kritisch
+      </Badge>
+    case 1:
+      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#FFB300", color: "black" }}>
+        Warnung
+      </Badge>
+    case 0:
+    default:
+      return <Badge bg="#FFFFFF" style={{ backgroundColor: "#1E88E5", color: "white" }} >
+        Info
+      </Badge>
+  }
+}
 
 const AlertsList = () => {
   const [animationParent] = useAutoAnimate()
