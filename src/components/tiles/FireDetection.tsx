@@ -8,7 +8,7 @@ import DangerLevel from "../DangerLevel";
 import { TbFlame, TbDropletFilled, TbInfoSquare } from "react-icons/tb";
 
 const FireDetection = () => {
-  const { data, isLoading, isError } = useQuery(["firedetect"], () => {
+  const { /* data ,*/ isLoading, isError } = useQuery(["firedetect"], () => {
     return axios.get("/test?input=69").then((e) => e.data);
   });
 
@@ -38,17 +38,14 @@ const FireDetection = () => {
           <TbInfoSquare></TbInfoSquare>
         </div>
       </OverlayTrigger>
-      <Card.Body>
-        <Card.Title>
-          <TbDropletFilled></TbDropletFilled>Rauch detektiert:
-          <DangerLevel level={2}></DangerLevel>
-        </Card.Title>
-        <Card.Title>
-          <TbFlame></TbFlame>Feuer detektiert:
-          <DangerLevel level={3}></DangerLevel>
-        </Card.Title>
-      </Card.Body>
-      {data.message}
+      <Card.Subtitle>
+        <TbDropletFilled></TbDropletFilled>Rauch detektiert:
+        <DangerLevel level={2}></DangerLevel>
+      </Card.Subtitle>
+      <Card.Subtitle>
+        <TbFlame></TbFlame>Feuer detektiert:
+        <DangerLevel level={3}></DangerLevel>
+      </Card.Subtitle>
     </Tile>
   );
 };
