@@ -15,13 +15,7 @@ describe('authentication', () => {
   })
 
   it('can logout', () => {
-    cy.visit('http://localhost:3000')
-    cy.get('#formBasicEmail').clear();
-    cy.get('#formBasicEmail').type('admin@kiwa.tech');
-    cy.get('#formBasicPassword').clear();
-    cy.get('#formBasicPassword').type('adminkiwa');
-    cy.get('button[type=submit]').click();
-    cy.location("pathname").should("equal", "/dashboard")
+    cy.loginAdmin()
 
     cy.get('#basic-nav-dropdown').click();
     cy.contains("Abmelden").click()
