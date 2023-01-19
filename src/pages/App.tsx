@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar, menuClasses } from 'react-pro-sidebar';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbSun, TbUser, TbUsers, TbX } from 'react-icons/tb';
+import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbColorSwatch, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbSun, TbUser, TbUsers, TbX } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { isActiveRoute } from "../utils/util";
@@ -64,7 +64,7 @@ const App = () => {
               <img onClick={() => navigate("/")} src={Logo} alt="Logo" width={48} height={48} />
             </div>
             <div style={{ flex: 1 }}>
-              <MenuItem icon={collapsed ? <TbAlignJustified  /> : <TbX  />} onClick={() => collapseSidebar()}>{!collapsed && <span className="fw-light">Menü schließen</span>}</MenuItem>
+              <MenuItem icon={collapsed ? <TbAlignJustified /> : <TbX />} onClick={() => collapseSidebar()}>{!collapsed && <span className="fw-light">Menü schließen</span>}</MenuItem>
               {/* <MenuItem icon={<TbAlignJustified />} onClick={() => collapseSidebar()}></MenuItem> */}
               <hr className="my-0" />
               <MenuItem active={isActiveRoute("/dashboard")} routerLink={<Link to="/dashboard" />} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>
@@ -79,6 +79,7 @@ const App = () => {
               }
               <SubMenu icon={<TbSettings />} label="Einstellungen">
                 <MenuItem active={isActiveRoute("/settings/account")} routerLink={<Link to="/settings/account" />} icon={<TbUser />}> Account </MenuItem>
+                <MenuItem active={isActiveRoute("/settings/design")} routerLink={<Link to="/settings/design" />} icon={<TbColorSwatch />}> Design </MenuItem>
                 {user.isAdmin && <MenuItem active={isActiveRoute("/settings/users")} routerLink={<Link to="/settings/users" />} icon={<TbUsers />}> Benutzer </MenuItem>}
                 {user.isAdmin && <MenuItem active={isActiveRoute("/settings/system")} routerLink={<Link to="/settings/system" />} icon={<TbServer />}> System </MenuItem>}
               </SubMenu>

@@ -29,6 +29,7 @@ const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const Zones = lazy(() => import("./pages/Zones"));
 const Weather = lazy(() => import("./pages/Weather"));
 const Account = lazy(() => import("./pages/Account"));
+const Design = lazy(() => import("./pages/Design"));
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -57,6 +58,7 @@ render(
               <Route path="impressum" element={<Suspense fallback={<Loading />}><Impressum /></Suspense>} />
               <Route path="settings">
                 <Route path="account" element={<Suspense fallback={<Loading />}><Account /></Suspense>} />
+                <Route path="design" element={<Suspense fallback={<Loading />}><Design /></Suspense>} />
                 <Route path="users" element={<RoleRoute><Suspense fallback={<Loading />}><Users /></Suspense></RoleRoute>} />
                 <Route path="system" element={<RoleRoute>"system einstellungen"</RoleRoute>} />
                 <Route path="alerts" element={"benachrichtigungen"} />
