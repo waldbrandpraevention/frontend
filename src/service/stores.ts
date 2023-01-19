@@ -97,3 +97,20 @@ export const useColorStore = create<ColorStore>()(persist(
   storage: createJSONStorage(() => localStorage)
 }
 ))
+
+type AlertStore = {
+  interval: number,
+  update: (newState: Partial<AlertStore>) => void
+}
+
+export const useAlertStore = create<AlertStore>()(persist(
+  (set, get) => ({
+    interval: 10000,
+    update: ((newState: Partial<AlertStore>) => set((state) => ({
+      ...state, ...newState
+    }))),
+  }), {
+  name: "alerts",
+  storage: createJSONStorage(() => localStorage)
+}
+))
