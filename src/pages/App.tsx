@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar, menuClasses } from 'react-pro-sidebar';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbColorSwatch, TbCloudStorm, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers, TbX } from 'react-icons/tb';
+import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbColorSwatch, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers, TbX } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { isActiveRoute } from "../utils/util";
@@ -70,7 +70,6 @@ const App = () => {
               <MenuItem active={isActiveRoute("/dashboard")} routerLink={<Link to="/dashboard" />} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>
               <MenuItem active={isActiveRoute("/zones")} routerLink={<Link to="/zones" />} icon={<TbPolygon />}> Zonen </MenuItem>
               <MenuItem active={isActiveRoute("/map")} routerLink={<Link to="/map" />} icon={<TbMap />}> Karte </MenuItem>
-              <MenuItem active={isActiveRoute("/weather")} routerLink={<Link to="/weather" />} icon={<TbCloudStorm />}> Wetter </MenuItem>
               <MenuItem active={isActiveRoute("/alerts")} routerLink={<Link to="/alerts" />} icon={<TbAlertTriangle />}> Alerts </MenuItem>
               {user.isAdmin && <>
                 <MenuItem active={isActiveRoute("/incidents")} routerLink={<Link to="/incidents" />} icon={<TbFlame />}> Einsätze </MenuItem>
