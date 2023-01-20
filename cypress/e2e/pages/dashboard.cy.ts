@@ -1,6 +1,9 @@
+import { TEST_URL } from "../../support/commands"
+
 describe('dashboard', () => {
   beforeEach(() => {
     cy.loginAdmin()
+    cy.visit(TEST_URL + "/dashboard")
   })
 
   it("opens dashboard", () => {
@@ -32,4 +35,13 @@ describe('dashboard', () => {
     cy.get('.Toastify__toast-body > :nth-child(2)').should('have.text', 'Layout gespeichert');
     /* ==== End Cypress Studio ==== */
   })
+
+  it('can open account dropdown', () => {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('#basic-nav-dropdown').should('contain.text', 'Admin')
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('.dropdown-menu > :nth-child(1)').should('contain.text', ' Account')
+    cy.get('.text-danger').should('contain.text', ' Abmelden')
+    /* ==== End Cypress Studio ==== */
+  });
 })

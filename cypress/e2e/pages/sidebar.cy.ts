@@ -1,6 +1,9 @@
+import { TEST_URL } from "../../support/commands"
+
 describe("sidebar", () => {
   beforeEach(() => {
     cy.loginAdmin()
+    cy.visit(TEST_URL + "/dashboard")
   })
 
   it("can toggle sidebar", () => {
