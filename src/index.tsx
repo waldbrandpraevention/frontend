@@ -28,7 +28,6 @@ const Impressum = lazy(() => import("./pages/Impressum"));
 const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const Zones = lazy(() => import("./pages/Zones"));
 const Zone = lazy(() => import("./pages/Zone"));
-const Weather = lazy(() => import("./pages/Weather"));
 const Account = lazy(() => import("./pages/Account"));
 const Design = lazy(() => import("./pages/Design"));
 const Alerts = lazy(() => import("./pages/Alerts"));
@@ -53,7 +52,6 @@ render(
               <Route path="zones" element={<Suspense fallback={<Loading />}><Zones /></Suspense>} />
               <Route path="zones/:id" element={<Suspense fallback={<Loading />}><Zone /></Suspense>} />
               <Route path="map" element={<Suspense fallback={<Loading />}><Maps /></Suspense>} />
-              <Route path="weather" element={<Suspense fallback={<Loading />}><Weather /></Suspense>} />
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
               <Route path="alerts" element={<Suspense fallback={<Loading />}><Alerts /></Suspense>} />
