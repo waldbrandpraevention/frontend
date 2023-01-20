@@ -1,5 +1,8 @@
 declare namespace Cypress {
   interface Chainable {
-    loginAdmin(): void
+    loginAdminVisual(): void,
+    loginAdmin(): void,
+    offline(): void
+    online(): void
   }
 }

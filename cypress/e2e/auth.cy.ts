@@ -1,6 +1,17 @@
 describe('authentication', () => {
-  it('can login with valid credentials', () => {
+  // it("shows loading screen when api down", () => {
+  //   cy.visit('http://localhost:3000')
+  //   cy.offline()
+  //   cy.wait(5000)
+  //   cy.online()
+  // })
+
+  it("can programmatically login admin",() => {
     cy.loginAdmin()
+  })
+
+  it('can login with valid credentials', () => {
+    cy.loginAdminVisual()
   })
 
   it('cannot login with invalid credentials', () => {
@@ -15,7 +26,7 @@ describe('authentication', () => {
   })
 
   it('can logout', () => {
-    cy.loginAdmin()
+    cy.loginAdminVisual()
 
     cy.get('#basic-nav-dropdown').click();
     cy.contains("Abmelden").click()
@@ -24,12 +35,12 @@ describe('authentication', () => {
 
   const loggedIn = ["dashboard", "weather", "map", "does/not/exist", "settings/users", "settings/account",
     "settings/system", "zones", "zones/1", "settings/design", "alerts", "advanced", "impressum", "datenschutz"]
-  loggedIn.forEach(p => it("redirects to login if not logged accessing " + p, () => {
+  loggedIn.forEach(p => it("redirects to login if not authenticated accessing " + p, () => {
     cy.visit('http://localhost:3000/' + p)
     cy.location("pathname").should("equal", "/login")
   }))
 
-  loggedIn.forEach(p => it("redirects to " + p + " after login", () => {
+  loggedIn.forEach(p => it("redirects to requested " + p + " after login", () => {
     cy.visit('http://localhost:3000/' + p)
     cy.location("pathname").should("equal", "/login")
 
@@ -43,7 +54,7 @@ describe('authentication', () => {
   }))
 
   it("redirects to dashboard when logged in", () => {
-    cy.loginAdmin()
+    cy.loginAdminVisual()
 
     cy.visit('http://localhost:3000/login')
     cy.location("pathname").should("equal", "/dashboard")
@@ -52,7 +63,21 @@ describe('authentication', () => {
     cy.location("pathname").should("equal", "/dashboard")
   })
 
-  /*   it("can request password reset", () => {
-      cy.visit('http://localhost:3000')
-    }) */
+  it("cannot request password reset when empty email", () => {
+    cy.visit('http://localhost:3000')
+    cy.get('.text-secondary').should('contain.text', 'vergessen?');
+    cy.get('.text-secondary').click();
+    cy.get('.col-md-auto > .d-grid > .btn').should('contain.text', 'Passwort zurücksetzen');
+    cy.get('.col-md-auto > .d-grid > .btn').click();
+    cy.get('.Toastify__toast-body > :nth-child(2)').should('contain.text', 'Passwort konnte nicht zurückgesetzt werden. "Not Found"');
+  })
+
+  it("cannot sign up with empty form", () => {
+    cy.visit('http://localhost:3000/register/xyz')
+    cy.location("pathname").should("equal", "/register/xyz")
+    cy.get('.d-flex').should('contain.text', ' Registrieren');
+    cy.get('.d-flex').click();
+    cy.get('.Toastify__toast-body > :nth-child(2)').should('be.visible');
+    cy.get('.Toastify__toast-body > :nth-child(2)').should('contain.text', 'Registrierung fehlgeschlagen.');
+  })
 })
