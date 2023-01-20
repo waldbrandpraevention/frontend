@@ -7,6 +7,7 @@ export default defineConfig({
       return config
     },
     experimentalStudio: true,
+    experimentalRunAllSpecs: true,
     video: false,
   },
 });
