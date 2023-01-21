@@ -5,10 +5,8 @@ import DroneCount from '../components/tiles/DroneCount';
 import Firerisk from '../components/tiles/Firerisk';
 import WeatherForecast from '../components/tiles/WeatherForecast';
 import ZoneOverview from '../components/tiles/ZoneOverview';
-import { lazy, Suspense, useEffect } from "react";
-import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
-import { toast } from 'react-toastify';
-import { useAuth } from "../service/auth";
+import { lazy, Suspense } from "react";
+import { tiles } from "../utils/tile";
 import Loading from "../components/Loading";
 import Map from "../components/tiles/Map";
 import WeatherTable from "../components/tiles/WeatherTable";
@@ -16,45 +14,17 @@ import AlertsList from "../components/tiles/AlertsList";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  useEffect(() => {
-    if (!user.mail_verified) toast.warn("Sie haben Ihre E-Mail Adresse noch nicht verifiziert", { toastId: "mail_unverified" })
-  }, [user.mail_verified])
-
-  const defaultTiles: TileElement[] = sortTiles([
-    makeTile(<DroneCount />, "a", "Drohnenanzahl"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-    makeTile(<Area />, "b", "Überwachungsgebiet"),
-    makeTile(<Firerisk />, "c", "Feuerrisiko"),
-    makeTile(<Map />, "g", "Karte", true, true),
-    makeTile(<WeatherForecast />, "d", "Wettervorhersage", true, true),
-    makeTile(<WeatherTable />, "dd", "Wetter Tabelle", false, true),
-    makeTile(<ZoneOverview />, "e", "Zonenübersicht"),
-    makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
-    makeTile(<AlertsList />, "alerts", "Alerts", false, false),
+  const { defaultTiles, defaultLayout } = tiles([
+    { el: <DroneCount />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
+    { el: <Area />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
+    { el: <Firerisk />, id: "c", name: "Feuerrisiko", main: { x: 16, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 6, w: 24, h: 3 } },
+    { el: <Map />, id: "g", name: "Karte", noEditmode: true, main: { x: 0, y: 4, w: 18, h: 10 }, mobile: { x: 0, y: 9, w: 24, h: 10 } },
+    { el: <WeatherForecast />, id: "d", name: "Wettervorhersage", main: { x: 18, y: 4, w: 6, h: 10 }, mobile: { x: 0, y: 19, w: 24, h: 10 } },
+    { el: <WeatherTable />, id: "dd", name: "Wetter Tabelle", noEditmode: true, enabled: false, main: { x: 0, y: 4, w: 24, h: 10 }, mobile: { x: 0, y: 29, w: 24, h: 10 } },
+    { el: <ZoneOverview />, id: "e", name: "Zonenübersicht", main: { x: 0, y: 15, w: 16, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 16, y: 15, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 }, },
+    { el: <AlertsList />, id: "alerts", name: "Alarme", noEditmode: true, enabled: false, main: { x: 12, y: 21, w: 12, h: 9 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
   ])
-
-  const defaultLayout: TileLayouts = {
-    main: [ /* tablet + desktop */
-      { i: "a", x: 0, y: 0, w: 8, h: 3 }, /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-      { i: "b", x: 8, y: 0, w: 8, h: 3 },
-      { i: "c", x: 16, y: 0, w: 8, h: 3 },
-      { i: "g", x: 0, y: 4, w: 18, h: 10 },
-      { i: "d", x: 18, y: 4, w: 6, h: 10 },
-      { i: "dd", x: 0, y: 4, w: 24, h: 10 },
-      { i: "e", x: 0, y: 15, w: 16, h: 12 },
-      { i: "f", x: 16, y: 15, w: 8, h: 12 },
-    ],
-    mobile: [ /* mobile */
-      { i: "a", x: 0, y: 0, w: 24, h: 3 }, /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-      { i: "b", x: 0, y: 3, w: 24, h: 3 },
-      { i: "c", x: 0, y: 6, w: 24, h: 3 },
-      { i: "g", x: 0, y: 9, w: 24, h: 10 },
-      { i: "d", x: 0, y: 19, w: 24, h: 10 },
-      { i: "dd", x: 0, y: 29, w: 24, h: 10 },
-      { i: "e", x: 0, y: 29, w: 24, h: 12 },
-      { i: "f", x: 0, y: 33, w: 24, h: 17 },
-    ]
-  }
 
   return (
     <div className="App">

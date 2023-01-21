@@ -9,6 +9,8 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import { isActiveRoute } from "../utils/util";
 import { useColorStore } from "../service/stores";
 import Logo from "../assets/img/logo.webp";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const FlexMain = styled.div`
   display: flex;
@@ -35,6 +37,10 @@ const App = () => {
   const sidebarHover = useColorStore(state => state.sidebarHover)
   const sidebarText = useColorStore(state => state.sidebarText)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!user.mail_verified) toast.warn("Sie haben Ihre E-Mail Adresse noch nicht verifiziert", { toastId: "mail_unverified" })
+  }, [user.mail_verified])
 
   return (<>
     <ErrorBoundary>
