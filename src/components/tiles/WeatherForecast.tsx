@@ -47,12 +47,12 @@ const WeatherForecast = () => {
       <Card.Title className="text-center">Wettervorhersage</Card.Title>
       <div className="d-flex justify-content-center">
         <b>
-          Heute -
+          Heute -{" "}
           {new Date(data.today.weather[0]?.timestamp).toLocaleDateString("de")}
         </b>
       </div>
-      <div className="d-flex justify-content-evenly">
-        <div className="d-flex-column">
+      <div className="d-flex justify-content-evenly mb-2">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div className="fontSize: small">8:00</div>
           <div>
             <i
@@ -64,7 +64,7 @@ const WeatherForecast = () => {
             {data.today.weather[8]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">11:00</div>
           <div>
             <i
@@ -76,7 +76,7 @@ const WeatherForecast = () => {
             {data.today.weather[11]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div className="fontSize: small">14:00</div>
           <div>
             <i
@@ -88,7 +88,7 @@ const WeatherForecast = () => {
             {data.today.weather[14]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">18:00</div>
           <div>
             <i
@@ -101,17 +101,16 @@ const WeatherForecast = () => {
           </div>
         </div>
       </div>
-      <br />
       <div className="d-flex justify-content-center">
         <b>
-          Morgen -
+          Morgen -{" "}
           {new Date(data.tomorrow.weather[0]?.timestamp).toLocaleDateString(
             "de"
           )}
         </b>
       </div>
-      <div className="d-flex justify-content-evenly">
-        <div className="d-flex-column">
+      <div className="d-flex justify-content-evenly mb-2">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div className="fontSize: small">8:00</div>
           <div>
             <i
@@ -123,36 +122,42 @@ const WeatherForecast = () => {
             {data.tomorrow.weather[8]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">11:00</div>
           <div>
             <i
               style={{ fontSize: "24px" }}
-              className={`wi wi-${fixCssClass(data.tomorrow.weather[11]?.icon)}`}
+              className={`wi wi-${fixCssClass(
+                data.tomorrow.weather[11]?.icon
+              )}`}
             ></i>
           </div>
           <div className="fontSize: small">
             {data.tomorrow.weather[11]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div className="fontSize: small">14:00</div>
           <div>
             <i
               style={{ fontSize: "24px" }}
-              className={`wi wi-${fixCssClass(data.tomorrow.weather[14]?.icon)}`}
+              className={`wi wi-${fixCssClass(
+                data.tomorrow.weather[14]?.icon
+              )}`}
             ></i>
           </div>
           <div className="fontSize: small">
             {data.tomorrow.weather[14]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">18:00</div>
           <div>
             <i
               style={{ fontSize: "24px" }}
-              className={`wi wi-${fixCssClass(data.tomorrow.weather[18]?.icon)}`}
+              className={`wi wi-${fixCssClass(
+                data.tomorrow.weather[18]?.icon
+              )}`}
             ></i>
           </div>
           <div className="fontSize: small">
@@ -160,17 +165,16 @@ const WeatherForecast = () => {
           </div>
         </div>
       </div>
-      <br />
       <div className="d-flex justify-content-center">
         <b>
-          Übermorgen -
+          Übermorgen -{" "}
           {new Date(data.overmorrow.weather[0]?.timestamp).toLocaleDateString(
             "de"
           )}
         </b>
       </div>
       <div className="d-flex justify-content-evenly">
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div>
             <div className="fontSize: small">8:00</div>
           </div>
@@ -186,7 +190,7 @@ const WeatherForecast = () => {
             {data.overmorrow.weather[8]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">11:00</div>
           <div>
             <i
@@ -200,7 +204,7 @@ const WeatherForecast = () => {
             {data.overmorrow.weather[11]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 bg-light rounded">
           <div className="fontSize: small">14:00</div>
           <div>
             <i
@@ -214,7 +218,7 @@ const WeatherForecast = () => {
             {data.overmorrow.weather[14]?.temperature?.toFixed(0)}°C
           </div>
         </div>
-        <div className="d-flex-column">
+        <div className="d-flex-column border border-1 p-1 rounded">
           <div className="fontSize: small">18:00</div>
           <div>
             <i
