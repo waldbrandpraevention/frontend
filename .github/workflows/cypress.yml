@@ -21,5 +21,5 @@ jobs:
           wait-on: "http://localhost:3000"
       - uses: codecov/codecov-action@v3
         with:
-          token: 85178469-3507-4726-8e03-ef2415247fe1
+          token: ${{ secrets.CODECOV_TOKEN }}
 
