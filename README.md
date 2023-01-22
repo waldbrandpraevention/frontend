@@ -85,6 +85,7 @@ services:
   # API
   backend:
     image: waldbrandpraevention/backend
+    restart: always
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
@@ -96,6 +97,7 @@ services:
   # Reverse Proxy
   nginx:
     image: nginx:alpine
+    restart: always
     ports:
       - 8080:80 
     depends_on:
