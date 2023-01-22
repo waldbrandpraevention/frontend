@@ -9,7 +9,7 @@ import LoadingTile from "../components/tiles/LoadingTile";
 import WeatherForecast from "../components/tiles/WeatherForecast";
 import WeatherTable from "../components/tiles/WeatherTable";
 import Map from "../components/tiles/Map";
-import { TileElement, sortTiles, makeTile, TileLayouts } from "../utils/tile";
+import { tiles } from "../utils/tile";
 import { Suspense } from "react";
 import Loading from "../components/Loading";
 import TilesLayout from "../components/TilesLayout";
@@ -27,42 +27,17 @@ const Zone = () => {
     // return axios.get(`/zones/?name=${id}`).then((e) => e.data);
   });
 
-  const defaultTiles: TileElement[] = sortTiles([
-    makeTile(<LoadingTile /* Placeholder */ />, "a", "placeholder1"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-    makeTile(<FireDetection />, "b", "Feuererkennung"),
-    makeTile(<Firerisk />, "c", "Feuerrisiko"),
-    makeTile(<Map />, "g", "Karte", true, true),
-    makeTile(<WeatherForecast />, "d", "Wettervorhersage", true, true),
-    makeTile(<WeatherTable />, "dd", "Wetter Tabelle", false, true),
-    makeTile(<PotentialFiresite />, "e", "Vermutete Brandstelle"),
-    makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
-    makeTile(<AlertDrone />, "ff", "Drohne alarmieren"),
+  const { defaultTiles, defaultLayout } = tiles([
+    { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
+    { el: <FireDetection />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
+    { el: <Firerisk />, id: "c", name: "Feuerrisiko", main: { x: 16, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 6, w: 24, h: 3 } },
+    { el: <Map />, id: "g", name: "Karte", noEditmode: true, main: { x: 0, y: 4, w: 18, h: 10 }, mobile: { x: 0, y: 9, w: 24, h: 10 } },
+    { el: <WeatherForecast />, id: "d", name: "Wettervorhersage", main: { x: 18, y: 4, w: 6, h: 10 }, mobile: { x: 0, y: 19, w: 24, h: 10 } },
+    { el: <WeatherTable />, id: "dd", name: "Wetter Tabelle", noEditmode: true, enabled: false, main: { x: 0, y: 4, w: 24, h: 10 }, mobile: { x: 0, y: 29, w: 24, h: 10 } },
+    { el: <PotentialFiresite />, id: "e", name: "Zonenübersicht", main: { x: 0, y: 15, w: 8, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 16, y: 15, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 }, },
+    { el: <AlertDrone />, id: "alerts", name: "Alarme", main: { x: 8, y: 21, w: 8, h: 12 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
   ])
-
-  const defaultLayout: TileLayouts = {
-    main: [ /* tablet + desktop */
-      { i: "a", x: 0, y: 0, w: 8, h: 3 }, /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-      { i: "b", x: 8, y: 0, w: 8, h: 3 },
-      { i: "c", x: 16, y: 0, w: 8, h: 3 },
-      { i: "g", x: 0, y: 4, w: 18, h: 10 },
-      { i: "d", x: 18, y: 4, w: 6, h: 10 },
-      { i: "dd", x: 0, y: 4, w: 24, h: 10 },
-      { i: "e", x: 0, y: 15, w: 8, h: 12 },
-      { i: "f", x: 8, y: 15, w: 8, h: 12 },
-      { i: "ff", x: 16, y: 15, w: 8, h: 12 },
-    ],
-    mobile: [ /* mobile */
-      { i: "a", x: 0, y: 0, w: 24, h: 3 }, /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-      { i: "b", x: 0, y: 3, w: 24, h: 3 },
-      { i: "c", x: 0, y: 6, w: 24, h: 3 },
-      { i: "g", x: 0, y: 9, w: 24, h: 10 },
-      { i: "d", x: 0, y: 19, w: 24, h: 10 },
-      { i: "dd", x: 0, y: 29, w: 24, h: 10 },
-      { i: "e", x: 0, y: 29, w: 24, h: 12 },
-      { i: "f", x: 0, y: 33, w: 24, h: 17 },
-      { i: "ff", x: 0, y: 33, w: 24, h: 17 },
-    ]
-  }
 
   if (isLoading) return <LoadingTile />;
 

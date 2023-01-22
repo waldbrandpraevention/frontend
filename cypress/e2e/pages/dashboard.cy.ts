@@ -33,6 +33,8 @@ describe('dashboard', () => {
     cy.get('.btn-success').should('have.text', '  Layout speichern');
     cy.get('.btn-success').click();
     cy.get('.Toastify__toast-body > :nth-child(2)').should('have.text', 'Layout gespeichert');
+    cy.get(".App").should("contain.text", "Wetterstationen")
+    cy.wait(2000)
     /* ==== End Cypress Studio ==== */
   })
 

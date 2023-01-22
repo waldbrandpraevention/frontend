@@ -6,43 +6,30 @@ import AlertDrone from "../components/tiles/AlertDrone";
 import DroneInfo from "../components/tiles/DroneInfo";
 import FireDetection from "../components/tiles/FireDetection";
 import PotentialFiresite from "../components/tiles/PotentialFiresite";
-import { makeTile, sortTiles, TileElement, TileLayouts } from "../utils/tile";
+import { tiles } from "../utils/tile";
 import { lazy, Suspense } from "react";
 import Loading from "../components/Loading";
+import DroneImage from "../components/tiles/advanced/DroneImage";
+import AiAnalysis from "../components/tiles/advanced/AiAnalysis";
+import AiImage from "../components/tiles/advanced/AiImage";
+import AiFeedback from "../components/tiles/advanced/AiFeedback";
 
 const TilesLayout = lazy(() => import("../components/TilesLayout"));
 
 const Advanced = () => {
-  const defaultTiles: TileElement[] = sortTiles([
-    makeTile(<DroneInfo />, "a", "Drohneninfo"),  /* mapping {i: "a",...} <-> makeTile(.., "a",...) */
-    makeTile(<Area />, "b", "Überwachungsgebiet"),
-    makeTile(<FireDetection />, "c", "Feuerdetektion"),
-    makeTile(<Map />, "g", "Karte", true, true),
-    makeTile(<PotentialFiresite />, "d", "Vermutete Brandstelle"),
-    makeTile(<AlertDrone />, "e", "Drohne alarmieren"),
-    makeTile(<AlertEmergencyUnits />, "f", "Einsatzkräfte alarmieren"),
+  const { defaultTiles, defaultLayout } = tiles([
+    { el: <DroneInfo />, id: "a", name: "Drohneninfo", main: { x: 0, y: 0, w: 8, h: 5 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
+    { el: <Area />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 5 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
+    { el: <FireDetection />, id: "c", name: "Feuerdetektion", main: { x: 16, y: 0, w: 8, h: 5 }, mobile: { x: 0, y: 6, w: 24, h: 3 } },
+    { el: <Map />, id: "g", name: "Karte", main: { x: 0, y: 5, w: 16, h: 10 }, mobile: { x: 0, y: 9, w: 24, h: 10 } },
+    { el: <PotentialFiresite />, id: "d", name: "Vermutete Brandstelle", main: { x: 18, y: 5, w: 8, h: 10 }, mobile: { x: 0, y: 19, w: 24, h: 10 } },
+    { el: <DroneImage />, id: "di", name: "Drohnenbild", main: { x: 0, y: 15, w: 8, h: 8 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AiImage />, id: "aii", name: "KI Einschätzung", main: { x: 8, y: 15, w: 8, h: 8 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AiAnalysis />, id: "aia", name: "KI Analyse", main: { x: 16, y: 15, w: 8, h: 8 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AlertDrone />, id: "e", name: "Drohne alarmieren", main: { x: 0, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 8, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
+    { el: <AiFeedback />, id: "aif", name: "KI Feedback", main: { x: 16, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
   ])
-
-  const defaultLayout: TileLayouts = {
-    main: [
-      { i: "a", x: 0, y: 0, w: 8, h: 5 },
-      { i: "b", x: 8, y: 0, w: 8, h: 5 },
-      { i: "c", x: 16, y: 0, w: 8, h: 5 },
-      { i: "g", x: 0, y: 5, w: 16, h: 10 },
-      { i: "d", x: 18, y: 5, w: 8, h: 10 },
-      { i: "e", x: 0, y: 15, w: 12, h: 12 },
-      { i: "f", x: 12, y: 15, w: 12, h: 12 },
-    ],
-    mobile: [
-      { i: "a", x: 0, y: 0, w: 24, h: 3 },
-      { i: "b", x: 0, y: 3, w: 24, h: 3 },
-      { i: "c", x: 0, y: 6, w: 24, h: 3 },
-      { i: "g", x: 0, y: 9, w: 24, h: 10 },
-      { i: "d", x: 0, y: 19, w: 24, h: 10 },
-      { i: "e", x: 0, y: 29, w: 24, h: 12 },
-      { i: "f", x: 0, y: 33, w: 24, h: 17 },
-    ],
-  }
 
   return (
     <div className="App">

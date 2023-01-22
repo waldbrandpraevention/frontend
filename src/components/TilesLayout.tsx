@@ -168,7 +168,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
             delay={{ show: 30, hide: 300 }}
             overlay={
               <Tooltip>
-                Setzt das Layout (außer deaktivierte Kacheln) und Optionen auf Standard zurück. Das im Browser gespeicherte Layout wird auch gelöscht.
+                Setzt das Layout und alle Optionen auf Standard zurück. Das im Browser gespeicherte Layout wird auch gelöscht.
               </Tooltip>
             }
           >

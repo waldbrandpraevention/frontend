@@ -69,6 +69,21 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.jpg"
       />
     </LayersControl.Overlay>
+    <LayersControl.Overlay name="* mit Labels">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.jpg"
+      />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay name="Standard Weich">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+      />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay name="Standard Dunkel">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+      />
+    </LayersControl.Overlay>
     <LayersControl.Overlay name="Standard Grau">
       <TileLayer
         url="https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
