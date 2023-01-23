@@ -113,7 +113,7 @@ services:
       - frontend-server-conf:/etc/nginx/conf.d
       - frontend-build:/usr/share/nginx/html
 
-  # Mail (optional)
+  # Mail (optional, nur für lokale demo)
   mailhog:
     image: mailhog/mailhog
     logging:
@@ -138,18 +138,13 @@ Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Bef
 | Frontend | http://localhost:8080 |
 | API | http://localhost:8080/api/ |
 | API Dokumentation | http://localhost:8080/api/docs |
-| [Mail](#e-mail-) | http://localhost:8025 |
+| [Mail](#e-mail-) (optional) | http://localhost:8025 |
 
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zugangsdaten anmelden.
 Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 
 #### Config 🛠️
  Einstellungen können als Environmentvariablen in der `docker-compose.yml` angepasst werden.
-| Name | Beschreibung | Werte | Standard
-|---|---|---|---|
-| REACT_APP_API_URL | API URL | `string` | `/api/` |
-| MAIL_SMTP_HOST |  |  | |
-| MAIL_SMTP_ | todo |  | |
 
 Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
 ```diff
@@ -158,17 +153,11 @@ nginx:
   image: nginx:alpine
   ports:
 -   - 8080:80 
-+   - 80:80
-  depends_on:
-    - frontend
-    - backend
-  volumes:
-    - frontend-server-conf:/etc/nginx/conf.d
-    - frontend-build:/usr/share/nginx/html
++   - 1234:80
 ...
 ```
 #### E-Mail 📨
-Standardmäßig wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen vorhandenen Mailserver zu verwenden, die `docker-compose.yml` folgendermaßen anpassen:
+Um den E-Mail Versand lokal testen zu können, wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
 ```diff
 services:
  backend:
@@ -181,7 +170,11 @@ services:
     expose:
       - 8000
 +  environment:
-+    - MAIL_SMTP_HOST=
++     - SMTP_HOST=domain.tld
++     - SMTP_USER=
++     - SMTP_PASSWORD=
++     - SMTP_PORT=25
++     - SMTP_SENDER=no-reply@domain.tld
 +    todo 
 
 -mailhog:
