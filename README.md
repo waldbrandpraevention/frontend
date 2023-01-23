@@ -169,13 +169,13 @@ services:
       - ADMIN_ORGANIZATION=KIWA
     expose:
       - 8000
-+  environment:
+   environment:
+      - ...
 +     - SMTP_HOST=domain.tld
 +     - SMTP_USER=
 +     - SMTP_PASSWORD=
 +     - SMTP_PORT=25
 +     - SMTP_SENDER=no-reply@domain.tld
-+    todo 
 
 -mailhog:
 -  image: mailhog/mailhog
