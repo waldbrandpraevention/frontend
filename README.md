@@ -91,6 +91,12 @@ services:
       - ADMIN_MAIL=admin@kiwa.tech 
       - ADMIN_PASSWORD=adminkiwa
       - ADMIN_ORGANIZATION=KIWA
+      - DB_PATH=testing.db
+      - DB_BACKUP_PATH=backuptest.db
+      - DEMO_LONG=12.68895149
+      - DEMO_LAT=52.07454738
+      - GEOJSON_PATH=/database/zone_data.geojson
+      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
     expose:
       - 8000
 
