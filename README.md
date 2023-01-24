@@ -95,7 +95,7 @@ services:
       - DB_BACKUP_PATH=backuptest.db
       - DEMO_LONG=12.68895149
       - DEMO_LAT=52.07454738
-      - GEOJSON_PATH=/database/demo_data.geojson
+      - GEOJSON_PATH=/database/zone_data.geojson
       - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
     expose:
       - 8000
