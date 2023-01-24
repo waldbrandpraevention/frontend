@@ -11,6 +11,7 @@
 [![](https://img.shields.io/codecov/c/gh/waldbrandpraevention/frontend?style=for-the-badge)](https://app.codecov.io/gh/waldbrandpraevention/frontend)
 ![](https://img.shields.io/github/commit-activity/m/waldbrandpraevention/frontend?style=for-the-badge&label=commits)
 [![](https://img.shields.io/docker/image-size/waldbrandpraevention/frontend?style=for-the-badge&label=image&color=orange)](https://hub.docker.com/r/waldbrandpraevention/frontend/tags)
+[![](https://img.shields.io/codefactor/grade/github/waldbrandpraevention/frontend?style=for-the-badge)](https://www.codefactor.io/repository/github/waldbrandpraevention/frontend/issues/main)
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
