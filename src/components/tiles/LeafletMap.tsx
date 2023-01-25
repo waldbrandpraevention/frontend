@@ -12,6 +12,7 @@ import "../../assets/styles/leafletmap.scss";
  */
 import L from 'leaflet';
 import { useZones } from "../../utils/zones";
+import { useNavigate } from "react-router-dom";
 /* @ts-ignore */
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -26,8 +27,9 @@ L.Icon.Default.mergeOptions({
  * See https://github.com/PaulLeCam/react-leaflet/issues/332
  *
  * It accepts the same props like react-leaflet's GeoJSON component.
- * However, updates are only support
- */
+ * If the `data` prop changes, the GeoJSON layer will be updated.
+ * 
+ */ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const GeoJsonWithUpdates = (props: GeoJSONProps): ReactElement => {
   const geoJsonLayerRef = useRef<LeafletGeoJSON | null>(null);
 
@@ -51,16 +53,14 @@ const GeoJsonWithUpdates = (props: GeoJSONProps): ReactElement => {
 const LeafletMapContainer = () => {
   const updateCenter = useMapStore(state => state.setCenter)
   const updateZoom = useMapStore(state => state.setZoom)
-  // const center = useMapStore(state => state.center)
   const activeZone = useMapStore(state => state.activeZone)
 
   const { data: zonesData, isSuccess: isZonesReady } = useZones()
 
+  const navigate = useNavigate();
+
   const m = useMap()
   useEffect(() => {
-    // window.addEventListener("resize", () => {
-    //   m.invalidateSize()
-    // })
     const t = setInterval(() => { /* invalidate container dimension from time to time */
       m.invalidateSize()
     }, 300)
@@ -81,43 +81,19 @@ const LeafletMapContainer = () => {
   //   console.log(center);
   // });
 
+
   return <LayersControl position="topright">
 
     <LayersControl.Overlay checked name="<b>Standard</b>">
       <TileLayer
-        // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/*  <Marker position={center}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
     </LayersControl.Overlay>
     <LayersControl.Overlay name="<b>Topografie</b>">
       <LayerGroup>
         <TileLayer
-          // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.opentopomap.org/{z}/{x}/{y}.png"
         />
-        {/* <Circle
-          center={center}
-          pathOptions={{ fillColor: 'blue' }}
-          radius={200}
-        />
-        <Circle
-          center={center}
-          pathOptions={{ fillColor: 'red' }}
-          radius={100}
-          stroke={false}
-        />
-        <LayerGroup>
-          <Circle
-            center={[51.51, -0.08]}
-            pathOptions={{ color: 'green', fillColor: 'green' }}
-            radius={100}
-          />
-        </LayerGroup> */}
       </LayerGroup>
     </LayersControl.Overlay>
 
@@ -142,11 +118,6 @@ const LeafletMapContainer = () => {
         url="https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    {/* <LayersControl.Overlay name="Topografie (ESRI)">
-      <TileLayer
-        url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg"
-      />
-    </LayersControl.Overlay> */}
     <LayersControl.Overlay name="<i>- Feuerwehr</i>">
       <TileLayer
         url="https://openfiremap.de/hytiles/{z}/{x}/{y}.png"
@@ -169,13 +140,21 @@ const LeafletMapContainer = () => {
     </LayersControl.Overlay>
     <LayersControl.Overlay checked={activeZone === -1} name={`<b class="text-decoration-underline">Alle Zonen</b>`}>
       <LayerGroup>
-        {isZonesReady && zonesData.map((z: any) => <GeoJsonWithUpdates data={z.geo_json} style={{ fillColor: "#2196F3", color: "#2196F3" }} />)}
+        {isZonesReady && zonesData.map((z: any) => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
+          layer.on({
+            click: () => navigate(`/zones/${z.id}`)
+          });
+        }} style={{ fillColor: "#2196F3", color: "#2196F3" }} />)}
       </LayerGroup>
     </LayersControl.Overlay>
     {isZonesReady && zonesData.map((z: any) => (
       <LayersControl.Overlay checked={activeZone === z.id} name={`<span class="fw-bold">${z.name}</span>`}>
         <LayerGroup>
-          <GeoJsonWithUpdates data={z.geo_json} style={{ fillColor: "#2196F3", color: "#2196F3" }} />
+          <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
+            layer.on({
+              click: () => navigate(`/zones/${z.id}`)
+            });
+          }} style={{ fillColor: "#2196F3", color: "#2196F3" }} />
         </LayerGroup>
       </LayersControl.Overlay>
     ))}
