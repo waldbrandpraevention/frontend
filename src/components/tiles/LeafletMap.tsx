@@ -49,7 +49,8 @@ const GeoJsonWithUpdates = (props: GeoJSONProps): ReactElement => {
 }
 
 const LeafletMapContainer = () => {
-  const updateCenterStore = useMapStore(state => state.setCenter)
+  const updateCenter = useMapStore(state => state.setCenter)
+  const updateZoom = useMapStore(state => state.setZoom)
   // const center = useMapStore(state => state.center)
   const activeZone = useMapStore(state => state.activeZone)
 
@@ -60,7 +61,7 @@ const LeafletMapContainer = () => {
     // window.addEventListener("resize", () => {
     //   m.invalidateSize()
     // })
-    const t = setInterval(() => { /* invalidate container dimension fromt time to time */
+    const t = setInterval(() => { /* invalidate container dimension from time to time */
       m.invalidateSize()
     }, 300)
     return () => clearInterval(t)
@@ -68,7 +69,12 @@ const LeafletMapContainer = () => {
 
   m.on("moveend", (e) => {
     const moved = m.getCenter()
-    updateCenterStore([moved.lat, moved.lng])
+    updateCenter([moved.lat, moved.lng])
+  })
+
+  m.on("zoomend", (e) => {
+    const zoom = m.getZoom()
+    updateZoom(zoom)
   })
 
   // m.on('contextmenu', function (e) {
@@ -178,13 +184,14 @@ const LeafletMapContainer = () => {
 
 const LeafletMap = () => {
   const center = useMapStore(state => state.center)
+  const zoom = useMapStore(state => state.zoom)
 
   return <ReactResizeDetector handleWidth handleHeight >
     {({ height, width, targetRef }) =>
       /* @ts-ignore */
       <Tile classes="p-0" style={{ zIndex: 111 }}>
         {/* @ts-ignore */}
-        <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={8} doubleClickZoom={true} boxZoom={true} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
+        <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={zoom} doubleClickZoom={true} boxZoom={true} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
           <LeafletMapContainer></LeafletMapContainer>
         </MapContainer>
       </Tile>
