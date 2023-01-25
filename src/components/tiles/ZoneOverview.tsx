@@ -9,7 +9,6 @@ import DangerLevel from "../DangerLevel";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useZones } from "../../utils/zones";
-import LoadingSpinner from "../LoadingSpinner";
 import LoadingTile from "./LoadingTile";
 import ErrorAlert from "../alerts/ErrorAlert";
 
@@ -34,7 +33,7 @@ const ZoneOverview = () => {
     if (isError) return <ErrorAlert> Zonen konnten nicht geladen werden.</ErrorAlert>;
 
     return (
-        <Tile >
+        <Tile style={{ overflow: "auto" }}>
             <Card.Title>Alle Zonen</Card.Title>
             <Table className="table justify-content-between">
                 <thead>

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../service/auth";
-import { useColorStore } from "../service/stores";
+import { useColorStore } from "../stores/ColorStore";
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { TbCheck } from "react-icons/tb";
 import { toast } from "react-toastify";
-import { useAlertStore } from "../../service/stores";
+import { useAlertStore } from "../../stores/AlertStore";
 import LoadingSpinner from "../LoadingSpinner";
 
 const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: () => void }) => {

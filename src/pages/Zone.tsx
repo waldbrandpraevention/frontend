@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
@@ -18,12 +16,21 @@ import PotentialFiresite from "../components/tiles/PotentialFiresite";
 import AlertDrone from "../components/tiles/AlertDrone";
 import FireDetection from "../components/tiles/FireDetection";
 import { useZone } from "../utils/zones";
+import { useMapStore } from "../stores/MapStore";
 
 const Zone = () => {
   const { id } = useParams();
   const navigate = useNavigate()
+  const setActiveZone = useMapStore(state => state.setActiveZone)
 
   const { data: zone, isLoading, isError } = useZone(id as string)
+
+  if (isLoading) return <LoadingTile />;
+
+  if (isError)
+    return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
+
+  setActiveZone(zone.id) /* show only this zone on map */
 
   const { defaultTiles, defaultLayout } = tiles([
     { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
@@ -37,11 +44,6 @@ const Zone = () => {
     { el: <AlertDrone />, id: "alerts", name: "Alarme", main: { x: 8, y: 21, w: 8, h: 12 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
   ])
 
-  if (isLoading) return <LoadingTile />;
-
-  if (isError)
-    return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
-
   return (
     <div className="App_">
       <div>
@@ -49,7 +51,7 @@ const Zone = () => {
           <Card.Body className="p-0">
             <Row className="align-items-center">
               <Col className="col-auto">
-                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft></Button>
+                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft> Übersicht</Button>
               </Col>
               <Col className="text-center">
                 <Card.Title className="mb-0 text-white">{zone.name}</Card.Title>

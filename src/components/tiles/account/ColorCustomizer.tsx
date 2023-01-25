@@ -1,6 +1,6 @@
 import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap"
 import { TbArrowBack, TbClipboard, TbColorSwatch, TbCopy } from "react-icons/tb"
-import { defaultColors, themes, useColorStore } from "../../../service/stores"
+import { defaultColors, themes, useColorStore } from "../../../stores/ColorStore"
 import Tile from "../../Tile"
 
 const ColorCustomizer = () => {

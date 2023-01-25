@@ -7,7 +7,7 @@ import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbColor
 import { useAuth } from "../service/auth";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { isActiveRoute } from "../utils/util";
-import { useColorStore } from "../service/stores";
+import { useColorStore } from "../stores/ColorStore";
 import Logo from "../assets/img/logo.webp";
 import { useEffect } from "react";
 import { toast } from "react-toastify";

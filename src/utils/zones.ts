@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios";
 
-type Zone = {
+/* type Zone = {
 
-}
+} */
 
 export const useZones = () => {
   return useQuery(["zones"], () => {
