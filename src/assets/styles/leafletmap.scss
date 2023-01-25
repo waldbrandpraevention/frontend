@@ -1,0 +1,29 @@
+@import "variables";
+
+.leaflet-control-layers-overlays {
+  label>span {
+    font-size: 16px;
+    cursor: pointer;
+    padding: 3px;
+    background: inherit;
+    width: 100%;
+    display: block;
+  }
+
+  label {
+    display: block;
+    margin: 0;
+    // padding: 3px 0;
+    width: 100%;
+    user-select: none;
+  }
+
+  label :hover {
+    background-color: $leaflethovercolor;
+  }
+
+  label>span :hover {
+    // background-color: rgba(0, 0, 0, .10);
+    // background: inherit;
+  }
+}

@@ -17,15 +17,13 @@ import { TbChevronLeft } from "react-icons/tb";
 import PotentialFiresite from "../components/tiles/PotentialFiresite";
 import AlertDrone from "../components/tiles/AlertDrone";
 import FireDetection from "../components/tiles/FireDetection";
+import { useZone } from "../utils/zones";
 
 const Zone = () => {
-  const { id } = useParams()
+  const { id } = useParams();
   const navigate = useNavigate()
 
-  const { /* data, */ isLoading, isError } = useQuery(["zones", id], () => {
-    return axios.get(`/test?input=x`).then((e) => e.data);
-    // return axios.get(`/zones/?name=${id}`).then((e) => e.data);
-  });
+  const { data: zone, isLoading, isError } = useZone(id as string)
 
   const { defaultTiles, defaultLayout } = tiles([
     { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
@@ -50,11 +48,11 @@ const Zone = () => {
         <Card className="p-1 bg-primary rounded-0 border-0">
           <Card.Body className="p-0">
             <Row className="align-items-center">
-              <Col>
-                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft> Zonenübersicht</Button>
+              <Col className="col-auto">
+                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft></Button>
               </Col>
-              <Col>
-                <Card.Title className="mb-0 text-white">Zone {id}</Card.Title>
+              <Col className="text-center">
+                <Card.Title className="mb-0 text-white">{zone.name}</Card.Title>
 
               </Col>
             </Row>

@@ -8,6 +8,10 @@ import Tile from "../Tile";
 import DangerLevel from "../DangerLevel";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useZones } from "../../utils/zones";
+import LoadingSpinner from "../LoadingSpinner";
+import LoadingTile from "./LoadingTile";
+import ErrorAlert from "../alerts/ErrorAlert";
 
 export const dummydata = [{ id: 1, zone: "Helm's Deep", drohne: "45", lastUpdate: "1.1.23", DangerLevel: 2, ai: 0 },
 { id: 2, zone: "Minas Tirih", drohne: "67", lastUpdate: "3.1.23", DangerLevel: 1, ai: 1 },
@@ -22,15 +26,12 @@ const MyTr = styled.tr`
 `
 
 const ZoneOverview = () => {
-    //const { data, isLoading, isError } = useQuery(["zoneoverview"], () => {
-    //return axios.get("/zones/").then(e => e.data);
-    //});
-
-    //if (isLoading) return <LoadingTile />
-
-    //if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
-
     const navigate = useNavigate()
+    const { data, isLoading, isError, isSuccess } = useZones()
+
+    if (isLoading) return <LoadingTile />
+
+    if (isError) return <ErrorAlert> Zonen konnten nicht geladen werden.</ErrorAlert>;
 
     return (
         <Tile >
@@ -38,7 +39,7 @@ const ZoneOverview = () => {
             <Table className="table justify-content-between">
                 <thead>
                     <tr>
-                        <th scope="col">Zonen</th>
+                        <th scope="col">Zone</th>
                         <th scope="col">Drohnen</th>
                         <th scope="col">Letztes Update</th>
                         <th scope="col">Brandgefahr</th>
@@ -46,13 +47,13 @@ const ZoneOverview = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {dummydata.map((item: { id: number, zone: string; drohne: string; lastUpdate: string; DangerLevel: number; ai: number; }) => (
-                        <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${item.id}`)}>
-                            <td >{item.zone}</td>
-                            <td >{item.drohne}</td>
-                            <td >{item.lastUpdate}</td>
-                            <td ><DangerLevel level={item.DangerLevel} ></DangerLevel></td>
-                            <td ><DangerLevel level={item.ai} ></DangerLevel></td>
+                    {isSuccess && data.map((zone: any) => (
+                        <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${zone.id}`)}>
+                            <td >{zone.name}</td>
+                            <td >{zone.drohne} API??</td>
+                            <td >{zone.lastUpdate}</td>
+                            <td ><DangerLevel level={zone.DangerLevel} ></DangerLevel></td>
+                            <td ><DangerLevel level={zone.ai} ></DangerLevel></td>
                         </MyTr>
                     ))}
                 </tbody>
