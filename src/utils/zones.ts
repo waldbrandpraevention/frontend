@@ -40,3 +40,23 @@ export const useZone = (id: string) => {
     return axios.get(`/zones/?zone_id=${encodeURIComponent(id)}`).then(e => e.data);
   }, { refetchOnWindowFocus: false });
 }
+
+/**
+ * for leaflet
+ */
+export const getPolygonStyle = (z: Zone): L.PathOptions => {
+  if (z.fire_risk > 1 || z.ai > 1) {
+    return {
+      fillColor: "#F44336",
+      color: "#F44336",
+      weight: 1,
+    };
+  }
+  /* default blue */
+  return {
+    fillColor: "#2196F3",
+    color: "#2196F3",
+    weight: 1,
+    fillOpacity: 0.1,
+  };
+}

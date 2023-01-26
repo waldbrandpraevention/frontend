@@ -11,7 +11,7 @@ import "../../assets/styles/leafletmap.scss";
  * fixes https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-410450387 
  */
 import L from 'leaflet';
-import { useZones } from "../../utils/zones";
+import { getPolygonStyle, useZones } from "../../utils/zones";
 import { useNavigate } from "react-router-dom";
 /* @ts-ignore */
 delete L.Icon.Default.prototype._getIconUrl;
@@ -144,7 +144,7 @@ const LeafletMapContainer = () => {
           layer.on({
             click: () => navigate(`/zones/${z.id}`)
           });
-        }} style={{ fillColor: "#2196F3", color: "#2196F3" }} />)}
+        }} style={getPolygonStyle(z)} />)}
       </LayerGroup>
     </LayersControl.Overlay>
     {isZonesReady && zonesData.map(z => (
@@ -154,7 +154,7 @@ const LeafletMapContainer = () => {
             layer.on({
               click: () => navigate(`/zones/${z.id}`)
             });
-          }} style={{ fillColor: "#2196F3", color: "#2196F3" }} />
+          }} style={getPolygonStyle(z)} />
         </LayerGroup>
       </LayersControl.Overlay>
     ))}
