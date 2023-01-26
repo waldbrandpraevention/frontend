@@ -140,14 +140,14 @@ const LeafletMapContainer = () => {
     </LayersControl.Overlay>
     <LayersControl.Overlay checked={activeZone === -1} name={`<b class="text-decoration-underline">Alle Zonen</b>`}>
       <LayerGroup>
-        {isZonesReady && zonesData.map((z: any) => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
+        {isZonesReady && zonesData.map(z => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
           layer.on({
             click: () => navigate(`/zones/${z.id}`)
           });
         }} style={{ fillColor: "#2196F3", color: "#2196F3" }} />)}
       </LayerGroup>
     </LayersControl.Overlay>
-    {isZonesReady && zonesData.map((z: any) => (
+    {isZonesReady && zonesData.map(z => (
       <LayersControl.Overlay checked={activeZone === z.id} name={`<span class="fw-bold">${z.name}</span>`}>
         <LayerGroup>
           <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {

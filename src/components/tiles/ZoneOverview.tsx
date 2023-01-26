@@ -37,17 +37,19 @@ const ZoneOverview = () => {
             <th scope="col">Zone</th>
             <th scope="col">Drohnen</th>
             <th scope="col">Letztes Update</th>
-            <th scope="col">Brandgefahr</th>
+            <th scope="col">DWD Brandgefahr</th>
             <th scope="col">KI Einschätzung</th>
           </tr>
         </thead>
         <tbody>
-          {isSuccess && data.map((zone: any) => (
+          {isSuccess && data.map(zone => (
             <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${zone.id}`)}>
               <td >{zone.name}</td>
-              <td >{zone.drohne} API??</td>
-              <td >{zone.lastUpdate} API??</td>
-              <td ><DangerLevel level={zone.DangerLevel} ></DangerLevel></td>
+              {/* <td >{zone.drohne}</td> */}
+              <td>???</td>
+              {/* <td >{zone.lastUpdate}</td> */}
+              <td>???</td>
+              <td ><DangerLevel level={zone.fire_risk} ></DangerLevel></td>
               <td ><DangerLevel level={zone.ai} ></DangerLevel></td>
             </MyTr>
           ))}
