@@ -43,7 +43,7 @@ const ZoneOverview = () => {
         </thead>
         <tbody>
           {isSuccess && data.map(zone => (
-            <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${zone.id}`)}>
+            <MyTr key={zone.id} style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${zone.id}`)}>
               <td >{zone.name}</td>
               {/* <td >{zone.drohne}</td> */}
               <td>???</td>

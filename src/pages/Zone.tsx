@@ -22,6 +22,8 @@ const Zone = () => {
   const { id } = useParams();
   const navigate = useNavigate()
   const setActiveZone = useMapStore(state => state.setActiveZone)
+  const setCenter = useMapStore(state => state.setCenter)
+  const setZoom = useMapStore(state => state.setZoom)
 
   const { data: zone, isLoading, isError } = useZone(id as string)
 
@@ -31,6 +33,8 @@ const Zone = () => {
     return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
 
   setActiveZone(zone.id) /* show only this zone on map */
+  setCenter([zone.geo_point[1], zone.geo_point[0]]) /* center map on zone */
+  setZoom(11); /* zoom in to zone */
 
   const { defaultTiles, defaultLayout } = tiles([
     { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
