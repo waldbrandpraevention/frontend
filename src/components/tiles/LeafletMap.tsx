@@ -138,16 +138,17 @@ const LeafletMapContainer = () => {
         url="https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.jpg"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay checked={activeZone === -1} name={`<b class="text-decoration-underline">Alle Zonen</b>`}>
+    <LayersControl.Overlay checked={true} name={`<b>Zonen</b>`}>
       <LayerGroup>
-        {isZonesReady && zonesData.map(z => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
+        {isZonesReady && zonesData.filter(z => activeZone === -1 || activeZone === z.id).map(z => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
           layer.on({
             click: () => navigate(`/zones/${z.id}`)
           });
         }} style={getPolygonStyle(z)} />)}
       </LayerGroup>
     </LayersControl.Overlay>
-    {isZonesReady && zonesData.map(z => (
+    {/* Das ist extrem langsam: */}
+    {/* {isZonesReady && zonesData.map(z => (
       <LayersControl.Overlay checked={activeZone === z.id} name={`<span class="fw-bold">${z.name}</span>`}>
         <LayerGroup>
           <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
@@ -157,7 +158,7 @@ const LeafletMapContainer = () => {
           }} style={getPolygonStyle(z)} />
         </LayerGroup>
       </LayersControl.Overlay>
-    ))}
+    ))} */}
   </LayersControl>
 }
 
