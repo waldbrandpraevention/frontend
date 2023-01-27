@@ -5,18 +5,19 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import { TbInfoSquare } from "react-icons/tb";
+import { useZones } from "../../utils/zones";
 
 const Area = () => {
+  const { data: zonesData, isLoading: isLoadingZone, isError: isErrorZone } = useZones()
+
   const { data, isLoading, isError } = useQuery(["area"], () => {
     return axios.get("/test?input=Südliches%20Brandenburg").then((e) => e.data);
   });
 
-  if (isLoading) return <LoadingTile />;
+  if (isLoading || isLoadingZone) return <LoadingTile />;
 
-  if (isError)
-    return (
-      <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>
-    );
+  if (isError || isErrorZone)
+    return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>
 
   return (
     <Tile>
@@ -36,7 +37,7 @@ const Area = () => {
         </div>
       </OverlayTrigger>
       <Card.Title className="text-center">Überwachungsgebiet</Card.Title>
-      <Card.Subtitle className="text-center">6 Zonen</Card.Subtitle>
+      <Card.Subtitle className="text-center">{zonesData.length} Zonen</Card.Subtitle>
       <div
         style={{
           // fontSize: "x-large",

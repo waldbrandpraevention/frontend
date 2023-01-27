@@ -10,7 +10,7 @@ import { TbArrowBackUp, TbCheckbox, TbDragDrop, TbDragDrop2, TbEdit, TbResize, T
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
 import PlaceholderEditMode from "./tiles/PlaceholderEditMode";
-import { useColorStore } from "../service/stores";
+import { useColorStore } from "../stores/ColorStore";
 
 const MyDiv = styled.div`
   display: flex;

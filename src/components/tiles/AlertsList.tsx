@@ -7,7 +7,7 @@ import LoadingTile from "./LoadingTile";
 import { RxCounterClockwiseClock, RxDotFilled } from "react-icons/rx";
 import styled from "styled-components";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { useAlertStore } from "../../service/stores";
+import { useAlertStore } from "../../stores/AlertStore";
 
 const LiveDot = styled(RxDotFilled)`
   margin-left: -6px;

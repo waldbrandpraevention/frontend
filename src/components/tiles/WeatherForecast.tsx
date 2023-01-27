@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useMapStore } from "../../service/stores";
+import { useMapStore } from "../../stores/MapStore";
 import { useDebounce } from "../../utils/util";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";

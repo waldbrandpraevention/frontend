@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Col, Row, Table } from "react-bootstrap";
-import { useMapStore } from "../../service/stores";
+import { useMapStore } from "../../stores/MapStore";
 import { useDebounce } from "../../utils/util";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
@@ -35,7 +35,7 @@ const WeatherTable = () => {
     return <ErrorAlert> Wettervorhersage konnte nicht geladen werden.</ErrorAlert>;
 
   return (
-    <Tile style={{ height: "100%", overflow: "scroll" }}>
+    <Tile style={{ height: "100%", overflow: "auto" }}>
       <Row>
         <Col md={2}>Lat: <b className="fw-semibold">{center[0]}</b></Col>
         <Col md={2}>Lon: <b className="fw-semibold">{center[1]}</b></Col>

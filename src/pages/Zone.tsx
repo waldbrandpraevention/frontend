@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorAlert from "../components/alerts/ErrorAlert";
@@ -17,15 +15,26 @@ import { TbChevronLeft } from "react-icons/tb";
 import PotentialFiresite from "../components/tiles/PotentialFiresite";
 import AlertDrone from "../components/tiles/AlertDrone";
 import FireDetection from "../components/tiles/FireDetection";
+import { useZone } from "../utils/zones";
+import { useMapStore } from "../stores/MapStore";
 
 const Zone = () => {
-  const { id } = useParams()
+  const { id } = useParams();
   const navigate = useNavigate()
+  const setActiveZone = useMapStore(state => state.setActiveZone)
+  const setCenter = useMapStore(state => state.setCenter)
+  const setZoom = useMapStore(state => state.setZoom)
 
-  const { /* data, */ isLoading, isError } = useQuery(["zones", id], () => {
-    return axios.get(`/test?input=x`).then((e) => e.data);
-    // return axios.get(`/zones/?name=${id}`).then((e) => e.data);
-  });
+  const { data: zone, isLoading, isError } = useZone(id as string)
+
+  if (isLoading) return <LoadingTile />;
+
+  if (isError)
+    return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
+
+  setActiveZone(zone.id) /* show only this zone on map */
+  setCenter([zone.geo_point[1], zone.geo_point[0]]) /* center map on zone */
+  setZoom(11); /* zoom in to zone */
 
   const { defaultTiles, defaultLayout } = tiles([
     { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
@@ -39,22 +48,17 @@ const Zone = () => {
     { el: <AlertDrone />, id: "alerts", name: "Alarme", main: { x: 8, y: 21, w: 8, h: 12 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
   ])
 
-  if (isLoading) return <LoadingTile />;
-
-  if (isError)
-    return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
-
   return (
     <div className="App_">
       <div>
         <Card className="p-1 bg-primary rounded-0 border-0">
           <Card.Body className="p-0">
             <Row className="align-items-center">
-              <Col>
-                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft> Zonenübersicht</Button>
+              <Col className="col-auto">
+                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft> Übersicht</Button>
               </Col>
-              <Col>
-                <Card.Title className="mb-0 text-white">Zone {id}</Card.Title>
+              <Col className="text-center">
+                <Card.Title className="mb-0 text-white">{zone.name}</Card.Title>
 
               </Col>
             </Row>

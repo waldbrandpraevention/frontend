@@ -11,9 +11,12 @@ import Loading from "../components/Loading";
 import Map from "../components/tiles/Map";
 import WeatherTable from "../components/tiles/WeatherTable";
 import AlertsList from "../components/tiles/AlertsList";
+import { useMapStore } from "../stores/MapStore";
 const TilesLayout = lazy(() => import("../components/TilesLayout"))
 
 const Dashboard = () => {
+  useMapStore(state => state.setActiveZone)(-1) /* show all zones */
+
   const { defaultTiles, defaultLayout } = tiles([
     { el: <DroneCount />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
     { el: <Area />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
