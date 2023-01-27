@@ -17,6 +17,7 @@ import AlertDrone from "../components/tiles/AlertDrone";
 import FireDetection from "../components/tiles/FireDetection";
 import { useZone } from "../utils/zones";
 import { useMapStore } from "../stores/MapStore";
+import { useColorStore } from "../stores/ColorStore";
 
 const Zone = () => {
   const { id } = useParams();
@@ -24,6 +25,8 @@ const Zone = () => {
   const setActiveZone = useMapStore(state => state.setActiveZone)
   const setCenter = useMapStore(state => state.setCenter)
   const setZoom = useMapStore(state => state.setZoom)
+  const subdashBgColor = useColorStore(state => state.sidebarBackground)
+  const subdashColor = useColorStore(state => state.sidebarText)
 
   const { data: zone, isLoading, isError } = useZone(id as string)
 
@@ -51,14 +54,14 @@ const Zone = () => {
   return (
     <div className="App_">
       <div>
-        <Card className="p-1 bg-primary rounded-0 border-0">
+        <Card className="p-1 rounded-0 border-0" style={{ background: subdashBgColor }}>
           <Card.Body className="p-0">
             <Row className="align-items-center">
               <Col className="col-auto">
-                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"><TbChevronLeft></TbChevronLeft> Übersicht</Button>
+                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"  style={{ borderColor: subdashColor, color: subdashColor }} ><TbChevronLeft></TbChevronLeft> Übersicht</Button>
               </Col>
               <Col className="text-center">
-                <Card.Title className="mb-0 text-white">{zone.name}</Card.Title>
+                <Card.Title className="mb-0" style={{ color: subdashColor }}>{zone.name}</Card.Title>
 
               </Col>
             </Row>

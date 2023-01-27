@@ -32,13 +32,13 @@ type Zone = {
 export const useZones = () => {
   return useQuery<Zone[]>(["zones"], () => {
     return axios.get("/zones/all/").then(e => e.data);
-  }, { refetchOnWindowFocus: false });
+  }, { refetchOnWindowFocus: false, staleTime: 300000 /* 5min */, /* cacheTime: 300000 */ /* 5min */ });
 }
 
 export const useZone = (id: string) => {
   return useQuery<Zone>(["zones", id], () => {
     return axios.get(`/zones/?zone_id=${encodeURIComponent(id)}`).then(e => e.data);
-  }, { refetchOnWindowFocus: false });
+  }, { refetchOnWindowFocus: false, staleTime: 30000 /* 30s */, /* cacheTime: 300000 */ /* 5min */ });
 }
 
 /**

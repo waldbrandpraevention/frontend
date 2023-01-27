@@ -14,11 +14,11 @@ type ColorStore = {
 
 export const defaultColors: Readonly<Omit<ColorStore, "setColor" | "resetDefault">> = {
   background: "#F5F5F5" /* "#f7f7f7" */,
-  sidebarBackground: "#FAFAFA" /*  "#D32F2F" */,
+  sidebarBackground: "#F5F5F5" /*  "#FAFAFA" */,
   sidebarActive: "#ff7043",
   sidebarHover: "#fbe9e7",
   sidebarText: "#000000",
-  headerBackground: "#F5F5F5",
+  headerBackground: "#F5F5F5", 
 };
 type Theme = Readonly<Omit<ColorStore, "setColor" | "resetDefault">>;
 export const themes: { green: Theme; bluegreen: Theme; red: Theme; blue: Theme; orange: Theme; black: Theme; } = {
