@@ -17,7 +17,6 @@ import App from "./pages/App";
 import Login from "./pages/Login";
 import Registrieren from "./pages/Registrieren";
 import ForgotPassword from "./pages/ForgotPassword";
-import Incidents from "./pages/Incidents";
 import NotFound from "./pages/NotFound";
 
 const Advanced = lazy(() => import("./pages/Advanced"))
