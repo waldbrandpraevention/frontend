@@ -5,7 +5,6 @@ import axios from "axios";
 import ErrorAlert from "../alerts/ErrorAlert";
 import LoadingTile from "../tiles/LoadingTile"; */
 import Tile from "../Tile";
-import DangerLevel from "../DangerLevel";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -85,14 +84,14 @@ const MyTr = styled.tr`
     }
 `
 
-const ZoneOverview = () => {
-    //const { data, isLoading, isError } = useQuery(["zoneoverview"], () => {
+const IncidentOverview = () => {
+    //const { data, isLoading, isError } = useQuery(["incidentsoverview"], () => {
     //return axios.get("/zones/").then(e => e.data);
     //});
 
     //if (isLoading) return <LoadingTile />
 
-    //if (isError) return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>;
+    //if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
 
     const navigate = useNavigate()
     //todo: page for incidents
@@ -112,7 +111,7 @@ const ZoneOverview = () => {
                 </thead>
                 <tbody>
                     {dummydata.map((item: { id: number, date: string; place: string; typ: string; notes: string; drone: string; }) => (
-                        <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/incident/${item.id}`)}>
+                        <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/incidents/${item.id}`)}>
                             <td >{item.id}</td>
                             <td >{item.date}</td>
                             <td >{item.place}</td>
@@ -127,4 +126,4 @@ const ZoneOverview = () => {
     );
 }
 
-export default ZoneOverview;
+export default IncidentOverview;
