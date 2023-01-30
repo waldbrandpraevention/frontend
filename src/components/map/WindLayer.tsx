@@ -4,6 +4,7 @@ import { forwardRef, useEffect } from "react";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const WindLayer = forwardRef((props, ref: any) => {
   const map = useMap();
@@ -13,14 +14,22 @@ const WindLayer = forwardRef((props, ref: any) => {
 
   const { data, isSuccess, isLoading, isError } = useQuery(["wind"], () => {
     return fetch("https://wind.bp.adriansoftware.de/latest").then(e => e.json())
-  }, { staleTime: 30 * 60 * 1000 })
+  }, {
+    staleTime: 30 * 60 * 1000,
+    onError(err: Error) {
+      toast.error("Fehler beim Laden der Winddaten. " + err.message)
+    },
+  })
 
   useEffect(() => {
+    /* Leaflet map not loaded yet */
     if (!map) return;
 
+    /* component not ready yet */
     if (!mounted) return;
 
-    if (isLoading) return;
+    /* No data available yet */
+    if (!data) return;
 
     /* @ts-ignore velocityLayer doesn't exist */
     windGlobalLayer = L.velocityLayer({
@@ -30,20 +39,12 @@ const WindLayer = forwardRef((props, ref: any) => {
         position: "bottomleft",
         emptyString: "Keine Daten vorhanden",
         angleConvention: "bearing",
-        // display cardinal direction alongside degrees
         showCardinal: true,
-        // one of: ['ms', 'k/h', 'mph', 'kt']
-        // speedUnit: "km/h",
         speedUnit: "m/s",
         directionString: "Richtung",
         speedString: "Geschwindigkeit",
       },
       data: data,
-      // minVelocity: 0, // used to align color scale
-      // maxVelocity: 10, // used to align color scale
-      // velocityScale: 0.005 //0.1 // arbitrary default 0.005
-      // maxVelocity: 15,
-
       maxVelocity: 25,
       velocityScale: 0.002,
     });
@@ -58,7 +59,7 @@ const WindLayer = forwardRef((props, ref: any) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map]);
+  }, [map, data]);
 
   return null;
 });
