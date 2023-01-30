@@ -5,7 +5,6 @@ import axios from "axios";
 import ErrorAlert from "../alerts/ErrorAlert";
 import LoadingTile from "../tiles/LoadingTile"; */
 import Tile from "../Tile";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -93,7 +92,6 @@ const IncidentOverview = () => {
 
     //if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
 
-    const navigate = useNavigate()
     return (
         <Tile >
             <Card.Title>Alle Einsätze</Card.Title>
