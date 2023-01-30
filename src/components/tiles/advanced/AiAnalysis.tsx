@@ -7,7 +7,6 @@ const AiAnalysis = () => {
   var x1 = [];
   var x2 = [];
   for (var i = 1; i < 500; i++) {
-    let k = Math.random();
     x1.push(Math.random() + 1);
     x2.push(Math.random() + 1.1);
   }
@@ -38,8 +37,9 @@ const AiAnalysis = () => {
       <Plot
         data={data}
         layout={{
-          barmode: 'group',
-          title: 'Fire and Smoke Detection',
+          barmode: 'overlay',
+          title: 'Analyse',
+          legend: { "orientation": "h" },
           xaxis: { title: 'Time' },
           yaxis: { title: 'Detection Value' },
         }}
