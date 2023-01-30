@@ -276,7 +276,7 @@ const Users = () => {
   const [editUser, setEditUser] = useState(false);
 
   const { data, isLoading, isError, isSuccess } = useQuery<Account[]>(["users"], () => {
-    return axios.get("/api/users/all/").then(e => e.data)
+    return axios.get("/users/all/").then(e => e.data)
   });
 
   return <Container>
