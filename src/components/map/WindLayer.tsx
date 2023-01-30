@@ -50,7 +50,7 @@ const WindLayer = forwardRef((props, ref: any) => {
     });
 
     if (ref.current && windGlobalLayer)
-      ref.current.addOverlay(windGlobalLayer, "Wind");
+      ref.current.addOverlay(windGlobalLayer, "<b>Wind</b>");
 
     return () => {
       mounted = false;
