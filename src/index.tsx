@@ -17,7 +17,6 @@ import App from "./pages/App";
 import Login from "./pages/Login";
 import Registrieren from "./pages/Registrieren";
 import ForgotPassword from "./pages/ForgotPassword";
-import Incidents from "./pages/Incidents";
 import NotFound from "./pages/NotFound";
 
 const Advanced = lazy(() => import("./pages/Advanced"))
@@ -28,6 +27,7 @@ const Impressum = lazy(() => import("./pages/Impressum"));
 const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const Zones = lazy(() => import("./pages/Zones"));
 const Zone = lazy(() => import("./pages/Zone"));
+const Incidents = lazy(() => import("./pages/Incidents"));
 const Account = lazy(() => import("./pages/Account"));
 const Design = lazy(() => import("./pages/Design"));
 const Alerts = lazy(() => import("./pages/Alerts"));
@@ -55,7 +55,7 @@ render(
               <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
               <Route path="alerts" element={<Suspense fallback={<Loading />}><Alerts /></Suspense>} />
-              <Route path="incidents" element={<RoleRoute><Incidents /></RoleRoute>} />
+              <Route path="incidents" element={<Suspense fallback={<Loading />}><Incidents /></Suspense>} />
               <Route path="datenschutz" element={<Suspense fallback={<Loading />}><Datenschutz /></Suspense>} />
               <Route path="impressum" element={<Suspense fallback={<Loading />}><Impressum /></Suspense>} />
               <Route path="settings">
@@ -72,7 +72,6 @@ render(
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
-            closeOnClick
             rtl={false}
             pauseOnFocusLoss
             draggable
