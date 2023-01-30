@@ -20,7 +20,7 @@ const WindLayer = forwardRef((props, ref: any) => {
 
     if (!mounted) return;
 
-    if (!isSuccess) return;
+    if (isLoading) return;
 
     /* @ts-ignore velocityLayer doesn't exist */
     windGlobalLayer = L.velocityLayer({
@@ -54,7 +54,6 @@ const WindLayer = forwardRef((props, ref: any) => {
     return () => {
       mounted = false;
       if (ref && ref.current) {
-        // FIXME: uncomment
         ref.current.removeOverlay(windGlobalLayer);
       }
     };
