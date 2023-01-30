@@ -18,7 +18,6 @@
     "darkreader": "^4.9.58",
     "eslint-plugin-cypress": "^2.12.1",
     "leaflet": "^1.9.3",
-    "plotly.js": "^2.17.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
