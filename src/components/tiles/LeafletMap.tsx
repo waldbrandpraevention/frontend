@@ -2,7 +2,7 @@ import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap, GeoJSON } f
 import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useMapStore } from "../../stores/MapStore";
 import "../../assets/styles/leafletmap.scss";
 
@@ -13,6 +13,7 @@ import L from 'leaflet';
 import { getPolygonStyle, useZones } from "../../utils/zones";
 import { useNavigate } from "react-router-dom";
 import DronesContainer from "../map/DronesContainer";
+import WindLayer from "../map/WindLayer";
 /* @ts-ignore */
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -28,7 +29,7 @@ const LeafletMapContainer = () => {
 
   const { data: zonesData, isSuccess: isZonesReady } = useZones()
 
-
+  const layersRef = useRef(null)
 
   const navigate = useNavigate();
 
@@ -52,7 +53,7 @@ const LeafletMapContainer = () => {
 
   m.on("contextmenu", (e) => console.log(e.latlng))
 
-  return <LayersControl position="topright">
+  return <LayersControl position="topright" ref={layersRef}>
     <LayersControl.Overlay checked name="<b>Standard</b>">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -77,14 +78,19 @@ const LeafletMapContainer = () => {
         url="https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="Standard Dunkel">
+    <LayersControl.Overlay name="Standard Schwarz">
       <TileLayer
         url="https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="Standard Grau">
+    <LayersControl.Overlay name="Standard Weiß">
       <TileLayer
         url="https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
+      />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay name="Standard Grau (für Wind)">
+      <TileLayer
+        url="https://c.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
     <LayersControl.Overlay name="<i>- Feuerwehr</i>">
@@ -107,6 +113,9 @@ const LeafletMapContainer = () => {
         url="https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.jpg"
       />
     </LayersControl.Overlay>
+    <LayersControl.Overlay name="<i>- Wind</i>" >
+      <WindLayer ref={layersRef}></WindLayer>
+    </LayersControl.Overlay>
     <LayersControl.Overlay checked={true} name={`<b>Zonen</b>`}>
       <LayerGroup>
         {isZonesReady && zonesData.filter(z => activeZone === -1 || activeZone === z.id).map(z => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
@@ -128,7 +137,7 @@ const LeafletMap = () => {
   const center = useMapStore(state => state.center)
   const zoom = useMapStore(state => state.zoom)
 
-  return <ReactResizeDetector handleWidth handleHeight >
+  return <ReactResizeDetector handleWidth handleHeight>
     {({ height, width, targetRef }) =>
       /* @ts-ignore */
       <Tile classes="p-0" style={{ zIndex: 111 }}>

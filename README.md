@@ -27,6 +27,25 @@
 
 ![](https://bp.adriansoftware.de/media/x3.png)
 ![](https://bp.adriansoftware.de/media/x4a.png)
+![](/src/assets/img/arch.png)
+
+## Inhalt
+
+- [Demo](#demo)
+- [Installation](#installation)
+    + [Quickstart 🚀](#quickstart)
+    + [Konfiguration ⚙️](#konfiguration)
+      + [Port ⚓](#port)
+      + [E-Mail 📨](#e-mail)
+      + [Windkarte ☁️](#windkarte)
+    + [Updates 🔁](#updates)
+    + [Reverse Proxy 🛡️](#reverse-proxy)
+    + [FAQ ❓](#faq)
+- [Development](#development)
+    + [Projekt Setup](#projekt-setup)
+  * [E2E Testing](#e2e-testing)
+    + [Code Coverage](#code-coverage)
+    + [Themes](#themes)
 
 <div align="center">
 
@@ -42,9 +61,6 @@ Passwort: `adminkiwa`
 
 </div>
 
-![](/src/assets/img/arch.png)
-
-
 ## Installation
 <!-- > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker) (nicht empfohlen) -->
 
@@ -52,7 +68,7 @@ Passwort: `adminkiwa`
 
 Am Einfachsten ist die Installation mit Docker (compose). 
 
-### All-in-One 👑
+<!-- ### All-in-One 👑 -->
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
@@ -63,9 +79,9 @@ Am Einfachsten ist die Installation mit Docker (compose).
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
 
-Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen. Alternativ können auch die jeweiligen `Dockerfile`s genutzt werden um die Images manuell zu erstellen. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
-#### Quickstart 🚀 
+#### Quickstart
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein. Ist standardmäßig bei *Docker Desktop* der Fall.
 
@@ -144,7 +160,8 @@ Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Bef
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zugangsdaten anmelden.
 Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 
-#### Config 🛠️
+### Konfiguration
+#### Port
  Einstellungen können als Environmentvariablen in der `docker-compose.yml` angepasst werden.
 
 Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
@@ -157,7 +174,7 @@ nginx:
 +   - 1234:80
 ...
 ```
-#### E-Mail 📨
+#### E-Mail
 Um den E-Mail Versand lokal testen zu können, wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
 ```diff
 services:
@@ -187,8 +204,18 @@ services:
 -    - 8025:8025 # web ui
 ```
 
+#### Windkarte
 
-#### Updates 🪄
+Um die Daten der Windkarte zu laden
+https://github.com/adrianschubek/wind-js-server
+```
+docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
+```
+
+// TODO:
+
+
+#### Updates
 
 So wird die Anwendung aktualisiert:
 
@@ -208,7 +235,7 @@ docker compose down
 ```
 docker compose pull && docker compose up -d
 ```
-#### Reverse Proxy 🛡️
+#### Reverse Proxy
 Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgende vHost Konfiguration verwendet werden:
 ```apache
 <VirtualHost *:80>
@@ -245,7 +272,7 @@ Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgen
 </VirtualHost>
 ```
 
-#### FAQ ❓
+#### FAQ
 - > `waldbrandpraevention-frontend-1 exited with code 0`?
   - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
 
@@ -288,7 +315,7 @@ Mehr Infos: https://cypress.io
 
 2. Report in `coverage/lcov-report/index.html`
 
-#### Themes 🎨
+#### Themes
 Um ein Theme zu erstellen folgendermaßen vorgehen:
 
 1. `src/service/stores.ts`
