@@ -37,3 +37,10 @@ export const useDebounce = <T>(value: T, delay: number) => {
     }, [value, delay]);
     return debouncedValue;
 }
+
+/**
+ * Random integer between min and max. inclusive both
+ */
+export const randomIntBetween = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}

@@ -1,9 +1,8 @@
-import { GeoJSON as LeafletGeoJSON } from "leaflet";
-import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap, GeoJSON, GeoJSONProps } from 'react-leaflet';
+import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap, GeoJSON } from 'react-leaflet';
 import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, ReactElement, useRef } from "react";
+import { useEffect } from "react";
 import { useMapStore } from "../../stores/MapStore";
 import "../../assets/styles/leafletmap.scss";
 
@@ -13,6 +12,7 @@ import "../../assets/styles/leafletmap.scss";
 import L from 'leaflet';
 import { getPolygonStyle, useZones } from "../../utils/zones";
 import { useNavigate } from "react-router-dom";
+import DronesContainer from "../map/DronesContainer";
 /* @ts-ignore */
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -21,41 +21,14 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
-/**
- * fixes https://github.com/PaulLeCam/react-leaflet/issues/332#issuecomment-849679887
- * GeoJsonWithUpdates is a wrapper around react-leaflet's GeoJSON component to support data changes
- * See https://github.com/PaulLeCam/react-leaflet/issues/332
- *
- * It accepts the same props like react-leaflet's GeoJSON component.
- * If the `data` prop changes, the GeoJSON layer will be updated.
- * 
- */ // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const GeoJsonWithUpdates = (props: GeoJSONProps): ReactElement => {
-  const geoJsonLayerRef = useRef<LeafletGeoJSON | null>(null);
-
-  useEffect(() => {
-    const layer = geoJsonLayerRef.current;
-    if (layer) {
-      layer.clearLayers().addData(props.data);
-      // clearLayers() seems to remove the `pathOptions`, `style` and `interactive` prop as well
-      // Resetting it here
-      if (props.pathOptions) {
-        layer.setStyle(props.pathOptions);
-      } else if (props.style) {
-        layer.setStyle(props.style);
-      }
-    }
-  }, [props.data, props.pathOptions, props.style]);
-
-  return <GeoJSON {...props} ref={geoJsonLayerRef} />;
-}
-
 const LeafletMapContainer = () => {
   const updateCenter = useMapStore(state => state.setCenter)
   const updateZoom = useMapStore(state => state.setZoom)
   const activeZone = useMapStore(state => state.activeZone)
 
   const { data: zonesData, isSuccess: isZonesReady } = useZones()
+
+
 
   const navigate = useNavigate();
 
@@ -77,13 +50,9 @@ const LeafletMapContainer = () => {
     updateZoom(zoom)
   })
 
-  // m.on('contextmenu', function (e) {
-  //   console.log(center);
-  // });
-
+  m.on("contextmenu", (e) => console.log(e.latlng))
 
   return <LayersControl position="topright">
-
     <LayersControl.Overlay checked name="<b>Standard</b>">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -147,18 +116,11 @@ const LeafletMapContainer = () => {
         }} style={getPolygonStyle(z)} />)}
       </LayerGroup>
     </LayersControl.Overlay>
-    {/* Das ist extrem langsam: */}
-    {/* {isZonesReady && zonesData.map(z => (
-      <LayersControl.Overlay checked={activeZone === z.id} name={`<span class="fw-bold">${z.name}</span>`}>
-        <LayerGroup>
-          <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
-            layer.on({
-              click: () => navigate(`/zones/${z.id}`)
-            });
-          }} style={getPolygonStyle(z)} />
-        </LayerGroup>
-      </LayersControl.Overlay>
-    ))} */}
+    <LayersControl.Overlay checked={true} name={`<b>Drohnen</b>`}>
+      <LayerGroup>
+        <DronesContainer />
+      </LayerGroup>
+    </LayersControl.Overlay>
   </LayersControl>
 }
 
