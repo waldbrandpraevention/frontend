@@ -94,7 +94,6 @@ const IncidentOverview = () => {
     //if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
 
     const navigate = useNavigate()
-    //todo: page for incidents
     return (
         <Tile >
             <Card.Title>Alle Einsätze</Card.Title>
@@ -111,7 +110,7 @@ const IncidentOverview = () => {
                 </thead>
                 <tbody>
                     {dummydata.map((item: { id: number, date: string; place: string; typ: string; notes: string; drone: string; }) => (
-                        <MyTr style={{ cursor: "pointer" }} onClick={() => navigate(`/incidents/${item.id}`)}>
+                        <MyTr style={{ cursor: "pointer" }}>
                             <td >{item.id}</td>
                             <td >{item.date}</td>
                             <td >{item.place}</td>
