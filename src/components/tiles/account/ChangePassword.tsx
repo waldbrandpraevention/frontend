@@ -12,21 +12,21 @@ import { toast } from "react-toastify";
 
 type ChangeFormData = {
     oldpassword: string;
-    newpassword1: string;
+    password: string;
     newpassword2: string;
 };
 
 const ChangePassword = () => {
     const [form, setForm] = useState({
         oldpassword: "",
-        newpassword1: "",
+        password: "",
         newpassword2: "",
     } as ChangeFormData);
 
     const queryClient = useQueryClient();
 
     const { isLoading, mutate } = useMutation(["account", "changepassword"], (data: ChangeFormData) => {
-        return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
+        return axios.post("/users/me/update", null, { params: data }).then((e) => e.data); /* demo url */
     }, {
         onSuccess() {
             queryClient.invalidateQueries(["account"])
@@ -39,6 +39,10 @@ const ChangePassword = () => {
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (form.password !== form.newpassword2) {
+            toast.error("Passwörter stimmen nicht überein.")
+            return;
+        }
         mutate(form);
     };
 
@@ -51,7 +55,7 @@ const ChangePassword = () => {
         <Tile>
             <Card.Title>Passwort ändern</Card.Title>
             <Form onSubmit={handleFormSubmit}>
-                <Form.Group as={Row} className="mb-3">
+                {/* <Form.Group as={Row} className="mb-3">
                     <Form.Label column md={4}>
                         Altes Passwort
                     </Form.Label>
@@ -66,7 +70,7 @@ const ChangePassword = () => {
                             disabled={isLoading}
                         />
                     </Col>
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column md={4}>
                         Neues Passwort
@@ -76,8 +80,8 @@ const ChangePassword = () => {
                             className="col-lg-*"
                             type="password"
                             placeholder=""
-                            name="newpassword1"
-                            value={form.newpassword1}
+                            name="password"
+                            value={form.password}
                             onChange={handleFormChange}
                             disabled={isLoading}
                         />

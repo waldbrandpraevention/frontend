@@ -1,26 +1,28 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useState } from "react"
 import { Badge, Button, Card, Col, Collapse, Container, Form, InputGroup, Modal, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap"
 import { TbAlertTriangle, TbArrowBack, TbCheck, TbCopy, TbLink, TbMailFast, TbTrashX, TbUserPlus } from "react-icons/tb"
 import { toast } from "react-toastify"
+import ErrorAlert from "../components/alerts/ErrorAlert"
 import LoadingSpinner from "../components/LoadingSpinner"
+import LoadingTile from "../components/tiles/LoadingTile"
 import { Account, AccountType, Organization } from "../service/auth"
 
-const dummyData: Account[] = [
-  { id: 1, firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
-  { id: 2, firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
-  { id: 3, firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
-]
+// const dummyData: Account[] = [
+  // { id: 1, firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
+  // { id: 2, firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
+  // { id: 3, firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
+// ]
 
-const dummyOrgas: Organization[] = [ /* todo: data from api call */
-  { id: 1, name: "KIWA", abbreviation: "KIWA" },
-  { id: 2, name: "TU Darmstadt", abbreviation: "TUDA" },
-]
+// const dummyOrgas: Organization[] = [ /* todo: data from api call */
+  // { id: 1, name: "KIWA", abbreviation: "KIWA" },
+  // { id: 2, name: "TU Darmstadt", abbreviation: "TUDA" },
+// ]
 
 type CreateUserFormData = {
   email?: string,
-  organization_id: number,
+  organization_name: string,
   permission: AccountType,
   activateNow: boolean
 }
@@ -28,7 +30,7 @@ type CreateUserFormData = {
 const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: () => void }) => {
   const [form, setForm] = useState({
     email: "",
-    organization_id: 1,
+    organization_name: "",
     permission: 1,
     activateNow: true
   } as CreateUserFormData);
@@ -84,10 +86,7 @@ const CreateUserModal = ({ show, handleClose }: { show: boolean, handleClose: ()
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Organisation</Form.Label>
-          <Form.Select disabled={isLoadingEmail || isLoadingLink} aria-label="Default select example" name="organization_id" value={form.organization_id} onChange={handleFormChange}>
-            {(dummyOrgas).map((o) =>
-              <option key={o.id} value={o.id}>{o.name} ({o.abbreviation})</option>)}
-          </Form.Select>
+          <Form.Control disabled={isLoadingEmail || isLoadingLink} type="text" placeholder="" name="organization_name" value={form.organization_name} onChange={handleFormChange} />
           <Form.Text className="text-muted">
             Der Benutzer wird dieser Organisaton beitreten.
           </Form.Text>
@@ -142,7 +141,7 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
   const [form, setForm] = useState(user as Account);
 
   const { isLoading: isLoadingEdit, mutate: mutateEdit } = useMutation(["users", "edit"], async (data: Partial<Account>) => {
-    return axios.post("/users/edit/", data).then((e) => e.data);
+    return axios.post("/users/update", null, { params: { update_user_id: data.id, organization_name: data.organization?.id, ...data } }).then((e) => e.data);
   }, {
     onError(e: any) {
       // setErrors(e.response.data.detail)
@@ -216,10 +215,7 @@ const EditUserModal = ({ show, user, handleClose }: { show: boolean, user: Accou
         </InputGroup>
         <Form.Group className="mb-3">
           <Form.Label>Organisation</Form.Label>
-          <Form.Select disabled={isLoading} aria-label="Default select example" name="id" value={form.organization.id} onChange={handleOrgaChange}>
-            {(dummyOrgas).map((o) =>
-              <option key={o.id} value={o.id}>{o.name} ({o.abbreviation})</option>)}
-          </Form.Select>
+          <Form.Control disabled={isLoading} type="text" placeholder="" name="name" value={form.organization.name} onChange={handleOrgaChange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Rolle</Form.Label>
@@ -279,6 +275,10 @@ const Users = () => {
   const [newUser, setNewUser] = useState(false);
   const [editUser, setEditUser] = useState(false);
 
+  const { data, isLoading, isError, isSuccess } = useQuery<Account[]>(["users"], () => {
+    return axios.get("/api/users/all/").then(e => e.data)
+  });
+
   return <Container>
     <CreateUserModal show={newUser} handleClose={() => setNewUser(false)}></CreateUserModal>
     {editUser && <EditUserModal user={user} show={editUser} handleClose={() => { setUser({} as Account); setEditUser(false) }}></EditUserModal>}
@@ -290,36 +290,38 @@ const Users = () => {
     </Row>
     <Row>
       <Col /* md={8} */>
-        <Card body className="my-1 shadow-sm border-0">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>E-Mail</th>
-                <th>Organisation</th>
-                <th>Rolle</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dummyData.map(u => <tr key={u.mail} style={{ cursor: "pointer" }} onClick={() => { setUser(u); setEditUser(true) }}>
-                <td>{u.id}</td>
-                <td>{u.firstname}</td>
-                <td>{u.lastname}</td>
-                <td>{u.mail} {!u.mail_verified && <OverlayTrigger
-                  placement={"top"}
-                  overlay={<Tooltip>E-Mail Adresse wurde (noch) nicht bestätigt.</Tooltip>}>
-                  <span><TbAlertTriangle color="orange"></TbAlertTriangle></span>
-                </OverlayTrigger>}</td>
-                <td>{u.organization.name}</td>
-                <td>{AccountType[u.permission]}</td>
-                <td>{u.disabled ? <Badge bg="danger">Gesperrt</Badge> : <Badge bg="success">Aktiv</Badge>}</td>
-              </tr>)}
-            </tbody>
-          </Table>
-        </Card>
+        {isError && <ErrorAlert>Benutzer konnten nicht geladen werden.</ErrorAlert>}
+        {isLoading ? <LoadingTile></LoadingTile> : isSuccess &&
+          <Card body className="my-1 shadow-sm border-0">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vorname</th>
+                  <th>Nachname</th>
+                  <th>E-Mail</th>
+                  <th>Organisation</th>
+                  <th>Rolle</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map(u => <tr key={u.mail} style={{ cursor: "pointer" }} onClick={() => { setUser(u); setEditUser(true) }}>
+                  <td>{u.id}</td>
+                  <td>{u.firstname}</td>
+                  <td>{u.lastname}</td>
+                  <td>{u.mail} {!u.mail_verified && <OverlayTrigger
+                    placement={"top"}
+                    overlay={<Tooltip>E-Mail Adresse wurde (noch) nicht bestätigt.</Tooltip>}>
+                    <span><TbAlertTriangle color="orange"></TbAlertTriangle></span>
+                  </OverlayTrigger>}</td>
+                  <td>{u.organization.name}</td>
+                  <td>{AccountType[u.permission]}</td>
+                  <td>{u.disabled ? <Badge bg="danger">Gesperrt</Badge> : <Badge bg="success">Aktiv</Badge>}</td>
+                </tr>)}
+              </tbody>
+            </Table>
+          </Card>}
       </Col>
     </Row>
   </Container>

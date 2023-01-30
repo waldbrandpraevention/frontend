@@ -26,7 +26,7 @@ const ChangeMail = () => {
     const queryClient = useQueryClient();
 
     const { isLoading, mutate } = useMutation(["account", "changemail"], (data: ChangeFormData) => {
-        return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
+        return axios.post("/users/me/update", null, { params: data }).then((e) => e.data); /* demo url */
     }, {
         onSuccess() {
             queryClient.invalidateQueries(["account"])
