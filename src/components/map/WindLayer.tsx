@@ -12,7 +12,7 @@ const WindLayer = forwardRef((props, ref: any) => {
   let mounted = true;
   let windGlobalLayer: any;
 
-  const { data, isSuccess, isLoading, isError } = useQuery(["wind"], () => {
+  const { data } = useQuery(["wind"], () => {
     return fetch("https://wind.bp.adriansoftware.de/latest").then(e => e.json())
   }, {
     staleTime: 30 * 60 * 1000,
@@ -32,6 +32,7 @@ const WindLayer = forwardRef((props, ref: any) => {
     if (!data) return;
 
     /* @ts-ignore velocityLayer doesn't exist */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     windGlobalLayer = L.velocityLayer({
       displayValues: true,
       displayOptions: {
@@ -53,8 +54,10 @@ const WindLayer = forwardRef((props, ref: any) => {
       ref.current.addOverlay(windGlobalLayer, "<b>Wind</b>");
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       mounted = false;
       if (ref && ref.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         ref.current.removeOverlay(windGlobalLayer);
       }
     };
