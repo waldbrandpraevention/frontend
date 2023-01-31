@@ -7,7 +7,7 @@ COPY . .
 RUN npm ci && npm run build
 
 # TODO: merge nginx here and remove busybox workaround
-FROM busybox AS final
+FROM tianon/true AS final
 
 WORKDIR /app
 
