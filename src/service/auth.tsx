@@ -20,9 +20,9 @@ export type Organization = Readonly<{
 
 export type Account = Readonly<{
     id: number,
-    firstname: string;
-    lastname: string;
-    mail: string;
+    first_name: string;
+    last_name: string;
+    email: string;
     permission: AccountType;
     disabled: boolean;
     mail_verified: boolean;
@@ -34,9 +34,9 @@ export type Account = Readonly<{
 const fromApiCall = (user: any): Account => {
     return {
         id: user.id,
-        firstname: user.first_name,
-        lastname: user.last_name,
-        mail: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
         permission: user.permission,
         mail_verified: user.email_verified,
         organization: {
