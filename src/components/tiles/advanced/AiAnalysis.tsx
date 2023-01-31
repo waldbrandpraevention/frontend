@@ -1,7 +1,8 @@
 import Plot from 'react-plotly.js';
 import React, { useState } from 'react';
 import Tile from "../../Tile";
-import { Data } from 'plotly.js';
+import Plotly, { Data } from 'plotly.js';
+
 
 const AiAnalysis = () => {
   var x1 = [];
@@ -32,21 +33,34 @@ const AiAnalysis = () => {
     }
   ]);
 
+
   return (
     <Tile>
       <Plot
         data={data}
+
         layout={{
           barmode: 'overlay',
           title: 'Analyse',
           legend: { "orientation": "h" },
           xaxis: { title: 'Time' },
           yaxis: { title: 'Detection Value' },
+          autosize: true,
         }}
+        useResizeHandler={true}
         style={{ width: '100%', height: '100%' }}
       />
+
     </Tile>
   );
 };
 
 export default AiAnalysis;
+function useRef<T>(arg0: null) {
+  throw new Error('Function not implemented.');
+}
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error('Function not implemented.');
+}
+
