@@ -5,6 +5,7 @@ const config = {
 
   host: process.env.REACT_APP_HOST,
   apiRoot: process.env.REACT_APP_API_ROOT,
+  windData: process.env.REACT_APP_WIND_DATA,
 
   timeout: 10000,
 
