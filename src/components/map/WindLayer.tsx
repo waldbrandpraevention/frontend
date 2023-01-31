@@ -39,7 +39,7 @@ const WindLayer = forwardRef((props, ref: any) => {
         velocityType: "Wind",
         position: "bottomleft",
         emptyString: "Keine Daten vorhanden",
-        angleConvention: "bearing",
+        angleConvention: "bearingCCW",
         showCardinal: true,
         speedUnit: "m/s",
         directionString: "Richtung",
@@ -47,7 +47,7 @@ const WindLayer = forwardRef((props, ref: any) => {
       },
       data: data,
       maxVelocity: 25,
-      velocityScale: 0.002,
+      velocityScale: 0.003,
     });
 
     if (ref.current && windGlobalLayer)
