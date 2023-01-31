@@ -4,11 +4,10 @@ import Img from "../../../assets/img/loading/LoadingImage1.webp"
 import Card from 'react-bootstrap/esm/Card';
 import styled from 'styled-components';
 const MyImg = styled.img`
-max-width: 100%;
-max-height: 100%;
-margin: auto;
-display: block;
+width: 100%;
+overflow: hidden;
 `;
+
 
 
 const AiImage = () => {
@@ -16,12 +15,12 @@ const AiImage = () => {
 
   return (
     <Tile>
-      <Card.Title className="text-center">KI-System Einschatzung</Card.Title>
+      <Card.Title className="text-center">KI Einschätzung</Card.Title>
       <MyImg
         src={Img}
         alt="Image"
       />
-    </Tile>
+    </Tile >
   );
 };
 

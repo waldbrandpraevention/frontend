@@ -1,8 +1,15 @@
 import Plot from 'react-plotly.js';
 import React, { useState } from 'react';
 import Tile from "../../Tile";
-import Plotly, { Data } from 'plotly.js';
+import { Data } from 'plotly.js';
+import styled from 'styled-components';
+import ReactResizeDetector from 'react-resize-detector';
+import { Card } from 'react-bootstrap';
 
+const MyPlot = styled(Plot)`
+  width: 100%;
+  height: 100%;
+`
 
 const AiAnalysis = () => {
   var x1 = [];
@@ -35,23 +42,29 @@ const AiAnalysis = () => {
 
 
   return (
-    <Tile>
-      <Plot
-        data={data}
+    <ReactResizeDetector handleWidth handleHeight >
+      {() =>
+        /* @ts-ignore */
+        <Tile>
+          <Card.Title className="text-center">KI Analyse</Card.Title>
+          <MyPlot
+            useResizeHandler
+            data={data}
+            layout={{
+              barmode: 'overlay',
+              legend: { "orientation": "h" },
+              xaxis: { title: 'Zeit' },
+              yaxis: { title: 'Gefahr' },
+              autosize: true,
+            }}
 
-        layout={{
-          barmode: 'overlay',
-          title: 'Analyse',
-          legend: { "orientation": "h" },
-          xaxis: { title: 'Time' },
-          yaxis: { title: 'Detection Value' },
-          autosize: true,
-        }}
-        useResizeHandler={true}
-        style={{ width: '100%', height: '100%' }}
-      />
+            style={{ width: '100%', height: '100%' }}
+            config={{ responsive: true }}
+          />
 
-    </Tile>
+        </Tile>
+      }
+    </ReactResizeDetector>
   );
 };
 
