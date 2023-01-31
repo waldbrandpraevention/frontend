@@ -213,7 +213,7 @@ Um die Daten der Windkarte zu laden, kann entweder die mitgelieferte JSON in `sr
 Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle (6h) Winddaten vom Wetterdienst abruft. Mehr Informationen dazu im Repo: 
 [waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
 
-Im Projekt eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet.
+Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet.
 <!-- ```
 docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
 ``` -->
