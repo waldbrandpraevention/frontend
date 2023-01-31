@@ -34,8 +34,8 @@ const ChangeName = () => {
             queryClient.invalidateQueries(["account"])
             toast.success("Name wurde erfolgreich geändert.")
         },
-        onError() {
-            toast.error("Name konnte nicht geändert werden.")
+        onError(e: any) {
+            toast.error("Name konnte nicht geändert werden. " + e?.response?.data?.detail)
         }
     });
 
@@ -61,7 +61,7 @@ const ChangeName = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="text"
-                            placeholder={user.firstname}
+                            placeholder={user.first_name}
                             name="first_name"
                             value={form.first_name}
                             onChange={handleFormChange}
@@ -77,7 +77,7 @@ const ChangeName = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="text"
-                            placeholder={user.lastname}
+                            placeholder={user.last_name}
                             name="last_name"
                             value={form.last_name}
                             onChange={handleFormChange}
