@@ -95,14 +95,12 @@ services:
   # React
   frontend:
     image: waldbrandpraevention/frontend
-    volumes:
-      - frontend-build:/app/build
-      - frontend-server-conf:/app/server/conf
+    ports:
+      - 8080:80
 
   # API
   backend:
     image: waldbrandpraevention/backend
-    restart: always
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
@@ -114,34 +112,18 @@ services:
       - DEMO_LAT=52.07454738
       - GEOJSON_PATH=/database/zone_data.geojson
       - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-    expose:
-      - 8000
+      # - SMTP_HOST=mail.domain.tld
+      # - SMTP_USER=
+      # - SMTP_PASSWORD=
+      # - SMTP_PORT=25
+      # - SMTP_SENDER=no-reply@domain.tld
 
-  # Reverse Proxy
-  nginx:
-    image: nginx:alpine
-    restart: always
-    ports:
-      - 8080:80 
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - frontend-server-conf:/etc/nginx/conf.d
-      - frontend-build:/usr/share/nginx/html
-
-  # Mail (optional, nur für lokale demo)
+  # Mail Testserver (optional, nur für lokale Demo ohne vorhandenem Mailserver)
   mailhog:
     image: mailhog/mailhog
-    logging:
-      driver: 'none' 
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
-
-volumes:
-  frontend-build:
-  frontend-server-conf:
 
 ```
 
@@ -167,8 +149,8 @@ Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
 ```diff
 ...
-nginx:
-  image: nginx:alpine
+frontend:
+  image: waldbrandpraevention/frontend
   ports:
 -   - 8080:80 
 +   - 1234:80
@@ -213,7 +195,9 @@ Um die Daten der Windkarte zu laden, kann entweder die mitgelieferte JSON in `sr
 Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle (6h) Winddaten vom Wetterdienst abruft. Mehr Informationen dazu im Repo: 
 [waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
 
-Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet.
+Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet. 
+
+Der Server kann in der `.env.production` bzw. `.env.development` unter `REACT_APP_WIND_DATA` geändert werden.
 <!-- ```
 docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
 ``` -->
@@ -270,16 +254,9 @@ Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgen
     Header always set X-Frame-Options "deny"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set X-Content-Type-Options "nosniff"
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </VirtualHost>
 ```
-
-#### FAQ
-- > `waldbrandpraevention-frontend-1 exited with code 0`?
-  - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
-
----
 
 
 ## Development
