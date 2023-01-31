@@ -210,10 +210,10 @@ Die Windkarte basiert auf [leaflet-velocity](https://github.com/onaci/leaflet-ve
 
 Um die Daten der Windkarte zu laden, kann entweder die mitgelieferte JSON in `src/assets/data/latest.json` verwendet werden. Diese enthält Winddaten vom 31.01.23. Dafür muss die `src/components/map/WindLayer.tsx` entsprechend angepasst werden.
 
-Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle (6h) Winddaten vom amerikanischen Wetterdienst abruft. Mehr Informationen dazu im Repo: 
-https://github.com/waldbrandpraevention/wind-js-server
+Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle (6h) Winddaten vom Wetterdienst abruft. Mehr Informationen dazu im Repo: 
+[waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
 
-Standardmäßig wird im Projekt eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet.
+Im Projekt eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben diesem Server verwendet.
 <!-- ```
 docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
 ``` -->
