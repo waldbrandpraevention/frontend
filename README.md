@@ -6,9 +6,12 @@
 <div align="center">
 
 [![Node.js CI](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/node.js.yml?branch=main&style=for-the-badge&label=ci)](https://github.com/waldbrandpraevention/frontend/actions/workflows/node.js.yml)
-![](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/docker-image.yml?branch=main&style=for-the-badge&label=docker)
+![](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/cypress.yml?branch=main&style=for-the-badge&label=e2e)
+[![](https://img.shields.io/github/actions/workflow/status/waldbrandpraevention/frontend/docker-image.yml?branch=main&style=for-the-badge&label=docker)](https://hub.docker.com/r/waldbrandpraevention/frontend/tags)
+[![](https://img.shields.io/codecov/c/gh/waldbrandpraevention/frontend?style=for-the-badge)](https://app.codecov.io/gh/waldbrandpraevention/frontend)
 ![](https://img.shields.io/github/commit-activity/m/waldbrandpraevention/frontend?style=for-the-badge&label=commits)
-![](https://img.shields.io/docker/image-size/waldbrandpraevention/frontend?style=for-the-badge&label=image&color=orange)
+[![](https://img.shields.io/docker/image-size/waldbrandpraevention/frontend?style=for-the-badge&label=image&color=orange)](https://hub.docker.com/r/waldbrandpraevention/frontend/tags)
+[![](https://img.shields.io/codefactor/grade/github/waldbrandpraevention/frontend?style=for-the-badge)](https://www.codefactor.io/repository/github/waldbrandpraevention/frontend/issues/main)
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -83,17 +86,25 @@ services:
   # API
   backend:
     image: waldbrandpraevention/backend
+    restart: always
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
       - ADMIN_PASSWORD=adminkiwa
       - ADMIN_ORGANIZATION=KIWA
+      - DB_PATH=testing.db
+      - DB_BACKUP_PATH=backuptest.db
+      - DEMO_LONG=12.68895149
+      - DEMO_LAT=52.07454738
+      - GEOJSON_PATH=/database/zone_data.geojson
+      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
     expose:
       - 8000
 
   # Reverse Proxy
   nginx:
     image: nginx:alpine
+    restart: always
     ports:
       - 8080:80 
     depends_on:
@@ -103,7 +114,7 @@ services:
       - frontend-server-conf:/etc/nginx/conf.d
       - frontend-build:/usr/share/nginx/html
 
-  # Mail (optional)
+  # Mail (optional, nur für lokale demo)
   mailhog:
     image: mailhog/mailhog
     logging:
@@ -128,18 +139,13 @@ Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Bef
 | Frontend | http://localhost:8080 |
 | API | http://localhost:8080/api/ |
 | API Dokumentation | http://localhost:8080/api/docs |
-| [Mail](#e-mail-) | http://localhost:8025 |
+| [Mail](#e-mail-) (optional) | http://localhost:8025 |
 
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zugangsdaten anmelden.
 Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 
 #### Config 🛠️
  Einstellungen können als Environmentvariablen in der `docker-compose.yml` angepasst werden.
-| Name | Beschreibung | Werte | Standard
-|---|---|---|---|
-| REACT_APP_API_URL | API URL | `string` | `/api/` |
-| MAIL_SMTP_HOST |  |  | |
-| MAIL_SMTP_ | todo |  | |
 
 Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
 ```diff
@@ -148,17 +154,11 @@ nginx:
   image: nginx:alpine
   ports:
 -   - 8080:80 
-+   - 80:80
-  depends_on:
-    - frontend
-    - backend
-  volumes:
-    - frontend-server-conf:/etc/nginx/conf.d
-    - frontend-build:/usr/share/nginx/html
++   - 1234:80
 ...
 ```
 #### E-Mail 📨
-Standardmäßig wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert um den E-Mail Versand lokal testen zu können. Um stattdessen einen vorhandenen Mailserver zu verwenden, die `docker-compose.yml` folgendermaßen anpassen:
+Um den E-Mail Versand lokal testen zu können, wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
 ```diff
 services:
  backend:
@@ -170,9 +170,13 @@ services:
       - ADMIN_ORGANIZATION=KIWA
     expose:
       - 8000
-+  environment:
-+    - MAIL_SMTP_HOST=
-+    todo 
+   environment:
+      - ...
++     - SMTP_HOST=domain.tld
++     - SMTP_USER=
++     - SMTP_PASSWORD=
++     - SMTP_PORT=25
++     - SMTP_SENDER=no-reply@domain.tld
 
 -mailhog:
 -  image: mailhog/mailhog
@@ -261,8 +265,28 @@ npm install
 ```
 
 3. `npm start` zum Starten.<br>
-`npm test` zum Testen.<br>
+`npm run cypress` zum Testen.<br>
 `npm run build` zum Erstellen.
+
+### E2E Testing
+
+1. `npm start` (Wichtig!)
+
+2. `npm run cypress`
+
+3. `E2E Testing` auswählen
+
+4. Browser auswählen. Empfohlen: Chrome.
+
+5. Ein Spec auswählen zum Testen.
+
+Mehr Infos: https://cypress.io
+
+#### Code Coverage
+
+1. `npm run cypress:run`
+
+2. Report in `coverage/lcov-report/index.html`
 
 #### Themes 🎨
 Um ein Theme zu erstellen folgendermaßen vorgehen:

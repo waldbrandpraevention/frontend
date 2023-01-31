@@ -1,20 +1,40 @@
-import { LatLngTuple } from "leaflet";
-import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap, GeoJSON } from 'react-leaflet';
 import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
 import { useEffect } from "react";
-import { useMapStore } from "../../service/stores";
+import { useMapStore } from "../../stores/MapStore";
+import "../../assets/styles/leafletmap.scss";
 
-const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: number }) => {
-  const updateCenterStore = useMapStore(state => state.setCenter)
+/**
+ * fixes https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-410450387 
+ */
+import L from 'leaflet';
+import { getPolygonStyle, useZones } from "../../utils/zones";
+import { useNavigate } from "react-router-dom";
+import DronesContainer from "../map/DronesContainer";
+/* @ts-ignore */
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
+const LeafletMapContainer = () => {
+  const updateCenter = useMapStore(state => state.setCenter)
+  const updateZoom = useMapStore(state => state.setZoom)
+  const activeZone = useMapStore(state => state.activeZone)
+
+  const { data: zonesData, isSuccess: isZonesReady } = useZones()
+
+
+
+  const navigate = useNavigate();
 
   const m = useMap()
   useEffect(() => {
-    // window.addEventListener("resize", () => {
-    //   m.invalidateSize()
-    // })
-    const t = setInterval(() => { /* invalidate container dimension fromt time to time */
+    const t = setInterval(() => { /* invalidate container dimension from time to time */
       m.invalidateSize()
     }, 300)
     return () => clearInterval(t)
@@ -22,45 +42,27 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
 
   m.on("moveend", (e) => {
     const moved = m.getCenter()
-    updateCenterStore([moved.lat, moved.lng])
+    updateCenter([moved.lat, moved.lng])
   })
+
+  m.on("zoomend", (e) => {
+    const zoom = m.getZoom()
+    updateZoom(zoom)
+  })
+
+  m.on("contextmenu", (e) => console.log(e.latlng))
 
   return <LayersControl position="topright">
     <LayersControl.Overlay checked name="<b>Standard</b>">
       <TileLayer
-        // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/*  <Marker position={center}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
     </LayersControl.Overlay>
     <LayersControl.Overlay name="<b>Topografie</b>">
       <LayerGroup>
         <TileLayer
-          // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.opentopomap.org/{z}/{x}/{y}.png"
         />
-        {/* <Circle
-          center={center}
-          pathOptions={{ fillColor: 'blue' }}
-          radius={200}
-        />
-        <Circle
-          center={center}
-          pathOptions={{ fillColor: 'red' }}
-          radius={100}
-          stroke={false}
-        />
-        <LayerGroup>
-          <Circle
-            center={[51.51, -0.08]}
-            pathOptions={{ color: 'green', fillColor: 'green' }}
-            radius={100}
-          />
-        </LayerGroup> */}
       </LayerGroup>
     </LayersControl.Overlay>
 
@@ -69,45 +71,70 @@ const LeafletMapContainer = ({ center, zoom }: { center: LatLngTuple, zoom: numb
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.jpg"
       />
     </LayersControl.Overlay>
+
+    <LayersControl.Overlay name="Standard Weich">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+      />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay name="Standard Dunkel">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+      />
+    </LayersControl.Overlay>
     <LayersControl.Overlay name="Standard Grau">
       <TileLayer
         url="https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="Topografie (ESRI)">
+    <LayersControl.Overlay name="<i>- Feuerwehr</i>">
       <TileLayer
-        url="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}.jpg"
+        url="https://openfiremap.de/hytiles/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="* Feuerwehr">
-      <TileLayer
-        url="http://www.openfiremap.de/hytiles/{z}/{x}/{y}.png"
-      />
-    </LayersControl.Overlay>
-    <LayersControl.Overlay name="* Schienenverkehr">
+    <LayersControl.Overlay name="<i>- Schienenverkehr</i>">
       <TileLayer
         url="http://c.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="* Wanderwege">
+    <LayersControl.Overlay name="<i>- Wanderwege</i>">
       <TileLayer
         url="http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
       />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay name="<i>- Labels</i>">
+      <TileLayer
+        url="https://basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}.jpg"
+      />
+    </LayersControl.Overlay>
+    <LayersControl.Overlay checked={true} name={`<b>Zonen</b>`}>
+      <LayerGroup>
+        {isZonesReady && zonesData.filter(z => activeZone === -1 || activeZone === z.id).map(z => <GeoJSON data={z.geo_json} onEachFeature={(feature, layer) => {
+          layer.on({
+            click: () => navigate(`/zones/${z.id}`)
+          });
+        }} style={getPolygonStyle(z)} />)}
+      </LayerGroup>
+    </LayersControl.Overlay>
+    <LayersControl.Overlay checked={true} name={`<b>Drohnen</b>`}>
+      <LayerGroup>
+        <DronesContainer />
+      </LayerGroup>
     </LayersControl.Overlay>
   </LayersControl>
 }
 
 const LeafletMap = () => {
   const center = useMapStore(state => state.center)
-  // const center = [50.06, 8.64] as LatLngTuple
+  const zoom = useMapStore(state => state.zoom)
 
   return <ReactResizeDetector handleWidth handleHeight >
     {({ height, width, targetRef }) =>
       /* @ts-ignore */
-      <Tile classes="p-0" style={{zIndex: 111}}>
+      <Tile classes="p-0" style={{ zIndex: 111 }}>
         {/* @ts-ignore */}
-        <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={8} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
-          <LeafletMapContainer center={center} zoom={8}></LeafletMapContainer>
+        <MapContainer attributionControl={false} ref={targetRef} center={center} zoom={zoom} doubleClickZoom={true} boxZoom={true} scrollWheelZoom={true} style={{ width: width ?? "100%", height: height ?? "100%" }} /* style={{ width: "100%", height: "100%" }} */>
+          <LeafletMapContainer></LeafletMapContainer>
         </MapContainer>
       </Tile>
     }

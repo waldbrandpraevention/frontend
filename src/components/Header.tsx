@@ -4,10 +4,9 @@ import BellIcon from "./BellIcon"
 import Colormode from "./Colormode";
 import styled from "styled-components";
 import { TbLogout, TbUserCircle } from "react-icons/tb";
-import Logo from "../assets/img/logo.webp";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../service/auth";
-import { useColorStore } from "../service/stores";
+import { useColorStore } from "../stores/ColorStore";
 
 const MyNavbar = styled(Navbar)`
     height: 32px !important;
@@ -41,17 +40,12 @@ const Header = () => {
     return <>
         <MyNavbar variant="light" style={{ background: headerBg }}>
             <Container>
-                <Navbar.Brand>
-                    <Nav.Link style={{ display: "flex" }}>
-                        <img height="24px" width="24px" src={Logo} alt="Logo"></img>
-                    </Nav.Link>
-                </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <MyNavLink><MyColormode iconDark /></MyNavLink>
                         <MyNavLink><MyBellIcon iconDark hasNotifications={false} /></MyNavLink>
-                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={"end"}>
+                        <NavDropdown title={user.first_name} id="basic-nav-dropdown" align={"end"}>
                             <NavDropdown.Item className="d-flex align-items-center" onClick={() => navigate("/settings/account")}>
                                 <TbUserCircle /> Account
                             </NavDropdown.Item>

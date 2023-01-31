@@ -26,14 +26,14 @@ const ChangeMail = () => {
     const queryClient = useQueryClient();
 
     const { isLoading, mutate } = useMutation(["account", "changemail"], (data: ChangeFormData) => {
-        return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
+        return axios.post("/users/me/update", null, { params: data }).then((e) => e.data); /* demo url */
     }, {
         onSuccess() {
             queryClient.invalidateQueries(["account"])
             toast.success("Bitte bestätige die neue E-Mail Adresse.")
         },
-        onError() {
-            toast.error("E-Mail konnte nicht geändert werden.")
+        onError(e: any) {
+            toast.error("E-Mail konnte nicht geändert werden. " + e?.response?.data?.detail)
         }
     });
 
@@ -59,7 +59,7 @@ const ChangeMail = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="email"
-                            placeholder={user.mail}
+                            placeholder={user.email}
                             name="newMail"
                             value={form.newMail}
                             onChange={handleFormChange}

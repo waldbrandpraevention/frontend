@@ -10,7 +10,7 @@ import { TbArrowBackUp, TbCheckbox, TbDragDrop, TbDragDrop2, TbEdit, TbResize, T
 import ReactResizeDetector from 'react-resize-detector';
 import { toast } from 'react-toastify';
 import PlaceholderEditMode from "./tiles/PlaceholderEditMode";
-import { useColorStore } from "../service/stores";
+import { useColorStore } from "../stores/ColorStore";
 
 const MyDiv = styled.div`
   display: flex;
@@ -146,7 +146,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
           </OverlayTrigger>
           <Dropdown>
             <OverlayTrigger
-              placement="bottom"
+              placement="right"
               delay={{ show: 30, hide: 0 }}
               overlay={
                 <Tooltip>
@@ -168,7 +168,7 @@ const TilesLayout = ({ layoutId, defaultLayout, defaultTiles, defaultEnabledTile
             delay={{ show: 30, hide: 300 }}
             overlay={
               <Tooltip>
-                Setzt das Layout (außer deaktivierte Kacheln) und Optionen auf Standard zurück. Das im Browser gespeicherte Layout wird auch gelöscht.
+                Setzt das Layout und alle Optionen auf Standard zurück. Das im Browser gespeicherte Layout wird auch gelöscht.
               </Tooltip>
             }
           >

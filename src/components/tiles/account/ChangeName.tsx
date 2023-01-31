@@ -12,8 +12,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../../service/auth";
 
 type ChangeFormData = {
-    surName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
 };
 
 
@@ -21,21 +21,21 @@ const ChangeName = () => {
     const { user } = useAuth()
 
     const [form, setForm] = useState({
-        surName: "",
-        lastName: ""
+        first_name: "",
+        last_name: ""
     } as ChangeFormData);
 
     const queryClient = useQueryClient();
 
     const { isLoading, mutate } = useMutation(["account", "changename"], (data: ChangeFormData) => {
-        return axios.post("https://httpbin.org/post", data).then((e) => e.data); /* demo url */
+        return axios.post("/users/me/update", null, { params: data }).then((e) => e.data); /* demo url */
     }, {
         onSuccess() {
             queryClient.invalidateQueries(["account"])
             toast.success("Name wurde erfolgreich geändert.")
         },
-        onError() {
-            toast.error("Name konnte nicht geändert werden.")
+        onError(e: any) {
+            toast.error("Name konnte nicht geändert werden. " + e?.response?.data?.detail)
         }
     });
 
@@ -61,9 +61,9 @@ const ChangeName = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="text"
-                            placeholder={user.firstname}
-                            name="surName"
-                            value={form.surName}
+                            placeholder={user.first_name}
+                            name="first_name"
+                            value={form.first_name}
                             onChange={handleFormChange}
                             disabled={isLoading}
                         />
@@ -77,9 +77,9 @@ const ChangeName = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="text"
-                            placeholder={user.lastname}
-                            name="lastName"
-                            value={form.lastName}
+                            placeholder={user.last_name}
+                            name="last_name"
+                            value={form.last_name}
                             onChange={handleFormChange}
                             disabled={isLoading}
                         />

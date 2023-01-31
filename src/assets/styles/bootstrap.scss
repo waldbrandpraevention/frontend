@@ -16,14 +16,7 @@ body {
   height: 100vh;
 }
 
-$primary: #BF360C;
-/* $secondary: ;
-$success: ;
-$info: ;
-$warning: ;
-$danger: ;
-$light: ; 
-$dark:;*/
+@import "variables";
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 

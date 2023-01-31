@@ -12,7 +12,7 @@ import {
 } from "react-icons/tb";
 
 const DroneInfo = () => {
-  const { data, isLoading, isError } = useQuery(["droneinfo"], () => {
+  const { /* data, */ isLoading, isError } = useQuery(["droneinfo"], () => {
     return axios.get("/test?input=69").then((e) => e.data);
   });
 
@@ -59,13 +59,14 @@ const DroneInfo = () => {
         }}
       >
         <Card.Body>
-          <p>
-            <TbBatteryCharging></TbBatteryCharging>20%
-          </p>
-          <p>
-            <TbArrowBigRight></TbArrowBigRight>15km/h
-          </p>
-          {data.message}
+          <div className="d-grid">
+            <div className="col">
+              <TbBatteryCharging></TbBatteryCharging>20%
+            </div>
+            <div className="col">
+              <TbArrowBigRight></TbArrowBigRight>15km/h
+            </div>
+          </div>
         </Card.Body>
       </div>
     </Tile>

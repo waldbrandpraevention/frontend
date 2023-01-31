@@ -2,11 +2,26 @@ import { ReactElement } from "react"
 import ReactGridLayout from "react-grid-layout"
 
 export type TileElement = {
+    /**
+     * tile component in `components/tiles`. must return a `<Tile>...</Tile>`
+     */
     el: ReactElement,
-    id: string /* internal id */,
-    name: string /* display name */,
-    enabled: boolean,
-    noEditmode: boolean, /* display placeholder instead of actual element in edit mode to improve perfromance/reduce visual glitches */
+    /**
+     * unique id per `<TilesLayout />`
+     */
+    id: string,
+    /**
+     * display name
+     */
+    name: string,
+    /**
+     * whether tile is enabled by default
+     */
+    enabled?: boolean,
+    /**
+     * don't show tile while in edit mode. show placeholder instead
+     */
+    noEditmode?: boolean, /* display placeholder instead of actual element in edit mode to improve perfromance/reduce visual glitches */
 }
 
 export type TileLayouts = {
@@ -14,10 +29,51 @@ export type TileLayouts = {
     mobile: ReactGridLayout.Layout[],
 }
 
+/**
+ * @inheritdoc
+ */
+export type TilesOptions = TileElement & {
+    /**
+     * layout for main breakpoint
+     */
+    main: Omit<ReactGridLayout.Layout, "i">,
+    /**
+     * layout for mobile breakpoint
+     */
+    mobile: Omit<ReactGridLayout.Layout, "i">,
+}
+
+/**
+ * Creates tiles and layouts.
+ */
+export const tiles = (tiles: TilesOptions[]): { defaultTiles: TileElement[], defaultLayout: TileLayouts } => {
+    const defaultTiles: TileElement[] = []
+    const defaultLayout: TileLayouts = { main: [], mobile: [] }
+    tiles.forEach(l => {
+        defaultTiles.push({ el: l.el, id: l.id, name: l.name, enabled: l.enabled ?? true, noEditmode: l.noEditmode ?? false })
+        defaultLayout.main.push({ i: l.id, ...l.main })
+        defaultLayout.mobile.push({ i: l.id, ...l.mobile })
+    })
+    return { defaultTiles: sortTiles(defaultTiles), defaultLayout }
+}
+
+/**
+ * Creates a tile.
+ * @param tile tile component in `components/tiles`. must return a `<Tile>...</Tile>`
+ * @param id unique id per layout
+ * @param name display name
+ * @param enabled whether tile is enabled by default
+ * @param noEditmode don't show tile while in edit mode. show placeholder instead
+ * @returns TileElement
+ * @deprecated use `tiles` instead
+ */
 export const makeTile = (tile: ReactElement, id: string, name: string, enabled: boolean = true, noEditmode = false): TileElement => {
     return { el: tile, id, name, enabled, noEditmode }
 }
 
+/**
+ * Sorts tiles by display name.
+ */
 export const sortTiles = (tiles: TileElement[]): TileElement[] => {
     return tiles.sort((a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0))
 }

@@ -1,40 +1,27 @@
-/* To share data between tiles in dashboard: <Map> <-> [lat,lon] <-> <WeatherForecast> */
-import { LatLngTuple } from "leaflet"
-import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-
-type MapStore = {
-  center: LatLngTuple,
-  setCenter: (newCenter: LatLngTuple) => void
-}
-
-export const useMapStore = create<MapStore>()((set) => ({
-  center: [50.06, 8.64], /* = Frankfurt coordiantes */
-  setCenter: (newCenter: LatLngTuple) => set(() => ({ center: newCenter })),
-}))
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 type ColorStore = {
-  background: string,
-  headerBackground: string,
-  sidebarBackground: string,
-  sidebarActive: string,
-  sidebarHover: string,
-  sidebarText: string,
-  setColor: (newColors: Partial<ColorStore>) => void,
-  resetDefault: () => void,
-}
+  background: string;
+  headerBackground: string;
+  sidebarBackground: string;
+  sidebarActive: string;
+  sidebarHover: string;
+  sidebarText: string;
+  setColor: (newColors: Partial<ColorStore>) => void;
+  resetDefault: () => void;
+};
 
 export const defaultColors: Readonly<Omit<ColorStore, "setColor" | "resetDefault">> = {
   background: "#F5F5F5" /* "#f7f7f7" */,
-  sidebarBackground: "#FAFAFA"/*  "#D32F2F" */,
+  sidebarBackground: "#F5F5F5" /*  "#FAFAFA" */,
   sidebarActive: "#ff7043",
   sidebarHover: "#fbe9e7",
   sidebarText: "#000000",
-  headerBackground: "#F5F5F5",
-}
-
-type Theme = Readonly<Omit<ColorStore, "setColor" | "resetDefault">>
-export const themes: { green: Theme, bluegreen: Theme, red: Theme, blue: Theme, orange: Theme, black: Theme } = {
+  headerBackground: "#F5F5F5", 
+};
+type Theme = Readonly<Omit<ColorStore, "setColor" | "resetDefault">>;
+export const themes: { green: Theme; bluegreen: Theme; red: Theme; blue: Theme; orange: Theme; black: Theme; } = {
   green: {
     background: "#E8F5E9",
     headerBackground: "#E8F5E9",
@@ -83,17 +70,15 @@ export const themes: { green: Theme, bluegreen: Theme, red: Theme, blue: Theme, 
     sidebarHover: "#5c5c5c",
     sidebarText: "#FFFFFF",
   }
-}
+};
 
 export const useColorStore = create<ColorStore>()(persist(
   (set, get) => ({
     ...defaultColors,
-    setColor: ((newColors: Partial<ColorStore>) => set((state) => ({
-      ...state, ...newColors
-    }))),
+    setColor: ((newColors: Partial<ColorStore>) => set(() => newColors)),
     resetDefault: () => set(() => defaultColors)
   }), {
   name: "colors",
   storage: createJSONStorage(() => localStorage)
 }
-))
+));
