@@ -50,4 +50,3 @@ const AiAnalysis = () => {
 };
 
 export default AiAnalysis;
-
