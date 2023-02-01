@@ -31,6 +31,9 @@ export type Account = Readonly<{
     isAdmin: boolean;
 }>
 
+/**
+ * Convert API response to Account type
+ */
 const fromApiCall = (user: any): Account => {
     return {
         id: user.id,
@@ -112,6 +115,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         refetchOnWindowFocus: "always",
     })
 
+    /**
+     * Login user with given token and save it to local storage
+     */
     const login = (token: string) => {
         return new Promise<void>(async (resolve, reject) => {
             const user = await axios.get("/users/me/", { headers: { Authorization: "Bearer " + token } })
@@ -135,6 +141,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
     }
 
+    /**
+     * Logout user and remove token from local storage
+     */
     const logout = () => {
         ApiClientService.deleteToken();
         clearLocalToken();

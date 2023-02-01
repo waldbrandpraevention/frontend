@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 import { enableDebug } from "../config/config";
 
+/**
+ * Log debug message if debug is enabled
+ */
 export const d = (service: string, msg: string) => {
     enableDebug && console.log(`[${service}] ${msg}`);
 }
 
+/**
+ * Limit text to given length and append `after` if text is longer than limit
+ */
 export const limit = (text: string, limit: number, after: string = "..."): string => {
     return text.substring(0, limit) + ((text.length > limit) ? after : "");
 }
@@ -20,6 +26,9 @@ export const once = (id: string, f: () => void, /* expiresMinutes: number = -1, 
     sessionOnly ? sessionStorage.setItem(id, dateNow) : localStorage.setItem(id, dateNow)
 }
 
+/**
+ * Does current route match given route
+ */
 export const isActiveRoute = (route: string): boolean => {
     return window.location.pathname === route
 }

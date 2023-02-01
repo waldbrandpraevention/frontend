@@ -25,7 +25,13 @@ export type TileElement = {
 }
 
 export type TileLayouts = {
+    /**
+     * layout for desktop and tablet breakpoint
+     */
     main: ReactGridLayout.Layout[],
+    /**
+     * layout for mobile breakpoint
+     */
     mobile: ReactGridLayout.Layout[],
 }
 
@@ -34,7 +40,7 @@ export type TileLayouts = {
  */
 export type TilesOptions = TileElement & {
     /**
-     * layout for main breakpoint
+     * layout for desktop and tablet breakpoint
      */
     main: Omit<ReactGridLayout.Layout, "i">,
     /**
@@ -104,16 +110,25 @@ export type LayoutConfig = {
     scale: number
 }
 
+/**
+ * Saves layout to local storage.
+ */
 export const saveLayout = (config: LayoutConfig, page: string) => {
     localStorage.setItem("layout_" + page, JSON.stringify(config))
 }
 
+/**
+ * Loads layout from local storage.
+ */
 export const loadLayout = (page: string): LayoutConfig | null => {
     const l = localStorage.getItem("layout_" + page)
     if (l === null) return null;
     return JSON.parse(l)
 }
 
+/**
+ * Clears layout from local storage.
+ */
 export const clearSavedlayout = (page: string) => {
     localStorage.removeItem("layout_" + page)
 }
