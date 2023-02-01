@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import config from "../config/config";
+import { enableDebug } from "../config/config";
 
 export const d = (service: string, msg: string) => {
-    config.enableDebug && console.log(`[${service}] ${msg}`);
+    enableDebug && console.log(`[${service}] ${msg}`);
 }
 
 export const limit = (text: string, limit: number, after: string = "..."): string => {

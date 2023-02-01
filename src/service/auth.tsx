@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import config from "../config/config";
+import { localStorageName } from "../config/config";
 import { d } from "../utils/util";
 import ApiClientService from "./api-client.service";
 
@@ -52,19 +52,19 @@ const fromApiCall = (user: any): Account => {
 }
 
 export const saveLocalToken = (token: string) => {
-    localStorage.setItem(config.localStorageName, token);
+    localStorage.setItem(localStorageName, token);
 }
 
 export const loadLocalToken = (): string | null => {
-    return localStorage.getItem(config.localStorageName);
+    return localStorage.getItem(localStorageName);
 }
 
 export const clearLocalToken = () => {
-    localStorage.removeItem(config.localStorageName)
+    localStorage.removeItem(localStorageName)
 }
 
 export const hasLocalToken = (): boolean => {
-    return localStorage.getItem(config.localStorageName) !== null
+    return localStorage.getItem(localStorageName) !== null
 }
 
 type AuthContextType = {

@@ -5,7 +5,7 @@ import L from "leaflet";
 import { useMap } from "react-leaflet";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import config from "../../config/config";
+import { windData } from "../../config/config";
 
 const WindLayer = forwardRef((props, ref: any) => {
   const map = useMap();
@@ -14,7 +14,7 @@ const WindLayer = forwardRef((props, ref: any) => {
   let windGlobalLayer: any;
 
   const { data } = useQuery(["wind"], () => {
-    return fetch(config.windData as string).then(e => e.json())
+    return fetch(windData as string).then(e => e.json())
   }, {
     staleTime: 30 * 60 * 1000,
     onError(err: Error) {
