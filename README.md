@@ -88,6 +88,8 @@ Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle erste
 ```bash
  curl -fsSL https://get.kiwa.tech | bash -
 ```
+Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und `adminkiwa` anmelden.
+
 [Installationsskript](/install.sh)
 
 ---
