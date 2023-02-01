@@ -33,6 +33,7 @@
 
 - [Demo](#demo)
 - [Installation](#installation)
+    + [1-Line 🚀](#one-line)
     + [Quickstart 🚀](#quickstart)
     + [Konfiguration ⚙️](#konfiguration)
       + [Port ⚓](#port)
@@ -81,6 +82,15 @@ Am Einfachsten ist die Installation mit Docker (compose).
 
 Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen. Alternativ können auch die jeweiligen `Dockerfile`s genutzt werden um die Images manuell zu erstellen. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
+---
+### One-Line 
+Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle erstellten Container & Volumes werden automatisch bereinigt.
+```bash
+ curl -fsSL https://get.kiwa.tech | bash -
+```
+[Installationsskript](/install.sh)
+
+---
 #### Quickstart
 
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein. Ist standardmäßig bei *Docker Desktop* der Fall.
