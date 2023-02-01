@@ -24,8 +24,17 @@ type Zone = {
    */
   events: any[];
   federal_state: string;
+  /**
+   * GeoJSON outline for zone
+   */
   geo_json: GeoJSON.Feature<GeoJSON.GeometryObject>;
+  /**
+   * Coordinates for center of zone
+   */
   geo_point: LatLngTuple;
+  /**
+   * Zone ID
+   */
   id: number;
 }
 

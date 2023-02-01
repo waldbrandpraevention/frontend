@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import config from "../config/config";
+import { localStorageName } from "../config/config";
 import { d } from "../utils/util";
 import ApiClientService from "./api-client.service";
 
@@ -31,6 +31,9 @@ export type Account = Readonly<{
     isAdmin: boolean;
 }>
 
+/**
+ * Convert API response to Account type
+ */
 const fromApiCall = (user: any): Account => {
     return {
         id: user.id,
@@ -52,19 +55,19 @@ const fromApiCall = (user: any): Account => {
 }
 
 export const saveLocalToken = (token: string) => {
-    localStorage.setItem(config.localStorageName, token);
+    localStorage.setItem(localStorageName, token);
 }
 
 export const loadLocalToken = (): string | null => {
-    return localStorage.getItem(config.localStorageName);
+    return localStorage.getItem(localStorageName);
 }
 
 export const clearLocalToken = () => {
-    localStorage.removeItem(config.localStorageName)
+    localStorage.removeItem(localStorageName)
 }
 
 export const hasLocalToken = (): boolean => {
-    return localStorage.getItem(config.localStorageName) !== null
+    return localStorage.getItem(localStorageName) !== null
 }
 
 type AuthContextType = {
@@ -112,6 +115,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         refetchOnWindowFocus: "always",
     })
 
+    /**
+     * Login user with given token and save it to local storage
+     */
     const login = (token: string) => {
         return new Promise<void>(async (resolve, reject) => {
             const user = await axios.get("/users/me/", { headers: { Authorization: "Bearer " + token } })
@@ -135,6 +141,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
     }
 
+    /**
+     * Logout user and remove token from local storage
+     */
     const logout = () => {
         ApiClientService.deleteToken();
         clearLocalToken();
