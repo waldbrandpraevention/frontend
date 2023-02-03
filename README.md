@@ -35,6 +35,7 @@
 
 ## Inhalt
 
+- [Features ✨](#features)
 - [Demo](#demo)
 - [Installation](#installation)
   - [1-Line 🚀](#one-line)
@@ -53,19 +54,36 @@
   - [Themes](#themes)
   - [Kacheln](#kacheln)
 
-<div align="center">
+## Features
 
----
+- Sehr gute
+  **[Performance](https://bp.adriansoftware.de/media/performance1.gif)** auch
+  bei riesigen Datensätzen.
+- Gemeindegrenzen als **Zonen** einfach hinzufügen und entfernen
+- **[Drohnen](https://bp.adriansoftware.de/media/performance2.gif)** mit
+  **animierten** Routen
+- Alle Komponenten
+  **[containerisiert](https://hub.docker.com/u/waldbrandpraevention)**
+- **Advanced** Analyse Seite mit Drohnenbildern und KI-Einschätzungen
+- **Benachrichtigungen** bei Brandereignissen
+- **Viele** Karten: **OpenStreetMap**, **Topografie**, **Satelliten** und mehr
+- **Feuerwehrkarte** mit Position von **Feuerwehrwachen** und **Hydranten**
+- aktuelle **Wetterdaten** und **Vorhersagen** vom deutschen Wetterdienst
+- animierte **Windkarte** mit dazugehörigem
+  [Windserver](https://github.com/waldbrandpraevention/wind-js-server)
+- **Authentifizierung** mit Rollenverteilung (Benutzer und Administrator)
+- Administration mit **Organisations-** und **Usermanagement**
+- **[E-Mail](#e-mail)** Verifizierung
+- **Simulation** der Drohnen und Events.
+- Frei **anpassbares** Design mit vielen **[Themes](#themes)**
+- Komplett **modulares [Kachellayout](#kacheln)**
+- **[E2E](#e2e-testing)**-Testing
 
 ## Demo
 
 [kiwa.tech](https://kiwa.tech)
 
 E-Mail: `admin@kiwa.tech` Passwort: `adminkiwa`
-
----
-
-</div>
 
 ## Installation
 
@@ -77,6 +95,8 @@ Am Einfachsten ist die Installation mit Docker (compose).
 
 <!-- ### All-in-One 👑 -->
 
+<!--
+
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![](https://img.shields.io/badge/-backend-blue?style=for-the-badge)
@@ -84,6 +104,7 @@ Am Einfachsten ist die Installation mit Docker (compose).
 ![](https://img.shields.io/badge/-Mail*-yellow?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+-->
 
 Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen
 Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen.
@@ -164,10 +185,14 @@ docker compose up
 ```
 
 Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den
-Befehl angehängt werden. | Komponente | URL | |---|---| | Frontend |
-http://localhost:8080 | | API | http://localhost:8080/api/ | | API Dokumentation
-| http://localhost:8080/api/docs | | [Mail](#e-mail-) (optional) |
-http://localhost:8025 |
+Befehl angehängt werden.
+
+| Komponente                  | URL                            |
+| --------------------------- | ------------------------------ |
+| Frontend                    | http://localhost:8080          |
+| API                         | http://localhost:8080/api/     |
+| API Dokumentation           | http://localhost:8080/api/docs |
+| [Mail](#e-mail-) (optional) | http://localhost:8025          |
 
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten
 Zugangsdaten anmelden. Diese sollten nach erfolgreichem Login auf jeden Fall
@@ -448,40 +473,43 @@ const MyPage = () => {
 
 export default MyPage;
 ```
+
 Referenz:
+
 ```ts
 export type TileElement = {
-    /**
-     * tile component in `components/tiles`. must return a `<Tile>...</Tile>`
-     */
-    el: ReactElement,
-    /**
-     * unique id per `<TilesLayout />`
-     */
-    id: string,
-    /**
-     * display name
-     */
-    name: string,
-    /**
-     * whether tile is enabled by default
-     */
-    enabled?: boolean,
-    /**
-     * don't show tile while in edit mode. show placeholder instead
-     */
-    noEditmode?: boolean, 
-}
+  /**
+   * tile component in `components/tiles`. must return a `<Tile>...</Tile>`
+   */
+  el: ReactElement;
+  /**
+   * unique id per `<TilesLayout />`
+   */
+  id: string;
+  /**
+   * display name
+   */
+  name: string;
+  /**
+   * whether tile is enabled by default
+   */
+  enabled?: boolean;
+  /**
+   * don't show tile while in edit mode. show placeholder instead
+   */
+  noEditmode?: boolean;
+};
 ```
+
 ```ts
 export type TileLayouts = {
-    /**
-     * layout for desktop and tablet breakpoint
-     */
-    main: ReactGridLayout.Layout[],
-    /**
-     * layout for mobile breakpoint
-     */
-    mobile: ReactGridLayout.Layout[],
-}
+  /**
+   * layout for desktop and tablet breakpoint
+   */
+  main: ReactGridLayout.Layout[];
+  /**
+   * layout for mobile breakpoint
+   */
+  mobile: ReactGridLayout.Layout[];
+};
 ```
