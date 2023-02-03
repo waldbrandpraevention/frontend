@@ -56,11 +56,15 @@
 
 ## Features
 
-- Sehr gute **[Performance](https://bp.adriansoftware.de/media/performance1.gif)** auch bei riesigen Datensätzen.
+- Sehr gute
+  **[Performance](https://bp.adriansoftware.de/media/performance1.gif)** auch
+  bei riesigen Datensätzen.
 - Gemeindegrenzen als **Zonen** einfach hinzufügen und entfernen
-- **[Drohnen](https://bp.adriansoftware.de/media/performance2.gif)** mit **animierten** Routen
-- Alle Komponenten **[containerisiert](https://hub.docker.com/u/waldbrandpraevention)**
-- **Advanced** Analyse Seite mit Drohnenbildern und KI-Einschätzungen 
+- **[Drohnen](https://bp.adriansoftware.de/media/performance2.gif)** mit
+  **animierten** Routen
+- Alle Komponenten
+  **[containerisiert](https://hub.docker.com/u/waldbrandpraevention)**
+- **Advanced** Analyse Seite mit Drohnenbildern und KI-Einschätzungen
 - **Benachrichtigungen** bei Brandereignissen
 - **Viele** Karten: **OpenStreetMap**, **Topografie**, **Satelliten** und mehr
 - **Feuerwehrkarte** mit Position von **Feuerwehrwachen** und **Hydranten**
@@ -92,7 +96,6 @@ Am Einfachsten ist die Installation mit Docker (compose).
 <!-- ### All-in-One 👑 -->
 
 <!--
-
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
@@ -182,10 +185,14 @@ docker compose up
 ```
 
 Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den
-Befehl angehängt werden. | Komponente | URL | |---|---| | Frontend |
-http://localhost:8080 | | API | http://localhost:8080/api/ | | API Dokumentation
-| http://localhost:8080/api/docs | | [Mail](#e-mail-) (optional) |
-http://localhost:8025 |
+Befehl angehängt werden.
+
+| Komponente                  | URL                            |
+| --------------------------- | ------------------------------ |
+| Frontend                    | http://localhost:8080          |
+| API                         | http://localhost:8080/api/     |
+| API Dokumentation           | http://localhost:8080/api/docs |
+| [Mail](#e-mail-) (optional) | http://localhost:8025          |
 
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten
 Zugangsdaten anmelden. Diese sollten nach erfolgreichem Login auf jeden Fall
