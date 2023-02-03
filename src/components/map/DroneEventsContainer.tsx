@@ -7,7 +7,7 @@ const DroneEventsContainer = () => {
   // const activeZone = useMapStore(state => state.activeZone)
 
   // TODO: useEvents() hook for data
-  const [eventData, setEventData] = useState<Event[]>(dummyData())
+  const [eventData, /* setEventData */] = useState<Event[]>(dummyData())
 
   return <>{eventData.map(e => /* (activeZone === -1 || e.zone_id === activeZone)  && */ <DroneEvent data={e} />)}</>
 }
