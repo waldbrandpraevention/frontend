@@ -51,8 +51,8 @@ export const dummyData = (): Event[] => {
     lon: 12.548618316650392,
     lat: 52.19424496781449,
     confidence: 0.5,
-    picture_path: "https://picsum.photos/200",
-    ai_path: "https://picsum.photos/200",
+    picture_path: "",
+    ai_path: "",
   })
 
   dummy.push({
@@ -62,14 +62,14 @@ export const dummyData = (): Event[] => {
     lon: 12.445106506347658,
     lat: 52.20139976622065,
     confidence: 0.5,
-    picture_path: "https://picsum.photos/200",
-    ai_path: "https://picsum.photos/200",
+    picture_path: "",
+    ai_path: "",
   })
 
   return dummy
 }
 
-export const useDrones = () => {
+export const useEvents = () => {
   return useQuery<Event[]>(["events"], () => {
     return axios.get("/events/all/").then(e => e.data);
   }, { refetchInterval: 30000 /* 30s */ });
