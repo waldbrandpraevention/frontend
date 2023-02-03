@@ -26,6 +26,13 @@
 </div>
 
 ![](https://bp.adriansoftware.de/media/x3.png)
+
+<div align="center">
+
+![wind-demo1](https://user-images.githubusercontent.com/19362349/216485268-1cc98986-22ca-4bd1-a645-49c7fc1214df.gif)
+
+</div>
+
 ![](https://bp.adriansoftware.de/media/x4a.png)
 ![](/src/assets/img/arch.png)
 
