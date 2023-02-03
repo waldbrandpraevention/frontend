@@ -17,8 +17,11 @@ const DronesContainer = () => {
       setDroneData(oldData => {
         let newDroneData: DroneType[] = [];
         oldData.forEach(d => newDroneData.push(
-          { ...d, position: [d.position[0] + randomIntBetween(-50, 50) * 0.001, d.position[1] + randomIntBetween(-50, 50) * 0.001] }
-        ))
+          {
+            ...d,
+            lat: d.lat + randomIntBetween(-50, 50) * 0.001,
+            lon: d.lon + randomIntBetween(-50, 50) * 0.001,
+          }))
         return newDroneData;
       })
       return () => clearInterval(t)

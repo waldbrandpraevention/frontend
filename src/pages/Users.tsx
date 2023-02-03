@@ -49,7 +49,7 @@ const Users = () => {
                   <td>{u.id}</td>
                   <td>{u.first_name}</td>
                   <td>{u.last_name}</td>
-                  <td>{u.email} {!u.mail_verified && <OverlayTrigger
+                  <td>{u.email} {!u.email_verified && <OverlayTrigger
                     placement={"top"}
                     overlay={<Tooltip>E-Mail Adresse wurde (noch) nicht bestätigt.</Tooltip>}>
                     <span><TbAlertTriangle color="orange"></TbAlertTriangle></span>
