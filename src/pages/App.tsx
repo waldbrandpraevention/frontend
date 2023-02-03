@@ -39,8 +39,8 @@ const App = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!user.mail_verified) toast.warn("Sie haben Ihre E-Mail Adresse noch nicht verifiziert", { toastId: "mail_unverified" })
-  }, [user.mail_verified])
+    if (!user.email_verified) toast.warn("Sie haben Ihre E-Mail Adresse noch nicht verifiziert", { toastId: "mail_unverified" })
+  }, [user.email_verified])
 
   return (<>
     <ErrorBoundary>

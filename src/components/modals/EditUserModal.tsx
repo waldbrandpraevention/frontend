@@ -88,7 +88,7 @@ export const EditUserModal = ({ show, user, handleClose }: { show: boolean; user
         <Form.Label>E-Mail Adresse</Form.Label>
         <InputGroup className="mb-3">
           <Form.Control disabled={isLoading} type="email" name="email" value={form.email} onChange={handleFormChange} />
-          {!user.mail_verified ? <Badge className="d-flex align-items-center" bg="warning">unverifiziert</Badge> :
+          {!user.email_verified ? <Badge className="d-flex align-items-center" bg="warning">unverifiziert</Badge> :
             <Badge className="d-flex align-items-center" bg="success">verifiziert</Badge>}
         </InputGroup>
         <Form.Group className="mb-3">

@@ -49,8 +49,8 @@ const ZoneOverview = () => {
               <td>???</td>
               {/* <td >{zone.lastUpdate}</td> */}
               <td>???</td>
-              <td ><DangerLevel level={zone.fire_risk} ></DangerLevel></td>
-              <td ><DangerLevel level={zone.ai} ></DangerLevel></td>
+              <td ><DangerLevel level={zone.dwd_fire_risk} ></DangerLevel></td>
+              <td ><DangerLevel level={zone.ai_fire_risk} ></DangerLevel></td>
             </MyTr>
           ))}
         </tbody>

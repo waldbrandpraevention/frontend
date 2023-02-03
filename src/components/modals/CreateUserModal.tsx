@@ -8,9 +8,9 @@ import LoadingSpinner from "../LoadingSpinner";
 import { AccountType } from "../../service/auth";
 
 // const dummyData: Account[] = [
-// { id: 1, firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
-// { id: 2, firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
-// { id: 3, firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, mail_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
+// { id: 1, firstname: "foo", lastname: "bar", mail: "foo@bar.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, email_verified: true, permission: 2, disabled: false, isAdmin: true, isUser: false },
+// { id: 2, firstname: "Max", lastname: "Mustermann", mail: "max@mustermann.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, email_verified: false, permission: 1, disabled: false, isAdmin: false, isUser: true },
+// { id: 3, firstname: "Anakin", lastname: "Skywalker", mail: "anakin@skywalker.de", organization: { id: 1, name: "KIWA", abbreviation: "KIWA" }, email_verified: false, permission: 1, disabled: true, isAdmin: false, isUser: true },
 // ]
 // const dummyOrgas: Organization[] = [ /* todo: data from api call */
 // { id: 1, name: "KIWA", abbreviation: "KIWA" },

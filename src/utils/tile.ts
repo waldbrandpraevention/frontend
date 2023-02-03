@@ -21,7 +21,7 @@ export type TileElement = {
     /**
      * don't show tile while in edit mode. show placeholder instead
      */
-    noEditmode?: boolean, /* display placeholder instead of actual element in edit mode to improve perfromance/reduce visual glitches */
+    noEditmode?: boolean, 
 }
 
 export type TileLayouts = {
