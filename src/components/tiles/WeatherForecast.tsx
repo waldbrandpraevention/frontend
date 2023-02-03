@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useMapStore } from "../../stores/MapStore";
-import { useDebounce } from "../../utils/util";
+import { limit, useDebounce } from "../../utils/util";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
@@ -232,6 +232,11 @@ const WeatherForecast = () => {
             {data.overmorrow.weather[18]?.temperature?.toFixed(0)}°C
           </div>
         </div>
+      </div>
+      <div className="text-center mt-1">
+        {data.today.sources.sort((a: any, b: any) => a.distance - b.distance).slice(0, 1).map((s: any) => <>
+          <small className="text-secondary">Wetterstation: {limit(s.station_name, 24)} ({s.distance > 1000 ? (s.distance / 1000).toFixed(2) + "k" : s.distance}m)</small>
+        </>)}
       </div>
     </Tile>
   );

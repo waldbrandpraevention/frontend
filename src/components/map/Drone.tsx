@@ -8,6 +8,7 @@ type DroneProps = {
 }
 
 const droneIcon = L.icon({
+  // https://www.flaticon.com/free-icon/drone_8607675
   iconUrl: "https://cdn-icons-png.flaticon.com/512/8607/8607675.png",
   iconSize: [40, 40],
   popupAnchor: [0, -10],

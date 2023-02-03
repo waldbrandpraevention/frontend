@@ -30,10 +30,6 @@ const DronesContainer = () => {
   }, [])
 
   return <>{droneData.map(d => (activeZone === -1 || d.zone_id === activeZone) && <Drone data={d} />)}</>
-
-  // find all unique drone ids in active zone or all zones. newq Set() removes duplicates but not need if always latest data
-  // const droneIds = [...new Set(droneData.filter(d => activeZone === -1 || d.zone_id === activeZone).map(d => d.drone_id))]
-  // return <>{droneIds.map(id => <Drone data={droneData.find(_d => _d.drone_id === id) as DroneType}></Drone>)}</>
 }
 
 export default DronesContainer

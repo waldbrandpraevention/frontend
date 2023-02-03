@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { DroneEvent } from "./events";
+import { Event } from "./events";
 
 type Zone = {
   /**
@@ -22,7 +22,7 @@ type Zone = {
   /**
    * Drone Events
    */
-  events: DroneEvent[];
+  events: Event[];
   /**
    * 'Bundesland'
    */

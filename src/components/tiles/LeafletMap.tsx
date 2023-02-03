@@ -14,6 +14,7 @@ import { getPolygonStyle, useZones } from "../../utils/zones";
 import { useNavigate } from "react-router-dom";
 import DronesContainer from "../map/DronesContainer";
 import WindLayer from "../map/WindLayer";
+import DroneEventsContainer from "../map/DroneEventsContainer";
 /* @ts-ignore */
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -26,6 +27,7 @@ const LeafletMapContainer = () => {
   const updateCenter = useMapStore(state => state.setCenter)
   const updateZoom = useMapStore(state => state.setZoom)
   const activeZone = useMapStore(state => state.activeZone)
+  const setShowDroneRoutes = useMapStore(state => state.setShowDroneRoutes)
 
   const { data: zonesData, isSuccess: isZonesReady } = useZones()
 
@@ -52,6 +54,14 @@ const LeafletMapContainer = () => {
   })
 
   m.on("contextmenu", (e) => console.log(e.latlng))
+
+  m.on("overlayadd", (e) => {
+    if (e.name === "<b>Drohnenrouten</b>") setShowDroneRoutes(true)
+  })
+
+  m.on("overlayremove", (e) => {
+    if (e.name === "<b>Drohnenrouten</b>") setShowDroneRoutes(false)
+  })
 
   return <LayersControl position="topright" ref={layersRef}>
     <LayersControl.Overlay checked name="<b>Standard</b>">
@@ -125,9 +135,19 @@ const LeafletMapContainer = () => {
         }} style={getPolygonStyle(z)} />)}
       </LayerGroup>
     </LayersControl.Overlay>
+    <LayersControl.Overlay checked={true} name={`<b>Drohnenrouten</b>`}>
+      <LayerGroup>
+        {/* TODO */}
+      </LayerGroup>
+    </LayersControl.Overlay>
     <LayersControl.Overlay checked={true} name={`<b>Drohnen</b>`}>
       <LayerGroup>
         <DronesContainer />
+      </LayerGroup>
+    </LayersControl.Overlay>
+    <LayersControl.Overlay checked={true} name={`<b>Events</b>`}>
+      <LayerGroup>
+        <DroneEventsContainer />
       </LayerGroup>
     </LayersControl.Overlay>
   </LayersControl>
