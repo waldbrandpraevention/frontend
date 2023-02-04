@@ -121,7 +121,7 @@ Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle
 erstellten Container & Volumes werden automatisch bereinigt.
 
 ```bash
-curl -fsSL https://get.kiwa.tech | bash -
+curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/install.sh | bash -
 ```
 
 Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
