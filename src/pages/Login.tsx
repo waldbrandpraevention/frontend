@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../assets/styles/Login.css";
 import { loadingImages } from "../components/LoadingImages.model";
 import { Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../service/auth";
 import { toast } from "react-toastify";
-import { TbLogin } from "react-icons/tb";
+import { TbLogin, TbUserPlus } from "react-icons/tb";
 
 const BackgroundImage = styled.div`
   ::before{
@@ -38,6 +38,7 @@ type LoginFormData = {
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate()
 
   const [form, setForm] = useState({
     email: "",
@@ -72,7 +73,7 @@ const Login = () => {
       <div className="header"></div>
       <Card className="card-style">
         <Card.Body className="body-style">
-          <img src={Logo} alt="Logo"  className="image" />
+          <img src={Logo} alt="Logo" className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Anmelden</Card.Title>
           <Card.Text className="text-style">
@@ -90,6 +91,13 @@ const Login = () => {
               <Form.Control className="mb-2" type="password" placeholder="Passwort bestätigen" name="password" value={form.password} onChange={handleFormChange} disabled={isLoading} />
             </Form.Group>
             <Row className="mt-2">
+              <Col>
+                <div className="d-grid">
+                  <Button className="d-flex align-items-center justify-content-center" variant="light" onClick={() => navigate("/register/demo-" + Date.now() /* Demo Signup Token */)} disabled={isLoading}>
+                    <TbUserPlus></TbUserPlus>  Registrieren
+                  </Button>
+                </div>
+              </Col>
               <Col>
                 <div className="d-grid">
                   <Button className="d-flex align-items-center justify-content-center" variant="primary" type="submit" disabled={isLoading}>
