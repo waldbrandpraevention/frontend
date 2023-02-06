@@ -66,6 +66,13 @@ export const useZone = (id: string) => {
 }
 
 /**
+ * Get the firerisk for all zones
+ */
+export const useFirerisk = () => {
+  return useZones();
+}
+
+/**
  * for leaflet
  */
 export const getPolygonStyle = (z: Zone): L.PathOptions => {
