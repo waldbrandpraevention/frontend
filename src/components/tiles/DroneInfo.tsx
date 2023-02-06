@@ -13,7 +13,7 @@ import {
 
 const DroneInfo = () => {
   const { /* data, */ isLoading, isError } = useQuery(["droneinfo"], () => {
-    return axios.get("/test?input=69").then((e) => e.data);
+    return axios.get("/test?test_input=69").then((e) => e.data);
   });
 
   if (isLoading) return <LoadingTile />;

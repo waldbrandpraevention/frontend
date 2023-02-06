@@ -10,13 +10,13 @@ const AccountInfo = () => {
     return <Tile>
         <Card.Title><TbUserCircle size={"1.3em"} /> Account</Card.Title>
         <div className="d-flex justify-content-between">
-            <span className="fw-light">Vorname </span> {user.firstname}
+            <span className="fw-light">Vorname </span> {user.first_name}
         </div>
         <div className="d-flex justify-content-between">
-            <span className="fw-light">Nachname </span> {user.lastname}
+            <span className="fw-light">Nachname </span> {user.last_name}
         </div>
         <div className="d-flex justify-content-between">
-            <span className="fw-light">E-Mail </span> {user.mail}
+            <span className="fw-light">E-Mail </span> {user.email}
         </div>
         <div className="d-flex justify-content-between">
             <span className="fw-light">Rolle </span> {AccountType[user.permission]}

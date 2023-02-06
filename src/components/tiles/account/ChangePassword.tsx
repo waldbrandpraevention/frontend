@@ -32,8 +32,8 @@ const ChangePassword = () => {
             queryClient.invalidateQueries(["account"])
             toast.success("Passwort wurde erfolgreich geändert.")
         },
-        onError() {
-            toast.error("Passwort konnte nicht geändert werden.")
+        onError(e: any) {
+            toast.error("Passwort konnte nicht geändert werden. " + e?.response?.data?.detail)
         }
     });
 

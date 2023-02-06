@@ -6,11 +6,14 @@ COPY . .
 
 RUN npm ci && npm run build
 
-# TODO: merge nginx here and remove busybox workaround
-FROM busybox AS final
+FROM nginx:alpine AS final
 
-WORKDIR /app
+WORKDIR /
 
-COPY --from=builder /app/build ./build
+COPY --from=builder /app/build /usr/share/nginx/html
 
-COPY --from=builder /app/server ./server
+COPY --from=builder /app/server /etc/nginx/conf.d
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
