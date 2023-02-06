@@ -36,7 +36,7 @@ const Zone = () => {
     return <ErrorAlert> Zone nicht gefunden.</ErrorAlert>;
 
   setActiveZone(zone.id) /* show only this zone on map */
-  setCenter([zone.geo_point[1], zone.geo_point[0]]) /* center map on zone */
+  setCenter([zone.lat, zone.lon]) /* center map on zone */
   setZoom(11); /* zoom in to zone */
 
   const { defaultTiles, defaultLayout } = tiles([

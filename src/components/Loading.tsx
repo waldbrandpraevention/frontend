@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { TbCellSignal5 } from "react-icons/tb";
 import styled from "styled-components";
 import Logo from "../assets/img/logo.webp";
-import config from "../config/config";
+import { apiRoot, statusPage } from "../config/config";
 import ErrorAlert from "./alerts/ErrorAlert";
 import WarnAlert from "./alerts/WarnAlert";
 
@@ -49,11 +50,12 @@ const Loading = () => {
     }, []);
 
     return <Main>
-        <img src={Logo} alt="Logo"  className="image mb-2" width="64px" height="64px" />
+        <img src={Logo} alt="Logo" className="image mb-2" width="64px" height="64px" />
         {state !== 2 && <StyledSpinner />}
         {state === 1 && <div className="mt-4"><WarnAlert>Verbindung zur API dauert ungewöhnlich lange</WarnAlert></div>}
         {state === 2 && <div className="mt-4"><ErrorAlert>Verbindung zur API fehlgeschlagen</ErrorAlert></div>}
-        <span style={{ position: "fixed", bottom: "2em", fontSize: "12px" }}>Verbinde mit {config.apiRoot?.includes("http") ? config.apiRoot : (window.location.host + config.apiRoot)}</span>
+        <a className="text-secondary" style={{ position: "fixed", bottom: "4em", fontSize: "20px", textDecoration: "none" }} href={statusPage}><TbCellSignal5></TbCellSignal5> System Status</a>
+        <span style={{ position: "fixed", bottom: "2em", fontSize: "12px" }}>Verbinde mit {apiRoot?.includes("http") ? apiRoot : (window.location.host + apiRoot)}</span>
     </Main>
 }
 export default Loading;

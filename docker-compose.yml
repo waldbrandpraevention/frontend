@@ -5,9 +5,8 @@ services:
   # React
   frontend:
     image: waldbrandpraevention/frontend
-    volumes:
-      - frontend-build:/app/build
-      - frontend-server-conf:/app/server/conf
+    ports:
+      - 8080:80
 
   # API
   backend:
@@ -28,30 +27,10 @@ services:
       # - SMTP_PASSWORD=
       # - SMTP_PORT=25
       # - SMTP_SENDER=no-reply@domain.tld
-    expose:
-      - 8000
 
-  # Reverse Proxy
-  nginx:
-    image: nginx:alpine
-    ports:
-      - 8080:80 
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - frontend-server-conf:/etc/nginx/conf.d
-      - frontend-build:/usr/share/nginx/html
-
-  # Mail (optional)
+  # Mail (optional, nur für lokale Demo ohne vorhandenem Mailserver)
   mailhog:
     image: mailhog/mailhog
-    logging:
-      driver: 'none' 
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
-
-volumes:
-  frontend-build:
-  frontend-server-conf:

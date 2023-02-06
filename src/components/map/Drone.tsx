@@ -1,5 +1,5 @@
 import L, { LatLngTuple } from "leaflet";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LeafletTrackingMarker } from "react-leaflet-tracking-marker";
 import { Drone as DroneType } from "../../utils/drones";
 
@@ -8,16 +8,16 @@ type DroneProps = {
 }
 
 const droneIcon = L.icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/4212/4212583.png",
-  iconSize: [30, 30],
-  iconAnchor: [18, 18],
+  // https://www.flaticon.com/free-icon/drone_8607675
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/8607/8607675.png",
+  iconSize: [40, 40],
   popupAnchor: [0, -10],
   shadowAnchor: [10, 10],
 });
 
 const Drone = ({ data }: DroneProps) => {
-  const position = data.position
-  const [prevPos, setPrevPos] = useState<LatLngTuple>(data.position)
+  const position: LatLngTuple = useMemo(() => [data.lat, data.lon], [data.lat, data.lon])
+  const [prevPos, setPrevPos] = useState<LatLngTuple>([data.lat, data.lon])
 
   useEffect(() => {
     if (prevPos[1] !== position[1] && prevPos[0] !== position[0]) setPrevPos(position)

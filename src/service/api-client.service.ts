@@ -1,11 +1,11 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import config from "../config/config";
+import { apiRoot, apiTimeout } from "../config/config";
 import { hasLocalToken, loadLocalToken } from "./auth";
 
 class ApiClientService { /* only one instance -> static */
   static configureClient() {
-    axios.defaults.baseURL = config.apiRoot;
-    axios.defaults.timeout = config.timeout;
+    axios.defaults.baseURL = apiRoot;
+    axios.defaults.timeout = apiTimeout;
 
     if (hasLocalToken())
       axios.defaults.headers["Authorization"] = "Bearer " + loadLocalToken()

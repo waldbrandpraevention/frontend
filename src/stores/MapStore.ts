@@ -8,6 +8,8 @@ type MapStore = {
   setZoom: (newZoom: number) => void;
   activeZone: number;
   setActiveZone: (newZone: number) => void;
+  showDroneRoutes: boolean;
+  setShowDroneRoutes: (newShow: boolean) => void;
 };
 
 export const useMapStore = create<MapStore>()((set) => ({
@@ -18,4 +20,6 @@ export const useMapStore = create<MapStore>()((set) => ({
   setZoom: (newZoom: number) => set(() => ({ zoom: newZoom })),
   activeZone: -1,
   setActiveZone: (newZone: number) => set(() => ({ activeZone: newZone })),
+  showDroneRoutes: true,
+  setShowDroneRoutes: (newShow: boolean) => set(() => ({ showDroneRoutes: newShow })),
 }));
