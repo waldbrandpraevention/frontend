@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Sidebar, Menu, MenuItem, SubMenu, useProSidebar, menuClasses } from 'react-pro-sidebar';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { TbAlertTriangle, TbAlignJustified, TbBuilding, TbChartAreaLine, TbColorSwatch, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbServer, TbSettings, TbShield, TbUser, TbUsers, TbX } from 'react-icons/tb';
+import { TbAlertTriangle, TbBuilding, TbChartAreaLine, TbChevronsLeft, TbChevronsRight, TbColorSwatch, TbFlame, TbInfoCircle, TbLayoutDashboard, TbMap, TbPolygon, TbQuestionMark, TbSettings, TbShield, TbUser, TbUsers } from 'react-icons/tb';
 import { useAuth } from "../service/auth";
 import ErrorBoundary from "../components/ErrorBoundary";
 import { isActiveRoute } from "../utils/util";
@@ -26,6 +26,18 @@ overflow-y: scroll;
 /*height: calc(100vh - 32px); */
 height: 100vh; /* - Navbarheight */
 -webkit-transform: translateZ(0); /* fixes https://stackoverflow.com/a/15885486 */
+`
+
+const MenuCloseItem = styled(MenuItem)` /* center 'X' icon */
+  filter: brightness(85%);
+  a {
+    span {
+      margin: auto;
+    }
+    span:nth-child(2) {
+      display: none;
+    }
+  }
 `
 
 const App = () => {
@@ -70,9 +82,6 @@ const App = () => {
               <img onClick={() => navigate("/")} src={Logo} alt="Logo" width={48} height={48} />
             </div>
             <div style={{ flex: 1 }}>
-              <MenuItem icon={collapsed ? <TbAlignJustified /> : <TbX />} onClick={() => collapseSidebar()}>{!collapsed && <span className="fw-light">Menü schließen</span>}</MenuItem>
-              {/* <MenuItem icon={<TbAlignJustified />} onClick={() => collapseSidebar()}></MenuItem> */}
-              <hr className="my-0" />
               <MenuItem active={isActiveRoute("/dashboard")} routerLink={<Link to="/dashboard" />} icon={<TbLayoutDashboard />}> Dashboard </MenuItem>
               <MenuItem active={isActiveRoute("/zones")} routerLink={<Link to="/zones" />} icon={<TbPolygon />}> Zonen </MenuItem>
               <MenuItem active={isActiveRoute("/map")} routerLink={<Link to="/map" />} icon={<TbMap />}> Karte </MenuItem>
@@ -86,7 +95,6 @@ const App = () => {
                 <MenuItem active={isActiveRoute("/settings/account")} routerLink={<Link to="/settings/account" />} icon={<TbUser />}> Account </MenuItem>
                 <MenuItem active={isActiveRoute("/settings/design")} routerLink={<Link to="/settings/design" />} icon={<TbColorSwatch />}> Design </MenuItem>
                 {user.isAdmin && <MenuItem active={isActiveRoute("/settings/users")} routerLink={<Link to="/settings/users" />} icon={<TbUsers />}> Benutzer </MenuItem>}
-                {user.isAdmin && <MenuItem active={isActiveRoute("/settings/system")} routerLink={<Link to="/settings/system" />} icon={<TbServer />}> System </MenuItem>}
               </SubMenu>
             </div>
             <div>
@@ -95,6 +103,7 @@ const App = () => {
                 <MenuItem active={isActiveRoute("/datenschutz")} routerLink={<Link to="/datenschutz" />} icon={<TbShield />}> Datenschutz </MenuItem>
                 <MenuItem active={isActiveRoute("/impressum")} routerLink={<Link to="/impressum" />} icon={<TbBuilding />}> Impressum </MenuItem>
               </SubMenu>
+              <MenuCloseItem icon={collapsed ? <TbChevronsRight /> : <TbChevronsLeft />} onClick={() => collapseSidebar()}>{!collapsed && <span className="fw-light mx-auto d-flex align-items-center"></span>}</MenuCloseItem>
             </div>
           </Menu>
         </Sidebar>

@@ -31,7 +31,7 @@
 
 </div>
 
-![](https://bp.adriansoftware.de/media/x4a.png) ![](/src/assets/img/arch.png)
+![](https://bp.adriansoftware.de/media/x4a.png) ![](https://bp.adriansoftware.de/media/architektur.png)
 
 ## Inhalt
 
