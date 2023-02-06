@@ -10,7 +10,7 @@ import { refetchInterval } from "../../config/config";
 
 const FireDetection = () => {
   const { /* data ,*/ isLoading, isError } = useQuery(["firedetect"], () => {
-    return axios.get("/test?input=69").then((e) => e.data);
+    return axios.get("/test?test_input=69").then((e) => e.data);
   }, { refetchInterval });
 
   if (isLoading) return <LoadingTile />;
