@@ -10,7 +10,7 @@ import { refetchInterval } from "../../config/config";
 
 const Firerisk = () => {
   const { /* data ,*/ isLoading, isError } = useQuery(["firerisk"], () => {
-    return axios.get("/test?input=420").then((e) => e.data);
+    return axios.get("/test?test_input=420").then((e) => e.data);
   }, { refetchInterval });
 
   if (isLoading) return <LoadingTile />;
