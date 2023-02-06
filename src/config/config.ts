@@ -38,3 +38,7 @@ export const localStorageName = process.env.REACT_APP_LOCALSTORAGE_NAME ?? "wb_a
  * Enable debug mode
  */
 export const enableDebug = process.env.REACT_APP_DEBUG ?? true;
+/**
+ * Status page URL
+ */
+export const statusPage = process.env.REACT_APP_STATUS_PAGE ?? "https://status.kiwa.tech"
