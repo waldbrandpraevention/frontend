@@ -56,15 +56,15 @@ const AiImage = () => {
 
   return (
     <Tile>
-      <Card.Title className="text-center">Drohnenbild</Card.Title>
+      <Card.Title className="text-center">KI Einschätzung</Card.Title>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <img
           style={{ width: '100%', maxHeight: 'auto' }}
           ref={imgEl}
           src={Img}
-          alt="KI Einschaezung" />
+          alt="KI Einschätzung" />
       </div>
-      <Card.Text >Position: lan lot  Zone: Radioactiv Zone Zeitpunkt: 1.1.23 12:23</Card.Text>
+      <Card.Text >Position: lan,lot;  Zone: Brandenburg; Zeitpunkt: 1.1.23 12:23</Card.Text>
     </Tile >
   );
 };

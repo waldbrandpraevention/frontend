@@ -18,7 +18,7 @@ const DroneImage = () => {
           src={Img}
           alt="KI Einschaezung" />
       </div>
-      <Card.Text >Position: lan lot  Zone: Radioactiv Zone Zeitpunkt: 1.1.23 12:23</Card.Text>
+      <Card.Text >Position: lan,lot;  Zone: Brandenburg; Zeitpunkt: 1.1.23 12:23</Card.Text>
     </Tile >
   );
 };
