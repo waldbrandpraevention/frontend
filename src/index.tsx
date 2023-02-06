@@ -63,7 +63,6 @@ render(
                 <Route path="account" element={<Suspense fallback={<Loading />}><Account /></Suspense>} />
                 <Route path="design" element={<Suspense fallback={<Loading />}><Design /></Suspense>} />
                 <Route path="users" element={<RoleRoute><Suspense fallback={<Loading />}><Users /></Suspense></RoleRoute>} />
-                <Route path="system" element={<RoleRoute>"system einstellungen"</RoleRoute>} />
                 <Route path="alerts" element={"benachrichtigungen"} />
               </Route>
             </Route>
