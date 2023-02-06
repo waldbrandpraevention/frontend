@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import apiClientService from "./service/api-client.service";
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 import "./assets/styles/bootstrap.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./service/auth";
 import AuthRoute from "./components/routes/AuthRoute";
 import GuestRoute from "./components/routes/GuestRoute";
 import RoleRoute from "./components/routes/RoleRoute";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 import Loading from "./components/Loading";
 
 import App from "./pages/App";
@@ -19,8 +19,8 @@ import Registrieren from "./pages/Registrieren";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 
-const Advanced = lazy(() => import("./pages/Advanced"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Advanced = lazy(() => import("./pages/Advanced"))
+const Dashboard = lazy(() => import("./pages/Dashboard"))
 const Maps = lazy(() => import("./pages/Maps"));
 const Users = lazy(() => import("./pages/Users"));
 const Impressum = lazy(() => import("./pages/Impressum"));
@@ -31,7 +31,6 @@ const Incidents = lazy(() => import("./pages/Incidents"));
 const Account = lazy(() => import("./pages/Account"));
 const Design = lazy(() => import("./pages/Design"));
 const Alerts = lazy(() => import("./pages/Alerts"));
-const FAQ = lazy(() => import("./pages/FAQ"));
 
 const queryClient = new QueryClient(); // react-query config
 
@@ -53,7 +52,7 @@ render(
               <Route path="zones" element={<Suspense fallback={<Loading />}><Zones /></Suspense>} />
               <Route path="zones/:id" element={<Suspense fallback={<Loading />}><Zone /></Suspense>} />
               <Route path="map" element={<Suspense fallback={<Loading />}><Maps /></Suspense>} />
-              <Route path="help" element={<Suspense fallback={<Loading />}><FAQ /></Suspense>} />
+              <Route path="help" element={"hilfeseite"} />
               <Route path="advanced" element={<RoleRoute><Suspense fallback={<Loading />}><Advanced /></Suspense></RoleRoute>} />
               <Route path="alerts" element={<Suspense fallback={<Loading />}><Alerts /></Suspense>} />
               <Route path="incidents" element={<Suspense fallback={<Loading />}><Incidents /></Suspense>} />
@@ -63,6 +62,7 @@ render(
                 <Route path="account" element={<Suspense fallback={<Loading />}><Account /></Suspense>} />
                 <Route path="design" element={<Suspense fallback={<Loading />}><Design /></Suspense>} />
                 <Route path="users" element={<RoleRoute><Suspense fallback={<Loading />}><Users /></Suspense></RoleRoute>} />
+                <Route path="system" element={<RoleRoute>"system einstellungen"</RoleRoute>} />
                 <Route path="alerts" element={"benachrichtigungen"} />
               </Route>
             </Route>

@@ -1,5 +1,5 @@
 <h1 align="center">Waldbrandprävention</h1>
-<p align="center">
+<p align="center">   
     <img width="320" height="160" src="src/assets/img/logo-v1.svg">
 </p>
 
@@ -21,81 +21,38 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
+
+
 </div>
 
 ![](https://bp.adriansoftware.de/media/x3.png)
+![](https://bp.adriansoftware.de/media/x4a.png)
 
 <div align="center">
 
-![wind-demo1](https://user-images.githubusercontent.com/19362349/216485268-1cc98986-22ca-4bd1-a645-49c7fc1214df.gif)
+---
+
+## Demo
+[kiwa.tech](https://kiwa.tech)
+
+E-Mail: `admin@kiwa.tech`
+Passwort: `adminkiwa`
+
+---
 
 </div>
 
-![](https://bp.adriansoftware.de/media/x4a.png) ![](https://bp.adriansoftware.de/media/architektur.png)
+![](/src/assets/img/arch.png)
 
-## Inhalt
-
-- [Features ✨](#features)
-- [Demo](#demo)
-- [Installation](#installation)
-  - [1-Line 🚀](#one-line)
-  - [Quickstart 🚀](#quickstart)
-  - [Konfiguration ⚙️](#konfiguration)
-    - [Port ⚓](#port)
-    - [E-Mail 📨](#e-mail)
-    - [Windkarte ☁️](#windkarte)
-  - [Updates 🔁](#updates)
-  - [Reverse Proxy 🛡️](#reverse-proxy)
-  - [FAQ ❓](#faq)
-- [Development](#development)
-  - [Projekt Setup](#projekt-setup)
-  * [E2E Testing](#e2e-testing)
-    - [Code Coverage](#code-coverage)
-  - [Themes](#themes)
-  - [Kacheln](#kacheln)
-
-## Features
-
-- Sehr gute
-  **[Performance](https://bp.adriansoftware.de/media/performance1.gif)** auch
-  bei riesigen Datensätzen.
-- Gemeindegrenzen als **Zonen** einfach hinzufügen und entfernen
-- **[Drohnen](https://bp.adriansoftware.de/media/performance2.gif)** mit
-  **animierten** Routen
-- Alle Komponenten
-  **[containerisiert](https://hub.docker.com/u/waldbrandpraevention)**
-- **Advanced** Analyse Seite mit Drohnenbildern und KI-Einschätzungen
-- **Benachrichtigungen** bei Brandereignissen
-- **Viele** Karten: **OpenStreetMap**, **Topografie**, **Satelliten** und mehr
-- **Feuerwehrkarte** mit Position von **Feuerwehrwachen** und **Hydranten**
-- aktuelle **Wetterdaten** und **Vorhersagen** vom deutschen Wetterdienst
-- animierte **Windkarte** mit dazugehörigem
-  [Windserver](https://github.com/waldbrandpraevention/wind-js-server)
-- **Authentifizierung** mit Rollenverteilung (Benutzer und Administrator)
-- Administration mit **Organisations-** und **Usermanagement**
-- **[E-Mail](#e-mail)** Verifizierung
-- **Simulation** der Drohnen und Events.
-- Frei **anpassbares** Design mit vielen **[Themes](#themes)**
-- Komplett **modulares [Kachellayout](#kacheln)**
-- **[E2E](#e2e-testing)**-Testing
-
-## Demo
-
-[kiwa.tech](https://kiwa.tech)
-
-E-Mail: `admin@kiwa.tech` Passwort: `adminkiwa`
 
 ## Installation
-
 <!-- > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker) (nicht empfohlen) -->
 
 <!-- ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) -->
 
-Am Einfachsten ist die Installation mit Docker (compose).
+Am Einfachsten ist die Installation mit Docker (compose). 
 
-<!-- ### All-in-One 👑 -->
-
-<!--
+### All-in-One 👑
 
 ![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
@@ -104,40 +61,15 @@ Am Einfachsten ist die Installation mit Docker (compose).
 ![](https://img.shields.io/badge/-Mail*-yellow?style=for-the-badge)
 ![](https://img.shields.io/badge/-+-black?style=for-the-badge)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
--->
 
-Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen
-Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen.
-Alternativ können auch die jeweiligen `Dockerfile`s genutzt werden um die Images
-manuell zu erstellen. Die Anwendung wird mit
-[docker compose](https://docs.docker.com/compose/) und
-[nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
----
+Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen. Die Anwendung wird mit [docker compose](https://docs.docker.com/compose/) und [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
-### One-Line
+#### Quickstart 🚀 
 
-Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle
-erstellten Container & Volumes werden automatisch bereinigt.
+Zunächst muss [docker compose](https://docs.docker.com/compose/install/) installiert sein. Ist standardmäßig bei *Docker Desktop* der Fall.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/install.sh | bash -
-```
-
-Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
-`adminkiwa` anmelden.
-
-[Installationsskript](/install.sh)
-
----
-
-#### Quickstart
-
-Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
-installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
-
-1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit
-   folgendem Inhalt:
+1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit folgendem Inhalt:
 
 ```yml
 version: '3'
@@ -147,12 +79,14 @@ services:
   # React
   frontend:
     image: waldbrandpraevention/frontend
-    ports:
-      - 8080:80
+    volumes:
+      - frontend-build:/app/build
+      - frontend-server-conf:/app/server/conf
 
   # API
   backend:
     image: waldbrandpraevention/backend
+    restart: always
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
@@ -164,66 +98,67 @@ services:
       - DEMO_LAT=52.07454738
       - GEOJSON_PATH=/database/zone_data.geojson
       - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-      # - SMTP_HOST=mail.domain.tld
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
-      # - SMTP_PORT=25
-      # - SMTP_SENDER=no-reply@domain.tld
+    expose:
+      - 8000
 
-  # Mail Testserver (optional, nur für lokale Demo ohne vorhandenem Mailserver)
+  # Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - 8080:80 
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - frontend-server-conf:/etc/nginx/conf.d
+      - frontend-build:/usr/share/nginx/html
+
+  # Mail (optional, nur für lokale demo)
   mailhog:
     image: mailhog/mailhog
+    logging:
+      driver: 'none' 
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
+
+volumes:
+  frontend-build:
+  frontend-server-conf:
+
 ```
 
 2. Im gleichen Ordner folgenden Befehl ausführen
-
 ```
-docker compose up
+docker compose up 
 ```
+Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den Befehl angehängt werden.
+| Komponente | URL |
+|---|---|
+| Frontend | http://localhost:8080 |
+| API | http://localhost:8080/api/ |
+| API Dokumentation | http://localhost:8080/api/docs |
+| [Mail](#e-mail-) (optional) | http://localhost:8025 |
 
-Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den
-Befehl angehängt werden.
+Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten Zugangsdaten anmelden.
+Diese sollten nach erfolgreichem Login auf jeden Fall geändert werden.
 
-| Komponente                  | URL                            |
-| --------------------------- | ------------------------------ |
-| Frontend                    | http://localhost:8080          |
-| API                         | http://localhost:8080/api/     |
-| API Dokumentation           | http://localhost:8080/api/docs |
-| [Mail](#e-mail-) (optional) | http://localhost:8025          |
-
-Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten
-Zugangsdaten anmelden. Diese sollten nach erfolgreichem Login auf jeden Fall
-geändert werden.
-
-### Konfiguration
-
-#### Port
-
-Einstellungen können als Environmentvariablen in der `docker-compose.yml`
-angepasst werden.
+#### Config 🛠️
+ Einstellungen können als Environmentvariablen in der `docker-compose.yml` angepasst werden.
 
 Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
-
 ```diff
 ...
-frontend:
-  image: waldbrandpraevention/frontend
+nginx:
+  image: nginx:alpine
   ports:
 -   - 8080:80 
 +   - 1234:80
 ...
 ```
-
-#### E-Mail
-
-Um den E-Mail Versand lokal testen zu können, wird
-[Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur
-für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht
-werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
-
+#### E-Mail 📨
+Um den E-Mail Versand lokal testen zu können, wird [Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
 ```diff
 services:
  backend:
@@ -252,64 +187,29 @@ services:
 -    - 8025:8025 # web ui
 ```
 
-#### Windkarte
 
-Die Windkarte basiert auf
-[leaflet-velocity](https://github.com/onaci/leaflet-velocity) und benötigt
-Wetterdaten im [GRIB2](https://en.wikipedia.org/wiki/GRIB)-JSON Format.
-
-Um die Daten der Windkarte zu laden, kann entweder die mitgelieferte JSON in
-`src/assets/data/latest.json` verwendet werden. Diese enthält Winddaten vom
-31.01.23. Dafür muss die `src/components/map/WindLayer.tsx` entsprechend
-angepasst werden.
-
-Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle
-(6h) Winddaten vom Wetterdienst abruft. Mehr Informationen dazu im Repo:
-[waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
-
-Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben
-diesem Server verwendet.
-
-Der Server kann in der `.env.production` bzw. `.env.development` unter
-`REACT_APP_WIND_DATA` geändert werden.
-
-<!-- ```
-docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
-``` -->
-
-#### Updates
+#### Updates 🪄
 
 So wird die Anwendung aktualisiert:
 
-1. Container stoppen und entfernen.
+1. Container stoppen und entfernen. 
 
 > **Achtung!** Alle Daten in der Datenbank werden dabei gelöscht.
-
 ```
 docker compose down -v
 ```
-
-_oder_ falls die Datenbank erhalten bleiben soll:
-
-> aktuell <ins> _**nicht**_</ins> empfohlen, weil Updates möglicherweise das
-> Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte
-> Probleme auftreten können.
-
+*oder* falls die Datenbank erhalten bleiben soll:
+> aktuell <ins>***nicht***</ins> empfohlen, weil Updates möglicherweise das Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte Probleme auftreten können.
 ```
 docker compose down
 ```
 
 2. Container aktualisieren & starten
-
 ```
 docker compose pull && docker compose up -d
 ```
-
-#### Reverse Proxy
-
-Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache
-folgende vHost Konfiguration verwendet werden:
-
+#### Reverse Proxy 🛡️
+Um die Anwendung hinter einer Reverse Proxy zu verwenden kann für Apache folgende vHost Konfiguration verwendet werden:
 ```apache
 <VirtualHost *:80>
     ServerName domain.tld
@@ -340,28 +240,33 @@ folgende vHost Konfiguration verwendet werden:
     Header always set X-Frame-Options "deny"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set X-Content-Type-Options "nosniff"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </VirtualHost>
 ```
 
+#### FAQ ❓
+- > `waldbrandpraevention-frontend-1 exited with code 0`?
+  - Das ist so gewollt. Die einzige Aufgabe dieses Containers ist es die React-App zu builden und zusammen mit weiteren Dateien an den `nginx` Container zu übergeben.
+
+---
+
+
 ## Development
-
 #### Projekt Setup
-
 1. GitHub Repo clonen
-
 ```
 git clone https://github.com/waldbrandpraevention/frontend.git
 ```
 
 2. Dependencies installieren
-
 ```
 npm install
 ```
 
-3. `npm start` zum Starten.<br> `npm run cypress` zum Testen.<br>
-   `npm run build` zum Erstellen.
+3. `npm start` zum Starten.<br>
+`npm run cypress` zum Testen.<br>
+`npm run build` zum Erstellen.
 
 ### E2E Testing
 
@@ -383,12 +288,10 @@ Mehr Infos: https://cypress.io
 
 2. Report in `coverage/lcov-report/index.html`
 
-### Themes
-
+#### Themes 🎨
 Um ein Theme zu erstellen folgendermaßen vorgehen:
 
 1. `src/service/stores.ts`
-
 ```ts
 export const themes: { black: Theme, /* ... */, custom: Theme } = {
   black: {
@@ -410,106 +313,13 @@ export const themes: { black: Theme, /* ... */, custom: Theme } = {
   }
 }
 ```
-
 2. `src/components/tiles/account/ColorCustomizer.tsx`
-
 ```tsx
 // fast am Ende der Datei:
 <InputGroup>
-  <Button
-    style={{ border: "none", color: "white", background: "#000000" }}
-    onClick={() => colors.setColor({ ...themes.black })}
-  >
-    <TbColorSwatch /> Schwarz
-  </Button>
+  <Button style={{ border: "none", color: "white", background: "#000000" }} onClick={() => colors.setColor({ ...themes.black })}><TbColorSwatch /> Schwarz</Button>
   /* ... */
-  <Button
-    style={{ border: "none", color: "white", background: "#ecf8f0" }}
-    onClick={() => colors.setColor({ ...themes.custom })}
-  >
-    <TbColorSwatch /> Mein Custom Theme
-  </Button>
-</InputGroup>;
-```
+  <Button style={{ border: "none", color: "white", background: "#ecf8f0" }} onClick={() => colors.setColor({ ...themes.custom })}><TbColorSwatch /> Mein Custom Theme</Button>
+</InputGroup>
 
-### Kacheln
-
-Das Kachellayout ist komplett modular aufgebaut.
-
-So kann eine Kachel erstellt werden:
-
-1. Im `src/components/tiles` eine Komponente erstellen, welche als direktem
-   Child ein `<Tile>...</Tile>` returned.
-2. Auf der gewünschten Seite `src/pages/MyPage.tsx`
-
-```ts
-import MyTile from "../components/tiles/MyTile";
-const TilesLayout = lazy(() => import("../components/TilesLayout"));
-
-const MyPage = () => {
-  const { defaultTiles, defaultLayout } = tiles([
-    {
-      el: <MyTile />,
-      id: "mytile",
-      name: "My Tile",
-      main: { x: 0, y: 0, w: 8, h: 3 },
-      mobile: { x: 0, y: 0, w: 24, h: 3 },
-    },
-    // more tiles...
-  ]);
-
-  return (
-    <div className="App">
-      <Suspense fallback={<Loading />}>
-        <TilesLayout
-          layoutId="dashboard"
-          defaultLayout={defaultLayout}
-          defaultTiles={defaultTiles}
-        />
-      </Suspense>
-    </div>
-  );
-};
-
-export default MyPage;
-```
-
-Referenz:
-
-```ts
-export type TileElement = {
-  /**
-   * tile component in `components/tiles`. must return a `<Tile>...</Tile>`
-   */
-  el: ReactElement;
-  /**
-   * unique id per `<TilesLayout />`
-   */
-  id: string;
-  /**
-   * display name
-   */
-  name: string;
-  /**
-   * whether tile is enabled by default
-   */
-  enabled?: boolean;
-  /**
-   * don't show tile while in edit mode. show placeholder instead
-   */
-  noEditmode?: boolean;
-};
-```
-
-```ts
-export type TileLayouts = {
-  /**
-   * layout for desktop and tablet breakpoint
-   */
-  main: ReactGridLayout.Layout[];
-  /**
-   * layout for mobile breakpoint
-   */
-  mobile: ReactGridLayout.Layout[];
-};
 ```

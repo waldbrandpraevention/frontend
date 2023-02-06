@@ -1,55 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query"
 import axios from "axios";
-import { Event } from "./events";
+import { LatLngTuple } from "leaflet";
 
 type Zone = {
   /**
    * AI Firerisk
    */
-  ai_fire_risk: number;
+  ai: number;
   /**
    * DWD Firerisk
    */
-  dwd_fire_risk: number;
+  fire_risk: number;
   /**
-   * 'Landkreis / Kreisfreie Stadt'
+   * Landkreis / Kreisfreie Stadt
    */
   district: string;
   /**
-   * 'Ort'
+   * Ort
    */
   name: string;
   /**
    * Drone Events
    */
-  events: Event[];
-  /**
-   * 'Bundesland'
-   */
+  events: any[];
   federal_state: string;
-  /**
-   * Number of drones in zone
-   */
-  drone_count: number,
-  /**
-   * Timestamp of last update
-   */
-  last_update: Date;
-  /**
-   * GeoJSON outline for zone
-   */
   geo_json: GeoJSON.Feature<GeoJSON.GeometryObject>;
-  /**
-   * Latitude of center of zone
-   */
-  lat: number;
-  /**
-   * Longitude of center of zone
-   */
-  lon: number;
-  /**
-   * Zone ID
-   */
+  geo_point: LatLngTuple;
   id: number;
 }
 
@@ -66,17 +42,10 @@ export const useZone = (id: string) => {
 }
 
 /**
- * Get the firerisk for all zones
- */
-export const useFirerisk = () => {
-  return useZones();
-}
-
-/**
  * for leaflet
  */
 export const getPolygonStyle = (z: Zone): L.PathOptions => {
-  if (z.dwd_fire_risk > 1 || z.ai_fire_risk > 1) {
+  if (z.fire_risk > 1 || z.ai > 1) {
     return {
       fillColor: "#F44336",
       color: "#F44336",

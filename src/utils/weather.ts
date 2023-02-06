@@ -1,15 +1,9 @@
 /* date = 2023-01-10 format */
-/**
- * Gets the weather API URL.
- */
 export const getWeatherAPI = (center: [number, number], date: string) => {
   return `https://api.brightsky.dev/weather?lat=${center[0]}&lon=${center[1]}&date=${date}&tz=Europe/Berlin`; /* using DWD API */
 };
 
 /* cloudy-night -> night-cloudy */
-/**
- * Fix CSS class names for weather icons.
- */
 export const fixCssClass = (name: string): string => {
   if (!name) return "";
   let n = name;

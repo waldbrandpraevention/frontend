@@ -1,5 +1,5 @@
 import Plot from 'react-plotly.js';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Tile from "../../Tile";
 import { Data } from 'plotly.js';
 import styled from 'styled-components';
@@ -19,11 +19,11 @@ const AiAnalysis = () => {
     x2.push(Math.random() + 1.1);
   }
 
-  const [data, /* setData */] = useState<Data[]>([
+  const [data, setData] = useState<Data[]>([
     {
       x: x1,
       type: 'histogram',
-      name: 'Fire Detected',
+      name: 'Feuer',
       opacity: 0.7,
       marker: {
         color: 'red',
@@ -32,7 +32,7 @@ const AiAnalysis = () => {
     {
       x: x2,
       type: 'histogram',
-      name: 'Smoke Detected',
+      name: 'Rauch',
       opacity: 0.5,
       marker: {
         color: 'grey',
@@ -58,7 +58,7 @@ const AiAnalysis = () => {
               autosize: true,
             }}
 
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100%', height: '90%' }}
             config={{ responsive: true }}
           />
 
@@ -69,3 +69,11 @@ const AiAnalysis = () => {
 };
 
 export default AiAnalysis;
+function useRef<T>(arg0: null) {
+  throw new Error('Function not implemented.');
+}
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error('Function not implemented.');
+}
+

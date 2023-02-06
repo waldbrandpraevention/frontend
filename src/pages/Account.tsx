@@ -19,7 +19,7 @@ const Account = () => {
                 <Col lg={8}>
                     <Container className="mt-2" fluid>
                         {user.disabled && <ErrorAlert>Einstellungen können nicht geändert werden, weil dieser Account deaktiviert wurde. </ErrorAlert>}
-                        {!user.email_verified && <WarnAlert>Die E-Mail Adresse ({user.email}) wurde noch nicht verifiziert.</WarnAlert>}
+                        {!user.mail_verified && <WarnAlert>Die E-Mail Adresse ({user.mail}) wurde noch nicht verifiziert.</WarnAlert>}
                         {!user.disabled && <>
                             <ChangePassword />
                             <ChangeMail />

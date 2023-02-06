@@ -11,7 +11,7 @@ const Area = () => {
   const { data: zonesData, isLoading: isLoadingZone, isError: isErrorZone } = useZones()
 
   const { data, isLoading, isError } = useQuery(["area"], () => {
-    return axios.get("/test?test_input=Südliches%20Brandenburg").then((e) => e.data);
+    return axios.get("/test?input=Südliches%20Brandenburg").then((e) => e.data);
   });
 
   if (isLoading || isLoadingZone) return <LoadingTile />;

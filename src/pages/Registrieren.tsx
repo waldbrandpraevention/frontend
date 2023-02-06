@@ -83,7 +83,7 @@ const Registrieren = () => {
       <div className="header"></div>
       <Card className="card-style">
         <Card.Body className="body-style">
-          <img src={Logo} alt="Logo" className="image" />
+          <img src={Logo} alt="Logo"  className="image" />
           <Card.Subtitle className="mb-3 text-muted">Waldbrandprävention</Card.Subtitle>
           <Card.Title>Registrieren</Card.Title>
           <Card.Text className="text-style">
@@ -113,7 +113,6 @@ const Registrieren = () => {
                 </div>
               </Col>
             </Row>
-            <small className="text-secondary">Auth-Token: {token}</small>
           </Form>
         </Card.Body>
       </Card>

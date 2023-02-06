@@ -45,7 +45,7 @@ const Header = () => {
                     <Nav>
                         <MyNavLink><MyColormode iconDark /></MyNavLink>
                         <MyNavLink><MyBellIcon iconDark hasNotifications={false} /></MyNavLink>
-                        <NavDropdown title={user.first_name} id="basic-nav-dropdown" align={"end"}>
+                        <NavDropdown title={user.firstname} id="basic-nav-dropdown" align={"end"}>
                             <NavDropdown.Item className="d-flex align-items-center" onClick={() => navigate("/settings/account")}>
                                 <TbUserCircle /> Account
                             </NavDropdown.Item>

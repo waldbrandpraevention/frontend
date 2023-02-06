@@ -14,7 +14,7 @@ type ColorStore = {
 
 export const defaultColors: Readonly<Omit<ColorStore, "setColor" | "resetDefault">> = {
   background: "#F5F5F5" /* "#f7f7f7" */,
-  sidebarBackground: "#FAFAFA" /*  "#FAFAFA" */,
+  sidebarBackground: "#F5F5F5" /*  "#FAFAFA" */,
   sidebarActive: "#ff7043",
   sidebarHover: "#fbe9e7",
   sidebarText: "#000000",
@@ -63,8 +63,8 @@ export const themes: { green: Theme; bluegreen: Theme; red: Theme; blue: Theme; 
     sidebarText: "#FFFFFF",
   },
   black: {
-    background: "#F5F5F5",
-    headerBackground: "#F5F5F5",
+    background: "#FAFAFA",
+    headerBackground: "#FAFAFA",
     sidebarBackground: "#000000",
     sidebarActive: "#383838",
     sidebarHover: "#5c5c5c",
@@ -78,7 +78,7 @@ export const useColorStore = create<ColorStore>()(persist(
     setColor: ((newColors: Partial<ColorStore>) => set(() => newColors)),
     resetDefault: () => set(() => defaultColors)
   }), {
-  name: "colors_user",
+  name: "colors",
   storage: createJSONStorage(() => localStorage)
 }
 ));

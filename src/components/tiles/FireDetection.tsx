@@ -6,12 +6,11 @@ import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import DangerLevel from "../DangerLevel";
 import { TbFlame, TbDropletFilled, TbInfoSquare } from "react-icons/tb";
-import { refetchInterval } from "../../config/config";
 
 const FireDetection = () => {
   const { /* data ,*/ isLoading, isError } = useQuery(["firedetect"], () => {
-    return axios.get("/test?test_input=69").then((e) => e.data);
-  }, { refetchInterval });
+    return axios.get("/test?input=69").then((e) => e.data);
+  });
 
   if (isLoading) return <LoadingTile />;
 
