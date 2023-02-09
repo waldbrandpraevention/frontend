@@ -32,8 +32,8 @@ const ChangeMail = () => {
             queryClient.invalidateQueries(["account"])
             toast.success("Bitte bestätige die neue E-Mail Adresse.")
         },
-        onError() {
-            toast.error("E-Mail konnte nicht geändert werden.")
+        onError(e: any) {
+            toast.error("E-Mail konnte nicht geändert werden. " + e?.response?.data?.detail)
         }
     });
 
@@ -59,7 +59,7 @@ const ChangeMail = () => {
                         <Form.Control
                             className="col-lg-*"
                             type="email"
-                            placeholder={user.mail}
+                            placeholder={user.email}
                             name="newMail"
                             value={form.newMail}
                             onChange={handleFormChange}
