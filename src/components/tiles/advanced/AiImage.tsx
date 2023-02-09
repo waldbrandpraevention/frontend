@@ -4,7 +4,7 @@ import Img from "../../../assets/img/loading/LoadingImage2.webp"
 import Card from 'react-bootstrap/esm/Card';
 //import Carousel from "react-bootstrap/Carousel";
 //import ReactResizeDetector from "react-resize-detector";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Annotorious } from '@recogito/annotorious';
 import '@recogito/annotorious/dist/annotorious.min.css';
 
@@ -13,7 +13,7 @@ const AiImage = () => {
   const Labels = ['Feuer', 'Rauch'];
 
   // The current Annotorious instance
-  const [anno, setAnno] = useState();
+  const [/* anno */, setAnno] = useState();
 
   // Ref to the image DOM element
   const imgEl = useRef();
@@ -52,6 +52,7 @@ const AiImage = () => {
 
     // Cleanup: destroy current instance
     return () => annotorious.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
