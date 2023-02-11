@@ -256,21 +256,17 @@ services:
 
 Die Windkarte basiert auf
 [leaflet-velocity](https://github.com/onaci/leaflet-velocity) und benötigt
-Wetterdaten im [GRIB2](https://en.wikipedia.org/wiki/GRIB)-JSON Format.
+Winddaten im [GRIB2](https://en.wikipedia.org/wiki/GRIB)-JSON Format.
 
-Um die Daten der Windkarte zu laden, kann entweder die mitgelieferte JSON in
-`src/assets/data/latest.json` verwendet werden. Diese enthält Winddaten vom
-31.01.23. Dafür muss die `src/components/map/WindLayer.tsx` entsprechend
-angepasst werden.
+Um die Daten der Windkarte zu laden lässt sich einfach ein [Wind Server](https://github.com/waldbrandpraevention/wind-js-server) aufsetzen, welcher stets aktuelle Winddaten vom Wetterdienst abruft. 
 
-Alternativ lässt sich auch einfach ein Server aufsetzen, welcher stets aktuelle
-(6h) Winddaten vom Wetterdienst abruft. Mehr Informationen dazu im Repo:
+Deployment und weitere Informationen dazu im Repo
 [waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
 
-Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de/latest) von eben
+Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de) von
 diesem Server verwendet.
 
-Der Server kann in der `.env.production` bzw. `.env.development` unter
+Die Server URL kann in der `.env.production` bzw. `.env.development` unter
 `REACT_APP_WIND_DATA` geändert werden.
 
 <!-- ```
