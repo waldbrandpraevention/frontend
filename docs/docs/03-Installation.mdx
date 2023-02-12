@@ -1,0 +1,158 @@
+# Installation
+
+<!-- > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker) (nicht empfohlen) -->
+
+<!-- ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) -->
+
+Am Einfachsten ist die Installation mit Docker (compose).
+
+<!-- ### All-in-One 👑 -->
+
+<!--
+
+![](https://img.shields.io/badge/-frontend-red?style=for-the-badge)
+![](https://img.shields.io/badge/-+-black?style=for-the-badge)
+![](https://img.shields.io/badge/-backend-blue?style=for-the-badge)
+![](https://img.shields.io/badge/-+-black?style=for-the-badge)
+![](https://img.shields.io/badge/-Mail*-yellow?style=for-the-badge)
+![](https://img.shields.io/badge/-+-black?style=for-the-badge)
+![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+-->
+
+Die Images für Front- und Backend werden automatisch mit der jeweils aktuellen
+Version des Front- bzw. Backend Repos gebaut und auf Docker Hub hochgeladen.
+Alternativ können auch die jeweiligen `Dockerfile`s genutzt werden um die Images
+manuell zu erstellen. Die Anwendung wird mit
+[docker compose](https://docs.docker.com/compose/) und
+[nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
+
+## One-Line
+
+Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle
+erstellten Container & Volumes werden automatisch bereinigt.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/install.sh | bash -
+```
+
+Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
+`adminkiwa` anmelden.
+
+[](/install.sh)
+<details>
+  <summary>Installationsskript</summary>
+
+  <div>
+
+  ```sh
+  trap_exit() {
+    echo "[3/3] Cleaning up containers" &&
+    docker compose -f docker-compose-kiwa.yml down -v --remove-orphans &&
+    rm -f docker-compose-kiwa.yml
+  }
+  trap trap_exit EXIT;
+
+  echo "[1/3] Downloading latest docker compose file from GitHub" &&
+  curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/docker-compose.yml -o docker-compose-kiwa.yml &&
+  echo "[2/3] Running containers" &&
+  docker compose -f docker-compose-kiwa.yml pull &&
+  docker compose -f docker-compose-kiwa.yml up
+  ```
+
+  </div>
+</details>
+
+## Quickstart
+
+Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
+installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
+
+1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit
+   folgendem Inhalt:
+
+```yml
+version: '3'
+name: Waldbrandpraevention
+
+services:
+  # React
+  frontend:
+    image: waldbrandpraevention/frontend
+    ports:
+      - 8080:80
+
+  # API
+  backend:
+    image: waldbrandpraevention/backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
+      - DB_PATH=testing.db
+      - DB_BACKUP_PATH=backuptest.db
+      - DEMO_LONG=12.68895149
+      - DEMO_LAT=52.07454738
+      - GEOJSON_PATH=/database/zone_data.geojson
+      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
+      # - SMTP_HOST=mail.domain.tld
+      # - SMTP_USER=
+      # - SMTP_PASSWORD=
+      # - SMTP_PORT=25
+      # - SMTP_SENDER=no-reply@domain.tld
+
+  # Mail Testserver (optional, nur für lokale Demo ohne vorhandenem Mailserver)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+```
+
+2. Im gleichen Ordner folgenden Befehl ausführen
+
+```
+docker compose up
+```
+
+Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den
+Befehl angehängt werden.
+
+| Komponente                  | URL                            |
+| --------------------------- | ------------------------------ |
+| Frontend                    | http://localhost:8080          |
+| API                         | http://localhost:8080/api/     |
+| API Dokumentation           | http://localhost:8080/api/docs |
+| [Mail](#e-mail-) (optional) | http://localhost:8025          |
+
+Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten
+Zugangsdaten anmelden. Diese sollten nach erfolgreichem Login auf jeden Fall
+geändert werden.
+
+### Updates
+
+So wird die Anwendung aktualisiert:
+
+1. Container stoppen und entfernen.
+
+> **Achtung!** Alle Daten in der Datenbank werden dabei gelöscht.
+
+```
+docker compose down -v
+```
+
+_oder_ falls die Datenbank erhalten bleiben soll:
+
+> aktuell <ins> _**nicht**_</ins> empfohlen, weil Updates möglicherweise das
+> Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte
+> Probleme auftreten können.
+
+```
+docker compose down
+```
+
+2. Container aktualisieren & starten
+
+```
+docker compose pull && docker compose up -d
+```
