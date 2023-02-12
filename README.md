@@ -87,7 +87,7 @@ E-Mail: `admin@kiwa.tech` Passwort: `adminkiwa`
 
 ## Dokumentation
 
-https://docs.bp.adriansoftware.de
+https://kiwadocs.adriansoftware.de
 
 ## Installation
 
