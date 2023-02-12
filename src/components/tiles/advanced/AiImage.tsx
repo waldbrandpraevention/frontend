@@ -3,7 +3,7 @@ import Tile from "../../Tile";
 import Card from 'react-bootstrap/esm/Card';
 import Carousel from "react-bootstrap/Carousel";
 import Annotorious from "./Annotorious";
-import { useAdvancedStore } from "../../../stores/AdvandeStore";
+import { useAdvancedStore } from "../../../stores/AdvancedStore";
 import { dummyData, useEvents } from "../../../utils/events";
 import ErrorAlert from "../../alerts/ErrorAlert";
 import LoadingTile from "../LoadingTile";

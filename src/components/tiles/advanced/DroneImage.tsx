@@ -1,7 +1,7 @@
 import Tile from "../../Tile"
 import Img from "../../../assets/img/loading/LoadingImage2.webp"
 import Card from 'react-bootstrap/esm/Card';
-import { useAdvancedStore } from "../../../stores/AdvandeStore";
+import { useAdvancedStore } from "../../../stores/AdvancedStore";
 import { dummyData, useEvents } from "../../../utils/events";
 import ErrorAlert from "../../alerts/ErrorAlert";
 import LoadingTile from "../LoadingTile";
