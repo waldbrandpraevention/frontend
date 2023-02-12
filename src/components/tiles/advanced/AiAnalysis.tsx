@@ -58,7 +58,7 @@ const AiAnalysis = () => {
               autosize: true,
             }}
 
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: '100%', height: '80%' }}
             config={{ responsive: true }}
           />
 
