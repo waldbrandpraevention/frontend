@@ -1,0 +1,43 @@
+API um stets die aktuellen Winddaten für die Windkarte zu laden. Diese werden vom amerikanischen Wetterdienst ([NOAA](http://nomads.ncep.noaa.gov/)) bereitgestellt und vom [GRIB2](http://en.wikipedia.org/wiki/GRIB)-Format zu JSON konvertiert und können direkt in der KIWA Windkarte angezeigt werden.
+Wettermodell GFS wird alle 6h aktualisiert. Vorhersagen alle 3h.
+## Demo
+
+https://wind.bp.adriansoftware.de/latest
+
+
+## Deployment
+[Docker Image](https://hub.docker.com/r/waldbrandpraevention/wind/tags)
+```
+docker run -p 7000:7000 waldbrandpraevention/wind
+```
+oder Image manuell bauen
+```
+git clone https://github.com/adrianschubek/wind-js-server.git
+cd wind-js-server
+docker build -t wind .
+docker run -it -p 7000:7000 wind
+```
+
+| Env Variable   | Beschreibung                             | Standard | Werte     |
+|------------|-----------------------------------------|---------|-------------|
+| PORT       | Der interne Port des Servers (nur falls ohne Docker)     | `7000`    | `number` |
+| RESOLUTION | GFS Daten Auflösung           | `0.5`     | `0.25`,`0.5`, `1`      |
+| MAX_HISTORY_DAYS | Maximale Anzahl an vergangenen Tagen herunterladen | `1` | `0` bis `14` |
+| MAX_FORECAST_HOURS | Maximale Anzahl an Stunden Vorhersage herunterladen | `18` | `number` |
+| WIND       | Wind Daten herunterladen        | `true`    | `true`, `false` |
+| TEMP       | Temperatur Daten herunterladen | `false`   | `true`, `false` |
+
+
+
+## API
+- **/latest** aktuellste Winddaten
+- **/nearest** Winddaten an einem Zeitpunkt
+	- Parameter:
+		- `timeIso` ISO Zeitstempel
+		- `searchLimit` Anzahl Tage um den Zeitstempel herum
+
+## Development
+```bash
+npm install
+npm start
+```

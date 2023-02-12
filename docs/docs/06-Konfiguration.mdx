@@ -1,0 +1,72 @@
+# Konfiguration
+
+### Port
+
+Einstellungen können als Environmentvariablen in der `docker-compose.yml`
+angepasst werden.
+
+Um den Port der Anwendung zu ändern, kann die obige Datei so geändert werden
+
+```diff
+...
+frontend:
+  image: waldbrandpraevention/frontend
+  ports:
+-   - 8080:80 
++   - 1234:80
+...
+```
+
+### E-Mail
+
+Um den E-Mail Versand lokal testen zu können, wird
+[Mailhog](https://github.com/mailhog/MailHog) mitinstalliert. Dieser dient nur
+für Demozwecke und muss später durch einen vorhandenen Mailserver ausgetauscht
+werden. Daher die `docker-compose.yml` folgendermaßen anpassen:
+
+```diff
+services:
+ backend:
+    image: waldbrandpraevention/backend
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
+    expose:
+      - 8000
+   environment:
+      - ...
++     - SMTP_HOST=domain.tld
++     - SMTP_USER=
++     - SMTP_PASSWORD=
++     - SMTP_PORT=25
++     - SMTP_SENDER=no-reply@domain.tld
+
+-mailhog:
+-  image: mailhog/mailhog
+-  logging:
+-    driver: 'none' # disable saving logs
+-  ports:
+-    - 1025:1025 # smtp server
+-    - 8025:8025 # web ui
+```
+
+### Windkarte
+
+Die Windkarte basiert auf
+[leaflet-velocity](https://github.com/onaci/leaflet-velocity) und benötigt
+Winddaten im [GRIB2](https://en.wikipedia.org/wiki/GRIB)-JSON Format.
+
+Um die Daten der Windkarte zu laden lässt sich einfach ein [Wind Server](https://github.com/waldbrandpraevention/wind-js-server) aufsetzen, welcher stets aktuelle Winddaten vom Wetterdienst abruft. 
+
+Deployment und weitere Informationen dazu im Repo
+[waldbrandpraevention/wind-js-server](https://github.com/waldbrandpraevention/wind-js-server)
+
+Im Projekt wird eine Instanz (https://wind.bp.adriansoftware.de) von
+diesem Server verwendet.
+
+Die Server URL kann in der `.env.production` bzw. `.env.development` unter
+`REACT_APP_WIND_DATA` geändert werden.
+
+Weiteres zur Konfiguration der Windkarte auf der nächsten Seite.
