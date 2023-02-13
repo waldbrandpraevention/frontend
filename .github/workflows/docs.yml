@@ -23,6 +23,10 @@ concurrency:
 env:
   # Hosted GitHub runners have 7 GB of memory available, let's use 6 GB
   NODE_OPTIONS: --max-old-space-size=6144
+  
+defaults:
+  run:
+    working-directory: docs
 
 jobs:
   # Single deploy job since we're just deploying
