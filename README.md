@@ -87,7 +87,7 @@ E-Mail: `admin@kiwa.tech` Passwort: `adminkiwa`
 
 ## Dokumentation
 
-https://kiwadocs.adriansoftware.de
+[waldbrandpraevention.github.io](https://waldbrandpraevention.github.io)
 
 ## Installation
 
