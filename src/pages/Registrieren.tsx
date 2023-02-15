@@ -35,7 +35,8 @@ type RegistrierenFormData = {
   lastname: string,
   username: string,
   email: string,
-  password: string
+  password: string,
+  organization: string
 }
 
 const Registrieren = () => {
@@ -45,7 +46,8 @@ const Registrieren = () => {
     firstname: "",
     lastname: "",
     email: "",
-    password: ""
+    password: "",
+    organization: ""
   } as RegistrierenFormData);
 
   const { isLoading, mutate } = useMutation(["registrieren"], (data: RegistrierenFormData) => {
@@ -54,7 +56,7 @@ const Registrieren = () => {
     obj.append("last_name", data.lastname);
     obj.append("email", data.email);
     obj.append("password", data.password);
-    obj.append("organization", "TODO");
+    obj.append("organization", data.organization);
     obj.append("token", token as string)
     return axios.post("/users/signup/", obj).then(e => e.data);
   }, {
@@ -98,6 +100,10 @@ const Registrieren = () => {
             <Form.Group className="mb-3" >
               <Form.Label className="label-style">Email Adresse</Form.Label>
               <Form.Control type="email" placeholder="Email Adresse" name="email" value={form.email} onChange={handleFormChange} disabled={isLoading} />
+            </Form.Group>
+            <Form.Group className="mb-3" >
+              <Form.Label className="label-style">Organisation</Form.Label>
+              <Form.Control type="text" placeholder="Organisation" name="organization" value={form.organization} onChange={handleFormChange} disabled={isLoading} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="label-style">Passwort</Form.Label>
