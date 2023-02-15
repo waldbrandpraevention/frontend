@@ -93,7 +93,7 @@ const Login = () => {
             <Row className="mt-2">
               <Col>
                 <div className="d-grid">
-                  <Button className="d-flex align-items-center justify-content-center" variant="light" onClick={() => navigate("/register/demo-" + Date.now() /* Demo Signup Token */)} disabled={isLoading}>
+                  <Button className="d-flex align-items-center justify-content-center" variant="light" onClick={() => navigate("/register?token=demo-" + Date.now() /* Demo Signup Token */)} disabled={isLoading}>
                     <TbUserPlus></TbUserPlus>  Registrieren
                   </Button>
                 </div>

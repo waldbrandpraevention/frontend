@@ -9,7 +9,7 @@ import { useState } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TbUserPlus } from "react-icons/tb";
 
@@ -41,7 +41,9 @@ type RegistrierenFormData = {
 
 const Registrieren = () => {
   const navigate = useNavigate()
-  const { token } = useParams()
+  const [params,] = useSearchParams()
+  const token = params.get("token");
+
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",

@@ -44,7 +44,7 @@ render(
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-            <Route path="/register/:token" element={<GuestRoute><Registrieren /></GuestRoute>} />
+            <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
             <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
             <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
               <Route path="*" element={<NotFound />}></Route>
