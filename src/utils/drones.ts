@@ -79,6 +79,6 @@ export const dummyData: Drone[] = [
 
 export const useDrones = () => {
   return useQuery<Drone[]>(["drones"], () => {
-    return axios.get("/drones/all/").then(e => e.data);
-  }, { refetchInterval: 30000 /* 30s */ });
+    return axios.get("/drones/route/").then(e => e.data);
+  }, { refetchInterval: 10000 /* 10s */ });
 }
