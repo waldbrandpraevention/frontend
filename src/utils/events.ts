@@ -87,8 +87,8 @@ export const useEvents = () => {
   return useQuery<Event[]>(
     ["events"],
     () => {
-      return axios.get("/events/all/").then((e) => e.data);
+      return axios.get("/drones/events/").then((e) => e.data);
     },
-    { refetchInterval: 30000 /* 30s */ }
+    { refetchInterval: 10000 /* 10s */ }
   );
 };

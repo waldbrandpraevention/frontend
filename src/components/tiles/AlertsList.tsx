@@ -59,7 +59,7 @@ const AlertsList = () => {
   const interval = useAlertStore(state => state.interval)
   
   const { data, isLoading, isError, isSuccess } = useQuery(["alerts"], () => {
-    return axios.get("/users/me/allerts/").then((e) => e.data); /* FIXME: alert typo in backend! */
+    return axios.get("/users/me/alerts/").then((e) => e.data); 
   }, { refetchInterval: interval });
 
   return (
