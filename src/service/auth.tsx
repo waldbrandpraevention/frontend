@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     },
     onError: (err: any) => {
       /* If user token expired/not authorized, else server is probably down */
-      if (err?.response?.status === 401) {
+      if (err?.response?.status === 401 || err?.response?.status === 406) {
         d("Auth", "ERR: Logging out");
         logout();
         setQueryIsReady(true);
