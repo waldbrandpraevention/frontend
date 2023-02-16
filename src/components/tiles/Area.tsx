@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
@@ -10,9 +8,7 @@ import { useZones } from "../../utils/zones";
 const Area = () => {
   const { data: zonesData, isLoading: isLoadingZone, isError: isErrorZone } = useZones()
 
-  const { data, isLoading, isError } = useQuery(["area"], () => {
-    return axios.get("/test?test_input=Südliches%20Brandenburg").then((e) => e.data);
-  });
+  const { data, isLoading, isError } = useZones();
 
   if (isLoading || isLoadingZone) return <LoadingTile />;
 
@@ -40,14 +36,13 @@ const Area = () => {
       <Card.Subtitle className="text-center">{zonesData.length} Zonen</Card.Subtitle>
       <div
         style={{
-          // fontSize: "x-large",
           fontWeight: "bold",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {data.message}
+        {data.length > 0 && data[0].district}
       </div>
     </Tile>
   );

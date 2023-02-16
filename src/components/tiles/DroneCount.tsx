@@ -1,14 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Card } from "react-bootstrap";
+import { useMapStore } from "../../stores/MapStore";
+import { useDrones } from "../../utils/drones";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 
 const DroneCount = () => {
-  const { data, isLoading, isError } = useQuery(["dronecount"], () => {
-    return axios.get("/test?test_input=69").then((e) => e.data);
-  });
+  const activeZone = useMapStore((state) => state.activeZone);
+
+  const { data, isLoading, isError } = useDrones();
 
   if (isLoading) return <LoadingTile />;
 
@@ -27,7 +27,7 @@ const DroneCount = () => {
           alignItems: "center",
         }}
       >
-        {data.message}
+        {data.reduce((acc, current) => activeZone === -1 || current.zone_id === activeZone ? acc + 1 : 0, 0)}
       </div>
     </Tile>
   );
