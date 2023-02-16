@@ -14,7 +14,6 @@ type MapStore = {
 
 export const useMapStore = create<MapStore>()((set) => ({
   center: [50.83942983017336, 10.241776091505844],
-  // center: [50.06, 8.64],
   setCenter: (newCenter: LatLngTuple) => set(() => ({ center: newCenter })),
   zoom: 7,
   setZoom: (newZoom: number) => set(() => ({ zoom: newZoom })),

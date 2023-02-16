@@ -18,6 +18,7 @@ import FireDetection from "../components/tiles/FireDetection";
 import { useZone } from "../utils/zones";
 import { useMapStore } from "../stores/MapStore";
 import { useColorStore } from "../stores/ColorStore";
+import DroneCount from "../components/tiles/DroneCount";
 
 const Zone = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const Zone = () => {
   setZoom(11); /* zoom in to zone */
 
   const { defaultTiles, defaultLayout } = tiles([
-    { el: <LoadingTile />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
+    { el: <DroneCount />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
     { el: <FireDetection />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
     { el: <Firerisk />, id: "c", name: "Feuerrisiko", main: { x: 16, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 6, w: 24, h: 3 } },
     { el: <Map />, id: "g", name: "Karte", noEditmode: true, main: { x: 0, y: 4, w: 18, h: 10 }, mobile: { x: 0, y: 9, w: 24, h: 10 } },
@@ -58,7 +59,7 @@ const Zone = () => {
           <Card.Body className="p-0">
             <Row className="align-items-center">
               <Col className="col-auto">
-                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center"  style={{ borderColor: subdashColor, color: subdashColor }} ><TbChevronLeft></TbChevronLeft> Übersicht</Button>
+                <Button size="sm" onClick={() => navigate("/zones")} variant="outline-light" className="d-flex align-items-center" style={{ borderColor: subdashColor, color: subdashColor }} ><TbChevronLeft></TbChevronLeft> Übersicht</Button>
               </Col>
               <Col className="text-center">
                 <Card.Title className="mb-0" style={{ color: subdashColor }}>{zone.name}</Card.Title>
