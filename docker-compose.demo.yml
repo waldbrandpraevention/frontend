@@ -1,3 +1,4 @@
+# Used for local demo -> see install.sh
 version: '3'
 name: Waldbrandpraevention
 
@@ -22,8 +23,16 @@ services:
       - DEMO_LAT=52.07454738
       - GEOJSON_PATH=/database/zone_data.geojson
       - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-      # - SMTP_HOST=mail.domain.tld
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
-      # - SMTP_PORT=25
-      # - SMTP_SENDER=no-reply@domain.tld
+      - DOMAIN=localhost:8080
+      - SMTP_HOST=mailhog
+      - SMTP_USER=mailhog
+      - SMTP_PASSWORD=mailhog
+      - SMTP_PORT=1025
+      - SMTP_SENDER=no-reply@kiwa.local
+
+  # Mail (optional, nur für lokale Demo ohne vorhandenem Mailserver)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui

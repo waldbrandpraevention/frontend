@@ -117,7 +117,9 @@ manuell zu erstellen. Die Anwendung wird mit
 [docker compose](https://docs.docker.com/compose/) und
 [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
----
+
+Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
+installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
 
 ### One-Line
 
@@ -133,54 +135,9 @@ Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
 
 [Installationsskript](/install.sh)
 
----
+#### Alternativ
 
-#### Quickstart
-
-Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
-installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
-
-1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit
-   folgendem Inhalt:
-
-```yml
-version: '3'
-name: Waldbrandpraevention
-
-services:
-  # React
-  frontend:
-    image: waldbrandpraevention/frontend
-    ports:
-      - 8080:80
-
-  # API
-  backend:
-    image: waldbrandpraevention/backend
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
-    environment:
-      - ADMIN_MAIL=admin@kiwa.tech 
-      - ADMIN_PASSWORD=adminkiwa
-      - ADMIN_ORGANIZATION=KIWA
-      - DB_PATH=testing.db
-      - DB_BACKUP_PATH=backuptest.db
-      - DEMO_LONG=12.68895149
-      - DEMO_LAT=52.07454738
-      - GEOJSON_PATH=/database/zone_data.geojson
-      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-      # - SMTP_HOST=mail.domain.tld
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
-      # - SMTP_PORT=25
-      # - SMTP_SENDER=no-reply@domain.tld
-
-  # Mail Testserver (optional, nur für lokale Demo ohne vorhandenem Mailserver)
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025 # smtp server
-      - 8025:8025 # web ui
-```
+1. Die Datei `docker-compose.demo.yml` herunterladen.
 
 2. Im gleichen Ordner folgenden Befehl ausführen
 
@@ -196,7 +153,7 @@ Befehl angehängt werden.
 | Frontend                    | http://localhost:8080          |
 | API                         | http://localhost:8080/api/     |
 | API Dokumentation           | http://localhost:8080/api/docs |
-| [Mail](#e-mail-) (optional) | http://localhost:8025          |
+| [Mail](#e-mail-) (nur Demo) | http://localhost:8025          |
 
 Sie können sich nun mit den in `ADMIN_MAIL` und `ADMIN_PASSWORD` gesetzten
 Zugangsdaten anmelden. Diese sollten nach erfolgreichem Login auf jeden Fall

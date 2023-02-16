@@ -26,6 +26,9 @@ manuell zu erstellen. Die Anwendung wird mit
 [docker compose](https://docs.docker.com/compose/) und
 [nginx](https://www.nginx.org/) als Reverse Proxy ausgeführt.
 
+Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
+installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
+
 ## One-Line
 
 Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle
@@ -51,8 +54,12 @@ Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
   }
   trap trap_exit EXIT;
 
+  echo "|--[ Waldbrandprävention Demo ]--|" &&
+  echo "| App  > http://localhost:8080 < |" &&
+  echo "| Mail > http://localhost:8025 < |" &&
+  echo "|________________________________|" &&
   echo "[1/3] Downloading latest docker compose file from GitHub" &&
-  curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/docker-compose.yml -o docker-compose-kiwa.yml &&
+  curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/docker-compose.demo.yml -o docker-compose-kiwa.yml &&
   echo "[2/3] Running containers" &&
   docker compose -f docker-compose-kiwa.yml pull &&
   docker compose -f docker-compose-kiwa.yml up
@@ -61,52 +68,9 @@ Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
   </div>
 </details>
 
-## Quickstart
+#### Alternativ
 
-Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
-installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
-
-1. In einem leeren Ordner eine `docker-compose.yml` Datei erstellen mit
-   folgendem Inhalt:
-
-```yml
-version: '3'
-name: Waldbrandpraevention
-
-services:
-  # React
-  frontend:
-    image: waldbrandpraevention/frontend
-    ports:
-      - 8080:80
-
-  # API
-  backend:
-    image: waldbrandpraevention/backend
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
-    environment:
-      - ADMIN_MAIL=admin@kiwa.tech 
-      - ADMIN_PASSWORD=adminkiwa
-      - ADMIN_ORGANIZATION=KIWA
-      - DB_PATH=testing.db
-      - DB_BACKUP_PATH=backuptest.db
-      - DEMO_LONG=12.68895149
-      - DEMO_LAT=52.07454738
-      - GEOJSON_PATH=/database/zone_data.geojson
-      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-      # - SMTP_HOST=mail.domain.tld
-      # - SMTP_USER=
-      # - SMTP_PASSWORD=
-      # - SMTP_PORT=25
-      # - SMTP_SENDER=no-reply@domain.tld
-
-  # Mail Testserver (optional, nur für lokale Demo ohne vorhandenem Mailserver)
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - 1025:1025 # smtp server
-      - 8025:8025 # web ui
-```
+1. Die Datei `docker-compose.demo.yml` herunterladen.
 
 2. Im gleichen Ordner folgenden Befehl ausführen
 
