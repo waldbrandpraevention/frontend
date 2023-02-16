@@ -27,7 +27,6 @@ const DroneEvent = ({ data }: DroneEventProps) => {
   const setActiveEvent = useMapStore(state => state.setActiveEvent);
 
   const onHover = (e: LeafletEvent) => {
-    console.log(data.id)
     setActiveEvent(data.id);
   }
 
