@@ -1,26 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Card, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import DangerLevel from "../DangerLevel";
 import { TbInfoSquare } from "react-icons/tb";
+import { useEvents } from "../../utils/events";
+import { useMapStore } from "../../stores/MapStore";
 
 const PotentialFiresite = () => {
-  const { data, isLoading, isError } = useQuery(["firesite"], () => {
-    return axios.get("/test?test_input=69").then((e) => e.data);
-  });
+  const activeEvent = useMapStore((state) => state.activeEvent);
+
+  const { data, isLoading, isError } = useEvents();
 
   if (isLoading) return <LoadingTile />;
 
   if (isError)
     return (
       <ErrorAlert>
-        {" "}
         Potentielle Brandstelle konnte nicht geladen werden.
       </ErrorAlert>
     );
+
+  if (activeEvent === -1) return (
+    <Tile style={{ background: "#e9ecef", userSelect: "none" }} classes="d-flex align-items-center justify-content-center flex-column text-center">
+      <span> Wählen Sie ein <b>Event</b> aus um Informationen hier anzuzeigen.</span>
+      <small className="fw-light mt-2"><b>Hovern</b> oder <b>klicken</b> Sie auf ein Event auf der Karte.</small>
+    </Tile>
+  )
+
+  const event = data.find((e) => e.id === activeEvent);
+  if (event === undefined) return <ErrorAlert>Kein Event ausgewählt.</ErrorAlert>;
 
   return (
     <Tile>
@@ -51,30 +60,22 @@ const PotentialFiresite = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Nördliche Breite:</td>
-            <td>49° 47.85758'</td>
+            <td>Lat</td>
+            <td>{event.lat}</td>
           </tr>
           <tr>
-            <td>Östliche Breite:</td>
-            <td>9° 55.50832'</td>
+            <td>Lon</td>
+            <td>{event.lon}</td>
           </tr>
-          <tr>
-            <td>Höhe:</td>
-            <td>171.81m ü. NN</td>
-          </tr>
+         
           <tr>
             <td>Berechnetes Brandrisiko:</td>
             <td>
-              <DangerLevel level={0}></DangerLevel>
-              <DangerLevel level={1}></DangerLevel>
-              <DangerLevel level={2}></DangerLevel>
-              <DangerLevel level={3}></DangerLevel>
-              <DangerLevel level={4}></DangerLevel>
+              <DangerLevel level={event.confidence}></DangerLevel>
             </td>
           </tr>
         </tbody>
       </Table>
-      {data.message}
     </Tile>
   );
 };

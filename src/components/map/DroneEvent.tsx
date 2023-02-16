@@ -1,5 +1,6 @@
-import L from "leaflet";
+import L, { LeafletEvent } from "leaflet";
 import { Marker } from "react-leaflet";
+import { useMapStore } from "../../stores/MapStore";
 import { Event, EventType } from "../../utils/events";
 
 type DroneEventProps = {
@@ -23,9 +24,14 @@ const smokeIcon = L.icon({
 });
 
 const DroneEvent = ({ data }: DroneEventProps) => {
+  const setActiveEvent = useMapStore(state => state.setActiveEvent);
+
+  const onHover = (e: LeafletEvent) => {
+    setActiveEvent(data.id);
+  }
 
   return (
-    <Marker icon={data.type === EventType.SMOKE ? smokeIcon : fireIcon} position={[data.lat, data.lon]}></Marker>    
+    <Marker eventHandlers={{ mouseover: onHover, click: onHover }} icon={data.type === EventType.SMOKE ? smokeIcon : fireIcon} position={[data.lat, data.lon]}></Marker>
   )
 }
 
