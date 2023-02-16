@@ -1,4 +1,4 @@
-import { Circle, GeoJSON } from "react-leaflet"
+import { GeoJSON } from "react-leaflet"
 import { useMapStore } from "../../stores/MapStore"
 import { useDrones } from "../../utils/drones"
 import Drone from "./Drone"
