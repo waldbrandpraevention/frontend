@@ -53,6 +53,7 @@
     - [Code Coverage](#code-coverage)
   - [Themes](#themes)
   - [Kacheln](#kacheln)
+  - [Docker Compose](#docker-compose)
 
 ## Features
 
@@ -469,4 +470,49 @@ export type TileLayouts = {
    */
   mobile: ReactGridLayout.Layout[];
 };
+```
+
+### Docker Compose
+
+Folgende docker-compose.yml Datei kann verwendet werden, um die Anwendung lokal zu starten mit einem bestimmten Git-Branch.
+
+```yml
+# Used for local demo -> see install.sh
+version: '3'
+name: Waldbrandpraevention
+
+services:
+  # React
+  frontend:
+    build: https://github.com/waldbrandpraevention/frontend.git#my-branch
+    ports:
+      - 8080:80
+
+  # API
+  backend:
+    build: https://github.com/waldbrandpraevention/backend.git#my-branch
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
+    environment:
+      - ADMIN_MAIL=admin@kiwa.tech 
+      - ADMIN_PASSWORD=adminkiwa
+      - ADMIN_ORGANIZATION=KIWA
+      - DB_PATH=testing.db
+      - DB_BACKUP_PATH=backuptest.db
+      - DEMO_LONG=12.68895149
+      - DEMO_LAT=52.07454738
+      - GEOJSON_PATH=/database/zone_data.geojson
+      - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
+      - DOMAIN=localhost:8080
+      - SMTP_HOST=mailhog
+      - SMTP_USER=mailhog
+      - SMTP_PASSWORD=mailhog
+      - SMTP_PORT=1025
+      - SMTP_SENDER=no-reply@kiwa.local
+
+  # Mail (optional, nur für lokale Demo ohne vorhandenem Mailserver)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
 ```
