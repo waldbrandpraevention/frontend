@@ -4,29 +4,66 @@ import Tile from "../Tile";
 import DangerLevel from "../DangerLevel";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useZones } from "../../utils/zones";
+import { useZones, Zone } from "../../utils/zones";
 import LoadingTile from "./LoadingTile";
 import ErrorAlert from "../alerts/ErrorAlert";
+import { useEffect, useState } from "react";
 
-export const dummydata = [{ id: 1, zone: "Helm's Deep", drohne: "45", lastUpdate: "1.1.23", DangerLevel: 2, ai: 0 },
-{ id: 2, zone: "Minas Tirih", drohne: "67", lastUpdate: "3.1.23", DangerLevel: 1, ai: 1 },
-{ id: 3, zone: "Moria", drohne: "43", lastUpdate: "31.12.22", DangerLevel: 2, ai: 1 },
-{ id: 4, zone: "Edoras", drohne: "12", lastUpdate: "1.1.23", DangerLevel: 3, ai: 2 },
-{ id: 5, zone: "Rivendell", drohne: "54", lastUpdate: "2.1.23", DangerLevel: 4, ai: 4 }]
 
 const MyTr = styled.tr`
-    :hover {
+    :hover 
         background-color: #fbe9e7
     }
 `
 
+
 const ZoneOverview = () => {
   const navigate = useNavigate()
+  const [zones, setZones] = useState<Zone[]>([]);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const { data, isLoading, isError, isSuccess } = useZones()
+
+  useEffect(() => {
+    if (isSuccess) {
+      setZones(data);
+    }
+  }, [data, isSuccess]);
 
   if (isLoading) return <LoadingTile />
 
   if (isError) return <ErrorAlert> Zonen konnten nicht geladen werden.</ErrorAlert>;
+
+  const handleSortByZone = () => {
+    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    setZones(sortedData);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleSortByDrohnen = () => {
+    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.drone_count - b.drone_count : b.drone_count - a.drone_count);
+    setZones(sortedData);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleSortByDWD = () => {
+    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.dwd_fire_risk - b.dwd_fire_risk : b.dwd_fire_risk - a.dwd_fire_risk);
+    setZones(sortedData);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleSortByKI = () => {
+    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.ai_fire_risk - b.ai_fire_risk : b.ai_fire_risk - a.ai_fire_risk);
+    setZones(sortedData);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleSortByLastUpdate = () => {
+    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? new Date(a.last_update).getTime() - new Date(b.last_update).getTime() : new Date(b.last_update).getTime() - new Date(a.last_update).getTime());
+    setZones(sortedData);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+
 
   return (
     <Tile style={{ overflow: "auto" }}>
@@ -34,15 +71,15 @@ const ZoneOverview = () => {
       <Table className="table justify-content-between">
         <thead>
           <tr>
-            <th scope="col">Zone</th>
-            <th scope="col">Drohnen</th>
-            <th scope="col">Letztes Update</th>
-            <th scope="col">DWD Brandgefahr</th>
-            <th scope="col">KI Einschätzung</th>
+            <th scope="col" onClick={handleSortByZone}>Zone</th>
+            <th scope="col" onClick={handleSortByDrohnen}>Drohnen</th>
+            <th scope="col" onClick={handleSortByLastUpdate}>Letztes Update</th>
+            <th scope="col" onClick={handleSortByDWD}>DWD Brandgefahr</th>
+            <th scope="col" onClick={handleSortByKI}>KI Einschätzung</th>
           </tr>
         </thead>
         <tbody>
-          {isSuccess && data.map(zone => (
+          {isSuccess && zones.map(zone => (
             <MyTr key={zone.id} style={{ cursor: "pointer" }} onClick={() => navigate(`/zones/${zone.id}`)}>
               <td >{zone.name}</td>
               <td >{zone.drone_count}</td>

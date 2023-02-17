@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Event } from "./events";
 
-type Zone = {
+export type Zone = {
   /**
    * AI Firerisk
    */
@@ -30,7 +30,7 @@ type Zone = {
   /**
    * Number of drones in zone
    */
-  drone_count: number,
+  drone_count: number;
   /**
    * Timestamp of last update
    */
@@ -51,26 +51,42 @@ type Zone = {
    * Zone ID
    */
   id: number;
-}
+};
 
 export const useZones = () => {
-  return useQuery<Zone[]>(["zones"], () => {
-    return axios.get("/zones/all/").then(e => e.data);
-  }, { refetchOnWindowFocus: false, staleTime: 300000 /* 5min */, /* cacheTime: 300000 */ /* 5min */ });
-}
+  return useQuery<Zone[]>(
+    ["zones"],
+    () => {
+      return axios.get("/zones/all/").then((e) => e.data);
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 300000 /* 5min */ /* cacheTime: 300000 */ /* 5min */,
+    }
+  );
+};
 
 export const useZone = (id: string) => {
-  return useQuery<Zone>(["zones", id], () => {
-    return axios.get(`/zones/?zone_id=${encodeURIComponent(id)}`).then(e => e.data);
-  }, { refetchOnWindowFocus: false, staleTime: 30000 /* 30s */, /* cacheTime: 300000 */ /* 5min */ });
-}
+  return useQuery<Zone>(
+    ["zones", id],
+    () => {
+      return axios
+        .get(`/zones/?zone_id=${encodeURIComponent(id)}`)
+        .then((e) => e.data);
+    },
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 30000 /* 30s */ /* cacheTime: 300000 */ /* 5min */,
+    }
+  );
+};
 
 /**
  * Get the firerisk for all zones
  */
 export const useFirerisk = () => {
   return useZones();
-}
+};
 
 /**
  * for leaflet
@@ -90,4 +106,4 @@ export const getPolygonStyle = (z: Zone): L.PathOptions => {
     weight: 1,
     fillOpacity: 0.1,
   };
-}
+};
