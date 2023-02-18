@@ -107,7 +107,7 @@ const IncidentOverview = () => {
 
     useEffect(() => {
         setIncidents(dummydata);
-    }, [dummydata]);
+    }, []);
 
     //if (isLoading) return <LoadingTile />
 
