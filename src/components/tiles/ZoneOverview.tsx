@@ -16,6 +16,13 @@ const MyTr = styled.tr`
     }
 `
 
+const MyTh = styled.th`
+cursor: pointer;
+    :hover {
+        background-color: #fbe9e7
+    }
+`
+
 
 const ZoneOverview = () => {
   const navigate = useNavigate()
@@ -71,11 +78,11 @@ const ZoneOverview = () => {
       <Table className="table justify-content-between">
         <thead>
           <tr>
-            <th scope="col" onClick={handleSortByZone}>Zone</th>
-            <th scope="col" onClick={handleSortByDrohnen}>Drohnen</th>
-            <th scope="col" onClick={handleSortByLastUpdate}>Letztes Update</th>
-            <th scope="col" onClick={handleSortByDWD}>DWD Brandgefahr</th>
-            <th scope="col" onClick={handleSortByKI}>KI Einschätzung</th>
+            <MyTh scope="col" onClick={handleSortByZone}>Zone</MyTh>
+            <MyTh scope="col" onClick={handleSortByDrohnen}>Drohnen</MyTh>
+            <MyTh scope="col" onClick={handleSortByLastUpdate}>Letztes Update</MyTh>
+            <MyTh scope="col" onClick={handleSortByDWD}>DWD Brandgefahr</MyTh>
+            <MyTh scope="col" onClick={handleSortByKI}>KI Einschätzung</MyTh>
           </tr>
         </thead>
         <tbody>

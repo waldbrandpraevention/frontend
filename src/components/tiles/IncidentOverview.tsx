@@ -91,6 +91,13 @@ const MyTr = styled.tr`
     }
 `
 
+const MyTh = styled.th`
+cursor: pointer;
+    :hover {
+        background-color: #fbe9e7
+    }
+`
+
 const IncidentOverview = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -175,12 +182,12 @@ const IncidentOverview = () => {
             <Table className="table justify-content-between">
                 <thead>
                     <tr>
-                        <th scope="col" onClick={handleSortByNumber}>Einsatznummer</th>
-                        <th scope="col" onClick={handleSortByDate}>Datum</th>
-                        <th scope="col" onClick={handleSortPlace}>EinsatzOrt</th>
-                        <th scope="col" onClick={handleSortByType}>Brandgefahr/Brandtyp</th>
-                        <th scope="col" onClick={handleSortByNote}>Notizen</th>
-                        <th scope="col" onClick={handleSortByDrohn}>Drohne</th>
+                        <MyTh scope="col" onClick={handleSortByNumber}>Einsatznummer</MyTh>
+                        <MyTh scope="col" onClick={handleSortByDate}>Datum</MyTh>
+                        <MyTh scope="col" onClick={handleSortPlace}>EinsatzOrt</MyTh>
+                        <MyTh scope="col" onClick={handleSortByType}>Brandgefahr/Brandtyp</MyTh>
+                        <MyTh scope="col" onClick={handleSortByNote}>Notizen</MyTh>
+                        <MyTh scope="col" onClick={handleSortByDrohn}>Drohne</MyTh>
                     </tr>
                 </thead>
                 <tbody>
