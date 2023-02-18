@@ -41,31 +41,31 @@ const ZoneOverview = () => {
   if (isError) return <ErrorAlert> Zonen konnten nicht geladen werden.</ErrorAlert>;
 
   const handleSortByZone = () => {
-    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+    const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
     setZones(sortedData);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByDrohnen = () => {
-    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.drone_count - b.drone_count : b.drone_count - a.drone_count);
+    const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.drone_count - b.drone_count : b.drone_count - a.drone_count);
     setZones(sortedData);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByDWD = () => {
-    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.dwd_fire_risk - b.dwd_fire_risk : b.dwd_fire_risk - a.dwd_fire_risk);
+    const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.dwd_fire_risk - b.dwd_fire_risk : b.dwd_fire_risk - a.dwd_fire_risk);
     setZones(sortedData);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByKI = () => {
-    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? a.ai_fire_risk - b.ai_fire_risk : b.ai_fire_risk - a.ai_fire_risk);
+    const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.ai_fire_risk - b.ai_fire_risk : b.ai_fire_risk - a.ai_fire_risk);
     setZones(sortedData);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByLastUpdate = () => {
-    const sortedData = [...data].sort((a, b) => sortOrder === 'asc' ? new Date(a.last_update).getTime() - new Date(b.last_update).getTime() : new Date(b.last_update).getTime() - new Date(a.last_update).getTime());
+    const sortedData = data.sort((a, b) => sortOrder === 'asc' ? new Date(a.last_update).getTime() - new Date(b.last_update).getTime() : new Date(b.last_update).getTime() - new Date(a.last_update).getTime());
     setZones(sortedData);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
