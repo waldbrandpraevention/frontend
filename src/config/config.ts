@@ -29,7 +29,7 @@ export const windData = process.env.REACT_APP_WIND_DATA;
 /**
  * Refetch interval in milliseconds for tiles
  */
-export const refetchInterval: number = 15000;
+export const refetchInterval: number = 30000;
 /**
  * Local storage name for access token
  */
