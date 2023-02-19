@@ -6,8 +6,16 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import LoadingTile from "../tiles/LoadingTile"; */
 import Tile from "../Tile";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 
-
+interface Incident {
+    id: number;
+    date: string;
+    place: string;
+    typ: string;
+    notes: string;
+    drone: string;
+}
 
 export const dummydata = [
     {
@@ -83,14 +91,90 @@ const MyTr = styled.tr`
     }
 `
 
+const MyTh = styled.th`
+cursor: pointer;
+    :hover {
+        background-color: #fbe9e7
+    }
+`
+
 const IncidentOverview = () => {
+    const [incidents, setIncidents] = useState<Incident[]>([]);
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     //const { data, isLoading, isError } = useQuery(["incidentsoverview"], () => {
     //return axios.get("/zones/").then(e => e.data);
     //});
 
+    useEffect(() => {
+        setIncidents(dummydata);
+    }, []);
+
     //if (isLoading) return <LoadingTile />
 
     //if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
+
+
+
+    const handleSortByNumber = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.id - b.id));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.id - a.id));
+            setSortOrder('asc');
+        }
+    };
+
+    const handleSortByDate = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+            setSortOrder('asc');
+        }
+    };
+
+    const handleSortPlace = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.place.localeCompare(b.place)));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.place.localeCompare(a.place)));
+            setSortOrder('asc');
+        }
+    };
+
+    const handleSortByType = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.typ.localeCompare(b.typ)));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.typ.localeCompare(a.typ)));
+            setSortOrder('asc');
+        }
+    };
+
+    const handleSortByNote = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.notes.localeCompare(b.notes)));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.notes.localeCompare(a.notes)));
+            setSortOrder('asc');
+        }
+    };
+
+    const handleSortByDrohn = () => {
+        if (sortOrder === 'asc') {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.drone.localeCompare(b.drone)));
+            setSortOrder('desc');
+        } else {
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.drone.localeCompare(a.drone)));
+            setSortOrder('asc');
+        }
+    };
+
 
     return (
         <Tile >
@@ -98,16 +182,16 @@ const IncidentOverview = () => {
             <Table className="table justify-content-between">
                 <thead>
                     <tr>
-                        <th scope="col">Einsatznummer</th>
-                        <th scope="col">Datum</th>
-                        <th scope="col">EinsatzOrt</th>
-                        <th scope="col">Brandgefahr/Brandtyp</th>
-                        <th scope="col">Notizen</th>
-                        <th scope="col">Drohne</th>
+                        <MyTh scope="col" onClick={handleSortByNumber}>Einsatznummer</MyTh>
+                        <MyTh scope="col" onClick={handleSortByDate}>Datum</MyTh>
+                        <MyTh scope="col" onClick={handleSortPlace}>EinsatzOrt</MyTh>
+                        <MyTh scope="col" onClick={handleSortByType}>Brandgefahr/Brandtyp</MyTh>
+                        <MyTh scope="col" onClick={handleSortByNote}>Notizen</MyTh>
+                        <MyTh scope="col" onClick={handleSortByDrohn}>Drohne</MyTh>
                     </tr>
                 </thead>
                 <tbody>
-                    {dummydata.map((item: { id: number, date: string; place: string; typ: string; notes: string; drone: string; }) => (
+                    {incidents.map((item: { id: number, date: string; place: string; typ: string; notes: string; drone: string; }) => (
                         <MyTr style={{ cursor: "pointer" }}>
                             <td >{item.id}</td>
                             <td >{item.date}</td>
