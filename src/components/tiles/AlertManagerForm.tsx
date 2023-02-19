@@ -17,7 +17,8 @@ const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: (
     alertMail: true,
   });
 
-  const { isLoading, mutate } = useMutation(["account", "alerts"], async (data: any) => {
+  // Ignore temporary
+  const { isLoading, /* mutate */ } = useMutation(["account", "alerts"], async (data: any) => {
     return axios.post("/users/alerts/edit/", data).then((e) => e.data);
   }, {
     onError(e: any) {
@@ -33,8 +34,9 @@ const AlertManagerForm = ({ show, handleClose }: { show: boolean, handleClose: (
   } */
 
   const save = () => {
-    mutate(form);
+    // mutate(form);
     update(form);
+    toast.success("Einstellungen gespeichert.")
   }
 
   return <Modal

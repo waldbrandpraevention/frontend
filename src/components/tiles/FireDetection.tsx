@@ -1,27 +1,27 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import DangerLevel from "../DangerLevel";
 import { TbFlame, TbDropletFilled, TbInfoSquare } from "react-icons/tb";
-import { refetchInterval } from "../../config/config";
+import { useZones } from "../../utils/zones";
+import { useMapStore } from "../../stores/MapStore";
 
 const FireDetection = () => {
-  const { /* data ,*/ isLoading, isError } = useQuery(["firedetect"], () => {
-    return axios.get("/test?test_input=69").then((e) => e.data);
-  }, { refetchInterval });
+  const { data, isLoading, isError } = useZones();
+  const zoneId = useMapStore(state => state.activeZone);
 
   if (isLoading) return <LoadingTile />;
 
   if (isError)
     return (
       <ErrorAlert>
-        {" "}
         Rauch- und Feuerdetektion konnte nicht geladen werden.
       </ErrorAlert>
     );
+
+  const zone = data.find(z => z.id === zoneId);
+  if (!zone) return <ErrorAlert>Keine Zone ausgewählt.</ErrorAlert>;
 
   return (
     <Tile>
@@ -41,11 +41,11 @@ const FireDetection = () => {
       </OverlayTrigger>
       <Card.Subtitle>
         <TbDropletFilled></TbDropletFilled>Rauch detektiert:
-        <DangerLevel level={2}></DangerLevel>
+        <DangerLevel level={zone.ai_smoke_detection}></DangerLevel>
       </Card.Subtitle>
       <Card.Subtitle>
         <TbFlame></TbFlame>Feuer detektiert:
-        <DangerLevel level={3}></DangerLevel>
+        <DangerLevel level={zone.ai_fire_detection}></DangerLevel>
       </Card.Subtitle>
     </Tile>
   );
