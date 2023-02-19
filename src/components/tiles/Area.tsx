@@ -3,16 +3,14 @@ import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import { TbInfoSquare } from "react-icons/tb";
-import { useZones } from "../../utils/zones";
+import { useArea } from "../../utils/area";
 
 const Area = () => {
-  const { data: zonesData, isLoading: isLoadingZone, isError: isErrorZone } = useZones()
+  const { data, isLoading, isError } = useArea();
 
-  const { data, isLoading, isError } = useZones();
+  if (isLoading) return <LoadingTile />;
 
-  if (isLoading || isLoadingZone) return <LoadingTile />;
-
-  if (isError || isErrorZone)
+  if (isError)
     return <ErrorAlert> Überwachungsgebiet konnte nicht geladen werden.</ErrorAlert>
 
   return (
@@ -33,7 +31,7 @@ const Area = () => {
         </div>
       </OverlayTrigger>
       <Card.Title className="text-center">Überwachungsgebiet</Card.Title>
-      <Card.Subtitle className="text-center">{zonesData.length} Zonen</Card.Subtitle>
+      <Card.Subtitle className="text-center">{data[0].zone_count} Zonen</Card.Subtitle>
       <div
         style={{
           fontWeight: "bold",
@@ -42,7 +40,7 @@ const Area = () => {
           alignItems: "center",
         }}
       >
-        {data.length > 0 && data[0].district}
+        {data[0].name}
       </div>
     </Tile>
   );

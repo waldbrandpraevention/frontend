@@ -12,6 +12,14 @@ type Zone = {
    */
   dwd_fire_risk: number;
   /**
+   * AI Fire detection
+   */
+  ai_fire_detection: number;
+  /**
+   * AI Smoke detection
+   */
+  ai_smoke_detection: number;
+  /**
    * 'Landkreis / Kreisfreie Stadt'
    */
   district: string;
