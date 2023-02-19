@@ -13,10 +13,13 @@ import DroneImage from "../components/tiles/advanced/DroneImage";
 import AiAnalysis from "../components/tiles/advanced/AiAnalysis";
 import AiImage from "../components/tiles/advanced/AiImage";
 import AiFeedback from "../components/tiles/advanced/AiFeedback";
+import { useMapStore } from "../stores/MapStore";
 
 const TilesLayout = lazy(() => import("../components/TilesLayout"));
 
 const Advanced = () => {
+  useMapStore(state => state.setActiveZone)(-1) /* show all zones */
+
   const { defaultTiles, defaultLayout } = tiles([
     { el: <DroneInfo />, id: "a", name: "Drohneninfo", main: { x: 0, y: 0, w: 8, h: 5 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
     { el: <Area />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 5 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
