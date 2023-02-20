@@ -33,7 +33,7 @@ services:
       - SMTP_PORT=1025
       - SMTP_SENDER=no-reply@kiwa.local
     volumes:
-      - kiwa-data:/data
+      - kiwa-data:/api/data
 
   # Mail (optional, nur für lokale Demo ohne vorhandenem Mailserver)
   mailhog:
