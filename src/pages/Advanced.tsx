@@ -41,7 +41,7 @@ const Advanced = () => {
   return (
     <div className="App">
       <Suspense fallback={<Loading />}>
-        <TilesLayout layoutId="advanced" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
+        <TilesLayout layoutId="advanced-v2" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
       </Suspense>
     </div>
   );
