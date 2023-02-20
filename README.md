@@ -140,7 +140,9 @@ Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
 
 1. Die Datei `docker-compose.demo.yml` herunterladen.
 
-2. Im gleichen Ordner folgenden Befehl ausführen
+2. Environment Variablen anpassen.
+
+3. Im gleichen Ordner folgenden Befehl ausführen
 
 ```
 docker compose up
