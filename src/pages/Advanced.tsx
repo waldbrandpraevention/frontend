@@ -33,9 +33,9 @@ const Advanced = () => {
     { el: <AiImage />, id: "aii", noEditmode: true, name: "KI Einschätzung", main: { x: 8, y: 15, w: 8, h: 13 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
     { el: <AiAnalysis />, id: "aia", noEditmode: true, name: "KI Analyse", main: { x: 16, y: 15, w: 8, h: 13 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
 
-    { el: <AlertDrone />, id: "e", name: "Drohne alarmieren", main: { x: 0, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
-    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 8, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
-    { el: <AiFeedback />, id: "aif", name: "KI Feedback", main: { x: 16, y: 23, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
+    { el: <AlertDrone />, id: "e", name: "Drohne alarmieren", main: { x: 0, y: 29, w: 8, h: 14 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
+    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 8, y: 29, w: 8, h: 14 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
+    { el: <AiFeedback />, id: "aif", name: "KI Feedback", main: { x: 16, y: 29, w: 8, h: 14 }, mobile: { x: 0, y: 33, w: 24, h: 17 } },
   ])
 
   return (
