@@ -476,6 +476,8 @@ export type TileLayouts = {
 
 Folgende docker-compose.yml Datei kann verwendet werden, um die Anwendung lokal zu starten mit einem bestimmten Git-Branch.
 
+Folgende Datei kann veraltet sein. Daher die aktuelle `docker-compose-yml` beachten.
+
 ```yml
 # Used for local demo -> see install.sh
 version: '3'
