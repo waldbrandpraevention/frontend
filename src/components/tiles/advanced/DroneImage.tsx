@@ -1,8 +1,7 @@
-import Tile from "../../Tile"
-import Img from "../../../assets/img/loading/LoadingImage2.webp"
+import Tile from "../../Tile";
 import Card from 'react-bootstrap/esm/Card';
 import { useAdvancedStore } from "../../../stores/AdvancedStore";
-import { dummyData, useEvents } from "../../../utils/events";
+import { useEvents } from "../../../utils/events";
 import ErrorAlert from "../../alerts/ErrorAlert";
 import LoadingTile from "../LoadingTile";
 import { Carousel } from "react-bootstrap";
@@ -10,13 +9,20 @@ import { Carousel } from "react-bootstrap";
 const DroneImage = () => {
   const id = useAdvancedStore(store => store.id)
   const setId = useAdvancedStore(store => store.setId)
-  //const { data: events, isLoading, isError } = useEvents();
-  const events = dummyData();
+  const { data: events, isLoading, isError } = useEvents();
+  // const events = dummyData();
   const handleSelect = (selectedIndex: number, e: any) => {
     setId(selectedIndex);
   };
 
+  if (isLoading) return <LoadingTile />;
 
+  if (isError)
+    return (
+      <ErrorAlert>
+        Drohnenbild konnte nicht geladen werden.
+      </ErrorAlert>
+    );
 
   return (
     <Tile>

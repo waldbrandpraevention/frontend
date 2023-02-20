@@ -10,8 +10,16 @@ type MapStore = {
   setActiveZone: (newZone: number) => void;
   showDroneRoutes: boolean;
   setShowDroneRoutes: (newShow: boolean) => void;
+  /**
+   * The currently active event when clicking/hovering over an event on the map
+   */
   activeEvent: number;
   setActiveEvent: (newEvent: number) => void;
+  /**
+   * Active area/territory
+   */
+  activeArea: number;
+  setActiveArea: (newArea: number) => void;
 };
 
 export const useMapStore = create<MapStore>()((set) => ({
@@ -25,4 +33,6 @@ export const useMapStore = create<MapStore>()((set) => ({
   setShowDroneRoutes: (newShow: boolean) => set(() => ({ showDroneRoutes: newShow })),
   activeEvent: -1,
   setActiveEvent: (newEvent: number) => set(() => ({ activeEvent: newEvent })),
+  activeArea: -1,
+  setActiveArea: (newArea: number) => set(() => ({ activeArea: newArea })),
 }));

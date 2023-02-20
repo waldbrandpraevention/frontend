@@ -6,6 +6,8 @@ export enum EventType {
   FIRE = 2,
 }
 
+export const getEventName = (type: EventType) => type === EventType.SMOKE ? "Rauch" : "Feuer";
+
 export type Event = {
   /**
    * Drone ID
@@ -14,7 +16,7 @@ export type Event = {
   /**
    * Type of the event
    */
-  type: EventType;
+  event_type: EventType;
   /**
    * Event ID
    */
@@ -54,7 +56,7 @@ export const dummyData = (): Event[] => {
 
   dummy.push({
     drone_id: 1,
-    type: EventType.SMOKE,
+    event_type: EventType.SMOKE,
     id: 1,
     zone_id: 1,
     timestamp: new Date(),
@@ -69,7 +71,7 @@ export const dummyData = (): Event[] => {
 
   dummy.push({
     drone_id: 2,
-    type: EventType.FIRE,
+    event_type: EventType.FIRE,
     id: 2,
     zone_id: 2,
     timestamp: new Date(),

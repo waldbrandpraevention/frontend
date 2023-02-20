@@ -31,7 +31,7 @@ const DroneEvent = ({ data }: DroneEventProps) => {
   }
 
   return (
-    <Marker eventHandlers={{ mouseover: onHover, click: onHover }} icon={data.type === EventType.SMOKE ? smokeIcon : fireIcon} position={[data.lat, data.lon]}></Marker>
+    <Marker eventHandlers={{ mouseover: onHover, click: onHover }} icon={data.event_type === EventType.SMOKE ? smokeIcon : fireIcon} position={[data.lat, data.lon]}></Marker>
   )
 }
 

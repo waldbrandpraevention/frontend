@@ -1,5 +1,8 @@
 import { create } from "zustand";
 type AdvancedStore = {
+  /**
+   * Event ID
+   */
   id: number;
   setId: (newId: number) => void;
 };

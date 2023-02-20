@@ -17,22 +17,24 @@ import {
 import LoadingSpinner from "../../LoadingSpinner";
 
 type FormData = {
+  reason: string;
   notes: string;
   attachments: string;
 };
 
 const AiFeedback = () => {
   const [form, setForm] = useState({
+    reason: "",
     notes: "",
     attachments: "",
   } as FormData);
 
   const { isLoading, mutate } = useMutation(
-    ["alertdrone"],
+    ["aifeedback"],
     (data: FormData) => {
       return axios
-        .post("https://httpbin.org/post", data)
-        .then((e) => e.data); /* demo url */
+        .post("/drones/feedback", data)
+        .then((e) => e.data); 
     },
     {
       onSuccess() {
