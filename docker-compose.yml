@@ -32,7 +32,7 @@ services:
       # - SMTP_PORT=25
       # - SMTP_SENDER=no-reply@domain.tld
     volumes:
-      - kiwa-data:/data
+      - kiwa-data:/api/data
       
 volumes:
   kiwa-data:
