@@ -44,12 +44,14 @@ const Zone = () => {
     { el: <DroneCount />, id: "a", name: "Drohnenanzahl", main: { x: 0, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 0, w: 24, h: 3 } },
     { el: <FireDetection />, id: "b", name: "Überwachungsgebiet", main: { x: 8, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 3, w: 24, h: 3 } },
     { el: <Firerisk />, id: "c", name: "Feuerrisiko", main: { x: 16, y: 0, w: 8, h: 3 }, mobile: { x: 0, y: 6, w: 24, h: 3 } },
+
     { el: <Map />, id: "g", name: "Karte", noEditmode: true, main: { x: 0, y: 5, w: 18, h: 11 }, mobile: { x: 0, y: 9, w: 24, h: 10 } },
     { el: <WeatherForecast />, id: "d", name: "Wettervorhersage", main: { x: 18, y: 5, w: 6, h: 11 }, mobile: { x: 0, y: 19, w: 24, h: 10 } },
+
+    { el: <PotentialFiresite />, id: "e", name: "Potentielle Feuerstelle", main: { x: 0, y: 17, w: 8, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
     { el: <WeatherTable />, id: "dd", name: "Wetter Tabelle", noEditmode: true, enabled: false, main: { x: 0, y: 4, w: 24, h: 10 }, mobile: { x: 0, y: 29, w: 24, h: 10 } },
-    { el: <PotentialFiresite />, id: "e", name: "Zonenübersicht", main: { x: 0, y: 15, w: 8, h: 12 }, mobile: { x: 0, y: 29, w: 24, h: 12 } },
-    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 16, y: 15, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 }, },
-    { el: <AlertDrone />, id: "alerts", name: "Alarme", main: { x: 8, y: 21, w: 8, h: 12 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
+    { el: <AlertEmergencyUnits />, id: "f", name: "Einsatzkräfte alarmieren", main: { x: 16, y: 17, w: 8, h: 12 }, mobile: { x: 0, y: 33, w: 24, h: 17 }, },
+    { el: <AlertDrone />, id: "alerts", name: "Alarme", main: { x: 8, y: 17, w: 8, h: 12 }, mobile: { x: 0, y: 54, w: 24, h: 9 } },
   ])
 
   return (
@@ -70,7 +72,7 @@ const Zone = () => {
         </Card>
       </div>
       <Suspense fallback={<Loading />}>
-        <TilesLayout layoutId="zone" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
+        <TilesLayout layoutId="zone-v1" defaultLayout={defaultLayout} defaultTiles={defaultTiles} />
       </Suspense>
     </div>
   )
