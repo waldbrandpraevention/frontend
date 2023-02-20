@@ -251,10 +251,6 @@ docker compose down -v
 
 _oder_ falls die Datenbank erhalten bleiben soll:
 
-> aktuell <ins> _**nicht**_</ins> empfohlen, weil Updates möglicherweise das
-> Datenbankschema oder Serverkonfiguration ändern müssen und so unerwünschte
-> Probleme auftreten können.
-
 ```
 docker compose down
 ```
