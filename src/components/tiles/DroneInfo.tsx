@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, Carousel, OverlayTrigger, Tooltip } from "react-bootstrap";
 import ErrorAlert from "../alerts/ErrorAlert";
 import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
@@ -10,65 +8,70 @@ import {
   TbArrowBigRight,
   TbInfoSquare,
 } from "react-icons/tb";
+import { useDrones } from "../../utils/drones";
+import { useAdvancedStore } from "../../stores/AdvancedStore";
+import { useEvents } from "../../utils/events";
 
 const DroneInfo = () => {
-  const { /* data, */ isLoading, isError } = useQuery(["droneinfo"], () => {
-    return axios.get("/test?test_input=69").then((e) => e.data);
-  });
+  const { data: drones, isLoading: dronesisLoading, isError: dronesisError } = useDrones();
+  const { data: eventData, isLoading: eventIsLoading, isError: eventIsError } = useEvents();
+  const activeEvent = useAdvancedStore((state) => state.id);
+  const setId = useAdvancedStore(store => store.setId);
+  const handleSelect = (selectedIndex: number, e: any) => {
+    setId(selectedIndex);
+  };
 
-  if (isLoading) return <LoadingTile />;
+  if (dronesisLoading || eventIsLoading) return <LoadingTile />;
 
-  if (isError)
+  if (dronesisError || eventIsError)
     return <ErrorAlert> Drohneninfos konnten nicht geladen werden.</ErrorAlert>;
 
   return (
     <Tile>
-      {" "}
-      <OverlayTrigger
-        placement="left"
-        delay={{ show: 250, hide: 400 }}
-        overlay={
-          <Tooltip id="icontooltip">
-            Hier können Sie den Akkustand und die Geschwindigkeit der für dieses
-            Gebiet zuständigen Drohne einsehen.
-          </Tooltip>
-        }
-      >
-        <div style={{ float: "right" }}>
-          <TbInfoSquare></TbInfoSquare>
-        </div>
-      </OverlayTrigger>
-      <Card.Title className="text-center">
-        <TbDrone></TbDrone> Drohne
-      </Card.Title>
-      <div
-        style={{
-          fontSize: "large",
-          textAlign: "center",
-        }}
-      >
-        A123
-      </div>
-      <div
-        style={{
-          fontSize: "large",
-          fontWeight: "bold",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Card.Body>
-          <div className="d-grid">
-            <div className="col">
-              <TbBatteryCharging></TbBatteryCharging>20%
-            </div>
-            <div className="col">
-              <TbArrowBigRight></TbArrowBigRight>15km/h
-            </div>
-          </div>
-        </Card.Body>
-      </div>
+      <Carousel indicators={false} variant="dark" activeIndex={activeEvent} onSelect={handleSelect}>
+        {eventData.map((event) => {
+          const drone = drones.find(d => event.drone_id === d.drone_id)!;
+          return (
+            <Carousel.Item>
+              <OverlayTrigger
+                placement="left"
+                delay={{ show: 250, hide: 400 }}
+                overlay={<Tooltip id="icontooltip">
+                  Hier können Sie den verbleibenden Akkustand in Minuten und die verbleibende Flugreichweite in km der für dieses
+                  Gebiet zuständigen Drohne einsehen.
+                </Tooltip>}
+              >
+                <div style={{ float: "right" }}>
+                  <TbInfoSquare></TbInfoSquare>
+                </div>
+              </OverlayTrigger>
+              <Card.Title className="text-center">
+                <TbDrone></TbDrone> Drohne #{drone.drone_id}
+              </Card.Title>
+              <div
+                style={{
+                  fontSize: "large",
+                  fontWeight: "bold",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Card.Body className="pt-0">
+                  <div className="d-grid text-center">
+                    <div className="col">
+                      <TbBatteryCharging></TbBatteryCharging>{drone.flight_time} min
+                    </div>
+                    <div className="col">
+                      <TbArrowBigRight></TbArrowBigRight>{drone.flight_range} km
+                    </div>
+                  </div>
+                </Card.Body>
+              </div>
+            </Carousel.Item>
+          );
+        })}
+      </Carousel>
     </Tile>
   );
 };

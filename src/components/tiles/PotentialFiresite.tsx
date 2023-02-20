@@ -6,6 +6,7 @@ import DangerLevel from "../DangerLevel";
 import { TbInfoSquare } from "react-icons/tb";
 import { useEvents } from "../../utils/events";
 import { useMapStore } from "../../stores/MapStore";
+import EventBadge from "../EventBadge";
 
 const PotentialFiresite = () => {
   const activeEvent = useMapStore((state) => state.activeEvent);
@@ -67,9 +68,16 @@ const PotentialFiresite = () => {
             <td>Lon</td>
             <td>{event.lon}</td>
           </tr>
-         
           <tr>
-            <td>Berechnetes Brandrisiko:</td>
+            <td>Vertrauen?</td>
+            <td>{event.confidence}%</td>
+          </tr>
+          <tr>
+            <td>Typ</td>
+            <td><EventBadge type={event.event_type}></EventBadge></td>
+          </tr>
+          <tr>
+            <td>Brandrisiko:</td>
             <td>
               <DangerLevel level={event.confidence}></DangerLevel>
             </td>

@@ -32,7 +32,7 @@ const AlertEmergencyUnits = () => {
     (data: AlertFormData) => {
       return axios
         .post("https://httpbin.org/post", data)
-        .then((e) => e.data); /* demo url */
+        .then((e) => e.data); 
     },
     {
       onSuccess() {

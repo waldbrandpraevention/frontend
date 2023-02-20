@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useArea } from "./area";
 import { Event } from "./events";
 
 export type Zone = {
@@ -93,7 +94,7 @@ export const useZone = (id: string) => {
  * Get the firerisk for all zones
  */
 export const useFirerisk = () => {
-  return useZones();
+  return useArea();
 };
 
 /**

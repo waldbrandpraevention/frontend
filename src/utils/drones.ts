@@ -25,13 +25,13 @@ export type Drone = {
    */
   flight_time: number,
   /**
-   * Remaining flight range of the drone in meters
+   * Remaining flight range of the drone in kilometers
    */
   flight_range: number,
   /**
    * Drone route if available
    */
-  route?: GeoJSON.Feature<GeoJSON.LineString>,
+  geojson?: GeoJSON.Feature<GeoJSON.LineString>,
   /**
    * Timestamp of the last position update
    */

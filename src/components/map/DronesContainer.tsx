@@ -12,7 +12,7 @@ const DronesContainer = () => {
   return <>{(droneData || []).map(d => (activeZone === -1 || d.zone_id === activeZone) &&
     <>
       <Drone data={d} />
-      {showDroneRoutes && <GeoJSON data={d.route as any} />}
+      {showDroneRoutes && <GeoJSON data={d.geojson!} />}
     </>
   )}</>
 }

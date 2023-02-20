@@ -31,8 +31,8 @@ const AlertDrone = () => {
     ["alertdrone"],
     (data: AlertFormData) => {
       return axios
-        .post("https://httpbin.org/post", data)
-        .then((e) => e.data); /* demo url */
+        .post("/drones/", data)
+        .then((e) => e.data); 
     },
     {
       onSuccess() {

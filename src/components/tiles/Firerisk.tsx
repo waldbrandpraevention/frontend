@@ -4,20 +4,23 @@ import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import { TbInfoSquare } from "react-icons/tb";
 import DangerLevel from "../DangerLevel";
-import { useFirerisk } from "../../utils/zones";
+import { useFirerisk, useZones } from "../../utils/zones";
 import { useMapStore } from "../../stores/MapStore";
 
 const Firerisk = () => {
   const zoneId = useMapStore(state => state.activeZone)
-  const { data, isLoading, isError } = useFirerisk();
+  const { data, isLoading, isError } = useZones();
+  const { data: globalData, isLoading: globalDataisLoading, isError: globalisError } = useFirerisk();
 
-  if (isLoading) return <LoadingTile />;
+  if (isLoading || globalisError) return <LoadingTile />;
 
-  if (isError)
+  if (isError || globalisError)
     return <ErrorAlert> Brandrisiko konnte nicht geladen werden.</ErrorAlert>;
 
-  /*   get fire risk from zone data   */
-  const fireRisk = zoneId !== -1 ? data.find(z => z.id === zoneId)?.dwd_fire_risk : 0;
+  /* get fire risk from zone data or else global firerisk  */
+  const fireRisk = zoneId !== -1 ? data.find(z => z.id === zoneId)?.dwd_fire_risk : globalData?.reduce((acc, area) => {
+    return area.dwd_fire_risk > acc.dwd_fire_risk ? area : acc;
+  }).dwd_fire_risk;
 
   return (
     <Tile>
