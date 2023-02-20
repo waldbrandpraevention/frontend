@@ -140,7 +140,9 @@ Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
 
 1. Die Datei `docker-compose.demo.yml` herunterladen.
 
-2. Im gleichen Ordner folgenden Befehl ausführen
+2. Environment Variablen anpassen.
+
+3. Im gleichen Ordner folgenden Befehl ausführen
 
 ```
 docker compose up
@@ -475,6 +477,8 @@ export type TileLayouts = {
 ### Docker Compose
 
 Folgende docker-compose.yml Datei kann verwendet werden, um die Anwendung lokal zu starten mit einem bestimmten Git-Branch.
+
+Folgende Datei kann veraltet sein. Daher die aktuelle `docker-compose-yml` beachten.
 
 ```yml
 # Used for local demo -> see install.sh
