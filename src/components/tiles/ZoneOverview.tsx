@@ -8,6 +8,8 @@ import { useZones, Zone } from "../../utils/zones";
 import LoadingTile from "./LoadingTile";
 import ErrorAlert from "../alerts/ErrorAlert";
 import { useEffect, useState } from "react";
+import SortingArror from "../SortingArrow";
+
 
 
 const MyTr = styled.tr`
@@ -30,6 +32,14 @@ const ZoneOverview = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const { data, isLoading, isError, isSuccess } = useZones()
 
+  const [sortingArrays, setSortingArrays] = useState([
+    { name: "Zone", sortDirection: 1 },
+    { name: "Array2", sortDirection: 0 },
+    { name: "Array3", sortDirection: 2 },
+    { name: "Array4", sortDirection: 1 },
+    { name: "Array5", sortDirection: 0 }
+  ]);
+
   useEffect(() => {
     if (isSuccess) {
       setZones(data);
@@ -43,7 +53,9 @@ const ZoneOverview = () => {
   const handleSortByZone = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
     setZones(sortedData);
+    handleSortChange("Zone", (sortOrder === 'asc' ? 0 : 1));
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+
   };
 
   const handleSortByDrohnen = () => {
@@ -72,17 +84,27 @@ const ZoneOverview = () => {
 
 
 
+
+  const handleSortChange = (arrayName: string, newDirection: any) => {
+    console.log(newDirection)
+    const newArray = [...sortingArrays];
+    const arrayIndex = newArray.findIndex(array => array.name === arrayName);
+    newArray[arrayIndex].sortDirection = newDirection;
+    setSortingArrays(newArray);
+  }
+
+
   return (
     <Tile style={{ overflow: "auto" }}>
       <Card.Title>Alle Zonen</Card.Title>
       <Table className="table justify-content-between">
         <thead>
           <tr>
-            <MyTh scope="col" onClick={handleSortByZone}>Zone</MyTh>
-            <MyTh scope="col" onClick={handleSortByDrohnen}>Drohnen</MyTh>
-            <MyTh scope="col" onClick={handleSortByLastUpdate}>Letztes Update</MyTh>
+            <MyTh scope="col" onClick={handleSortByZone}>Zone <SortingArror onChange={(newDirection: any) => handleSortChange("Zone", newDirection)}></SortingArror></MyTh>
+            <MyTh scope="col" onClick={handleSortByDrohnen}>Drohnen </MyTh>
+            <MyTh scope="col" onClick={handleSortByLastUpdate}>Letztes Update </MyTh>
             <MyTh scope="col" onClick={handleSortByDWD}>DWD Brandgefahr</MyTh>
-            <MyTh scope="col" onClick={handleSortByKI}>KI Einschätzung</MyTh>
+            <MyTh scope="col" onClick={handleSortByKI}>KI Einschätzung </MyTh>
           </tr>
         </thead>
         <tbody>
