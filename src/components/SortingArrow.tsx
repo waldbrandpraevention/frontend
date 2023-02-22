@@ -1,26 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BiDownArrow, BiRightArrow, BiUpArrow } from "react-icons/bi";
+import styled from 'styled-components';
 
 interface SortingArrowProps {
-    onChange: (newDirection: number) => void;
+    value: number
 }
 
-const SortingArror = ({ onChange }: SortingArrowProps) => {
-    const [value, setValue] = useState(2);
-
-    const handleClick = () => {
-        // Change the value and call the onChange function with the new value
-        if (value === 0) {
-            setValue(1);
-            onChange(1);
-        } else if (value === 1) {
-            setValue(0);
-            onChange(0);
-        } else {
-            setValue(1);
-            onChange(1);
-        }
-    }
+const SortingArrow = ({ value }: SortingArrowProps) => {
 
     return (
         <div>
@@ -31,4 +17,4 @@ const SortingArror = ({ onChange }: SortingArrowProps) => {
     );
 };
 
-export default SortingArror;
+export default SortingArrow;
