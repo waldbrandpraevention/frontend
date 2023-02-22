@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
 import { BiDownArrow, BiRightArrow, BiUpArrow } from "react-icons/bi";
-import styled from 'styled-components';
 
 interface SortingArrowProps {
     value: number
