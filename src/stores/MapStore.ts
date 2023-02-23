@@ -33,6 +33,6 @@ export const useMapStore = create<MapStore>()((set) => ({
   setShowDroneRoutes: (newShow: boolean) => set(() => ({ showDroneRoutes: newShow })),
   activeEvent: -1,
   setActiveEvent: (newEvent: number) => set(() => ({ activeEvent: newEvent })),
-  activeArea: -1,
+  activeArea: 0,
   setActiveArea: (newArea: number) => set(() => ({ activeArea: newArea })),
 }));

@@ -12,7 +12,7 @@ const Firerisk = () => {
   const { data, isLoading, isError } = useZones();
   const { data: globalData, isLoading: globalDataisLoading, isError: globalisError } = useFirerisk();
 
-  if (isLoading || globalisError) return <LoadingTile />;
+  if (isLoading || globalDataisLoading) return <LoadingTile />;
 
   if (isError || globalisError)
     return <ErrorAlert> Brandrisiko konnte nicht geladen werden.</ErrorAlert>;
