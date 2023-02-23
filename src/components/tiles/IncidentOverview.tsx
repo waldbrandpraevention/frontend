@@ -7,6 +7,7 @@ import LoadingTile from "../tiles/LoadingTile"; */
 import Tile from "../Tile";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import SortingArrow from "../SortingArrow";
 
 interface Incident {
     id: number;
@@ -101,6 +102,15 @@ cursor: pointer;
 const IncidentOverview = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [sortingArrays, setSortingArrays] = useState([
+        { name: "id", sortDirection: 2 },
+        { name: "date", sortDirection: 2 },
+        { name: "place", sortDirection: 2 },
+        { name: "typ", sortDirection: 2 },
+        { name: "notes", sortDirection: 2 },
+        { name: "drone", sortDirection: 2 }
+    ]);
+
     //const { data, isLoading, isError } = useQuery(["incidentsoverview"], () => {
     //return axios.get("/zones/").then(e => e.data);
     //});
@@ -119,61 +129,111 @@ const IncidentOverview = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.id - b.id));
             setSortOrder('desc');
+            handleSortChange("id", 1);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.id - a.id));
             setSortOrder('asc');
+            handleSortChange("id", 0);
         }
+        handleSortChange("date", 2);
+        handleSortChange("place", 2);
+        handleSortChange("typ", 2);
+        handleSortChange("notes", 2);
+        handleSortChange("drone", 2);
     };
 
     const handleSortByDate = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
             setSortOrder('desc');
+            handleSortChange("date", 1);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
             setSortOrder('asc');
+            handleSortChange("date", 0);
         }
+        handleSortChange("id", 2);
+        handleSortChange("place", 2);
+        handleSortChange("typ", 2);
+        handleSortChange("notes", 2);
+        handleSortChange("drone", 2);
     };
 
     const handleSortPlace = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.place.localeCompare(b.place)));
             setSortOrder('desc');
+            handleSortChange("place", 1);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.place.localeCompare(a.place)));
             setSortOrder('asc');
+            handleSortChange("place", 0);
         }
+        handleSortChange("id", 2);
+        handleSortChange("date", 2);
+        handleSortChange("typ", 2);
+        handleSortChange("notes", 2);
+        handleSortChange("drone", 2);
     };
 
     const handleSortByType = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.typ.localeCompare(b.typ)));
             setSortOrder('desc');
+            handleSortChange("typ", 0);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.typ.localeCompare(a.typ)));
             setSortOrder('asc');
+            handleSortChange("typ", 1);
         }
+        handleSortChange("id", 2);
+        handleSortChange("date", 2);
+        handleSortChange("place", 2);
+        handleSortChange("notes", 2);
+        handleSortChange("drone", 2);
     };
 
     const handleSortByNote = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.notes.localeCompare(b.notes)));
             setSortOrder('desc');
+            handleSortChange("notes", 0);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.notes.localeCompare(a.notes)));
             setSortOrder('asc');
+            handleSortChange("notes", 1);
         }
+        handleSortChange("id", 2);
+        handleSortChange("date", 2);
+        handleSortChange("place", 2);
+        handleSortChange("typ", 2);
+        handleSortChange("drone", 2);
     };
 
-    const handleSortByDrohn = () => {
+    const handleSortByDrone = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.drone.localeCompare(b.drone)));
             setSortOrder('desc');
+            handleSortChange("drone", 0);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.drone.localeCompare(a.drone)));
             setSortOrder('asc');
+            handleSortChange("drone", 1);
         }
+        handleSortChange("id", 2);
+        handleSortChange("date", 2);
+        handleSortChange("place", 2);
+        handleSortChange("notes", 2);
+        handleSortChange("typ", 2);
     };
+
+
+    const handleSortChange = (arrayName: string, newDirection: any) => {
+        const newArray = [...sortingArrays];
+        const arrayIndex = newArray.findIndex(array => array.name === arrayName);
+        newArray[arrayIndex].sortDirection = newDirection;
+        setSortingArrays(newArray);
+    }
 
 
     return (
@@ -182,12 +242,12 @@ const IncidentOverview = () => {
             <Table className="table justify-content-between">
                 <thead>
                     <tr>
-                        <MyTh scope="col" onClick={handleSortByNumber}>Einsatznummer</MyTh>
-                        <MyTh scope="col" onClick={handleSortByDate}>Datum</MyTh>
-                        <MyTh scope="col" onClick={handleSortPlace}>EinsatzOrt</MyTh>
-                        <MyTh scope="col" onClick={handleSortByType}>Brandgefahr/Brandtyp</MyTh>
-                        <MyTh scope="col" onClick={handleSortByNote}>Notizen</MyTh>
-                        <MyTh scope="col" onClick={handleSortByDrohn}>Drohne</MyTh>
+                        <MyTh scope="col" onClick={handleSortByNumber}>Einsatznummer <SortingArrow value={sortingArrays[0].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortByDate}>Datum <SortingArrow value={sortingArrays[1].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortPlace}>EinsatzOrt <SortingArrow value={sortingArrays[2].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortByType}>Brandgefahr/Brandtyp <SortingArrow value={sortingArrays[3].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortByNote}>Notizen <SortingArrow value={sortingArrays[4].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortByDrone}>Drohne <SortingArrow value={sortingArrays[5].sortDirection} ></SortingArrow></MyTh>
                     </tr>
                 </thead>
                 <tbody>
