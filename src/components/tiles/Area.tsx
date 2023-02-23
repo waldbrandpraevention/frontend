@@ -30,7 +30,7 @@ const Area = () => {
               </Tooltip>
             }
           >
-            <div style={{ float: "right" }}>
+            <div style={{ float: "right", zIndex: 10, position: "inherit" }}>
               <TbInfoSquare></TbInfoSquare>
             </div>
           </OverlayTrigger>
