@@ -4,7 +4,7 @@ import Tile from "../Tile";
 import LoadingTile from "./LoadingTile";
 import DangerLevel from "../DangerLevel";
 import { TbFlame, TbDropletFilled, TbInfoSquare } from "react-icons/tb";
-import { useFirerisk, useZones } from "../../utils/zones";
+import { useZones } from "../../utils/zones";
 import { useMapStore } from "../../stores/MapStore";
 
 const FireDetection = () => {
