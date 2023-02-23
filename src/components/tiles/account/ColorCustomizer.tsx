@@ -92,6 +92,7 @@ const ColorCustomizer = () => {
         <h5>Themes</h5>
         <InputGroup>
           <Button variant="secondary" onClick={() => colors.resetDefault()}><TbColorSwatch /> Standard</Button>
+          <Button variant="light" onClick={() => colors.setColor({ ...themes.white })}><TbColorSwatch /> Weiß</Button>
           <Button variant="success" onClick={() => colors.setColor({ ...themes.green })}><TbColorSwatch /> Grün</Button>
           <Button style={{ border: "none", color: "white", background: "#009688" }} onClick={() => colors.setColor({ ...themes.bluegreen })}><TbColorSwatch /> Blaugrün</Button>
           <Button variant="danger" onClick={() => colors.setColor({ ...themes.red })}><TbColorSwatch /> Rot</Button>
