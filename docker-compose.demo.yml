@@ -35,6 +35,12 @@ services:
     volumes:
       - kiwa-data:/api/data
 
+  # Windserver
+  wind:
+    image: waldbrandpraevention/wind
+    volumes:
+      - wind-data:/api/json-data
+
   # Mail (optional, nur für lokale Demo ohne vorhandenem Mailserver)
   mailhog:
     image: mailhog/mailhog
@@ -44,3 +50,4 @@ services:
 
 volumes:
   kiwa-data:
+  wind-data:
