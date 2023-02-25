@@ -34,5 +34,12 @@ services:
     volumes:
       - kiwa-data:/api/data
       
+  # Windserver
+  wind:
+    image: waldbrandpraevention/wind
+    volumes:
+      - wind-data:/api/json-data
+      
 volumes:
   kiwa-data:
+  wind-data:
