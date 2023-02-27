@@ -29,7 +29,7 @@ export const useMapStore = create<MapStore>()((set) => ({
   setZoom: (newZoom: number) => set(() => ({ zoom: newZoom })),
   activeZone: -1,
   setActiveZone: (newZone: number) => set(() => ({ activeZone: newZone })),
-  showDroneRoutes: true,
+  showDroneRoutes: false,
   setShowDroneRoutes: (newShow: boolean) => set(() => ({ showDroneRoutes: newShow })),
   activeEvent: -1,
   setActiveEvent: (newEvent: number) => set(() => ({ activeEvent: newEvent })),
