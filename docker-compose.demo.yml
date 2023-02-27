@@ -23,7 +23,7 @@ services:
       - DEMO_LAT=52.07454738
       - GEOJSON_PATH=/api/data/zone_data.geojson
       - DEMO_DISTRICT=Landkreis Potsdam-Mittelmark
-      - DOMAIN_API=http://localhost:8080/api/
+      - DOMAIN_API=http://localhost:8080/api
       - DRONE_FEEDBACK_PATH=/api/data/drone_feedback
       - EVENT_PATH=/api/data/events
       - ALARM_PATH=/api/data/alarms
