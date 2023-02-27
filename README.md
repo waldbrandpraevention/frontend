@@ -134,6 +134,11 @@ curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/
 Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
 `adminkiwa` anmelden.
 
+##### Voraussetzungen
+- x64 Architektur (AMD/Intel)
+- minimum 4GB RAM
+- minimum 2 vCPUs
+
 [Installationsskript](/install.sh)
 
 #### Alternativ
