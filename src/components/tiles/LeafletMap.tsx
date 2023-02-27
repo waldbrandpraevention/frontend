@@ -135,7 +135,7 @@ const LeafletMapContainer = () => {
         }} style={getPolygonStyle(z)} />)}
       </LayerGroup>
     </LayersControl.Overlay>
-    <LayersControl.Overlay checked={true} name={`<b>Drohnenrouten</b>`}>
+    <LayersControl.Overlay checked={false} name={`<b>Drohnenrouten</b>`}>
       <LayerGroup>
         {/* TODO */}
       </LayerGroup>
