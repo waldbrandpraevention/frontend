@@ -27,6 +27,10 @@ services:
       - DRONE_FEEDBACK_PATH=/api/data/drone_feedback
       - EVENT_PATH=/api/data/events
       - ALARM_PATH=/api/data/alarms
+      - SIMULATION_EVENT_CHANCE = '0.01'
+      - SIMULATION_UPDATE_FREQUENCY = '10'
+      - SIMULATION_DRONE_SPEED_MIN = '0.0001'
+      - SIMULATION_DRONE_SPEED_MAX = '0.0002'
       - SMTP_HOST=mailhog
       - SMTP_USER=mailhog
       - SMTP_PASSWORD=mailhog
