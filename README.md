@@ -122,7 +122,7 @@ manuell zu erstellen. Die Anwendung wird mit
 Zunächst muss [docker compose](https://docs.docker.com/compose/install/)
 installiert sein. Ist standardmäßig bei _Docker Desktop_ der Fall.
 
-### One-Line
+### One-Line Demo
 
 Für eine schnelle Demo kann einfach folgender Befehl genutzt werden. Alle
 erstellten Container & Volumes werden automatisch bereinigt.
@@ -134,24 +134,24 @@ curl -fsSL https://raw.githubusercontent.com/waldbrandpraevention/frontend/main/
 Auf [localhost:8080](http://localhost:8080) mit `admin@kiwa.tech` und
 `adminkiwa` anmelden.
 
+[Installationsskript](/install.sh) verwendet `docker-compose.demo.yml`.
+
+### Deployment
+
 ##### Voraussetzungen
 - x64 Architektur (AMD/Intel)
 - minimum 4GB RAM
 - minimum 2 vCPUs
 
-[Installationsskript](/install.sh)
 
-#### Alternativ
 
-1. Die Datei `docker-compose.demo.yml` herunterladen.
+
+
+1. Die Datei `docker-compose.yml` (für Deployment/Production) herunterladen.
 
 2. Environment Variablen anpassen.
 
-3. Im gleichen Ordner folgenden Befehl ausführen
-
-```
-docker compose up
-```
+3. `docker compose up`
 
 Falls die Anwendung im Hintergrund ausgeführt werden soll, kann `-d` an den
 Befehl angehängt werden.
@@ -211,14 +211,6 @@ services:
 +     - SMTP_PASSWORD=
 +     - SMTP_PORT=25
 +     - SMTP_SENDER=no-reply@domain.tld
-
--mailhog:
--  image: mailhog/mailhog
--  logging:
--    driver: 'none' # disable saving logs
--  ports:
--    - 1025:1025 # smtp server
--    - 8025:8025 # web ui
 ```
 
 #### Windkarte
