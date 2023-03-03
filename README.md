@@ -86,10 +86,6 @@
 
 E-Mail: `admin@kiwa.tech` Passwort: `adminkiwa`
 
-## Dokumentation
-
-[kiwadocs.adriansoftware.de](https://kiwadocs.adriansoftware.de)
-
 ## Installation
 
 <!-- > Für die Installation vom Frontend alleine: [Option 3](#option-3-frontend-mit-docker) (nicht empfohlen) -->
