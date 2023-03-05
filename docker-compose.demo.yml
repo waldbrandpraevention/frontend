@@ -26,7 +26,7 @@ services:
       - DOMAIN_API=http://frontend:80/api
       - DRONE_FEEDBACK_PATH=/api/data/drone_feedback
       - EVENT_PATH=/api/data/events
-      - ALARM_PATH=/api/data/alarms
+      - RUN_SIMULATION=True
       - SIMULATION_EVENT_CHANCE=0.01
       - SIMULATION_UPDATE_FREQUENCY=60
       - SIMULATION_DRONE_SPEED_MIN=0.0001
