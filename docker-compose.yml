@@ -25,7 +25,7 @@ services:
       - DOMAIN_API=domain.tld/api
       - DRONE_FEEDBACK_PATH=/api/data/drone_feedback
       - EVENT_PATH=/api/data/events
-      - ALARM_PATH=/api/data/alarms
+      - RUN_SIMULATION=True
       - SIMULATION_EVENT_CHANCE=0.01
       - SIMULATION_UPDATE_FREQUENCY=600
       - SIMULATION_DRONE_SPEED_MIN=0.0001
