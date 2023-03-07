@@ -2,7 +2,7 @@ import { LayerGroup, LayersControl, MapContainer, TileLayer, useMap, GeoJSON } f
 import Tile from "../Tile";
 import ReactResizeDetector from 'react-resize-detector';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMapStore } from "../../stores/MapStore";
 import "../../assets/styles/leafletmap.scss";
 
@@ -55,12 +55,16 @@ const LeafletMapContainer = () => {
 
   m.on("contextmenu", (e) => console.log(e.latlng))
 
+  const [showWindBg, setShowWindBg] = useState(false);
+
   m.on("overlayadd", (e) => {
-    if (e.name === "<b>Drohnenrouten</b>") setShowDroneRoutes(true)
+    if (e.name === "<b>Drohnenrouten</b>") { setShowDroneRoutes(true); }
+    if (e.name === "<b>Wind</b>") { setShowWindBg(true); }
   })
 
   m.on("overlayremove", (e) => {
-    if (e.name === "<b>Drohnenrouten</b>") setShowDroneRoutes(false)
+    if (e.name === "<b>Drohnenrouten</b>") { setShowDroneRoutes(false) }
+    if (e.name === "<b>Wind</b>") { setShowWindBg(false) }
   })
 
   return <LayersControl position="topright" ref={layersRef}>
@@ -98,10 +102,10 @@ const LeafletMapContainer = () => {
         url="https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png"
       />
     </LayersControl.Overlay>
-    <LayersControl.Overlay name="Standard Grau (für Wind)">
-      <TileLayer
+    <LayersControl.Overlay checked={true} name="Standard Grau (für Wind)">
+      {showWindBg && <TileLayer
         url="https://c.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png"
-      />
+      />}
     </LayersControl.Overlay>
     <LayersControl.Overlay name="<i>- Feuerwehr</i>">
       <TileLayer
