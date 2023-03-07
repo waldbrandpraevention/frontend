@@ -13,14 +13,18 @@ const WindLayer = forwardRef((props, ref: any) => {
   let mounted = true;
   let windGlobalLayer: any;
 
-  const { data } = useQuery(["wind"], () => {
-    return fetch(windData as string).then(e => e.json())
-  }, {
-    staleTime: 30 * 60 * 1000,
-    onError(err: Error) {
-      toast.error("Fehler beim Laden der Winddaten. " + err.message)
+  const { data } = useQuery(
+    ["wind"],
+    () => {
+      return fetch(windData as string).then((e) => e.json());
     },
-  })
+    {
+      staleTime: 30 * 60 * 1000,
+      onError(err: Error) {
+        toast.error("Fehler beim Laden der Winddaten. " + err.message);
+      },
+    }
+  );
 
   useEffect(() => {
     /* Leaflet map not loaded yet */
@@ -51,8 +55,9 @@ const WindLayer = forwardRef((props, ref: any) => {
       velocityScale: 0.003,
     });
 
-    if (ref.current && windGlobalLayer)
+    if (ref.current && windGlobalLayer) {
       ref.current.addOverlay(windGlobalLayer, "<b>Wind</b>");
+    }
 
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
