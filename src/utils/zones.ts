@@ -70,7 +70,7 @@ export const useZones = () => {
     },
     {
       refetchOnWindowFocus: false,
-      staleTime: 300000 /* 5min */ /* cacheTime: 300000 */ /* 5min */,
+      staleTime: 300000 /* 5min */,
     }
   );
 };
