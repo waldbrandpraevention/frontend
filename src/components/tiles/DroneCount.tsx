@@ -15,6 +15,12 @@ const DroneCount = () => {
   if (isError)
     return <ErrorAlert> Drohnen konnten nicht geladen werden.</ErrorAlert>;
 
+  let count = 0;
+  data.forEach(
+    (current) =>
+      (activeZone === -1 || current.zone_id === activeZone) && count++
+  );
+
   return (
     <Tile>
       <Card.Title className="text-center">Anzahl Drohnen</Card.Title>
@@ -27,7 +33,7 @@ const DroneCount = () => {
           alignItems: "center",
         }}
       >
-        {data.reduce((acc, current) => activeZone === -1 || current.zone_id === activeZone ? acc + 1 : 0, 0)}
+        {count}
       </div>
     </Tile>
   );
