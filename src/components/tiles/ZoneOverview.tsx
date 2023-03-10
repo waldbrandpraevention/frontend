@@ -53,13 +53,8 @@ const ZoneOverview = () => {
   const handleSortByZone = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
     setZones(sortedData);
-
+    resetArrows();
     handleSortChange("name", (sortOrder === 'asc' ? 0 : 1));
-    handleSortChange("drone_count", 2);
-    handleSortChange("dwd_fire_risk", 2);
-    handleSortChange("ai_fire_risk", 2);
-    handleSortChange("last_update", 2);
-
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
 
   };
@@ -67,57 +62,42 @@ const ZoneOverview = () => {
   const handleSortByDrohnen = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.drone_count - b.drone_count : b.drone_count - a.drone_count);
     setZones(sortedData);
-
-    handleSortChange("name", 2);
+    resetArrows();
     handleSortChange("drone_count", (sortOrder === 'asc' ? 0 : 1));
-    handleSortChange("dwd_fire_risk", 2);
-    handleSortChange("ai_fire_risk", 2);
-    handleSortChange("last_update", 2);
-
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByDWD = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.dwd_fire_risk - b.dwd_fire_risk : b.dwd_fire_risk - a.dwd_fire_risk);
     setZones(sortedData);
-
-    handleSortChange("name", 2);
-    handleSortChange("drone_count", 2);
+    resetArrows();
     handleSortChange("dwd_fire_risk", (sortOrder === 'asc' ? 0 : 1));
-    handleSortChange("ai_fire_risk", 2);
-    handleSortChange("last_update", 2);
-
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByKI = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? a.ai_fire_risk - b.ai_fire_risk : b.ai_fire_risk - a.ai_fire_risk);
     setZones(sortedData);
-
-
-    handleSortChange("name", 2);
-    handleSortChange("drone_count", 2);
-    handleSortChange("dwd_fire_risk", 2);
+    resetArrows();
     handleSortChange("ai_fire_risk", (sortOrder === 'asc' ? 0 : 1));
-    handleSortChange("last_update", 2);
-
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const handleSortByLastUpdate = () => {
     const sortedData = data.sort((a, b) => sortOrder === 'asc' ? new Date(a.last_update).getTime() - new Date(b.last_update).getTime() : new Date(b.last_update).getTime() - new Date(a.last_update).getTime());
     setZones(sortedData);
+    resetArrows();
+    handleSortChange("last_update", (sortOrder === 'asc' ? 0 : 1));
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
 
+  const resetArrows = () => {
     handleSortChange("name", 2);
     handleSortChange("drone_count", 2);
     handleSortChange("dwd_fire_risk", 2);
     handleSortChange("ai_fire_risk", 2);
-    handleSortChange("last_update", (sortOrder === 'asc' ? 0 : 1));
-
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-  };
-
-
+    handleSortChange("last_update", 2);
+  }
 
 
   const handleSortChange = (arrayName: string, newDirection: any) => {

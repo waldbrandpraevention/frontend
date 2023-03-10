@@ -126,6 +126,7 @@ const IncidentOverview = () => {
 
 
     const handleSortByNumber = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.id - b.id));
             setSortOrder('desc');
@@ -135,14 +136,10 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("id", 0);
         }
-        handleSortChange("date", 2);
-        handleSortChange("place", 2);
-        handleSortChange("typ", 2);
-        handleSortChange("notes", 2);
-        handleSortChange("drone", 2);
     };
 
     const handleSortByDate = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
             setSortOrder('desc');
@@ -152,14 +149,10 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("date", 0);
         }
-        handleSortChange("id", 2);
-        handleSortChange("place", 2);
-        handleSortChange("typ", 2);
-        handleSortChange("notes", 2);
-        handleSortChange("drone", 2);
     };
 
     const handleSortPlace = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.place.localeCompare(b.place)));
             setSortOrder('desc');
@@ -169,14 +162,10 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("place", 0);
         }
-        handleSortChange("id", 2);
-        handleSortChange("date", 2);
-        handleSortChange("typ", 2);
-        handleSortChange("notes", 2);
-        handleSortChange("drone", 2);
     };
 
     const handleSortByType = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.typ.localeCompare(b.typ)));
             setSortOrder('desc');
@@ -186,14 +175,10 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("typ", 1);
         }
-        handleSortChange("id", 2);
-        handleSortChange("date", 2);
-        handleSortChange("place", 2);
-        handleSortChange("notes", 2);
-        handleSortChange("drone", 2);
     };
 
     const handleSortByNote = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.notes.localeCompare(b.notes)));
             setSortOrder('desc');
@@ -203,14 +188,10 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("notes", 1);
         }
-        handleSortChange("id", 2);
-        handleSortChange("date", 2);
-        handleSortChange("place", 2);
-        handleSortChange("typ", 2);
-        handleSortChange("drone", 2);
     };
 
     const handleSortByDrone = () => {
+        resetArrows();
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.drone.localeCompare(b.drone)));
             setSortOrder('desc');
@@ -220,12 +201,16 @@ const IncidentOverview = () => {
             setSortOrder('asc');
             handleSortChange("drone", 1);
         }
+    };
+
+    const resetArrows = () => {
+        handleSortChange("drone", 2);
         handleSortChange("id", 2);
         handleSortChange("date", 2);
         handleSortChange("place", 2);
         handleSortChange("notes", 2);
         handleSortChange("typ", 2);
-    };
+    }
 
 
     const handleSortChange = (arrayName: string, newDirection: any) => {
