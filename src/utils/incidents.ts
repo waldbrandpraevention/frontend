@@ -32,7 +32,7 @@ export const useIncidents = () => {
   return useQuery<Incident[]>(
     ["incidents"],
     () => {
-      return axios.get("/alarm/get-all/").then((e) => e.data);
+      return axios.get("/incidents/get-all/").then((e) => e.data);
     },
     { refetchInterval: 10000 /* 10s */ }
   );
