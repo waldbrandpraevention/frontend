@@ -11,28 +11,27 @@ import { TbInfoSquare } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 type AlertFormData = {
-  drone: string;
-  zone: string;
-  firetype: string;
+  drone_name: string;
+  location: string;
+  alarm_type: string;
   notes: string;
-  attachments: string;
 };
 
 const AlertEmergencyUnits = () => {
   const [form, setForm] = useState({
-    drone: "",
-    zone: "",
-    firetype: "",
+    drone_name: "",
+    location: "",
+    alarm_type: "",
     notes: "",
-    attachments: "",
   } as AlertFormData);
 
   const { isLoading, mutate } = useMutation(
-    ["alertemergencyunits"],
-    (data: AlertFormData) => {
-      return axios
-        .post("https://httpbin.org/post", data)
-        .then((e) => e.data); 
+    ["incidents"],
+    async (data: AlertFormData) => {
+      await axios.post("/incidents/send/?drone_name= " + data.drone_name +
+        "&location=" + data.location +
+        "&alarm_type=" + data.alarm_type +
+        "&notes=" + data.notes).then(e => e.data);
     },
     {
       onSuccess() {
@@ -97,8 +96,8 @@ const AlertEmergencyUnits = () => {
               className="col-lg-*"
               type="text"
               placeholder="Drohne-A123"
-              name="drone"
-              value={form.drone}
+              name="drone_name"
+              value={form.drone_name}
               onChange={handleFormChange}
               disabled={isLoading}
             />
@@ -112,8 +111,8 @@ const AlertEmergencyUnits = () => {
             <Form.Control
               type="text"
               placeholder="Zone-123"
-              name="zone"
-              value={form.zone}
+              name="location"
+              value={form.location}
               onChange={handleFormChange}
               disabled={isLoading}
             />
@@ -127,8 +126,8 @@ const AlertEmergencyUnits = () => {
             <Form.Control
               type="text"
               placeholder="Brandgefahr 123"
-              name="firetype"
-              value={form.firetype}
+              name="alarm_type"
+              value={form.alarm_type}
               onChange={handleFormChange}
               disabled={isLoading}
             />
@@ -148,14 +147,6 @@ const AlertEmergencyUnits = () => {
               onChange={handleFormChange}
               disabled={isLoading}
             />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-3" controlId="formFileMultiple">
-          <Form.Label column md={4}>
-            Anhänge hinzufügen:{" "}
-          </Form.Label>
-          <Col md={8}>
-            <Form.Control type="file" multiple disabled={true} />
           </Col>
         </Form.Group>
 
