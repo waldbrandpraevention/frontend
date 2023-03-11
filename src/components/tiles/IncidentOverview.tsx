@@ -1,90 +1,12 @@
 
 import { Table, Card } from "react-bootstrap";
-/* import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import ErrorAlert from "../alerts/ErrorAlert";
-import LoadingTile from "../tiles/LoadingTile"; */
 import Tile from "../Tile";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import SortingArrow from "../SortingArrow";
-
-interface Incident {
-    id: number;
-    date: string;
-    place: string;
-    typ: string;
-    notes: string;
-    drone: string;
-}
-
-export const dummydata = [
-    {
-        id: 1,
-        date: '01/01/2022',
-        place: 'Berlin',
-        typ: 'Brandgefahr',
-        notes: 'Keine besonderen Notizen',
-        drone: 'Drohne 1'
-    },
-    {
-        id: 2,
-        date: '01/02/2022',
-        place: 'München',
-        typ: 'Brandtyp A',
-        notes: 'Einsatz erfolgreich beendet',
-        drone: 'Drohne 2'
-    },
-    {
-        id: 3,
-        date: '01/03/2022',
-        place: 'Hamburg',
-        typ: 'Brandgefahr',
-        notes: 'Unterstützung durch Feuerwehr erforderlich',
-        drone: 'Drohne 3'
-    },
-    {
-        id: 4,
-        date: '01/01/3018',
-        place: 'Minas Tirith',
-        typ: 'Saurons Army',
-        notes: 'Possible use of Nazgul',
-        drone: 'Rohans Eagles'
-    },
-    {
-        id: 5,
-        date: '01/02/3018',
-        place: 'Helms Deep',
-        typ: 'Uruk-hai',
-        notes: 'Assistance from Gandalf requested',
-        drone: 'Gondors Hawks'
-    },
-    {
-        id: 6,
-        date: '01/03/3018',
-        place: 'Osgiliath',
-        typ: 'Saurons Army',
-        notes: 'Possible use of Oliphaunts',
-        drone: 'Rohans Eagles'
-    },
-    {
-        id: 7,
-        date: '01/04/3018',
-        place: 'Mordor',
-        typ: 'Nazgul',
-        notes: 'Ringwraiths sighted',
-        drone: 'Gondors Hawks'
-    },
-    {
-        id: 8,
-        date: '01/05/3018',
-        place: 'Isengard',
-        typ: 'Saurons Army',
-        notes: 'Possible use of Ents',
-        drone: 'Rohans Eagles'
-    },
-]
-
+import { useIncidents, Incident } from "../../utils/incidents";
+import ErrorAlert from "../alerts/ErrorAlert";
+import LoadingTile from "./LoadingTile";
 
 const MyTr = styled.tr`
     :hover {
@@ -102,6 +24,9 @@ cursor: pointer;
 const IncidentOverview = () => {
     const [incidents, setIncidents] = useState<Incident[]>([]);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const { data, isLoading, isError, isSuccess } = useIncidents()
+
+
     const [sortingArrays, setSortingArrays] = useState([
         { name: "id", sortDirection: 2 },
         { name: "date", sortDirection: 2 },
@@ -111,17 +36,17 @@ const IncidentOverview = () => {
         { name: "drone", sortDirection: 2 }
     ]);
 
-    //const { data, isLoading, isError } = useQuery(["incidentsoverview"], () => {
-    //return axios.get("/zones/").then(e => e.data);
-    //});
+
 
     useEffect(() => {
-        setIncidents(dummydata);
-    }, []);
+        if (isSuccess) {
+            setIncidents(data);
+        }
+    }, [data, isSuccess]);
 
-    //if (isLoading) return <LoadingTile />
+    if (isLoading) return <LoadingTile />
 
-    //if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
+    if (isError) return <ErrorAlert> Einsaetze konnte nicht geladen werden.</ErrorAlert>;
 
 
 
@@ -141,11 +66,11 @@ const IncidentOverview = () => {
     const handleSortByDate = () => {
         resetArrows();
         if (sortOrder === 'asc') {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()));
             setSortOrder('desc');
             handleSortChange("date", 1);
         } else {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
             setSortOrder('asc');
             handleSortChange("date", 0);
         }
@@ -154,11 +79,11 @@ const IncidentOverview = () => {
     const handleSortPlace = () => {
         resetArrows();
         if (sortOrder === 'asc') {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.place.localeCompare(b.place)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.location?.localeCompare(b.location)));
             setSortOrder('desc');
             handleSortChange("place", 1);
         } else {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.place.localeCompare(a.place)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.location?.localeCompare(a.location)));
             setSortOrder('asc');
             handleSortChange("place", 0);
         }
@@ -167,11 +92,11 @@ const IncidentOverview = () => {
     const handleSortByType = () => {
         resetArrows();
         if (sortOrder === 'asc') {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.typ.localeCompare(b.typ)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.alarm_type.localeCompare(b.alarm_type)));
             setSortOrder('desc');
             handleSortChange("typ", 0);
         } else {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.typ.localeCompare(a.typ)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.alarm_type.localeCompare(a.alarm_type)));
             setSortOrder('asc');
             handleSortChange("typ", 1);
         }
@@ -193,23 +118,23 @@ const IncidentOverview = () => {
     const handleSortByDrone = () => {
         resetArrows();
         if (sortOrder === 'asc') {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.drone.localeCompare(b.drone)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.drone_name.localeCompare(b.drone_name)));
             setSortOrder('desc');
             handleSortChange("drone", 0);
         } else {
-            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.drone.localeCompare(a.drone)));
+            setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.drone_name.localeCompare(a.drone_name)));
             setSortOrder('asc');
             handleSortChange("drone", 1);
         }
     };
 
     const resetArrows = () => {
-        handleSortChange("drone", 2);
         handleSortChange("id", 2);
-        handleSortChange("date", 2);
-        handleSortChange("place", 2);
+        handleSortChange("drone_name", 2);
+        handleSortChange("location", 2);
+        handleSortChange("alarm_type", 2);
         handleSortChange("notes", 2);
-        handleSortChange("typ", 2);
+        handleSortChange("timestamp", 2);
     }
 
 
@@ -236,14 +161,14 @@ const IncidentOverview = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {incidents.map((item: { id: number, date: string; place: string; typ: string; notes: string; drone: string; }) => (
-                        <MyTr style={{ cursor: "pointer" }}>
-                            <td >{item.id}</td>
-                            <td >{item.date}</td>
-                            <td >{item.place}</td>
-                            <td >{item.typ} </td>
-                            <td >{item.notes} </td>
-                            <td >{item.drone} </td>
+                    {isSuccess && incidents.map(incident => (
+                        <MyTr key={incident.id} >
+                            <td >{incident.id}</td>
+                            <td >{incident.location}</td>
+                            <td >{incident.drone_name}</td>
+                            <td >{incident.alarm_type}</td>
+                            <td >{incident.notes}</td>
+                            <td >{new Date(incident.timestamp).toLocaleString()}</td>
                         </MyTr>
                     ))}
                 </tbody>

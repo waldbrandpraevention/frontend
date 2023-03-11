@@ -1,42 +1,42 @@
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-const d = new Date()
+const d = new Date();
 
 export type Drone = {
   /**
    * Drone id
    */
-  drone_id: number,
+  drone_id: number;
   /**
    * Zone id of the drone
    */
-  zone_id: number,
+  zone_id: number;
   /**
    * Longitude of the drone
    */
-  lon: number,
+  lon: number;
   /**
    * Latitude of the drone
    */
-  lat: number,
+  lat: number;
   /**
    * Remaining battery of the drone in minutes
    */
-  flight_time: number,
+  flight_time: number;
   /**
    * Remaining flight range of the drone in kilometers
    */
-  flight_range: number,
+  flight_range: number;
   /**
    * Drone route if available
    */
-  geojson?: GeoJSON.Feature<GeoJSON.LineString>,
+  geojson?: GeoJSON.Feature<GeoJSON.LineString>;
   /**
    * Timestamp of the last position update
    */
-  timestamp: Date
-}
+  timestamp: Date;
+};
 
 export const dummyData: Drone[] = [
   {
@@ -75,10 +75,14 @@ export const dummyData: Drone[] = [
     flight_range: 1200,
     timestamp: new Date(d.getTime() - 3 * 60 * 1000),
   },
-]
+];
 
 export const useDrones = () => {
-  return useQuery<Drone[]>(["drones"], () => {
-    return axios.get("/drones/route/").then(e => e.data);
-  }, { refetchInterval: 10000 /* 10s */ });
-}
+  return useQuery<Drone[]>(
+    ["drones"],
+    () => {
+      return axios.get("/drones/route/").then((e) => e.data);
+    },
+    { refetchInterval: 10000 /* 10s */ }
+  );
+};
