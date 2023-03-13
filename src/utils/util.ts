@@ -77,7 +77,10 @@ export const useBase64ImageFromApi = (url: string) => {
       headers: { Authorization: "Bearer " + token },
     }).then(async (response) => {
       const base64 = btoa(
-        String.fromCharCode(...new Uint8Array(await response.arrayBuffer()))
+        new Uint8Array(await response.arrayBuffer()).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
       );
 
       setImgsrc(`data:image/png;base64,${base64}`);
