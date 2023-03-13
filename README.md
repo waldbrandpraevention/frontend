@@ -226,6 +226,8 @@ diesem Server verwendet.
 Die Server URL kann in der `.env.production` bzw. `.env.development` unter
 `REACT_APP_WIND_DATA` geändert werden.
 
+> Die `docker-compose.yml` und `docker-compose.demo.yml` enthalten bereits den fertig konfigurierten Server. 
+
 <!-- ```
 docker run --rm -p 6712:7000 -it waldbrandpraevention/wind
 ``` -->
