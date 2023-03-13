@@ -32,7 +32,7 @@ const AiImage = () => {
         {
           events.map(item => (
             <Carousel.Item >
-              <Annotorious image={item.ai_path} />
+              <Annotorious image={item.id} />
               <Card.Text >Position: {item.lat}, {item.lon};  Zone: {item.drone_id}; Zeitpunkt: {item.timestamp.toLocaleString()}</Card.Text>
             </Carousel.Item>
           ))
