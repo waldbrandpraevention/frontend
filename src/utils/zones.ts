@@ -75,7 +75,7 @@ export const useZones = () => {
   );
 };
 
-export const useZone = (id: string) => {
+export const useZone = (id: number | string) => {
   return useQuery<Zone>(
     ["zones", id],
     () => {
