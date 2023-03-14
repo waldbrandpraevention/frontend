@@ -1,17 +1,17 @@
 # Used for local demo -> see install.sh
 version: '3'
-name: Waldbrandpraevention
+name: waldbrand
 
 services:
   # React
   frontend:
-    image: waldbrandpraevention/frontend
+    image: waldbrand/frontend
     ports:
       - 8080:80
 
   # API
   backend:
-    image: waldbrandpraevention/backend
+    image: waldbrand/backend
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
@@ -41,7 +41,7 @@ services:
 
   # Windserver
   wind:
-    image: waldbrandpraevention/wind
+    image: waldbrand/wind
     volumes:
       - wind-data:/api/json-data
 
