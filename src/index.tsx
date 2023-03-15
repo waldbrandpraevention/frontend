@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import Registrieren from "./pages/Registrieren";
 import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
+import { host } from "./config/config";
 
 const Advanced = lazy(() => import("./pages/Advanced"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -40,13 +41,13 @@ apiClientService.configureClient();
 render(
   <QueryClientProvider client={queryClient}>
     <ProSidebarProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={host}>
         <AuthProvider>
           <Routes>
-            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-            <Route path="/register" element={<GuestRoute><Registrieren /></GuestRoute>} />
-            <Route path="/forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
-            <Route path="/" element={<AuthRoute><App /></AuthRoute>}>
+            <Route path="login" element={<GuestRoute><Login /></GuestRoute>} />
+            <Route path="register" element={<GuestRoute><Registrieren /></GuestRoute>} />
+            <Route path="forgot-password" element={<GuestRoute><ForgotPassword /></GuestRoute>} />
+            <Route element={<AuthRoute><App /></AuthRoute>}>
               <Route path="*" element={<NotFound />}></Route>
               <Route index element={<Navigate to={"/dashboard"} replace />}></Route>
               <Route path="dashboard" element={<Suspense fallback={<Loading />}><Dashboard /></Suspense>} />

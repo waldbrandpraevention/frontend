@@ -1,10 +1,11 @@
+# for local development
 version: '3'
 name: waldbrand
 
 services:
   # React
   frontend:
-    image: waldbrand/frontend
+    build: .
     ports:
       - 8080:80
 
