@@ -1,10 +1,12 @@
+# for local development
+# run => docker compose build && docker compose up
 version: '3'
 name: waldbrand
 
 services:
   # React
   frontend:
-    image: waldbrand/frontend
+    build: .
     ports:
       - 8080:80
 
