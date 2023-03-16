@@ -1,12 +1,11 @@
 # Used for local demo -> see install.sh
-version: '3'
+version: '2'
 name: waldbrand
 
 services:
   # React
   frontend:
     image: waldbrand/frontend
-    platform: linux/amd64
     ports:
       - 8080:80
 
@@ -44,7 +43,6 @@ services:
   # Windserver
   wind:
     image: waldbrand/wind
-    platform: linux/amd64
     volumes:
       - wind-data:/api/json-data
 
