@@ -6,12 +6,14 @@ services:
   # React
   frontend:
     image: waldbrand/frontend
+    platform: linux/amd64
     ports:
       - 8080:80
 
   # API
   backend:
     image: waldbrand/backend
+    platform: linux/amd64
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --root-path /api
     environment:
       - ADMIN_MAIL=admin@kiwa.tech 
@@ -42,6 +44,7 @@ services:
   # Windserver
   wind:
     image: waldbrand/wind
+    platform: linux/amd64
     volumes:
       - wind-data:/api/json-data
 
