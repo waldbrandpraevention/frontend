@@ -71,11 +71,11 @@ const IncidentOverview = () => {
         if (sortOrder === 'asc') {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => a.location?.localeCompare(b.location)));
             setSortOrder('desc');
-            handleSortChange("place", 1);
+            handleSortChange("location", 1);
         } else {
             setIncidents(prevIncidents => prevIncidents.sort((a, b) => b.location?.localeCompare(a.location)));
             setSortOrder('asc');
-            handleSortChange("place", 0);
+            handleSortChange("location", 0);
         }
     };
 
@@ -148,8 +148,8 @@ const IncidentOverview = () => {
                     <tr>
                         <MyTh scope="col" onClick={handleSortByNumber}>Einsatznummer <SortingArrow value={sortingArrays[0].sortDirection} ></SortingArrow></MyTh>
                         <MyTh scope="col" onClick={handleSortByDrone}>Drohne <SortingArrow value={sortingArrays[1].sortDirection} ></SortingArrow></MyTh>
-                        <MyTh scope="col" onClick={handleSortPlace}>EinsatzOrt <SortingArrow value={sortingArrays[2].sortDirection} ></SortingArrow></MyTh>
-                        <MyTh scope="col" onClick={handleSortByType}>EinsatzTyp <SortingArrow value={sortingArrays[3].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortPlace}>Einsatz Ort <SortingArrow value={sortingArrays[2].sortDirection} ></SortingArrow></MyTh>
+                        <MyTh scope="col" onClick={handleSortByType}>Einsatz Typ <SortingArrow value={sortingArrays[3].sortDirection} ></SortingArrow></MyTh>
                         <MyTh scope="col" onClick={handleSortByNote}>Notiz <SortingArrow value={sortingArrays[4].sortDirection} ></SortingArrow></MyTh>
                         <MyTh scope="col" onClick={handleSortByDate}>Datum <SortingArrow value={sortingArrays[5].sortDirection} ></SortingArrow></MyTh>
                     </tr>
