@@ -61,7 +61,7 @@ const DroneImage = () => {
                   </tr>
                   <tr>
                     <td>Zeitpunkt</td>
-                    <td>{item.timestamp.toLocaleString()}</td>
+                    <td>{new Date(item.timestamp).toLocaleString()}</td>
                   </tr>
                 </tbody>
               </table>
