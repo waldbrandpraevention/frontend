@@ -60,10 +60,10 @@ const DroneInfo = () => {
                 <Card.Body className="pt-0">
                   <div className="d-grid text-center">
                     <div className="col">
-                      <TbBatteryCharging></TbBatteryCharging>{drone.flight_time} min
+                      <TbBatteryCharging></TbBatteryCharging>{drone.flight_time.toFixed(0)} min
                     </div>
                     <div className="col">
-                      <TbArrowBigRight></TbArrowBigRight>{drone.flight_range} km
+                      <TbArrowBigRight></TbArrowBigRight>{drone.flight_range.toFixed(2)} km
                     </div>
                   </div>
                 </Card.Body>
