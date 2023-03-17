@@ -69,7 +69,7 @@ const PotentialFiresite = () => {
             <td>{event.lon}</td>
           </tr>
           <tr>
-            <td>Vertrauen?</td>
+            <td>Konfidenz</td>
             <td>{event.confidence}%</td>
           </tr>
           <tr>
